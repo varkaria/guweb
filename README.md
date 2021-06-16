@@ -1,4 +1,4 @@
-![guweb](https://github.com/Varkaria/guweb/blob/main/static/favicon/android-chrome-256x256.png?raw=true)
+![guweb](https://github.com/Varkaria/guweb/blob/main/static/favicon/mstile-150x150.png?raw=true)
 [![Discord](https://discordapp.com/api/guilds/748687781605408908/widget.png?style=shield)](https://discord.gg/ShEQgUx)
 
 Table of Contents
