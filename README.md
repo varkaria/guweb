@@ -1,6 +1,3 @@
-![guweb](https://github.com/Varkaria/guweb/blob/main/static/favicon/mstile-150x150.png?raw=true)
-[![Discord](https://discordapp.com/api/guilds/748687781605408908/widget.png?style=shield)](https://discord.gg/ShEQgUx)
-
 Table of Contents
 ==================
 - [Table of Contents](#table-of-contents)
