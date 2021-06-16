@@ -1,0 +1,134 @@
+.main-block{
+    background-color: hsl(var(--main),10%,15%);
+    color: #fff;
+    padding: 20px;
+}
+
+.collumdis{
+    flex-direction: column;
+    padding: 21px 22px;
+    position: relative;
+    border-radius: 8px;
+}
+
+.title-block{
+    height: 125px;
+    display: flex;
+    align-items: center;
+    place-content: center;
+}
+
+.icon-block{
+    height: 125px;
+    display: flex;
+    align-items: center;
+    place-content: center;
+}
+
+.selection-block{
+    height: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    margin: 5;
+    border-radius: 7px;
+    transition: 0.2s ease;
+    background: hsl(var(--main),10%,25%);
+}
+
+.selection-block:hover{
+    box-shadow: 1px 1px 13px -5px #000;
+    transform: translateY(-5px);
+}
+
+.title:not(:last-child){
+    margin-bottom: 1.5rem;
+}
+
+.title{
+    text-align: center;
+}
+
+.subtitle{
+    color: #e6a5b5;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+a.single-menu{
+    color: inherit;
+}
+
+a.single-menu:hover{
+    color: inherit;
+}
+
+input:focus{
+    outline: 0;
+}
+
+button:focus{
+    outline: 0;
+}
+
+.is-auth {
+    width: 485px;
+}
+
+.dialog {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.box {
+    padding: 2.25rem 1.75rem;
+}
+
+input.input {
+    height: 46px;
+}
+
+.control.has-icons-left .icon, .control.has-icons-right .icon {
+    height: 46px;
+}
+
+/* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid rgba(0, 128, 0, 0);
+  -webkit-text-fill-color: rgb(255, 255, 255);
+  -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+@media only screen and (max-width: 770px) {
+    .is-auth {
+        width: 500px;
+    }
+    .icon-block{
+        height: 125px;
+        display: none;
+        align-items: center;
+        place-content: center;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .is-auth {
+        width: initial;
+    }
+    .icon-block{
+        height: 125px;
+        display: none;
+        align-items: center;
+        place-content: center;
+    }
+}

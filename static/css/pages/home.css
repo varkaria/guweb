@@ -1,0 +1,67 @@
+/* gulag mascot/avatar */
+
+.gulag-avatar {
+  background-image: url("/static/images/pippi.png");
+  background-repeat: no-repeat;
+  /*     available avatar widths & heights      */
+  /* gulag.png:   width: 512px; height: 363px;  */
+  /* pippi.png:   width: 372px; height: 432px;  */
+  width: 365px;
+  height: 579px;
+  left: 50px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.main-block {
+  width: 1024px;
+}
+
+.my-con {
+  margin: 53px 0 0 0;
+  width: 100%;
+  max-width: inherit;
+}
+
+#title, #mascot {
+  animation: appear 0.4s ease;
+}
+
+@-webkit-keyframes appear {
+  0% {
+    -webkit-transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .gulag-avatar {
+    display: none;
+  }
+  .main-block {
+    width: initial;
+    height: 285px;
+  }
+  #mascot {
+    display: none !important;
+  }
+  .my-con {
+    margin: 60px 0 0 0;
+  }
+  #home-hero {
+    height: 300px;
+  }
+}
+
+.splash {
+  background: hsl(var(--main), 40%, 40%);
+}
+
+.footer {
+  margin: 0;
+}

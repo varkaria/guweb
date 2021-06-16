@@ -1,0 +1,233 @@
+.main-block {
+    background-color: hsl(var(--main), 10%, 15%);
+    color: #fff;
+    padding: 20px;
+}
+
+.collumdis {
+    flex-direction: column;
+    padding: 21px 22px;
+    position: relative;
+    border-radius: 8px;
+}
+
+.title-block {
+    height: 125px;
+    display: flex;
+    align-items: center;
+    place-content: center;
+}
+
+.icon-block {
+    height: 125px;
+    display: flex;
+    align-items: center;
+    place-content: center;
+}
+
+.selection-block {
+    height: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    margin: 5;
+    border-radius: 7px;
+    transition: 0.2s ease;
+    background: hsl(var(--main), 10%, 25%);
+}
+
+.selection-block:hover {
+    box-shadow: 1px 1px 13px -5px #000;
+    transform: translateY(-5px);
+}
+
+.title:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    text-align: center;
+}
+
+.subtitle {
+    color: #e6a5b5;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+.column {
+    transition: 0.2s ease;
+}
+
+#discord {
+    transition: 0.2s ease;
+}
+
+a.single-menu {
+    color: inherit;
+}
+
+a.single-menu:hover {
+    color: inherit;
+}
+
+input:focus {
+    outline: 0;
+}
+
+button:focus {
+    outline: 0;
+}
+
+.is-auth {
+    width: 900px;
+}
+
+.is-left {
+    text-align: left;
+}
+
+.is-padding {
+    padding: 1.25rem 0px 0px 0px;
+}
+
+.is-mpadding {
+    padding: 32px 42px;
+}
+
+.bordertitle .titlewithsub {
+    padding: 0px 42px;
+}
+
+.subtitle {
+    color: #ffffff;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+.bordertitle {
+    border-left: 6px solid hsl(var(--main), 30%, 50%);
+}
+
+.bordertitle .title {
+    font-size: 24;
+    font-weight: 600;
+}
+
+.bordertitle .subtitle {
+    font-size: 13;
+    font-weight: 400;
+}
+
+.howto-content {
+    padding: 16px 48px;
+}
+
+.thumbnail {
+    width: 239.67px;
+    height: 136px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.howto-info {
+    width: 240px;
+    height: 44px;
+    margin-top: 12px;
+}
+
+.big-number {
+    width: 39px;
+    min-width: 39px;
+    height: 39px;
+    background: hsl(var(--main), 30%, 50%);
+    border-radius: 6px;
+}
+
+.howto-number {
+    font-size: 24px;
+}
+
+.howto-withsub {
+    justify-content: center;
+    align-self: center;
+    margin-left: 6px;
+}
+
+.howto-withsub .title {
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.howto-withsub .subtitle {
+    font-size: 10px;
+    font-weight: 100;
+}
+
+#discord:hover {
+    transform: translateY(-10px);
+}
+
+.discord-logo {
+    height: 67.9px;
+}
+
+.clickhere-title .title {
+    font-size: 18px;
+    margin-left: 19px;
+}
+
+.is-waiting .subtitle {
+    font-size: 14px;
+}
+
+.is-waiting .title {
+    font-size: 26px;
+}
+
+.is-waiting {
+    background: hsl(var(--main), 15%, 12%);
+    border-radius: 0px;
+    padding: 6px 20px !important;
+}
+
+.loading-anim {
+    animation-name: spin;
+    animation-duration: 2000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    .is-auth {
+        width: 500px;
+    }
+    .icon-block {
+        height: 125px;
+        display: none;
+        align-items: center;
+        place-content: center;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .is-auth {
+        width: initial;
+    }
+    .icon-block {
+        height: 125px;
+        display: none;
+        align-items: center;
+        place-content: center;
+    }
+}

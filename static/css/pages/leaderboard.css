@@ -1,0 +1,246 @@
+a,
+a:hover {
+  text-decoration: none !important;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+.main-block {
+  background-color: hsl(var(--main), 10%, 15%);
+  margin-top: 0;
+  width: auto;
+}
+
+.leaderboard-banner {
+  background-color: hsl(var(--main), 30%, 50%);
+  height: 194px;
+  border-radius: 0;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.leaderboard-column {
+  background-color: #eee;
+  color: #222;
+  height: 38px;
+  font-size: 12px;
+  background-color: hsl(var(--main), 15%, 25%);
+}
+
+.leaderboard-main-bg {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  padding: 24px 24px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  border-spacing: 0 3px;
+  border-collapse: separate;
+  padding-bottom: 24px;
+}
+
+tr td {
+  padding: 6px 0;
+}
+
+.column-player-rank {
+  padding: 0 10px;
+  text-align: center;
+  background-color: hsl(var(--main), 15%, 27%) !important;
+  min-width: 44px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+}
+
+.column-player-name {
+  padding: 10px 10px;
+  font-weight: 600;
+  text-align: left;
+  font-size: 13px;
+}
+
+.column-player-name a {
+  color: #fff !important;
+}
+
+.t-heading {
+  font-weight: 400;
+  color: #fff;
+  opacity: 0.7;
+  padding: 5px 12px;
+  text-align: center !important;
+  font-size: 12px;
+}
+
+.t-heading--main {
+  width: 100%;
+}
+
+.t-column:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.t-column:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+tr.leaderboard-column td {
+  font-weight: 600;
+  border-bottom: hsl(var(--main), 20%, 30%);
+  transition: 0.1s background-color;
+  color: #fff !important;
+  text-align: center;
+}
+
+table td,
+table th {
+  vertical-align: baseline;
+}
+
+.leaderboard-column:hover td:not(:first-child) {
+  background-color: hsl(var(--main), 20%, 30%);
+}
+
+.main-banner {
+  background-size: cover;
+  display: flex;
+  background-position-x: 50%;
+  align-items: center;
+  flex-direction: column;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+  justify-content: space-between;
+  position: relative;
+  padding: 0px 36px;
+}
+
+.main-banner > * {
+  z-index: 2;
+}
+
+.banner-text {
+  font-size: 46px;
+  color: #fff;
+  text-shadow: -1px 2px 2px rgba(0, 0, 0, 0.33);
+}
+
+.main-banner::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  z-index: 1;
+}
+
+.main-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 100%;
+  height: 42px;
+  color: #fff;
+  font-size: 14px;
+  justify-content: center;
+  position: relative;
+}
+
+.mode-select {
+  cursor: pointer;
+  text-align: center;
+  padding-bottom: 2px;
+  margin-right: 12px;
+  color: #fff;
+  font-size: 15px;
+  margin-left: 12px;
+  opacity: 0.7;
+  transition: 0.2s ease;
+  content: center;
+}
+
+.mode-select:hover {
+  border-bottom-width: 3px;
+  opacity: 1;
+  color: #fff;
+}
+
+.selector {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  height: 27px;
+  z-index: 2;
+  width: 100%;
+}
+
+.selector .right {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.selector .left {
+  display: flex;
+  flex-direction: row;
+}
+
+.simple-banner-switch {
+  color: #fff !important;
+  text-shadow: -1px 2px 2px rgba(0, 0, 0, 0.33);
+  padding: 0 12px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 14px;
+  margin: 10px 8px;
+}
+
+.simple-banner-switch:hover {
+  opacity: 1;
+}
+
+.mode-select.--selected,
+.simple-banner-switch.switch--active {
+  border-bottom-width: 6px;
+  opacity: 1;
+  font-weight: 600;
+}
+
+.main-selector {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.leaderboard-table > tbody {
+  transition: 0.2s opacity;
+}
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+@media (max-width: 576px) {
+  .mode-icon {
+    display: none;
+  }
+  .main-banner {
+    padding: 0px 12px;
+  }
+  .banner-text {
+    font-size: 36px;
+  }
+}

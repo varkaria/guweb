@@ -1,0 +1,91 @@
+{% extends 'settings/base.html' %}
+{% block title %} Avatar {% endblock %}
+
+{% block content %}
+
+<style>
+  html {
+    --base: 235;
+    --base-deg: 390.0deg;
+  }
+</style>
+<link rel="stylesheet" href="/static/css/pages/settings/style.css">
+
+<div class="main-block">
+  {% include "settings/sidebar.html" %}
+  <div class="block-content right" id="settings-content">
+    <div class="single-right-block">
+      <div class="right-block-header">
+        Avatar
+      </div>
+      <div class="right-block-content">
+        <div class="single-block-content avatar-block-content">
+          <div id="avatar-img" style="background-image: url(https://a.{{ domain() }}/{{ session.user_data['id']}});"
+            alt="Avatar Picture"></div>
+          <form id="upload-profile" action="/settings/avatar" method="post" enctype="multipart/form-data">
+            <div class="buttons margin-top" id="selection">
+              <label class="file-label">
+                <input class="file-input" id="file" type="file" accept="image/jpeg" name="avatar">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fa fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    Choose file
+                  </span>
+                </span>
+              </label>
+              <button class="button is-primary" type="submit">
+                <span class="icon is-small"><i class="fas fa-check"></i></span><span>Save</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $("#file")
+      .change(function (e) {
+        var f = e.target.files;
+        if (f.length < 1) {
+          return;
+        }
+        var u = window.URL.createObjectURL(f[0]);
+        var i = $("#avatar-img")[0];
+        i.src = u;
+        $("#avatar-img").attr("style", "background-image: url(" + i.src + ");");
+      });
+  </script>
+</div>
+
+{% if flash %}
+<div class='noti-banner noti-banner-warning'>
+  <div class="container">
+    <div class="noti-column">
+      <div class='noti-col noti-col-icon'></div>
+      <div class='noti-col noti-col-label'>
+        <div class='noti-bannertype'>
+          {% if status=='error' %}
+          Warning
+          {% elif status=='success' %}
+          Notice
+          {% endif %}
+        </div>
+        <div class='noti-bannertext'>
+          {% if status=='error' %}
+          Uh oh! Be careful!
+          {% elif status=='success' %}
+          Hey! Listen!
+          {% endif %}
+        </div>
+      </div>
+      <div class='noti-banner-text'>
+        {{ flash }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

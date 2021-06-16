@@ -1,0 +1,399 @@
+{% extends 'base.html' %}
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+<script src="/static/js/asserts/vue.js"></script>
+<script src="/static/js/asserts/vue-axios.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
+
+<link rel="stylesheet" href="/static/css/pages/profile.css">
+
+<script>
+    var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
+    var mode = '{{ mode }}';
+    var mods = '{{ mods }}'
+</script>
+
+<div id="app">
+    <div class="main-block">
+        <div class="profile-bg">
+            <div class="info-block">
+                <h1 class="title">
+                    <p class="ranks">
+                        <img src="/static/images/flags/{{ user['country']|upper }}.png" class="profile-flag">
+                        <span class="bgf">{{ user['name'] }}</span>
+                    </p>
+                </h1>
+                <!-- This part should change it to your domain like https://c.varkaria.cyou -->
+                <div class="subtitle">
+                    <i class="fas fa-circle"></i> Offline
+                </div>
+                <!-- end-require -->
+            </div>
+            <div class="anime-girl">
+                <!-- (if you want to add it)
+                    <img src="{your transparent img src}" alt="">
+                -->
+            </div>
+        </div>
+        <div class="profile-flex">
+            <div class="profile-avatar-area">
+                <img src="https://a.{{ domain() }}/{{ user['id'] }}" alt="avatar" class="rounded-avatar profile-avatar"
+                onError="this.src='/static/images/avatar_notwork.png';">
+            </div>
+            <div class="bar-selection mode-selects">
+                <div class="select-left">
+                    <a :href="'/u/std/'+mods+'/'+userid"
+                        :class="'simple-banner-switch ' + (mode == 'std' ? 'selected ' : '')"
+                        @click="ChangeModeMods('std',mods)"><i class="mode-icon mode-osu"></i><span
+                            class="mode-text">osu!</span></a>
+                    <a :href="'/u/taiko/'+mods+'/'+userid"
+                        :class="'simple-banner-switch ' + (mode == 'taiko' ? 'selected ' : '') + (mods == 'ap' ? 'disabled':'')"
+                        @click="ChangeModeMods('taiko',mods)"><i class="mode-icon mode-taiko"></i><span
+                            class="mode-text">osu!taiko</span></a>
+                    <a :href="'/u/catch/'+mods+'/'+userid"
+                        :class="'simple-banner-switch ' + (mode == 'catch' ? 'selected ' : '') + (mods == 'ap' ? 'disabled':'')"
+                        @click="ChangeModeMods('catch',mods)"><i class="mode-icon mode-catch"></i><span
+                            class="mode-text">osu!catch</span></a>
+                    <a :href="'/u/mania/'+mods+'/'+userid"
+                        :class="'simple-banner-switch ' + (mode == 'mania' ? 'selected ' : '') + (mods == 'ap' ? 'disabled':'') + (mods == 'rx' ? 'disabled':'')"
+                        @click="ChangeModeMods('mania',mods)"><i class="mode-icon mode-mania"></i><span
+                            class="mode-text">osu!mania</span></a>
+                </div>
+                <div class="select-right">
+                    <a :href="'/u/'+mode+'/vn/'+userid"
+                        :class="'simple-banner-switch ' + (mods == 'vn' ? 'selected ' : '')"
+                        @click="ChangeModeMods(mode,'vn')"><span class="mods-fulltext">Vanilla</span>
+                        <span class="mods-shorttext">VN</span></a>
+                    <a :href="'/u/'+mode+'/rx/'+userid"
+                        :class="'simple-banner-switch ' + (mods == 'rx' ? 'selected ' : '') + (mode == 'mania' ? 'disabled':'')"
+                        @click="ChangeModeMods(mode,'rx')"><span class="mods-fulltext">Relax</span>
+                        <span class="mods-shorttext">RX</span></a>
+                    <a :href="'/u/'+mode+'/ap/'+userid"
+                        :class="'simple-banner-switch ' + (mods == 'ap' ? 'selected ' : '') + (mode == 'mania' ? 'disabled':'') + (mode == 'catch' ? 'disabled':'') + (mode == 'taiko' ? 'disabled':'')"
+                        @click="ChangeModeMods(mode,'ap')"><span class="mods-fulltext">Autopilot</span><span
+                            class="mods-shorttext">AP</span></a>
+                </div>
+            </div>
+            <div class="bar-selection badge-selects">
+                <span>
+                    Badges not yet implemented!
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="second-block">
+        <div class="columns is-marginless two-sides">
+            <div class="column is-one-third">
+                <!-- <div class="header">
+                    <div class="title">
+                        <i class="fas fa-user-friends"></i> Rank
+                    </div>
+                </div>
+                <div class="stats-block rank-block">
+                    <table class="is-striped">
+                        <tbody>
+                            <tr>
+                                <td>Global rank</td>
+                                <td class="right-aligned">#
+                                    <span id="global-rank">not impliment</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CounTry rank</td>
+                                <td class="right-aligned">#
+                                    <span id="country-rank">not impliment</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+                <div class="header">
+                    <div class="title">
+                        <i class="fas fa-chart-pie"></i> Statistics
+                    </div>
+                </div>
+                <div class="stats-block">
+                    <table class="is-striped">
+                        <tbody>
+                            <tr>
+                                <td><b>PP</b></td>
+                                <td class="right-aligned">
+                                    <div v-if="(mode == 'std') || (mode == 'taiko') || (mode == 'mania')">
+                                        <% addCommas(data.stats[`pp_${mods}_${mode}`]) %>
+                                    </div>
+                                    <div v-else>
+                                        not yet
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Ranked score</b></td>
+                                <td class="right-aligned">
+                                    <% addCommas(data.stats[`rscore_${mods}_${mode}`]) %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Total score</b></td>
+                                <td class="right-aligned">
+                                    <% addCommas(data.stats[`tscore_${mods}_${mode}`]) %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Max combo</b></td>
+                                <td class="right-aligned">
+                                    <% addCommas(data.stats[`max_combo_${mods}_${mode}`]) %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Playcount</b></td>
+                                <td class="right-aligned">
+                                    <% addCommas(data.stats[`plays_${mods}_${mode}`]) %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Playtime</b></td>
+                                <td class="right-aligned">
+                                    <% secondsToDhm(data.stats[`playtime_${mods}_${mode}`]) %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Accuracy</b></td>
+                                <td class="right-aligned">
+                                    <% data.stats[`acc_${mods}_${mode}`] %>%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="grade-block" v-if="data.grades">
+                        <article class="media">
+                            <div class="media-content">
+                                <div class="grade-line">
+                                    <div class="rank-single">
+                                        <div class="map-rank rank-X">SS</div>
+                                        <div class="rank-amount">
+                                            <% data.grades.x %>
+                                        </div>
+                                    </div>
+                                    <div class="rank-single">
+                                        <div class="map-rank rank-XH">SS</div>
+                                        <div class="rank-amount">
+                                            <% data.grades.xh %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grade-line">
+                                    <div class="rank-single">
+                                        <div class="map-rank rank-S">S</div>
+                                        <div class="rank-amount">
+                                            <% data.grades.s %>
+                                        </div>
+                                    </div>
+                                    <div class="rank-single">
+                                        <div class="map-rank rank-SH">S</div>
+                                        <div class="rank-amount">
+                                            <% data.grades.sh %>
+                                        </div>
+                                    </div>
+                                    <div class="rank-single">
+                                        <div class="map-rank rank-A">A</div>
+                                        <div class="rank-amount">
+                                            <% data.grades.a %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <!-- <div class="level-block">
+                    <div class="columns is-marginless is-2">
+                        <div class="column level-bar is-paddingless">
+                            <div class="progress-level"></div>
+                        </div>
+                        <div class="column level-num is-one-fifth is-textcen">20</div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="column">
+                <div class="log-block">
+                    <div class="header">
+                        <div class="title">
+                            <i class="fas fa-trophy"></i> Best Scores
+                        </div>
+                    </div>
+                    <div v-if="data.scores.best.length != 0" :class="'scores' + (data.scores.load[0] ? ' load' : '')">
+                        <div v-for="(map, index) in data.scores.best" class="map-single">
+                            <div class="map-data">
+                                <div class="map-content1">
+                                    <div class="map-image">
+                                        <img v-bind:src="'https://assets.ppy.sh/beatmaps/' + map.set_id + '/covers/card.jpg'"
+                                            class="map-image-picture">
+                                    </div>
+                                    <div class="map-title-block">
+                                        <div class="map-title">
+                                            <a class="beatmap-link">
+                                                <% map.artist %> - <% map.title %> [<% map.version %>]
+                                            </a>
+                                        </div>
+                                        <div class="play-stats">
+                                            <% addCommas(map.score) %> / <% map.max_combo %>x
+                                        </div>
+                                        <div class="map-date">
+                                            <time>
+                                                <% timeago.format(map.play_time) %>
+                                            </time>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="map-content2">
+                                    <div class="score-details d-flex">
+                                        <div class="score-details_right-block">
+                                            <div class="score-details_pp-block">
+                                                <div class="map-pp">
+                                                    <% map.pp %><span class="map-pp-unit">pp</span>
+                                                </div>
+                                                <div class="map-acc">accuracy:&nbsp;<b>
+                                                        <% map.acc %>%
+                                                    </b></div>
+                                            </div>
+                                            <div class="score-details_grade-block">
+                                                <div class="rank-single">
+                                                    <div v-bind:class="'map-rank rank-'+map.grade">
+                                                        <% map.grade.replace("X", "SS" ).replace("H", "" ) %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="data.scores.best.length == 0" class="stats-block">
+                        <div class="columns is-marginless">
+                            <div class="column is-1">
+                                <h1 class="title">: (</h1>
+                            </div>
+                            <div class="column">
+                                <h1 class="title is-6">No scores available</h1>
+                                <p class="subtitle is-7">Try playing something?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="log-block">
+                    <div class="header">
+                        <div class="title">
+                            <i class="fas fa-clock"></i> Recent Scores
+                        </div>
+                    </div>
+                    <div v-if="data.scores.recent.length != 0" :class="'scores' +(data.scores.load[1] ? ' load' : '')">
+                        <div v-for="(map, index) in data.scores.recent" class="map-single">
+                            <div class="map-data">
+                                <div class="map-content1">
+                                    <div class="map-image">
+                                        <img v-bind:src="'https://assets.ppy.sh/beatmaps/' + map.set_id + '/covers/card.jpg'"
+                                            class="map-image-picture">
+                                    </div>
+                                    <div class="map-title-block">
+                                        <div class="map-title">
+                                            <a class="beatmap-link">
+                                                <% map.artist %> - <% map.title %> [<% map.version %>]
+                                            </a>
+                                        </div>
+                                        <div class="play-stats">
+                                            <% addCommas(map.score) %> / <% map.max_combo %>x
+                                        </div>
+                                        <div class="map-date">
+                                            <time>
+                                                <% timeago.format(map.play_time) %>
+                                            </time>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="map-content2">
+                                    <div class="score-details d-flex">
+                                        <div class="score-details_right-block">
+                                            <div class="score-details_pp-block">
+                                                <div class="map-pp">
+                                                    <% map.pp %><span class="map-pp-unit">pp</span>
+                                                </div>
+                                                <div class="map-acc">accuracy:&nbsp;<b>
+                                                        <% map.acc %>%
+                                                    </b></div>
+                                            </div>
+                                            <div class="score-details_grade-block">
+                                                <div class="rank-single">
+                                                    <div v-bind:class="'map-rank rank-'+map.grade">
+                                                        <% map.grade %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="data.scores.recent.length == 0" class="stats-block">
+                        <div class="columns is-marginless">
+                            <div class="column is-1">
+                                <h1 class="title">: (</h1>
+                            </div>
+                            <div class="column">
+                                <h1 class="title is-6">No scores available</h1>
+                                <p class="subtitle is-7">Try playing something?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="log-block">
+                    <div class="header">
+                        <div class="title">
+                            <i class="fas fa-address-book"></i> Most Played Beatmaps
+                        </div>
+                    </div>
+                    <div v-if="data.scores.most.length != 0" :class="'beatmaps' +(data.scores.load[2] ? ' load' : '')">
+                        <a v-for="(map, index) in data.scores.most" class="beatmap-block">
+                            <div class="beatmap-preview"
+                                v-bind:style='{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }'>
+                            </div>
+                            <div class="beatmap-stats"><span class="beatmap-title">
+                                    <% map.title %>
+                                </span> <span class="beatmap-artist">
+                                    <% map.artist %>
+                                </span>
+                                <div class="beatmap-footer"><span class="beatmap-mapper"> by <span
+                                            class="newmaps-color">
+                                            <% map.creator %>
+                                        </span></span>
+                                    <div class="d-flex align-items-baseline"><span>
+                                            <% map.count %>
+                                        </span>
+                                        <div class="target-button newmaps-color"><i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div v-if="data.scores.most.length == 0" class="stats-block">
+                        <div class="columns is-marginless">
+                            <div class="column is-1">
+                                <h1 class="title">: (</h1>
+                            </div>
+                            <div class="column">
+                                <h1 class="title is-6">No beatmaps available</h1>
+                                <p class="subtitle is-7">Try playing something?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/pages/profile.js"></script>
+{% endblock %}

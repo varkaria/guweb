@@ -1,0 +1,39 @@
+.main-block {
+    height: auto;
+    width: auto;
+    max-width: 1152px;
+
+    background-color: hsl(var(--main),10%,15%);
+    color: #fff;
+}
+
+.title-block {
+    height: auto;
+    width: auto;
+    padding: 38px 22px 10px 22px;
+    background-color: hsl(var(--main), 30%, 50%);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.error-title {
+    font-size: 1.7em;
+    font-weight: 500;
+}
+
+.error-block {
+    padding: 22px;
+}
+
+.error-subtitle {
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+ol {
+    padding: 0px 0px 10px 20px;
+}
+
+li {
+    list-style-type: none;
+}

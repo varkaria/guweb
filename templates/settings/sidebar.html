@@ -1,0 +1,21 @@
+<div class="block-content left">
+    <div class="left-header">
+        <a href="/u/{{ session.user_data['id'] }}" class="user-avatar-header user-avatar"
+            style="background-image: url(https://a.{{ domain() }}/{{ session.user_data['id']}});"></a>
+        <div class="welcome-text">
+            <span class="username pink-bold">{{ session.user_data['name']}}</span>
+            <span class="welcome">Settings</span>
+        </div>
+    </div>
+    <div class="left-selector">
+        <a class="single-menu single-menu--active router-link" href="/settings/profile">
+            <i class="fas fa-user"></i><span class="single-menu--text"> Profile </span>
+        </a>
+        <a class="single-menu single-menu--active router-link" href="/settings/avatar">
+            <i class="fas fa-brush"></i><span class="single-menu--text"> Avatar </span>
+        </a>
+        <a class="single-menu single-menu--active router-link" href="/settings/password">
+            <i class="fas fa-lock"></i><span class="single-menu--text"> Password </span>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<nav id="navbar" class="navbar is-primary">
+    <div class="navbar-brand">
+        <a class="navbar-item navbar-logo" href="/home">
+            {{ appName() }}
+        </a>
+
+        <a role="button" class="navbar-burger" id="navbar-burger" onclick="togglenavbar()">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="/home">
+                Home
+            </a>
+
+            <a class="navbar-item" href="/leaderboard">
+                Leaderboards
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Information
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/doc/rules">
+                        Rules
+                    </a>
+                    <a class="navbar-item" href="/discord">
+                        Discord
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="https://github.com/Yo-ru/guweb/issues/new">
+                        Report an issue
+                    </a>
+                </div>
+            </div>
+
+            {% if session.authenticated and session.user_data['is_staff'] %}
+            <a class="navbar-item" href="/admin">
+                Admin
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="navbar-end">
+            {% if session.authenticated %}
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    {{ session.user_data['name'] }}
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/u/{{ session.user_data['id'] }}">
+                        Profile
+                    </a>
+                    <a class="navbar-item" href="/settings">
+                        Settings
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-item">
+                <a class="button is-light" href="/logout">
+                    Logout
+                </a>
+            </div>
+            {% else %}
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="/register">
+                        <strong>Sign up</strong>
+                    </a>
+                    <a class="button is-light" href="/login">
+                        Log in
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+</nav>

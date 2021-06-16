@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %} Verify {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/pages/verify.css">
+<div class="main-block is-marginless is-paddingless is-auth">
+    <div class="columns pm-reset is-weeb">
+        <div class="column title-block">
+            <div class="titlewithsub">
+                <h1 class="title is-left">How to verify your account</h1>
+                <h2 class="subtitle">What do you mean? This must be easy right?</h2>
+            </div>
+        </div>
+        <div class="column icon-block">
+            <i class="fas fa-user-circle is-headericon"></i>
+        </div>
+    </div>
+    <div class="columns pm-reset flex-lcenter is-block">
+        <div class="box is-padding">
+            <div class="bordertitle">
+                <div class="titlewithsub">
+                    <h1 class="title is-left">Verification</h1>
+                    <h2 class="subtitle">Follow these three simple steps to get started playing {{ appName() }}!</h2>
+                </div>
+            </div>
+            <div class="howto-content">
+                <div class="columns is-paddingless is-marginless">
+                    <div class="column" id="howto">
+                        <img class="thumbnail" src="/static/images/required.png" />
+                        <div class="howto-info flex">
+                            <div class="big-number flex flex-lcenter flex-vcenter">
+                                <div class="howto-number">1</div>
+                            </div>
+                            <div class="howto-withsub">
+                                <h1 class="title is-left">Download the switcher</h1>
+                                <h2 class="subtitle">click here to download our switcher!</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column" id="howto">
+                        <img class="thumbnail" src="/static/images/required.png" />
+                        <div class="howto-info flex">
+                            <div class="big-number flex flex-lcenter flex-vcenter">
+                                <div class="howto-number">2</div>
+                            </div>
+                            <div class="howto-withsub">
+                                <h1 class="title is-left">Switch to {{ appName() }}</h1>
+                                <h2 class="subtitle"><strong>1.</strong> Click “Install Certificate” <strong>2.</strong> Click “Switch to  {{ appName() }}" <strong>3.</strong> Open osu!</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column" id="howto">
+                        <img class="thumbnail" src="/static/images/required.png" />
+                        <div class="howto-info flex">
+                            <div class="big-number flex flex-lcenter flex-vcenter">
+                                <div class="howto-number">3</div>
+                            </div>
+                            <div class="howto-withsub">
+                                <h1 class="title is-left">Login to your account</h1>
+                                <h2 class="subtitle">Login to your {{ appName() }} account and you should be done!</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bordertitle">
+                <div class="titlewithsub">
+                    <h1 class="title is-left">Oh crap! I'm stuck please help me!</h1>
+                    <h2 class="subtitle">Need help? We've got you covered - join the Discord so our community can help you out!</h2>
+                </div>
+            </div>
+            <div class="box flex is-mpadding is-marginless">
+                <a href="/discord" class="flex" id="discord"><img
+                        src="https://cdn.iconscout.com/icon/free/png-256/discord-2752210-2285027.png"
+                        class="discord-logo">
+                    <div class="clickhere-title flex flex-vcenter">
+                        <h1 class="title">Click here to join our Discord!</h1>
+                    </div>
+                </a>
+            </div>
+            <div class="box is-block is-paddingless is-marginless is-waiting">
+                <div class="columns flex is-paddingless is-marginless">
+                    <div class="column flex flex-vcenter">
+                        <div>
+                            <h1 class="title is-left">Waiting for verification!</h1>
+                            <h2 class="subtitle">Follow the simple instructions above and once you're done reload this page!</h2>
+                        </div>
+                    </div>
+                    <div class="column icon-block">
+                        <div class="loading-anim">
+                            <i class="fas fa-circle-notch is-headericon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'admin/base.html' %}
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+<script src="/static/js/asserts/vue.js"></script>
+<script src="/static/js/asserts/vue-axios.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
+
+<div class="dashboard" id="dashboard">
+    <div class="columns is-marginless is-paddingless">
+        <div class="column is-paddingless p-3">
+            <div class="card">
+                <div class="title">total users</div>
+                <i class="fa fa-users"></i>
+                <div class="value">{{ dashdata['count'] }}</div>
+                <div class="stat">that's a lot of people!</div>
+            </div>
+        </div>
+        <div class="column is-paddingless p-3">
+            <div class="card">
+                <div class="title">total online</div>
+                <i class="fa fa-circle"></i>
+                <div class="value">
+                    <% online_users %>
+                </div>
+                <div class="stat">rising in popularity are we?</div>
+            </div>
+        </div>
+        <div class="column is-paddingless p-3">
+            <div class="card">
+                <div class="title">lastest user</div>
+                <i class="fa fa-book"></i>
+                <div class="value">{{ dashdata['lastest_user'] }}</div>
+                <div class="stat">latest and greatest! welcome!</div>
+            </div>
+        </div>
+        <div class="column is-paddingless p-3">
+            <div class="card">
+                <div class="title">total banned</div>
+                <i class="fa fa-calendar"></i>
+                <div class="value">{{ dashdata['banned'] }}</div>
+                <div class="stat">naughty naughty :(</div>
+            </div>
+        </div>
+    </div>
+<div class="columns is-marginless is-paddingless">
+    {% if recentusers %}
+    <div class="column is-paddingless m-2 is-3">
+        <div class="recent-beat">
+            <div class="columns is-marginless">
+                <div class="column is-paddingless flex-vcenter">
+                    <h2 class="section-title">Recent Users</h2>
+                </div>
+            </div>
+            <div class="blockdata">
+                {% for user in recentusers %}
+                <a href="/u/{{ user.id }}" class="user-block{% if user.priv == 1 %} unverified{% endif %}">
+                    <img src="https://a.{{ domain() }}/{{ user.id }}" class="avatar-picture">
+                    <div class="user-stats"><span class="user-title">
+                        <img src="/static/images/flags/{{ user.country|upper }}.png" class="profile-flag"> {{ user.name }}
+                        </span><span class="user-artist">
+                            {{ user.email }}
+                        </span>
+                        <div class="user-footer">
+                            <span class="user-mapper">
+                            {{ timeago.format((datetime.datetime.fromtimestamp(user.creation_time)),
+                                (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                            </span>
+                            <div class="d-flex align-items-baseline">
+                                <span>
+                                {{ timeago.format((datetime.datetime.fromtimestamp(user.latest_activity)),
+                                    (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                                </span>
+                                <div class="target-button newmaps-color">
+                                    <i class="fa fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if recentscores %}
+    <div class="column is-paddingless m-2">
+        <div class="recent-beat">
+            <div class="columns is-marginless">
+                <div class="column is-paddingless flex-vcenter">
+                    <h2 class="section-title">Recent Score</h2>
+                </div>
+            </div>
+            <div class="blockdata">
+                {% for maps in recentscores %}
+                <div class="map-single">
+                    <div class="map-content1">
+                        <div class="map-image"><img src="https://assets.ppy.sh/beatmaps/{{ maps.set_id }}/covers/cover.jpg"
+                                class="map-image-picture"></div>
+                        <div class="map-title-block">
+                            <div class="map-title"><a class="user-link">
+                                    [{{ maps.mode }}] {{ maps.title }} [{{ maps.version }}]
+                                </a></div>
+                            <div class="play-stats">
+                                {{ maps.score }} / {{ maps.max_combo }}x
+                            </div>
+                            <div class="map-date"><time>
+                                {{ timeago.format((maps.play_time), (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                                </time></div>
+                        </div>
+                    </div>
+                    <div class="map-content2">
+                        <div class="score-details d-flex">
+                            <div class="score-details_right-block">
+                                <div class="score-details_pp-block">
+                                    <div class="map-pp">
+                                        {{ maps.pp }}<span class="map-pp-unit">pp</span></div>
+                                    <div class="map-acc">accuracy:&nbsp;<b>
+                                        {{ maps.acc }}%
+                                        </b></div>
+                                </div>
+                                <div class="score-details_grade-block">
+                                    <div class="rank-single">
+                                        <div class="map-rank rank-{{ maps.grade|upper }}">
+                                            {{ maps.grade.replace("X", "SS").replace("H", "") }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script src="/static/js/pages/admin/dashboard.js"></script>
+
+{% endblock %}
