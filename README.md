@@ -87,11 +87,10 @@ Directory Structure
 
 The team
 ------
-- [Yoru](https://github.com/Yo-ru) Backend, Grammar Checking [Deprecated]
-- [Varkaria](https://github.com/Varkaria) Frontend, Backend?
-- 
+- [Yoru](https://github.com/Yo-ru) | Backend, Grammar Checking [Deprecated]
+- [Varkaria](https://github.com/Varkaria) | Frontend, Backend?
 
 The End
 ------
 
-Well know that you know everything, why not check out the original code guweb was based off of in [this](https://github.com/yo-ru/old-guweb) dusty old archived repository?
+Well know that you know everything, why not check out the original code guweb was based off of in [this](https://github.com/yo-ru/gulag-web) i think i should continue this work to finish work?
