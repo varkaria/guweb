@@ -318,6 +318,7 @@ html {
   align-items: center;
   height: 100%;
   min-width: 0;
+  overflow: hidden;
   flex: 1;
 }
 
@@ -325,6 +326,7 @@ html {
   font-size: 14px;
   display: flow-root;
   font-weight: 500;
+  width: 75px;
   align-items: center;
   white-space: nowrap;
 }
