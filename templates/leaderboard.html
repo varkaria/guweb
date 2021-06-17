@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Leaderboard {% endblock %}
 
-{% block content %}
+{% block header %}
 <script src="/static/js/asserts/vue.js"></script>
 <script src="/static/js/asserts/vue-axios.js"></script>
 
@@ -12,7 +12,9 @@
 </script>
 
 <link rel="stylesheet" href="/static/css/pages/leaderboard.css">
+{% endblock %}
 
+{% block content %}
 <div id="app">
     <div class="leaderboard-banner main-banner">
         <div class="main-selector">

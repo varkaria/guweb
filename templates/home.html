@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 
-{% block content %}
+{% block header %}
 <link rel="stylesheet" href="/static/css/pages/home.css">
+{% endblock %}
+
+{% block content %}
 
 {% if flash %}
 <div class='noti-banner noti-banner-warning'>
