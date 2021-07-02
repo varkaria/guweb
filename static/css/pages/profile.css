@@ -689,3 +689,35 @@ span.beatmap-mapper {
     font-size: 12px;
   }
 }
+
+.online-infomation {
+  position: absolute;
+  top: 18px;
+  left: 42px;
+  padding: 8px 20px 5px 5px;
+  background: #00000040;
+  border-radius: 6px;
+}
+
+.circle {
+  font-size: 20px;
+  color: #cecece;
+}
+
+.green {
+  color: #8dc36b;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.pop-enter-active, .pop-leave-active {
+  transition: all .5s ease;
+}
+.pop-enter, .pop-leave-to {
+  transform: scale(0.8);
+}

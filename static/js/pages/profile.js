@@ -12,6 +12,7 @@ new Vue({
                     most: {},
                     load: [false, false, false]
                 },
+                status: {}
             },
             mode: mode,
             mods: mods,
@@ -29,13 +30,13 @@ new Vue({
             this.LoadScores('best')
             this.LoadScores('recent')
             this.LoadGrades()
+            this.LoadUserStatus()
         },
         LoadProfileData() {
             this.$axios.get(`/gw_api/get_user_info`, {
                 params: {id: this.userid, scope: 'all'}
             })
                 .then(res => {
-                    console.log(res)
                     this.$set(this.data, 'stats', res.data.userdata)
                 });
         },
@@ -69,11 +70,38 @@ new Vue({
                     this.data.scores.load[2] = false
                 });
         },
+        LoadUserStatus() {
+            this.$axios.get(`/api/get_player_status`, { 
+                // sry cmyui but i didn't have some gulag setup rn 
+                params: {id: this.userid}
+            })
+                .then(res => {
+                    this.$set(this.data, 'status', res.data.player_status)
+                    console.log(res.data.player_status.status)
+                })
+            setTimeout(this.LoadUserStatus, 5000);
+        },
         ChangeModeMods(mode, mods) {
             if (window.event) { window.event.preventDefault() }
             this.mode = mode
             this.mods = mods
             this.LoadAllofdata()
+        },
+        ActionIntToStr(d) {
+            if (d.action == 0) {return 'Idle: 🔍 Selecting a song'}
+            else if (d.action == 1) {return 'Idle: 🌙 AFK'}
+            else if (d.action == 2) {return 'Playing: 🎶 '+ d.info_text}
+            else if (d.action == 3) {return 'Editing: 🔨 '+ d.info_text}
+            else if (d.action == 4) {return 'Modding: 🔨 '+ d.info_text}
+            else if (d.action == 5) {return 'In Multiplayer: Selecting 🏯 ' + d.info_text + ' ⛔️'}
+            else if (d.action == 12) {return 'In Multiplayer: Playing 🌍 '+ d.info_text + ' 🎶'}
+            else if (d.action == 6) {return 'Watching: 👓 '+ d.info_text}
+            else if (d.action == 8) {return 'Testing: 🎾 '+ d.info_text}
+            else if (d.action == 9) {return 'Submitting: 🧼 '+ d.info_text}
+            else if (d.action == 10) {return 'Paused: 🚫 '+ d.info_text}
+            else if (d.action == 11) {return 'Idle: 🏢 In multiplayer lobby'}
+            else if (d.action == 13) {return 'Idle: 🫒 Downloading some beatmaps in osu!direct'}
+            else {return 'Unknown: 🚔 not yet implemented!'}
         },
         addCommas(nStr) {
             nStr += '';

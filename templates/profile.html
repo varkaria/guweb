@@ -11,7 +11,7 @@
 <script>
     var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
     var mode = '{{ mode }}';
-    var mods = '{{ mods }}'
+    var mods = '{{ mods }}';
 </script>
 {% endblock %}
 
@@ -26,22 +26,31 @@
                         <span class="bgf">{{ user['name'] }}</span>
                     </p>
                 </h1>
-                <!-- This part should change it to your domain like https://c.varkaria.cyou -->
-                <div class="subtitle">
-                    <i class="fas fa-circle"></i> Offline
-                </div>
-                <!-- end-require -->
+                <transition name="fade">
+                    <div class="subtitle" v-if='data.status.online == false'>
+                        <a class='circle'>●</a> Offline
+                    </div>
+                    <div class="subtitle" v-else-if='data.status.online == true'>
+                        <a class='circle green'>●</a> Online
+                    </div>
+                </transition>
             </div>
             <div class="anime-girl">
                 <!-- (if you want to add it)
                     <img src="{your transparent img src}" alt="">
                 -->
             </div>
+            <transition name="click">
+                <div class="online-infomation" v-if='data.status.online == true' 
+                :key="ActionIntToStr(data.status.status)">
+                    <% ActionIntToStr(data.status.status) %>
+                </div>
+            </transition>
         </div>
         <div class="profile-flex">
             <div class="profile-avatar-area">
                 <img src="https://a.{{ domain() }}/{{ user['id'] }}" alt="avatar" class="rounded-avatar profile-avatar"
-                onError="this.src='/static/images/avatar_notwork.png';">
+                    onError="this.src='/static/images/avatar_notwork.png';">
             </div>
             <div class="bar-selection mode-selects">
                 <div class="select-left">
@@ -98,13 +107,17 @@
                             <tr>
                                 <td>Global rank</td>
                                 <td class="right-aligned">
-                                    <span id="global-rank"><% '#' + data.stats[`rank_global_${mods}_${mode}`] %></span>
+                                    <span id="global-rank">
+                                        <% '#' + data.stats[`rank_global_${mods}_${mode}`] %>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Country rank</td>
                                 <td class="right-aligned">
-                                    <span id="country-rank"><% '#' + data.stats[`rank_country_${mods}_${mode}`] %></span>
+                                    <span id="country-rank">
+                                        <% '#' + data.stats[`rank_country_${mods}_${mode}`] %>
+                                    </span>
                                 </td>
                             </tr>
                         </tbody>
