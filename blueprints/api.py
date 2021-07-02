@@ -4,6 +4,7 @@
 # by the developing api within cmyui/gulag; you should
 # refer there instead if you're looking to use our api.
 # api docs: https://github.com/JKBGL/gulag-api-docs
+# from varkaria: this thing will remove when gulag api implement leaderboard api
 
 __all__ = ()
 

@@ -273,12 +273,9 @@ async def profile(id):
 
 @frontend.route('/leaderboard')
 @frontend.route('/lb')
-async def leaderboard_no_data():
-    return await render_template('leaderboard.html', mode='std', sort='pp', mods='vn')
-
 @frontend.route('/leaderboard/<mode>/<sort>/<mods>')
 @frontend.route('/lb/<mode>/<sort>/<mods>')
-async def leaderboard(mode, sort, mods):
+async def leaderboard(mode='std', sort='pp', mods='vn'):
     return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods)
 
 @frontend.route('/login')

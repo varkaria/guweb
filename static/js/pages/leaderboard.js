@@ -12,38 +12,24 @@ new Vue({
         }
     },
     created() {
-        this.GettingDataFromUrl(mode, mods, sort)
+        this.LoadData(mode, mods, sort)
         this.LoadLeaderboard(sort, mode, mods)
     },
     methods: {
-        GettingDataFromUrl(mode,mods,sort) {
-            var vm = this;
-            vm.mode = mode
-            vm.mods = mods
-            vm.sort = sort
-        },
-        GettingUrl() {
+        URL() {
             return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
         },
+        LoadData(mode, mods, sort) {
+            this.$set(this, 'mode', mode);this.$set(this, 'mods', mods);this.$set(this, 'sort', sort)
+        },
         LoadLeaderboard(sort, mode, mods) {
-            var vm = this;
-            if (window.event){
-                window.event.preventDefault();
-            }
-            vm.load = true;
-            vm.mode = mode;
-            vm.mods = mods;
-            vm.sort = sort;
-            window.history.replaceState('', document.title, `/leaderboard/${vm.mode}/${vm.sort}/${vm.mods}`);
-            vm.$axios.get(`${vm.GettingUrl()}/gw_api/get_leaderboard`, { params: {
-                mode: vm.mode,
-                sort: vm.sort,
-                mods: vm.mods,
-            }})
-            .then(function(response){
-                vm.boards = response.data;
-                vm.load = false;
-            });
+            if (window.event) {window.event.preventDefault();}
+            window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}`);
+            this.$set(this, 'mode', mode);this.$set(this, 'mods', mods)
+            this.$set(this, 'sort', sort);this.$set(this, 'load', true)
+            this.$axios.get(`${this.URL()}/gw_api/get_leaderboard`, { params: {
+                mode: this.mode, sort: this.sort, mods: this.mods,
+            }}).then(res => {this.$set(this, 'boards', res.data);this.$set(this, 'load', false)});
         },
         scoreFormat(score){
             var addCommas = this.addCommas;
