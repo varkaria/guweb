@@ -126,10 +126,8 @@ async def get_user_info():
         'FROM stats JOIN users u ON stats.id = u.id']
 
     # achivement
-    q2 = ['''
-    SELECT userid, achid FROM user_achievements ua
-        INNER JOIN users u ON u.id = ua.userid
-    ''']
+    q2 = ['SELECT userid, achid FROM user_achievements ua',
+        'INNER JOIN users u ON u.id = ua.userid']
 
     # argumnts
     args = []
@@ -150,6 +148,28 @@ async def get_user_info():
         log(' '.join(q), Ansi.LGREEN)
     res = await glob.db.fetch(' '.join(q), args)
     res_ach = await glob.db.fetch(' '.join(q2), args)
+    
+    # rank
+    for q in range(2):
+        for md in valid_modes:
+            for ms in valid_mods:
+                if ms == 'rx' and md == 'mania': continue
+                if ms == 'ap' and md in ['mania', 'taiko', 'catch']: continue
+                if res[f'pp_{ms}_{md}'] == 0:
+                    if q == 0: res[f'rank_global_{ms}_{md}'] = -1
+                    if q == 1: res[f'rank_country_{ms}_{md}'] = -1
+                    continue
+                rk = ['SELECT COUNT(*) AS w '
+                        'FROM stats s '
+                        'INNER JOIN users u USING(id) '
+                        f'WHERE s.pp_{ms}_{md} > %s '
+                        'AND u.priv & 1 AND u.id != %s'
+                    ]
+                if q == 1: rk.append(f"AND u.country='{res['country']}'")
+                arg_rk = [res[f'pp_{ms}_{md}'], id]
+                res_rk = await glob.db.fetch(' '.join(rk), arg_rk)
+                if q == 0: res[f'rank_global_{ms}_{md}'] = res_rk['w'] + 1
+                if q == 1: res[f'rank_country_{ms}_{md}'] = res_rk['w'] + 1
     return jsonify(userdata=res,achivement=res_ach) if res else b'{}'
 
 """ /get_player_scores """

@@ -87,29 +87,29 @@
     <div class="second-block">
         <div class="columns is-marginless two-sides">
             <div class="column is-one-third">
-                <!-- <div class="header">
+                <div class="header" v-if='data.stats[`rank_global_${mods}_${mode}`] != -1'>
                     <div class="title">
                         <i class="fas fa-user-friends"></i> Rank
                     </div>
                 </div>
-                <div class="stats-block rank-block">
+                <div class="stats-block rank-block" v-if='data.stats[`rank_global_${mods}_${mode}`] != -1'>
                     <table class="is-striped">
                         <tbody>
                             <tr>
                                 <td>Global rank</td>
-                                <td class="right-aligned">#
-                                    <span id="global-rank">not impliment</span>
+                                <td class="right-aligned">
+                                    <span id="global-rank"><% '#' + data.stats[`rank_global_${mods}_${mode}`] %></span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>CounTry rank</td>
-                                <td class="right-aligned">#
-                                    <span id="country-rank">not impliment</span>
+                                <td>Country rank</td>
+                                <td class="right-aligned">
+                                    <span id="country-rank"><% '#' + data.stats[`rank_country_${mods}_${mode}`] %></span>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div> -->
+                </div>
                 <div class="header">
                     <div class="title">
                         <i class="fas fa-chart-pie"></i> Statistics
