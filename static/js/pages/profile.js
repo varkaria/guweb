@@ -72,9 +72,7 @@ new Vue({
                 });
         },
         ChangeModeMods(mode, mods) {
-            if (window.event) {
-                window.event.preventDefault();
-            }
+            if (window.event) { window.event.preventDefault() }
             this.mode = mode
             this.mods = mods
             this.LoadAllofdata()
