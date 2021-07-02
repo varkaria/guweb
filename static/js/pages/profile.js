@@ -77,7 +77,6 @@ new Vue({
             })
                 .then(res => {
                     this.$set(this.data, 'status', res.data.player_status)
-                    console.log(res.data.player_status.status)
                 })
             setTimeout(this.LoadUserStatus, 5000);
         },
