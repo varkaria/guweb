@@ -13,9 +13,9 @@ new Vue({
                     load: [false, false, false]
                 },
             },
-            mode: mode, // Getting from URL
-            mods: mods, // Getting from URL
-            userid: userid, // Getting from URL
+            mode: mode,
+            mods: mods,
+            userid: userid
         }
     },
     created() {
@@ -30,85 +30,54 @@ new Vue({
             this.LoadScores('recent')
             this.LoadGrades()
         },
-        GettingUrl() {
+        URL() {
             return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
         },
         LoadProfileData() {
-            var vm = this;
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_info`, {
-                params: {
-                    id: vm.userid,
-                }
+            this.$axios.get(`${this.URL()}/gw_api/get_user_info`, {
+                params: {id: this.userid, scope: 'all'}
             })
-                .then(function (response) {
-                    vm.data.stats = response.data.userdata;
+                .then(res => {
+                    this.$set(this.data, 'stats', res.data.userdata)
                 });
         },
         LoadGrades() {
-            var vm = this;
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_grade`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                }
+            this.$axios.get(`${this.URL()}/gw_api/get_user_grade`, {
+                params: {id: this.userid, mode: this.mode, mods: this.mods}
             })
-                .then(function (response) {
-                    vm.data.grades = response.data;
+                .then(res => {
+                    this.$set(this.data, 'grades', res.data)
                 });
         },
         LoadScores(sort) {
-            var vm = this;
             let type;
-            switch (sort) {
-                case 'best':
-                    type = 0
-                    break;
-                case 'recent':
-                    type = 1
-                    break;
-                default:
-            }
-            vm.data.scores.load[type] = true
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_scores`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                    sort: sort,
-                    limit: 5
-                }
+            if (sort == 'best') { type = 0 } else { type = 1 }
+            this.data.scores.load[type] = true
+            this.$axios.get(`${this.URL()}/gw_api/get_player_scores`, {
+                params: {id: this.userid, mode: this.mode, mods: this.mods, sort: sort, limit: 5}
             })
-                .then(function (response) {
-                    vm.data.scores[sort] = response.data.scores;
-                    vm.data.scores.load[type] = false
-                    console.log(vm.data.scores.load)
+                .then(res => {
+                    this.data.scores[sort] = res.data.scores;
+                    this.data.scores.load[type] = false
                 });
         },
         LoadMostBeatmaps() {
-            var vm = this;
-            vm.data.scores.load[2] = true
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_most`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                    limit: 5
-                }
+            this.data.scores.load[2] = true
+            this.$axios.get(`${this.URL()}/gw_api/get_player_most`, {
+                params: {id: this.userid, mode: this.mode, mods: this.mods, limit: 5}
             })
-                .then(function (response) {
-                    vm.data.scores.most = response.data.maps;
-                    vm.data.scores.load[2] = false
+                .then(res => {
+                    this.data.scores.most = res.data.maps;
+                    this.data.scores.load[2] = false
                 });
         },
         ChangeModeMods(mode, mods) {
-            var vm = this;
             if (window.event) {
                 window.event.preventDefault();
             }
-            vm.mode = mode
-            vm.mods = mods
-            vm.LoadAllofdata()
+            this.mode = mode
+            this.mods = mods
+            this.LoadAllofdata()
         },
         addCommas(nStr) {
             nStr += '';
