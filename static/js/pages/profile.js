@@ -30,19 +30,17 @@ new Vue({
             this.LoadScores('recent')
             this.LoadGrades()
         },
-        URL() {
-            return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
-        },
         LoadProfileData() {
-            this.$axios.get(`${this.URL()}/gw_api/get_user_info`, {
+            this.$axios.get(`/gw_api/get_user_info`, {
                 params: {id: this.userid, scope: 'all'}
             })
                 .then(res => {
+                    console.log(res)
                     this.$set(this.data, 'stats', res.data.userdata)
                 });
         },
         LoadGrades() {
-            this.$axios.get(`${this.URL()}/gw_api/get_user_grade`, {
+            this.$axios.get(`/gw_api/get_user_grade`, {
                 params: {id: this.userid, mode: this.mode, mods: this.mods}
             })
                 .then(res => {
@@ -53,7 +51,7 @@ new Vue({
             let type;
             if (sort == 'best') { type = 0 } else { type = 1 }
             this.data.scores.load[type] = true
-            this.$axios.get(`${this.URL()}/gw_api/get_player_scores`, {
+            this.$axios.get(`/gw_api/get_player_scores`, {
                 params: {id: this.userid, mode: this.mode, mods: this.mods, sort: sort, limit: 5}
             })
                 .then(res => {
@@ -63,7 +61,7 @@ new Vue({
         },
         LoadMostBeatmaps() {
             this.data.scores.load[2] = true
-            this.$axios.get(`${this.URL()}/gw_api/get_player_most`, {
+            this.$axios.get(`/gw_api/get_player_most`, {
                 params: {id: this.userid, mode: this.mode, mods: this.mods, limit: 5}
             })
                 .then(res => {

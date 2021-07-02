@@ -16,9 +16,6 @@ new Vue({
         this.LoadLeaderboard(sort, mode, mods)
     },
     methods: {
-        URL() {
-            return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
-        },
         LoadData(mode, mods, sort) {
             this.$set(this, 'mode', mode);this.$set(this, 'mods', mods);this.$set(this, 'sort', sort)
         },
@@ -27,7 +24,7 @@ new Vue({
             window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}`);
             this.$set(this, 'mode', mode);this.$set(this, 'mods', mods)
             this.$set(this, 'sort', sort);this.$set(this, 'load', true)
-            this.$axios.get(`${this.URL()}/gw_api/get_leaderboard`, { params: {
+            this.$axios.get(`/gw_api/get_leaderboard`, { params: {
                 mode: this.mode, sort: this.sort, mods: this.mods,
             }}).then(res => {this.$set(this, 'boards', res.data);this.$set(this, 'load', false)});
         },
