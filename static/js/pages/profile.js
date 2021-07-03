@@ -32,7 +32,7 @@ new Vue({
     },
     methods: {
         LoadAllofdata() {
-            this.loadmoreostBeatmaps()
+            this.LoadMostBeatmaps()
             this.LoadScores('best')
             this.LoadScores('recent')
             this.LoadGrades()
@@ -69,7 +69,7 @@ new Vue({
                     else {this.data.loadmore.full[type] = false}
                 });
         },
-        loadmoreostBeatmaps() {
+        LoadMostBeatmaps() {
             this.data.scores.load[2] = true
             this.$axios.get(`/gw_api/get_player_most`, {
                 params: {id: this.userid, mode: this.mode, mods: this.mods, limit: this.data.loadmore.limit[2]}
