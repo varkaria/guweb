@@ -10,9 +10,14 @@ new Vue({
                     recent: {},
                     best: {},
                     most: {},
-                    load: [false, false, false]
+                    load: [true,true,true]
                 },
-                status: {}
+                loadmore: {
+                    limit: [5,5,6],
+                    full: [true,true,true]
+                },
+                status: {},
+                load: false
             },
             mode: mode,
             mods: mods,
@@ -23,21 +28,23 @@ new Vue({
         // starting a page
         this.LoadProfileData()
         this.LoadAllofdata()
+        this.LoadUserStatus()
     },
     methods: {
         LoadAllofdata() {
-            this.LoadMostBeatmaps()
+            this.loadmoreostBeatmaps()
             this.LoadScores('best')
             this.LoadScores('recent')
             this.LoadGrades()
-            this.LoadUserStatus()
         },
         LoadProfileData() {
+            this.data.load = false
             this.$axios.get(`/gw_api/get_user_info`, {
                 params: {id: this.userid, scope: 'all'}
             })
                 .then(res => {
                     this.$set(this.data, 'stats', res.data.userdata)
+                    this.data.load = true
                 });
         },
         LoadGrades() {
@@ -53,21 +60,25 @@ new Vue({
             if (sort == 'best') { type = 0 } else { type = 1 }
             this.data.scores.load[type] = true
             this.$axios.get(`/gw_api/get_player_scores`, {
-                params: {id: this.userid, mode: this.mode, mods: this.mods, sort: sort, limit: 5}
+                params: {id: this.userid, mode: this.mode, mods: this.mods, sort: sort, limit: this.data.loadmore.limit[type]}
             })
                 .then(res => {
                     this.data.scores[sort] = res.data.scores;
                     this.data.scores.load[type] = false
+                    if (res.data.scores.length != this.data.loadmore.limit[type]) {this.data.loadmore.full[type] = true}
+                    else {this.data.loadmore.full[type] = false}
                 });
         },
-        LoadMostBeatmaps() {
+        loadmoreostBeatmaps() {
             this.data.scores.load[2] = true
             this.$axios.get(`/gw_api/get_player_most`, {
-                params: {id: this.userid, mode: this.mode, mods: this.mods, limit: 5}
+                params: {id: this.userid, mode: this.mode, mods: this.mods, limit: this.data.loadmore.limit[2]}
             })
                 .then(res => {
                     this.data.scores.most = res.data.maps;
-                    this.data.scores.load[2] = false
+                    this.data.scores.load[2] = false;
+                    if (res.data.maps.length != this.data.loadmore.limit[2]) {this.data.loadmore.full[2] = true}
+                    else {this.data.loadmore.full[2] = false}
                 });
         },
         LoadUserStatus() {
@@ -78,13 +89,34 @@ new Vue({
                 .then(res => {
                     this.$set(this.data, 'status', res.data.player_status)
                 })
-            setTimeout(this.LoadUserStatus, 5000);
+                .catch(function (error) {
+                    clearTimeout(loop);
+                    console.log(error);
+                })
+            loop = setTimeout(this.LoadUserStatus, 5000);
         },
         ChangeModeMods(mode, mods) {
             if (window.event) { window.event.preventDefault() }
-            this.mode = mode
-            this.mods = mods
+            this.mode = mode; this.mods = mods;
+            this.data.loadmore.limit = [5,5,6]
             this.LoadAllofdata()
+        },
+        AddLimit(which) {
+            if (window.event) {
+                window.event.preventDefault();
+            }
+            if (which == 'bestscore') {
+                this.data.loadmore.limit[0] = this.data.loadmore.limit[0] + 5
+                this.LoadScores('best')
+            }
+            else if (which == 'recentscore') {
+                this.data.loadmore.limit[1] = this.data.loadmore.limit[1] + 5
+                this.LoadScores('recent')
+            }
+            else if (which == 'mostplay') {
+                this.data.loadmore.limit[2] = this.data.loadmore.limit[2] + 4
+                this.loadmoreostBeatmaps()
+            }
         },
         ActionIntToStr(d) {
             if (d.action == 0) {return 'Idle: 🔍 Selecting a song'}
