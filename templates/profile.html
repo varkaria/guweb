@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="app">
+<div id="app" :class="(data.load ? '' : 'load')">
     <div class="main-block">
         <div class="profile-bg">
             <div class="info-block">
@@ -231,14 +231,15 @@
                 </div> -->
             </div>
             <div class="column">
-                <div class="log-block">
+                <div :class="'log-block' + (data.scores.load[0] ? ' load' : '')">
                     <div class="header">
                         <div class="title">
                             <i class="fas fa-trophy"></i> Best Scores
                         </div>
                     </div>
-                    <div v-if="data.scores.best.length != 0" :class="'scores' + (data.scores.load[0] ? ' load' : '')">
-                        <div v-for="(map, index) in data.scores.best" class="map-single">
+                    <div v-if="data.scores.best.length != 0" class="scores">
+                        <div v-for="(map, index) in data.scores.best" class="map-single"
+                        :style="'background: linear-gradient(hsl(var(--main), 25%, 25%, 80%), hsl(var(--main), 25%, 25%)), url(https://assets.ppy.sh/beatmaps/'+ map.set_id +'/covers/cover.jpg); background-size:cover; background-clip: content-box;'">
                             <div class="map-data">
                                 <div class="map-content1">
                                     <div class="map-image">
@@ -266,10 +267,10 @@
                                         <div class="score-details_right-block">
                                             <div class="score-details_pp-block">
                                                 <div class="map-pp">
-                                                    <% map.pp %><span class="map-pp-unit">pp</span>
+                                                    <% map.pp.toFixed() %><span class="map-pp-unit">pp</span>
                                                 </div>
                                                 <div class="map-acc">accuracy:&nbsp;<b>
-                                                        <% map.acc %>%
+                                                        <% map.acc.toFixed(2) %>%
                                                     </b></div>
                                             </div>
                                             <div class="score-details_grade-block">
@@ -296,15 +297,19 @@
                             </div>
                         </div>
                     </div>
+                    <div v-if="data.loadmore.full[0] == false" class="extra-block">
+                        <a class="show-button" @click="AddLimit('bestscore')">Show more</a>
+                    </div>
                 </div>
-                <div class="log-block">
+                <div :class="'log-block' + (data.scores.load[1] ? ' load' : '')">
                     <div class="header">
                         <div class="title">
                             <i class="fas fa-clock"></i> Recent Scores
                         </div>
                     </div>
-                    <div v-if="data.scores.recent.length != 0" :class="'scores' +(data.scores.load[1] ? ' load' : '')">
-                        <div v-for="(map, index) in data.scores.recent" class="map-single">
+                    <div v-if="data.scores.recent.length != 0" class="scores">
+                        <div v-for="(map, index) in data.scores.recent" class="map-single"
+                        :style="'background: linear-gradient(hsl(var(--main), 25%, 25%, 80%), hsl(var(--main), 25%, 25%)), url(https://assets.ppy.sh/beatmaps/'+ map.set_id +'/covers/cover.jpg); background-size:cover; background-clip: content-box;'">
                             <div class="map-data">
                                 <div class="map-content1">
                                     <div class="map-image">
@@ -332,10 +337,10 @@
                                         <div class="score-details_right-block">
                                             <div class="score-details_pp-block">
                                                 <div class="map-pp">
-                                                    <% map.pp %><span class="map-pp-unit">pp</span>
+                                                    <% map.pp.toFixed() %><span class="map-pp-unit">pp</span>
                                                 </div>
                                                 <div class="map-acc">accuracy:&nbsp;<b>
-                                                        <% map.acc %>%
+                                                        <% map.acc.toFixed(2) %>%
                                                     </b></div>
                                             </div>
                                             <div class="score-details_grade-block">
@@ -362,14 +367,17 @@
                             </div>
                         </div>
                     </div>
+                    <div v-if="data.loadmore.full[1] == false" class="extra-block">
+                        <a class="show-button" @click="AddLimit('recentscore')">Show more</a>
+                    </div>
                 </div>
-                <div class="log-block">
+                <div :class="'log-block' + (data.scores.load[2] ? ' load' : '')">
                     <div class="header">
                         <div class="title">
                             <i class="fas fa-address-book"></i> Most Played Beatmaps
                         </div>
                     </div>
-                    <div v-if="data.scores.most.length != 0" :class="'beatmaps' +(data.scores.load[2] ? ' load' : '')">
+                    <div v-if="data.scores.most.length != 0" class="beatmaps">
                         <a v-for="(map, index) in data.scores.most" class="beatmap-block">
                             <div class="beatmap-preview"
                                 v-bind:style='{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }'>
@@ -403,6 +411,9 @@
                                 <p class="subtitle is-7">Try playing something?</p>
                             </div>
                         </div>
+                    </div>
+                    <div v-if="data.loadmore.full[2] == false" class="extra-block">
+                        <a class="show-button" @click="AddLimit('mostplay')">Show more</a>
                     </div>
                 </div>
             </div>
