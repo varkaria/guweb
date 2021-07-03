@@ -89,6 +89,7 @@
 .simple-banner-switch.selected {
   font-weight: 500;
   opacity: 1;
+  pointer-events: none;
 }
 
 .simple-banner-switch.disabled {
@@ -496,7 +497,8 @@ html {
 }
 
 .beatmap-block:hover {
-  margin-top: -3px;
+  background-color: hsl(var(--main), 25%, 30%);
+  transform: scale(1.01);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
     0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);
   color: #fff;
@@ -720,4 +722,7 @@ span.beatmap-mapper {
 }
 .pop-enter, .pop-leave-to {
   transform: scale(0.8);
+}
+.log-block {
+  transition: 0.2s ease;
 }
