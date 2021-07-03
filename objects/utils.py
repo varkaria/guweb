@@ -78,3 +78,30 @@ async def validate_captcha(data: str) -> bool:
         res = await resp.json()
 
         return res['success']
+
+def getRequiredScoreForLevel(level):
+	if level <= 100:
+		if level >= 2:
+			return 5000 / 3 * (4 * (level ** 3) - 3 * (level ** 2) - level) + 1.25 * (1.8 ** (level - 60))
+		elif level <= 0 or level == 1:
+			return 1  # Should be 0, but we get division by 0 below so set to 1
+	elif level >= 101:
+		return 26931190829 + 100000000000 * (level - 100)
+
+def getLevel(totalScore):
+	level = 1
+	while True:
+		# if the level is > 8000, it's probably an endless loop. terminate it.
+		if level > 8000:
+			return level
+
+		# Calculate required score
+		reqScore = getRequiredScoreForLevel(level)
+
+		# Check if this is our level
+		if totalScore <= reqScore:
+			# Our level, return it and break
+			return level - 1
+		else:
+			# Not our level, calculate score for next level
+			level += 1

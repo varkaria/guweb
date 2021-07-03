@@ -149,12 +149,13 @@ async def get_user_info():
     res = await glob.db.fetch(' '.join(q), args)
     res_ach = await glob.db.fetch(' '.join(q2), args)
     
-    # rank
+    # rank + level
     for q in range(2):
         for md in valid_modes:
             for ms in valid_mods:
                 if ms == 'rx' and md == 'mania': continue
                 if ms == 'ap' and md in ['mania', 'taiko', 'catch']: continue
+                if q == 0: res[f'level_{ms}_{md}'] = float(utils.getLevel(res[f'tscore_{ms}_{md}']))
                 if res[f'pp_{ms}_{md}'] == 0:
                     if q == 0: res[f'rank_global_{ms}_{md}'] = -1
                     if q == 1: res[f'rank_country_{ms}_{md}'] = -1

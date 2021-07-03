@@ -227,7 +227,8 @@ html {
   left: 0;
   width: var(-progress);
   height: 100%;
-  background: #a65973;
+  background: hsl(var(
+  --main), 30%, 50%);
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
@@ -236,7 +237,7 @@ html {
   font-size: 20px;
   padding: 5px;
   font-weight: 500;
-  background: #a65973;
+  background: hsl(var(--main), 30%, 50%);
 }
 
 .column.is-1,

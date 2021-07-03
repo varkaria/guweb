@@ -41,8 +41,8 @@
                 -->
             </div>
             <transition name="click">
-                <div class="online-infomation" v-if='data.status.online == true' 
-                :key="ActionIntToStr(data.status.status)">
+                <div class="online-infomation" v-if='data.status.online == true'
+                    :key="ActionIntToStr(data.status.status)">
                     <% ActionIntToStr(data.status.status) %>
                 </div>
             </transition>
@@ -221,14 +221,16 @@
                         </article>
                     </div>
                 </div>
-                <!-- <div class="level-block">
+                <div class="level-block">
                     <div class="columns is-marginless is-2">
                         <div class="column level-bar is-paddingless">
                             <div class="progress-level"></div>
                         </div>
-                        <div class="column level-num is-one-fifth is-textcen">20</div>
+                        <div class="column level-num is-one-fifth is-textcen">
+                            <% data.stats[`level_${mods}_${mode}`] %>
+                        </div>
                     </div>
-                </div> -->
+                </div>
             </div>
             <div class="column">
                 <div :class="'log-block' + (data.scores.load[0] ? ' load' : '')">
@@ -239,7 +241,7 @@
                     </div>
                     <div v-if="data.scores.best.length != 0" class="scores">
                         <div v-for="(map, index) in data.scores.best" class="map-single"
-                        :style="'background: linear-gradient(hsl(var(--main), 25%, 25%, 80%), hsl(var(--main), 25%, 25%)), url(https://assets.ppy.sh/beatmaps/'+ map.set_id +'/covers/cover.jpg); background-size:cover; background-clip: content-box;'">
+                            :style="'background: linear-gradient(hsl(var(--main), 25%, 25%, 80%), hsl(var(--main), 25%, 25%)), url(https://assets.ppy.sh/beatmaps/'+ map.set_id +'/covers/cover.jpg); background-size:cover; background-clip: content-box;'">
                             <div class="map-data">
                                 <div class="map-content1">
                                     <div class="map-image">
@@ -309,7 +311,7 @@
                     </div>
                     <div v-if="data.scores.recent.length != 0" class="scores">
                         <div v-for="(map, index) in data.scores.recent" class="map-single"
-                        :style="'background: linear-gradient(hsl(var(--main), 25%, 25%, 80%), hsl(var(--main), 25%, 25%)), url(https://assets.ppy.sh/beatmaps/'+ map.set_id +'/covers/cover.jpg); background-size:cover; background-clip: content-box;'">
+                            :style="'background: linear-gradient(hsl(var(--main), 25%, 25%, 80%), hsl(var(--main), 25%, 25%)), url(https://assets.ppy.sh/beatmaps/'+ map.set_id +'/covers/cover.jpg); background-size:cover; background-clip: content-box;'">
                             <div class="map-data">
                                 <div class="map-content1">
                                     <div class="map-image">
