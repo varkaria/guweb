@@ -47,6 +47,10 @@ async def home():
         datetime=datetime, timeago=timeago, header='Dashboard', isdashboard=True
     )
 
+@admin.route('/users')
+async def users():
+    return await render_template('admin/users.html', header='Users')
+
 @admin.route('/reports')
 async def reports():
     return await render_template('admin/reports.html', header='Reports')

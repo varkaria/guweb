@@ -1,0 +1,131 @@
+{% extends 'admin/base.html' %}
+{% block title %} Users {% endblock %}
+{% block header %} 
+
+{% endblock%}
+
+{% block content %}
+<div class="container-xl" id="users">
+    <div class="row row-deck row-cards">
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="subheader">Total users</div>
+                    </div>
+                    <div class="text-center">
+
+                        <p class="h1 mt-3 mb-3">12938129</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="subheader">Banned users</div>
+                    </div>
+                    <div class="text-center">
+                        <p class="h1 mt-3 mb-3">12938129</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="subheader">Supporters</div>
+                    </div>
+                    <div class="text-center">
+                        <p class="h1 mt-3 mb-3">5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="subheader">Premium members</div>
+                    </div>
+                    <div class="text-center">
+                        <p class="h1 mt-3 mb-3">33</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- DEVELOPMENT START BELOW HERE -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <form action="" class="d-flex m-auto">
+                        <button class="btn m-2">Edit user (username)</button>
+                        <button class="btn m-2">Edit user (email)</button>
+                        <button class="btn m-2">Search user by IP</button>
+                        <button class="btn m-2">Silence user</button>
+                        <button class="btn m-2">Kick user from bancho</button>
+                    </form>
+                </div>
+                <div class="card-body border-bottom py-3">
+                    <div class="d-flex">
+                        <div class="text-muted">
+                            Show
+                            <div class="mx-2 d-inline-block">
+                            <input type="text" class="form-control form-control-sm" value="8" size="3" aria-label="Users count">
+                            </div>
+                            entries
+                        </div>
+                        <div class="ms-auto text-muted">
+                            Search:
+                            <div class="ms-2 d-inline-block">
+                            <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap datatable">
+                        <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Username</th>
+                              <th>Privilege groups</th>
+                              <th>Allowed</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <!-- SHOW USERS -->
+                          <tbody>
+
+                          </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex align-items-center">
+                    <ul class="pagination m-0 m-auto">
+                      <li class="page-item">
+                        <a class="page-link" href="#" tabindex="-1">
+                          <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="15 6 9 12 15 18"></polyline></svg>
+                          prev
+                        </a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">4</a></li>
+                      <li class="page-item"><a class="page-link" href="#">5</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">
+                          next <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="9 6 15 12 9 18"></polyline></svg>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
