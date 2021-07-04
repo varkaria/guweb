@@ -49,7 +49,13 @@ async def home():
 
 @admin.route('/users')
 async def users():
-    return await render_template('admin/users.html')
+
+    data = {
+        'playercount': range(1),
+        'username':  'Gusbell'
+    }
+
+    return await render_template('admin/users.html', data=data)
 
 @admin.route('/reports')
 async def reports():
