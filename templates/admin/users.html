@@ -17,6 +17,36 @@
 </div>
 {% endmacro %}
 
+{% macro modal(title='base', id='base') %}
+<div class="modal modal-blur fade" id="{{ id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body text-start pt-4">
+                <form action="">
+                    <div class="mb-3">
+                        <label class="form-label">{{ title }}</label>
+                        <input type="text" class="form-control" name="example-text-input">
+                      </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-white w-100" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="col">
+                            <button type="submit" id="del-submit" form="" class="btn btn-btn-primary w-100">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
 {% block content %}
 <div class="row row-deck row-cards">
     <div class="col-sm-6 col-lg-3">
@@ -36,9 +66,9 @@
         <div class="card">
             <div class="card-header">
                 <form action="" class="d-flex m-auto">
-                    <button class="btn m-2">Edit user (username)</button>
-                    <button class="btn m-2">Edit user (email)</button>
-                    <button class="btn m-2">Search user by IP</button>
+                    <button class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-usr">Edit user (username)</button>
+                    <button class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-ema">Edit user (email)</button>
+                    <button class="btn m-2" data-bs-toggle="modal" data-bs-target="#sch-ip">Search user by IP</button>
                     <button class="btn m-2">Silence user</button>
                     <button class="btn m-2">Kick user from bancho</button>
                 </form>
@@ -73,15 +103,17 @@
                     </thead>
                     <!-- SHOW USERS -->
                     <tbody>
-                        <!-- {% for i in data.playercount %} -->
-                            <tr>
-                                <td>1</td>
-                                <td>Gusbell</td>
-                                <td>Developer</td>
-                                <td>Yes</td>
-                                <td>soon</td>
-                            </tr>
-                        <!-- {% endfor %} -->
+                        {% for i in query_data %}
+                        <tr>
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.username }}</td>
+                            <td>Developer</td>
+                            <td>Yes</td>
+                            <td>
+                                <button class="btn"><i class="far fa-edit" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -89,19 +121,18 @@
                 <ul class="pagination m-0 m-auto">
                     <li class="page-item">
                         <a class="page-link" href="#" tabindex="-1">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="15 6 9 12 15 18"></polyline></svg>
                             prev
                         </a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li> 
                     <li class="page-item">
                         <a class="page-link" href="#">
-                            next <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
+                            next
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="9 6 15 12 9 18"></polyline></svg>
                         </a>
                     </li>
@@ -110,6 +141,13 @@
         </div>
     </div>
 </div>
+
+{{ modal(title='Username', id="edi-usr-usr") }}
+
+{{ modal(title='Email', id="edi-usr-ema") }}
+
+{{ modal(title='IP', id="sch-ip") }}
+
 {% endblock %}
 
 {% block scriptb %}
