@@ -118,6 +118,7 @@ button:focus {
   border-radius: 8px;
   display: flex;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.25);
+  min-height: 688px;
 }
 .block-content {
   color: #fff;
@@ -807,7 +808,7 @@ input:checked + label.checkbox:hover {
 .right-header {
   color: #fff;
   border-bottom: none;
-  background-color: hsl(var(--main), 10%, 25%);
+  background-color: hsl(var(--main), 35%, 35%);
 }
 .settings-btn {
   background-color: hsl(var(--main), 15%, 25%);
