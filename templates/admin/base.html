@@ -72,9 +72,11 @@
             <div class="row align-items-center">
               <div class="col">
                 <!-- Page pre-title -->
+                {% if isdashboard %}
                 <div class="page-pretitle">
                   Overview
                 </div>
+                {% endif %}
                 <h2 class="page-title">
                   {{ header }}
                 </h2>
