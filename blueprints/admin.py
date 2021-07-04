@@ -50,12 +50,18 @@ async def home():
 @admin.route('/users')
 async def users():
 
+    query_data = await glob.db.fetchall(
+        'SELECT name AS `username`, id FROM users ORDER BY id'
+    )
+    for i in query_data:
+        print(i)
+
     data = {
         'playercount': range(1),
         'username':  'Gusbell'
     }
 
-    return await render_template('admin/users.html', data=data)
+    return await render_template('admin/users.html', data=data, query_data=query_data)
 
 @admin.route('/reports')
 async def reports():
@@ -72,6 +78,10 @@ async def restrictions():
 @admin.route('/privilege')
 async def privilege():
     return await render_template('admin/privilege.html')
+
+@admin.route('/beatmaps')
+async def beatmaps():
+    return await render_template('admin/beatmaps.html')
 
 @admin.route('/badges')
 async def badges():
