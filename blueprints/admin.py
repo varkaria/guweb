@@ -44,5 +44,29 @@ async def home():
     return await render_template(
         'admin/home.html', dashdata=dash_data,
         recentusers=recent_users, recentscores=recent_scores,
-        datetime=datetime, timeago=timeago
+        datetime=datetime, timeago=timeago, header='Dashboard', isdashboard=True
     )
+
+@admin.route('/reports')
+async def reports():
+    return await render_template('admin/reports.html', header='Reports')
+
+@admin.route('/recentplay')
+async def recentplay():
+    return await render_template('admin/recentplay.html', header='Recent Play')
+
+@admin.route('/restrictions')
+async def restrictions():
+    return await render_template('admin/restrictions.html', header='Restrictions')
+
+@admin.route('/privilege')
+async def privilege():
+    return await render_template('admin/privilege.html', header='Privilege Groups')
+
+@admin.route('/badges')
+async def badges():
+    return await render_template('admin/badges.html', header='Badges')
+
+@admin.route('/logs')
+async def logs():
+    return await render_template('admin/log.html', header='Admin logs')

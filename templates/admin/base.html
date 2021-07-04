@@ -135,8 +135,20 @@
           <div id="style-3" class="sidebar-wrapper">
             <div class="logo"><a class="simple-text logo-normal">{{ appName() }} Admin Panel</a></div>
             <ul class="nav">
-              <li class="nav-item"><a class="nav-link"><span class="icon"><i class="fa fa-home"></i></span> <span
-                    class="name">Dashboard</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin"><span class="icon"><i class="fa fa-home"></i></span>
+                <span class="name">Dashboard</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/reports"><span class="icon"><i class="fa fa-book"></i></span> 
+                <span class="name">Reports</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/recentplay"><span class="icon"><i class="fa fa-video-camera"></i></span>
+                <span class="name">Recent Play</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/restrictions"><span class="icon"><i class="fa fa-warning"></i></span>
+                <span class="name">Restrictions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/privilege"><span class="icon"><i class="fa fa-users"></i></span>
+                <span class="name">Privilege Groups</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/badges"><span class="icon"><i class="fa fa-bookmark"></i></span>
+                <span class="name">Badges</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/logs"><span class="icon"><i class="fa fa-address-book"></i></span>
+                <span class="name">Admin logs</span></a></li>
             </ul>
           </div>
         </div>
@@ -149,8 +161,10 @@
                 onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
             </div>
             <div class="column is-paddingless flex-vcenter">
-              <h2 class="section-title">Dashboard</h2>
+              <h2 class="section-title">{{ header }}</h2>
+              {% if isdashboard %}
               <p class="section-lead">Welcome to {{ appName() }} admin panel!</p>
+              {% endif %}
             </div>
           </div>
           <section class="section">
