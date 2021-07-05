@@ -3,12 +3,14 @@
 __all__ = ()
 
 import datetime
+from quart.helpers import url_for
 
 import timeago
 from quart import Blueprint
 from quart import render_template
 from quart import session
 from quart import request
+from quart import redirect
 
 from objects import glob
 from objects.utils import flash
@@ -50,31 +52,46 @@ async def home():
 
 @admin.route('/users', methods=['GET', 'POST'])
 async def users():
-    await request.get_data()
 
-    query_data = await glob.db.fetchall(
-        'SELECT name AS `username`, id FROM users ORDER BY id'
-    )
+    query_data = await glob.db.fetchall('SELECT name AS `username`, id FROM users ORDER BY id')
+
     if request.method == 'POST':
-        #TODO: Improve this mess
+        global search_data
         error = 'User not found!'
         for i in await request.values:
             header = i
         if header == 'username':
-            form = await request.form
-            data = form['username']
-            search_data =  await glob.db.fetchall(f"SELECT * FROM users WHERE name = '{ data }'")
-            if search_data == ():
+            username = (await request.form)['username']
+            search_data = await glob.db.fetchall(f'SELECT * FROM users WHERE name = "{ username }"')
+            if not search_data:
                 return await render_template('admin/users.html', query_data=query_data, search_data=search_data, error=error)
             return await render_template('admin/users.html', query_data=query_data, search_data=search_data)
-        if header == 'email':
-            form = await request.form
-            data = form['email']
-            search_data =  await glob.db.fetchall(f"SELECT * FROM users WHERE email = '{ data }'")
-            if search_data == ():
+        elif header == 'email':
+            email = (await request.form)['email']
+            search_data = await glob.db.fetchall(f'SELECT * FROM users WHERE email = "{ email }"')
+            if not search_data:
                 return await render_template('admin/users.html', query_data=query_data, search_data=search_data, error=error)
             return await render_template('admin/users.html', query_data=query_data, search_data=search_data)
     return await render_template('admin/users.html', query_data=query_data)
+
+@admin.route('/users/update', methods=['GET', 'POST'])
+async def up_user():
+    if request.method == 'POST':
+        form = await request.form
+        for i in search_data:
+            id = i['id']
+        username = form['edit-username']
+        email = form['edit-email']
+        if not username and not email:
+            return redirect('/admin/users')
+        elif not username:
+            await glob.db.execute(f'UPDATE users SET email="{email}" WHERE id={id}')
+        elif not email:
+            await glob.db.execute(f'UPDATE users SET name="{username}", safe_name=LOWER("{username}") WHERE id={id}')
+        else:
+            await glob.db.execute(f'UPDATE users SET name="{username}", safe_name=LOWER("{username}"), email="{email}" WHERE id={id}')
+    return redirect('/admin/users')
+
 
 @admin.route('/reports')
 async def reports():
