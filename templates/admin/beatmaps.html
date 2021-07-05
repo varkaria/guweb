@@ -30,7 +30,7 @@
     <div class="col-sm-6 col-lg-3">
         {{ card(title='Total loved beatmaps', data=data['loved'], chartname='loved-beatmaps') }}
     </div>
-    <div class="col-sm-6 col-lg-3"> 
+    <div class="col-sm-6 col-lg-3">
         {{ card(title='Total Pending beatmaps', data=data['pending'], chartname='pending-beatmaps') }}
     </div>
     <!-- Beatmap list -->
@@ -39,7 +39,8 @@
             <div class="text-muted">
                 Show
                 <div class="mx-2 d-inline-block">
-                    <input type="text" class="form-control form-control-sm" value="10" size="3" aria-label="Users count">
+                    <input type="text" class="form-control form-control-sm" value="10" size="3"
+                        aria-label="Users count">
                 </div>
                 entries
             </div>
@@ -55,39 +56,78 @@
         <table class="table card-table table-vcenter text-nowrap datatable">
             <thead>
                 <tr>
-                    <th><center>Beatmap</center></th>
-                    <th><center>Mode</center></th>
-                    <th><center>CS / Keys</center></th>
-                    <th><center>AR</center></th>
-                    <th><center>HP</center></th>
-                    <th><center>OD</center></th>
-                    <th><center>BPM</center></th>
-                    <th><center>Length</center></th>
-                    <th><center>Stars</center></th>
-                    <th><center>Manage Status</center></th>
+                    <th>
+                        <center>Beatmap</center>
+                    </th>
+                    <th>
+                        <center>Mode</center>
+                    </th>
+                    <th>
+                        <center>CS / Keys</center>
+                    </th>
+                    <th>
+                        <center>AR</center>
+                    </th>
+                    <th>
+                        <center>HP</center>
+                    </th>
+                    <th>
+                        <center>OD</center>
+                    </th>
+                    <th>
+                        <center>BPM</center>
+                    </th>
+                    <th>
+                        <center>Length</center>
+                    </th>
+                    <th>
+                        <center>Stars</center>
+                    </th>
+                    <th>
+                        <center>Manage Status</center>
+                    </th>
                 </tr>
             </thead>
             <!-- SHOW USERS -->
             <tbody>
                 {% for i in bmap_query %}
                 <tr>
-                    <td><center>
-                        <div class="card song-banner" style="background-image: url(https://assets.ppy.sh/beatmaps/{{ i.set_id }}/covers/cover.jpg); background-size:cover">
+                    <td class="no-padding">
+                        <div class="card song-banner"
+                            style="background-image: url(https://assets.ppy.sh/beatmaps/{{ i.set_id }}/covers/cover.jpg); background-size:cover">
                             <div class="card-body" style="background-color: rgba(0, 0, 0, 0.45);">
-                              <a href="https://osu.ppy.sh/beatmapsets/{{ i.set_id }}" target="_blank" class="text-white">{{ i.artist }} + {{ i.creator }} -
-                              <br/>{{ i.title }}. [{{ i.diff_name }}]</a>
+                                <a href="https://osu.ppy.sh/beatmapsets/{{ i.set_id }}" target="_blank"
+                                    class="text-white">{{ i.artist }} + {{ i.creator }} -
+                                    <br />{{ i.title }}. [{{ i.diff_name }}]</a>
                             </div>
-                          </div>
-                    </center></td> <!-- Beatmap -->
-                    <td><center>{{ i.mode }}</center></td>
-                    <td><center>{{ i.cs }}</center></td> <!-- CS -->
-                    <td><center>{{ i.ar }}</center></td> <!-- AR -->
-                    <td><center>{{ i.hp }}</center></td> <!-- HP -->
-                    <td><center>{{ i.od }}</center></td> <!-- OD -->
-                    <td><center>{{ i.bpm }}</center></td> <!-- BPM -->
-                    <td><center>{{ i.length }}</center></td> <!-- Length -->
-                    <td><center>{{ i.stars }}</center></td>
-                    <td> <!-- Status Management -->
+                        </div>
+                    </td> <!-- Beatmap -->
+                    <td>
+                        <center>{{ i.mode }}</center>
+                    </td>
+                    <td>
+                        <center>{{ i.cs }}</center>
+                    </td> <!-- CS -->
+                    <td>
+                        <center>{{ i.ar }}</center>
+                    </td> <!-- AR -->
+                    <td>
+                        <center>{{ i.hp }}</center>
+                    </td> <!-- HP -->
+                    <td>
+                        <center>{{ i.od }}</center>
+                    </td> <!-- OD -->
+                    <td>
+                        <center>{{ i.bpm }}</center>
+                    </td> <!-- BPM -->
+                    <td>
+                        <center>{{ i.length }}</center>
+                    </td> <!-- Length -->
+                    <td>
+                        <center>{{ i.stars }}</center>
+                    </td>
+                    <td>
+                        <!-- Status Management -->
                         <script>
                             var status = {{ i.status }};
                             console.log(status);
@@ -115,9 +155,12 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a class="btn1a dropdown-item" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16" style="color: #00cf97;">
-                                        <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z"/>
-                                        <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-chevron-double-up" viewBox="0 0 16 16" style="color: #00cf97;">
+                                        <path fill-rule="evenodd"
+                                            d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                                        <path fill-rule="evenodd"
+                                            d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
                                     </svg>⠀
                                     Ranked
                                 </a>
@@ -142,7 +185,12 @@
         <ul class="pagination m-0 m-auto">
             <li class="page-item">
                 <a class="page-link" href="#" tabindex="-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="15 6 9 12 15 18"></polyline></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="15 6 9 12 15 18"></polyline>
+                    </svg>
                     prev
                 </a>
             </li>
@@ -151,11 +199,16 @@
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item"><a class="page-link" href="#">4</a></li>
             <li class="page-item"><a class="page-link" href="#">...</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li> 
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
             <li class="page-item">
                 <a class="page-link" href="#">
                     next
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="9 6 15 12 9 18"></polyline></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
                 </a>
             </li>
         </ul>
