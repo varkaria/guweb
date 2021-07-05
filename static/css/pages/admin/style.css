@@ -1,3 +1,7 @@
 .no-padding {
     padding: 0px !important;
 }
+
+.song-banner {
+    border-radius: 0px !important;
+}
