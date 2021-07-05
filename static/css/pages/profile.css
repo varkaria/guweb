@@ -10,7 +10,6 @@
 .stats-block {
   width: 100%;
   background: hsl(var(--main), 25%, 25%);
-  border-radius: 16px;
   padding: 9.5px;
   margin-bottom: 9.5px !important;
 }
@@ -61,7 +60,7 @@
 .bar-selection {
   width: 100%;
   height: 60px;
-  padding: 10px 68px 10px 250px;
+  padding: 10px 10px 10px 250px;
   display: flex;
   align-items: center;
   transition: 0.2s ease;
@@ -211,21 +210,17 @@ html {
 
 .level-bar {
   background: #413030;
-  border-radius: 12px;
-  margin-right: 8px;
   overflow: hidden;
 }
 
 .level-num {
   background: #413030;
-  border-radius: 12px;
 }
 
 .progress-level {
   content: "";
   top: 0;
   left: 0;
-  width: var(-progress);
   height: 100%;
   background: hsl(var(
   --main), 30%, 50%);
@@ -237,7 +232,7 @@ html {
   font-size: 20px;
   padding: 5px;
   font-weight: 500;
-  background: hsl(var(--main), 30%, 50%);
+  background: hsl(var(--main), 30%, 38%);
 }
 
 .column.is-1,
@@ -258,8 +253,8 @@ html {
 .header {
   padding: 10px 10px;
   background: hsl(var(--main), 30%, 50%);
-  border-radius: 16px;
-  margin-bottom: 7px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .header .title {
@@ -269,6 +264,8 @@ html {
 .scores {
   background: content-box;
   transition: 0.2s transform ease;
+  background: hsl(var(--main), 20%, 20%);
+  padding: 6px;
 }
 
 .map-single {
@@ -280,7 +277,6 @@ html {
   padding-right: 0;
   margin: 8px 0;
   justify-content: space-between;
-  border-radius: 10px;
   overflow: hidden;
   background: hsl(var(--main), 25%, 25%);
   transition: 0.2s ease;
@@ -472,8 +468,9 @@ html {
   width: 100%;
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(405px, 405px));
-  margin: 8px 0;
+  grid-template-columns: repeat(auto-fill, minmax(399px, 312px));
+  background: hsl(var(--main), 20%, 20%);
+  padding: 6px 6px 12px 6px;
 }
 
 .beatmap-block {
@@ -482,7 +479,6 @@ html {
 
 .beatmap-block {
   display: flex;
-  border-radius: 8px;
   padding: 8px;
   font-weight: 700;
   line-height: 1.3;
@@ -573,14 +569,14 @@ span.beatmap-mapper {
   width: 100%;
   display: flex;
   justify-content: center;
+  background: hsl(var(--main), 20%, 20%);
 }
 
 .show-button {
   padding: 3px 42px;
   background: hsl(var(--main), 25%, 25%);
-  color: white;
-  border-radius: 30px;
   margin: 0px 8px 8px 8px;
+  text-align: center;
 }
 
 .show-button:hover {
@@ -726,4 +722,5 @@ span.beatmap-mapper {
 }
 .log-block {
   transition: 0.2s ease;
+  margin-bottom: 12px;
 }

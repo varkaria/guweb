@@ -5,7 +5,6 @@
 <script src="/static/js/asserts/vue.js"></script>
 <script src="/static/js/asserts/vue-axios.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
-
 <link rel="stylesheet" href="/static/css/pages/profile.css">
 
 <script>
@@ -233,7 +232,7 @@
                 </div>
             </div>
             <div class="column">
-                <div :class="'log-block' + (data.scores.load[0] ? ' load' : '')">
+                <div :class="'log-block' + (data.scores.load[0] == true ? ' load' : '')">
                     <div class="header">
                         <div class="title">
                             <i class="fas fa-trophy"></i> Best Scores
@@ -241,7 +240,7 @@
                     </div>
                     <div v-if="data.scores.best.length != 0" class="scores">
                         <div v-for="(map, index) in data.scores.best" class="map-single"
-                            :style="'background: linear-gradient(hsl(var(--main), 25%, 25%, 80%), hsl(var(--main), 25%, 25%)), url(https://assets.ppy.sh/beatmaps/'+ map.set_id +'/covers/cover.jpg); background-size:cover; background-clip: content-box;'">
+                            :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/cover.jpg)`">
                             <div class="map-data">
                                 <div class="map-content1">
                                     <div class="map-image">
@@ -303,7 +302,7 @@
                         <a class="show-button" @click="AddLimit('bestscore')">Show more</a>
                     </div>
                 </div>
-                <div :class="'log-block' + (data.scores.load[1] ? ' load' : '')">
+                <div :class="'log-block' + (data.scores.load[1] == true ? ' load' : '')">
                     <div class="header">
                         <div class="title">
                             <i class="fas fa-clock"></i> Recent Scores
@@ -311,7 +310,7 @@
                     </div>
                     <div v-if="data.scores.recent.length != 0" class="scores">
                         <div v-for="(map, index) in data.scores.recent" class="map-single"
-                            :style="'background: linear-gradient(hsl(var(--main), 25%, 25%, 80%), hsl(var(--main), 25%, 25%)), url(https://assets.ppy.sh/beatmaps/'+ map.set_id +'/covers/cover.jpg); background-size:cover; background-clip: content-box;'">
+                            :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/cover.jpg);`">
                             <div class="map-data">
                                 <div class="map-content1">
                                     <div class="map-image">
@@ -373,7 +372,7 @@
                         <a class="show-button" @click="AddLimit('recentscore')">Show more</a>
                     </div>
                 </div>
-                <div :class="'log-block' + (data.scores.load[2] ? ' load' : '')">
+                <div :class="'log-block' + (data.scores.load[2] == true ? ' load' : '')">
                     <div class="header">
                         <div class="title">
                             <i class="fas fa-address-book"></i> Most Played Beatmaps
@@ -425,3 +424,24 @@
 
 <script src="/static/js/pages/profile.js"></script>
 {% endblock %}
+
+{% block bottom %}
+{% if user['customisation']['banner'] == True or user['customisation']['background'] == True %}
+<style>
+    {% if user['customisation']['banner'] == True %}
+        .profile-bg {
+            min-height: 262px;
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/profbanner/{{ user['id'] }}"); 
+            background-size: cover;
+        }
+    {% endif %}
+    {% if user['customisation']['background'] == True %}
+        body {
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/profbackground/{{ user['id'] }}"); 
+            background-size: cover; 
+            background-clip: content-box;
+        }
+    {% endif %}
+</style>
+{% endif %}
+{% endblock bottom %}

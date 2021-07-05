@@ -5,12 +5,19 @@ from typing import Optional
 from cmyui.logging import Ansi
 from cmyui.logging import log
 from quart import render_template
+from quart import session
 
+from pathlib import Path
 from objects import glob
+from objects import utils
 
 async def flash(status, msg, template):
     """Flashes a success/error message on a specified template."""
     return await render_template(f'{template}.html', flash=msg, status=status)
+
+async def flash_custom(status, msg, template):
+    """Flashes a success/error message on a specified template. (for customisation settings)"""
+    return await render_template(f'{template}.html', flash=msg, status=status, current=utils.CheckCustomiseProfile(session['user_data']['id']))
 
 def get_safe_name(name: str) -> str:
     """Returns the safe version of a username."""
@@ -105,3 +112,33 @@ def getLevel(totalScore):
 		else:
 			# Not our level, calculate score for next level
 			level += 1
+
+BANNERS_PATH = Path.cwd() / '.data/profbanner'
+BACKGROUND_PATH = Path.cwd() / '.data/profbackground'
+def CheckCustomiseProfile(uid=0):
+    for ext in ('jpg', 'jpeg', 'png', 'gif'):
+        path = BANNERS_PATH / f'{uid}.{ext}'
+        if path.exists():
+            b = True
+            break
+        else:
+            b = False
+    for ext in ('jpg', 'jpeg', 'png', 'gif'):
+        path = BACKGROUND_PATH / f'{uid}.{ext}'
+        if path.exists():
+            g = True
+            break
+        else:
+            g = False
+    return {'banner' : b, 'background': g}
+
+def crop_image(image):
+    width, height = image.size
+    if width == height:
+        return image
+    offset  = int(abs(height-width)/2)
+    if width>height:
+        image = image.crop([offset,0,width-offset,height])
+    else:
+        image = image.crop([0,offset,width,height-offset])
+    return image

@@ -140,3 +140,5 @@ cython_debug/
 # Project specific
 config.py
 .vscode/
+.data/profbanner/*
+.data/profbackground/*

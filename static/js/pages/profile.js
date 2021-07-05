@@ -58,7 +58,7 @@ new Vue({
         LoadScores(sort) {
             let type;
             if (sort == 'best') { type = 0 } else { type = 1 }
-            this.data.scores.load[type] = true
+            this.$set(this.data.scores.load, type, true)
             this.$axios.get(`/gw_api/get_player_scores`, {
                 params: {id: this.userid, mode: this.mode, mods: this.mods, sort: sort, limit: this.data.loadmore.limit[type]}
             })
@@ -70,7 +70,7 @@ new Vue({
                 });
         },
         LoadMostBeatmaps() {
-            this.data.scores.load[2] = true
+            this.$set(this.data.scores.load, 2, true)
             this.$axios.get(`/gw_api/get_player_most`, {
                 params: {id: this.userid, mode: this.mode, mods: this.mods, limit: this.data.loadmore.limit[2]}
             })
@@ -115,7 +115,7 @@ new Vue({
             }
             else if (which == 'mostplay') {
                 this.data.loadmore.limit[2] = this.data.loadmore.limit[2] + 4
-                this.loadmoreostBeatmaps()
+                this.LoadMostBeatmaps()
             }
         },
         ActionIntToStr(d) {

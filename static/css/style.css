@@ -118,8 +118,8 @@ a.foot-link {
   }
 }
 
-.button:hover {
-  transform: scale(1.05);
+.file-cta {
+  border-color: transparent;
 }
 
 .mode-icon {
@@ -320,11 +320,12 @@ a.foot-link {
   padding: 8px;
   font-size: 12px;
   color: #fff;
-  background-color: hsl(var(--main), 40%, 35%);
+  background-color: hsl(var(--main), 25%, 20%);
   z-index: 1;
   flex-direction: column;
   text-align: center;
   position: relative;
+  border-radius: 10px;
 }
 
 .noti-banner {
