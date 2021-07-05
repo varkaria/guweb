@@ -8,6 +8,7 @@ import timeago
 from quart import Blueprint
 from quart import render_template
 from quart import session
+from quart import request
 
 from objects import glob
 from objects.utils import flash
@@ -47,21 +48,33 @@ async def home():
         datetime=datetime, timeago=timeago
     )
 
-@admin.route('/users')
+@admin.route('/users', methods=['GET', 'POST'])
 async def users():
+    await request.get_data()
 
     query_data = await glob.db.fetchall(
         'SELECT name AS `username`, id FROM users ORDER BY id'
     )
-    for i in query_data:
-        print(i)
-
-    data = {
-        'playercount': range(1),
-        'username':  'Gusbell'
-    }
-
-    return await render_template('admin/users.html', data=data, query_data=query_data)
+    if request.method == 'POST':
+        #TODO: Improve this mess
+        error = 'User not found!'
+        for i in await request.values:
+            header = i
+        if header == 'username':
+            form = await request.form
+            data = form['username']
+            search_data =  await glob.db.fetchall(f"SELECT * FROM users WHERE name = '{ data }'")
+            if search_data == ():
+                return await render_template('admin/users.html', query_data=query_data, search_data=search_data, error=error)
+            return await render_template('admin/users.html', query_data=query_data, search_data=search_data)
+        if header == 'email':
+            form = await request.form
+            data = form['email']
+            search_data =  await glob.db.fetchall(f"SELECT * FROM users WHERE email = '{ data }'")
+            if search_data == ():
+                return await render_template('admin/users.html', query_data=query_data, search_data=search_data, error=error)
+            return await render_template('admin/users.html', query_data=query_data, search_data=search_data)
+    return await render_template('admin/users.html', query_data=query_data)
 
 @admin.route('/reports')
 async def reports():

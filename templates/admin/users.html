@@ -17,17 +17,17 @@
 </div>
 {% endmacro %}
 
-{% macro modal(title='base', id='base') %}
+{% macro modal(title='base', id='base', form_id='base') %}
 <div class="modal modal-blur fade" id="{{ id }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="modal-body text-start pt-4">
-                <form action="">
+                <form id="{{ form_id }}" method="POST">
                     <div class="mb-3">
                         <label class="form-label">{{ title }}</label>
-                        <input type="text" class="form-control" name="example-text-input">
-                      </div>
+                        <input type="text" class="form-control" name="{{ form_id }}">
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -37,7 +37,7 @@
                             <button type="button" class="btn btn-white w-100" data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col">
-                            <button type="submit" id="del-submit" form="" class="btn btn-primary w-100">Edit</button>
+                            <button type="submit" id="del-submit" form="{{ form_id }}" class="btn btn-primary w-100">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -48,6 +48,11 @@
 {% endmacro %}
 
 {% block content %}
+{% if error %}
+<div class="alert alert-danger col-lg-2" role="alert" style="display: block; position: relative; margin-top: -3.5rem;">
+    <h4 class="alert-title">{{ error }}</h4>
+</div>
+{% endif %}
 <div class="row row-deck row-cards">
     <div class="col-sm-6 col-lg-3">
         {{ card(title='Online Users', data=727, chartname='online-users') }}
@@ -61,6 +66,39 @@
     <div class="col-sm-6 col-lg-3">
         {{ card(title='Premium users',data=727) }}
     </div>
+    {% if search_data %}
+    <div class="col-12">
+        {% for i in search_data %}
+        <div class="card">
+            <div class="card-header">Edit info of {{ i.name }}</div>
+            <div class="card-body">
+                <form action="">
+                    <label class="form-label">Username</label>
+                    <div>
+                    <div class="input-icon mb-3">
+                        <span class="input-icon-addon">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="7" r="4"></circle><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path></svg>
+                        </span>
+                        <input type="text" class="form-control" placeholder="{{ i.name }}">
+                    </div>
+                    <label class="form-label">Email</label>
+                    <div class="input-icon mb-3">
+                        <span class="input-icon-addon">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <polyline points="3 7 12 13 21 7" />
+                            </svg>
+                        </span>
+                        <input type="text" class="form-control" placeholder="{{ i.email }}">
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <!-- DEVELOPMENT START BELOW HERE -->
     <div class="col-12">
         <div class="card">
@@ -142,11 +180,11 @@
     </div>
 </div>
 
-{{ modal(title='Username', id="edi-usr-usr") }}
+{{ modal(title='Username', id="edi-usr-usr", form_id='username') }}
 
-{{ modal(title='Email', id="edi-usr-ema") }}
+{{ modal(title='Email', id="edi-usr-ema", form_id='email') }}
 
-{{ modal(title='IP', id="sch-ip") }}
+{{ modal(title='IP', id="sch-ip", form_id='ip') }}
 
 {% endblock %}
 
