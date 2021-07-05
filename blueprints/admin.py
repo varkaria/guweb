@@ -94,7 +94,15 @@ async def privilege():
 
 @admin.route('/beatmaps')
 async def beatmaps():
-    return await render_template('admin/beatmaps.html')
+    r = await glob.db.fetchall('SELECT COUNT(id) as `r` FROM maps WHERE `status`=2')
+    l = await glob.db.fetchall('SELECT COUNT(id) as `l` FROM maps WHERE `status`=5')
+    p = await glob.db.fetchall('SELECT COUNT(id) as `p` FROM maps WHERE `status`=0')
+    t = await glob.db.fetchall('SELECT COUNT(id) as `t` FROM maps')
+    data = {"ranked": r[0]['r'], "loved": l[0]['l'], "pending": p[0]['p'], "total": t[0]['t']}
+    #This needs to be moved to api
+    bmaps = await glob.db.fetchall(f'SELECT set_id, id AS `map_id`, status, artist, title, version AS `diff_name`, total_length AS length, creator, mode, cs, od, ar, hp, bpm, diff AS `stars` FROM maps ORDER BY set_id ASC LIMIT 10 OFFSET 0')
+    print(bmaps)
+    return await render_template('admin/beatmaps.html', data=data, bmap_query=bmaps)
 
 @admin.route('/badges')
 async def badges():
