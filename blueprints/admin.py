@@ -53,7 +53,7 @@ async def home():
 @admin.route('/users', methods=['GET', 'POST'])
 async def users():
 
-    query_data = await glob.db.fetchall('SELECT name AS `username`, id FROM users ORDER BY id')
+    query_data = await glob.db.fetchall('SELECT name AS `username`, id, country FROM users ORDER BY id')
 
     if request.method == 'POST':
         global search_data
