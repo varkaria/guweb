@@ -38,7 +38,7 @@
                         </div>
                         <div class="col">
                             <button type="submit" id="del-submit" form="{{ name }}" class="btn btn-primary w-100">Edit</button>
-                        </div>
+                        </div>   
                     </div>
                 </div>
             </div>
@@ -101,6 +101,11 @@
                             <a href="/admin/users"><button type="button" class="btn btn-white w-100">Cancel</button></a>
                         </div>
                         <div class="col">
+                            <form action="/admin/users/forgot/{{ search_data.id }}" method="post">
+                                <button type="submit" class="btn w-100 disabled">User forgot password?</button>
+                            </form>
+                        </div>
+                        <div class="col">
                             <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#edit-confirmed">Save</button>
                         </div>
                     </div>
@@ -115,9 +120,9 @@
                 <div class="d-flex m-auto">
                     <button type="button" class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-usr">Edit user (username)</button>
                     <button type="button" class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-ema">Edit user (email)</button>
-                    <button type="button" class="btn m-2" data-bs-toggle="modal" data-bs-target="#sch-ip">Search user by IP</button>
-                    <button type="button" class="btn m-2">Silence user</button>
-                    <button type="button" class="btn m-2">Kick user from bancho</button>
+                    <button type="button" class="btn m-2 disabled" data-bs-toggle="modal" data-bs-target="#sch-ip">Search user by IP</button>
+                    <button type="button" class="btn m-2 disabled">Silence user</button>
+                    <button type="button" class="btn m-2 disabled">Kick user from bancho</button>
                 </div>
             </div>
             <div class="card-body border-bottom py-3">
@@ -156,7 +161,7 @@
                             <td>Developer</td>
                             <td>Yes</td>
                             <td>
-                                <button class="btn"><i class="far fa-edit" aria-hidden="true"></i></button>
+                                <button type="submit" class="btn" form="username" name="username" value="{{ i.username }}"><i class="far fa-edit" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                         {% endfor %}
