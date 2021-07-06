@@ -3,7 +3,6 @@
 __all__ = ()
 
 import datetime
-from quart.helpers import url_for
 
 import timeago
 from quart import Blueprint
@@ -62,13 +61,15 @@ async def users():
             header = i
         if header == 'username':
             username = (await request.form)['username']
-            search_data = await glob.db.fetchall(f'SELECT * FROM users WHERE name = "{ username }"')
+            search_data = await glob.db.fetch('SELECT id, name, email FROM users WHERE name = %s', [username])
+            glob.cache['search_data'] = search_data['id']
             if not search_data:
                 return await render_template('admin/users.html', query_data=query_data, search_data=search_data, error=error)
             return await render_template('admin/users.html', query_data=query_data, search_data=search_data)
         elif header == 'email':
             email = (await request.form)['email']
-            search_data = await glob.db.fetchall(f'SELECT * FROM users WHERE email = "{ email }"')
+            search_data = await glob.db.fetch('SELECT id, name, email FROM users WHERE email = %s', [email])
+            glob.cache['search_data'] = search_data['id']
             if not search_data:
                 return await render_template('admin/users.html', query_data=query_data, search_data=search_data, error=error)
             return await render_template('admin/users.html', query_data=query_data, search_data=search_data)
@@ -78,18 +79,17 @@ async def users():
 async def up_user():
     if request.method == 'POST':
         form = await request.form
-        for i in search_data:
-            id = i['id']
+        id = glob.cache['search_data']
         username = form['edit-username']
         email = form['edit-email']
         if not username and not email:
             return redirect('/admin/users')
         elif not username:
-            await glob.db.execute(f'UPDATE users SET email="{email}" WHERE id={id}')
+            await glob.db.execute('UPDATE users SET email=%s WHERE id = %s ', [email, id])
         elif not email:
-            await glob.db.execute(f'UPDATE users SET name="{username}", safe_name=LOWER("{username}") WHERE id={id}')
+            await glob.db.execute('UPDATE users SET name=%s, safe_name=LOWER(%s) WHERE id = %s', [username, username, id])
         else:
-            await glob.db.execute(f'UPDATE users SET name="{username}", safe_name=LOWER("{username}"), email="{email}" WHERE id={id}')
+            await glob.db.execute('UPDATE users SET name=%s, safe_name=LOWER(%s), email=%s WHERE id = %s', [username, username, email, id])
     return redirect('/admin/users')
 
 

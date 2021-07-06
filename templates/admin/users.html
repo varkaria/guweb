@@ -68,9 +68,8 @@
     </div>
     {% if search_data %}
     <div class="col-12">
-        {% for i in search_data %}
         <div class="card">
-            <div class="card-header">Edit info of {{ i.name }}</div>
+            <div class="card-header">Edit info of {{ search_data.name }}</div>
             <div class="card-body">
                 <form action="/admin/users/update" method="POST" id="edit-usr">
                     <label class="form-label">Username</label>
@@ -79,7 +78,7 @@
                             <span class="input-icon-addon">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="7" r="4"></circle><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path></svg>
                             </span>
-                            <input type="text" name="edit-username" class="form-control" placeholder="{{ i.name }}">
+                            <input type="text" name="edit-username" class="form-control" placeholder="{{ search_data.name }}">
                         </div>
                         <label class="form-label">Email</label>
                         <div class="input-icon mb-3">
@@ -90,7 +89,7 @@
                                     <polyline points="3 7 12 13 21 7" />
                                 </svg>
                             </span>
-                            <input type="text" name="edit-email" class="form-control" placeholder="{{ i.email }}">
+                            <input type="text" name="edit-email" class="form-control" placeholder="{{ search_data.email }}">
                         </div>
                     </div>
                 </form>
@@ -108,7 +107,6 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
     {% endif %}
     <div class="col-12">
