@@ -44,6 +44,7 @@ a:hover {
   border-spacing: 0 3px;
   border-collapse: separate;
   padding-bottom: 24px;
+  transition: 0.2s ease;
 }
 
 tr td {
@@ -244,4 +245,15 @@ table th {
   .banner-text {
     font-size: 36px;
   }
+}
+
+.player-flag {
+  display: inline-block;
+  background-size: 100%;
+  margin-right: 4px;
+  width: 30px;
+  height: 20px;
+  margin-bottom: -6px;
+  transition: 0.2s filter ease-out, 0.2s box-shadow ease-out;
+  border-radius: 2px;
 }

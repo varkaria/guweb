@@ -21,11 +21,13 @@ new Vue({
             },
             mode: mode,
             mods: mods,
+            modegulag : 0,
             userid: userid
         }
     },
     created() {
         // starting a page
+        this.modegulag = this.StrtoGulagInt()
         this.LoadProfileData()
         this.LoadAllofdata()
         this.LoadUserStatus()
@@ -35,32 +37,23 @@ new Vue({
             this.LoadMostBeatmaps()
             this.LoadScores('best')
             this.LoadScores('recent')
-            this.LoadGrades()
         },
         LoadProfileData() {
             this.data.load = false
-            this.$axios.get(`/gw_api/get_user_info`, {
+            this.$axios.get(`/api/get_player_info`, {
                 params: {id: this.userid, scope: 'all'}
             })
                 .then(res => {
-                    this.$set(this.data, 'stats', res.data.userdata)
+                    this.$set(this.data, 'stats', res.data.player.stats)
                     this.data.load = true
-                });
-        },
-        LoadGrades() {
-            this.$axios.get(`/gw_api/get_user_grade`, {
-                params: {id: this.userid, mode: this.mode, mods: this.mods}
-            })
-                .then(res => {
-                    this.$set(this.data, 'grades', res.data)
                 });
         },
         LoadScores(sort) {
             let type;
             if (sort == 'best') { type = 0 } else { type = 1 }
             this.$set(this.data.scores.load, type, true)
-            this.$axios.get(`/gw_api/get_player_scores`, {
-                params: {id: this.userid, mode: this.mode, mods: this.mods, sort: sort, limit: this.data.loadmore.limit[type]}
+            this.$axios.get(`/api/get_player_scores`, {
+                params: {id: this.userid, mode: this.StrtoModeInt(), mods: this.mods, scope: sort, limit: this.data.loadmore.limit[type]}
             })
                 .then(res => {
                     this.data.scores[sort] = res.data.scores;
@@ -71,8 +64,8 @@ new Vue({
         },
         LoadMostBeatmaps() {
             this.$set(this.data.scores.load, 2, true)
-            this.$axios.get(`/gw_api/get_player_most`, {
-                params: {id: this.userid, mode: this.mode, mods: this.mods, limit: this.data.loadmore.limit[2]}
+            this.$axios.get(`/api/get_player_most_played`, {
+                params: {id: this.userid, mode: this.StrtoModeInt(), mods: this.mods, limit: this.data.loadmore.limit[2]}
             })
                 .then(res => {
                     this.data.scores.most = res.data.maps;
@@ -98,6 +91,7 @@ new Vue({
         ChangeModeMods(mode, mods) {
             if (window.event) { window.event.preventDefault() }
             this.mode = mode; this.mods = mods;
+            this.modegulag = this.StrtoGulagInt()
             this.data.loadmore.limit = [5,5,6]
             this.LoadAllofdata()
         },
@@ -151,6 +145,25 @@ new Vue({
             var hDisplay = `${Math.floor(seconds % (3600 * 24) / 3600)}h `;
             var mDisplay = `${Math.floor(seconds % 3600 / 60)}m `;
             return dDisplay + hDisplay + mDisplay;
+        },
+        StrtoGulagInt() {
+            m = this.mode; e = this.mods
+            if (m == 'std' && e == 'vn') { return 0 }
+            else if (m == 'taiko' && e == 'vn') { return 1 }
+            else if (m == 'catch' && e == 'vn') { return 2 }
+            else if (m == 'mania' && e == 'vn') { return 3 }
+            else if (m == 'std' && e == 'rx') { return 4 }
+            else if (m == 'taiko' && e == 'rx') { return 5 }
+            else if (m == 'catch' && e == 'rx') { return 6 }
+            else if (m == 'std' && e == 'ap') { return 7 }
+            else { return -1 }
+        },
+        StrtoModeInt() {
+            m = this.mode; e = this.mods
+            if (m == 'std') { return 0 }
+            else if (m == 'taiko') { return 1 }
+            else if (m == 'catch') { return 2 }
+            else if (m == 'mania') { return 3 }
         },
     },
     computed: {
