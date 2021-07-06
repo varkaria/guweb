@@ -3,8 +3,6 @@
 __all__ = ()
 
 import datetime
-from quart.helpers import url_for
-
 import timeago
 from quart import Blueprint
 from quart import render_template
@@ -111,14 +109,28 @@ async def privilege():
 
 @admin.route('/beatmaps')
 async def beatmaps():
-    r = await glob.db.fetchall('SELECT COUNT(id) as `r` FROM maps WHERE `status`=2')
-    l = await glob.db.fetchall('SELECT COUNT(id) as `l` FROM maps WHERE `status`=5')
-    p = await glob.db.fetchall('SELECT COUNT(id) as `p` FROM maps WHERE `status`=0')
-    t = await glob.db.fetchall('SELECT COUNT(id) as `t` FROM maps')
-    data = {"ranked": r[0]['r'], "loved": l[0]['l'], "pending": p[0]['p'], "total": t[0]['t']}
-    #This needs to be moved to api
-    bmaps = await glob.db.fetchall(f'SELECT set_id, id AS `map_id`, status, artist, title, version AS `diff_name`, total_length AS length, creator, mode, cs, od, ar, hp, bpm, diff AS `stars` FROM maps ORDER BY id DESC LIMIT 10 OFFSET 0')
-    return await render_template('admin/beatmaps.html', data=data, bmap_query=bmaps)
+    query = await glob.db.fetch(
+        'SELECT (SELECT COUNT(id) as `r` FROM maps WHERE `status`= 2) AS `r`, '
+        '(SELECT COUNT(id) as `l` FROM maps WHERE `status`= 5) AS `l`, '
+        '(SELECT COUNT(id) as `p` FROM maps WHERE `status`= 0) AS `p`, '
+        '(SELECT COUNT(id) as `t` FROM maps) `t`'
+    )
+    counts = {
+        "ranked": query['r'], 
+        "loved": query['l'], 
+        "pending": query['p'], 
+        "total": query['t']
+    }
+    # This thing needs to be moved to API
+    beatmaps = await glob.db.fetchall(
+        'SELECT set_id, id AS `map_id`, status, '
+        'artist, title, version AS `diff_name`, '
+        'total_length AS length, creator, mode, '
+        'cs, od, ar, hp, bpm, diff AS `stars` '
+        'FROM maps ORDER BY id DESC '
+        'LIMIT 10 OFFSET 0'
+    )
+    return await render_template('admin/beatmaps.html', counts=counts, bmap_query=beatmaps)
 
 @admin.route('/badges')
 async def badges():

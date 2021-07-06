@@ -22,16 +22,16 @@
 <!-- Beatmap Number -->
 <div class="row row-deck row-cards">
     <div class="col-sm-6 col-lg-3">
-        {{ card(title='Total beatmaps in database', data=data['total'], chartname='total-beatmaps') }}
+        {{ card(title='Total beatmaps in database', data=counts['total'], chartname='total-beatmaps') }}
     </div>
     <div class="col-sm-6 col-lg-3">
-        {{ card(title='Total ranked beatmaps', data=data['ranked'], chartname='ranked-beatmaps') }}
+        {{ card(title='Total ranked beatmaps', data=counts['ranked'], chartname='ranked-beatmaps') }}
     </div>
     <div class="col-sm-6 col-lg-3">
-        {{ card(title='Total loved beatmaps', data=data['loved'], chartname='loved-beatmaps') }}
+        {{ card(title='Total loved beatmaps', data=counts['loved'], chartname='loved-beatmaps') }}
     </div>
     <div class="col-sm-6 col-lg-3">
-        {{ card(title='Total Pending beatmaps', data=data['pending'], chartname='pending-beatmaps') }}
+        {{ card(title='Total Pending beatmaps', data=counts['pending'], chartname='pending-beatmaps') }}
     </div>
     <!-- Beatmap list -->
     <div class="card-body border-bottom py-3">
