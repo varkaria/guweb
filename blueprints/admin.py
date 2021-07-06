@@ -55,7 +55,6 @@ async def users():
     query_data = await glob.db.fetchall('SELECT name AS `username`, id FROM users ORDER BY id')
 
     if request.method == 'POST':
-        global search_data
         error = 'User not found!'
         for i in await request.values:
             header = i
@@ -91,7 +90,6 @@ async def up_user():
         else:
             await glob.db.execute('UPDATE users SET name=%s, safe_name=LOWER(%s), email=%s WHERE id = %s', [username, username, email, id])
     return redirect('/admin/users')
-
 
 @admin.route('/reports')
 async def reports():
