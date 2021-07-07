@@ -2,8 +2,11 @@
 
 __all__ = ()
 
+<<<<<<< Updated upstream
 import datetime
 import timeago
+=======
+>>>>>>> Stashed changes
 import json
 from quart import Blueprint
 from quart import render_template
@@ -54,6 +57,7 @@ async def home():
 
 @admin.route('/users', methods=['GET','POST'])
 async def users():
+<<<<<<< Updated upstream
 
     query_data = await glob.db.fetchall('SELECT name AS `username`, id, country FROM users ORDER BY id')
 
@@ -78,6 +82,8 @@ async def users():
 
 @admin.route('/users/update', methods=['GET', 'POST'])
 async def up_user():
+=======
+>>>>>>> Stashed changes
     if request.method == 'POST':
         try:
             try:
@@ -110,6 +116,7 @@ async def users_update(id:int):
     
     await varka.update('users', ('id', id), **dict_cmp(data, datadef))
     return redirect('/admin/users')
+<<<<<<< Updated upstream
 
 @admin.route('/reports')
 async def reports():
@@ -123,6 +130,21 @@ async def recentplay():
 async def restrictions():
     return await render_template('admin/restrictions.html')
 
+=======
+
+@admin.route('/reports')
+async def reports():
+    return await render_template('admin/reports.html')
+
+@admin.route('/recentplay')
+async def recentplay():
+    return await render_template('admin/recentplay.html')
+
+@admin.route('/restrictions')
+async def restrictions():
+    return await render_template('admin/restrictions.html')
+
+>>>>>>> Stashed changes
 @admin.route('/privilege')
 async def privilege():
     return await render_template('admin/privilege.html')
@@ -134,6 +156,7 @@ async def beatmaps():
         '(SELECT COUNT(id) as `l` FROM maps WHERE `status`= 5) AS `l`, '
         '(SELECT COUNT(id) as `p` FROM maps WHERE `status`= 0) AS `p`, '
         '(SELECT COUNT(id) as `t` FROM maps) `t`'
+<<<<<<< Updated upstream
     )
     counts = {
         "ranked": query['r'], 
@@ -150,6 +173,24 @@ async def beatmaps():
         'FROM maps ORDER BY id DESC '
         'LIMIT 10 OFFSET 0'
     )
+=======
+    )
+    counts = {
+        "ranked": query['r'], 
+        "loved": query['l'], 
+        "pending": query['p'], 
+        "total": query['t']
+    }
+    # This thing needs to be moved to API
+    beatmaps = await glob.db.fetchall(
+        'SELECT set_id, id AS `map_id`, status, '
+        'artist, title, version AS `diff_name`, '
+        'total_length AS length, creator, mode, '
+        'cs, od, ar, hp, bpm, ROUND(diff, 2) AS `stars` '
+        'FROM maps ORDER BY id DESC '
+        'LIMIT 10 OFFSET 0'
+    )
+>>>>>>> Stashed changes
     return await render_template('admin/beatmaps.html', counts=counts, bmap_query=beatmaps)
 
 @admin.route('/badges')
@@ -158,4 +199,29 @@ async def badges():
 
 @admin.route('/logs')
 async def logs():
+<<<<<<< Updated upstream
     return await render_template('admin/log.html')
+=======
+    query_data = await glob.db.fetchall('SELECT * FROM logs ORDER BY id DESC LIMIT 25 OFFSET 0') #Preset offset for 'show more' button
+    lc = await glob.db.fetchall('SELECT COUNT(id) AS `n` FROM logs')
+    #Reassign stuff to make it look clean
+    userdata = []
+    for i in query_data:
+        mod = await glob.db.fetch(f'SELECT name, country FROM users WHERE id={i["from"]}')
+        user = await glob.db.fetch(f'SELECT name, country FROM users WHERE id={i["to"]}')
+        fdata = {
+            'logcount': str(lc[0]['n']),
+            'action_id': i['id'],
+            'u1_name': mod['name'],
+            'u1_id': i['from'],
+            'u1_country': mod['country'],
+            'u2_name': user['name'],
+            'u2_id': i['to'],
+            'u2_country': user['country'],
+            'time': i['time'],
+            'msg': i['msg'],
+        }
+        userdata.append(fdata)
+    print("\n", userdata, "\n")
+    return await render_template('admin/log.html', query_data=userdata)
+>>>>>>> Stashed changes
