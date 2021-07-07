@@ -103,7 +103,28 @@ async def privilege():
 
 @admin.route('/beatmaps')
 async def beatmaps():
-    return await render_template('admin/beatmaps.html')
+    query = await glob.db.fetch(
+        'SELECT (SELECT COUNT(id) as `r` FROM maps WHERE `status`= 2) AS `r`, '
+        '(SELECT COUNT(id) as `l` FROM maps WHERE `status`= 5) AS `l`, '
+        '(SELECT COUNT(id) as `p` FROM maps WHERE `status`= 0) AS `p`, '
+        '(SELECT COUNT(id) as `t` FROM maps) `t`'
+    )
+    counts = {
+        "ranked": query['r'], 
+        "loved": query['l'], 
+        "pending": query['p'], 
+        "total": query['t']
+    }
+    # This thing needs to be moved to API
+    beatmaps = await glob.db.fetchall(
+        'SELECT set_id, id AS `map_id`, status, '
+        'artist, title, version AS `diff_name`, '
+        'total_length AS length, creator, mode, '
+        'cs, od, ar, hp, bpm, ROUND(diff, 2) AS `stars` '
+        'FROM maps ORDER BY id DESC '
+        'LIMIT 10 OFFSET 0'
+    )
+    return await render_template('admin/beatmaps.html', counts=counts, bmap_query=beatmaps)
 
 @admin.route('/badges')
 async def badges():
@@ -111,4 +132,25 @@ async def badges():
 
 @admin.route('/logs')
 async def logs():
-    return await render_template('admin/log.html')
+    query_data = await glob.db.fetchall('SELECT * FROM logs ORDER BY id DESC LIMIT 25 OFFSET 0') #Preset offset for 'show more' button
+    lc = await glob.db.fetchall('SELECT COUNT(id) AS `n` FROM logs')
+    #Reassign stuff to make it look clean
+    userdata = []
+    for i in query_data:
+        mod = await glob.db.fetch(f'SELECT name, country FROM users WHERE id={i["from"]}')
+        user = await glob.db.fetch(f'SELECT name, country FROM users WHERE id={i["to"]}')
+        fdata = {
+            'logcount': str(lc[0]['n']),
+            'action_id': i['id'],
+            'u1_name': mod['name'],
+            'u1_id': i['from'],
+            'u1_country': mod['country'],
+            'u2_name': user['name'],
+            'u2_id': i['to'],
+            'u2_country': user['country'],
+            'time': i['time'],
+            'msg': i['msg'],
+        }
+        userdata.append(fdata)
+    print("\n", userdata, "\n")
+    return await render_template('admin/log.html', query_data=userdata)
