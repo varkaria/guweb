@@ -53,7 +53,7 @@ new Vue({
             if (sort == 'best') { type = 0 } else { type = 1 }
             this.$set(this.data.scores.load, type, true)
             this.$axios.get(`/api/get_player_scores`, {
-                params: {id: this.userid, mode: this.StrtoModeInt(), mods: this.mods, scope: sort, limit: this.data.loadmore.limit[type]}
+                params: {id: this.userid, mode: this.StrtoGulagInt(), scope: sort, limit: this.data.loadmore.limit[type]}
             })
                 .then(res => {
                     this.data.scores[sort] = res.data.scores;
@@ -65,7 +65,7 @@ new Vue({
         LoadMostBeatmaps() {
             this.$set(this.data.scores.load, 2, true)
             this.$axios.get(`/api/get_player_most_played`, {
-                params: {id: this.userid, mode: this.StrtoModeInt(), mods: this.mods, limit: this.data.loadmore.limit[2]}
+                params: {id: this.userid, mode: this.StrtoGulagInt(), limit: this.data.loadmore.limit[2]}
             })
                 .then(res => {
                     this.data.scores.most = res.data.maps;
