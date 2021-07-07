@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="app">
+<div id="app" :class="(load ? 'load' : '')">
     <div class="leaderboard-banner main-banner">
         <div class="main-selector">
             <a :href="'/lb/osu/'+sort+'/'+mods" :class="'mode-select '+(mode == 'std' ? '--selected ' : '')"
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div :class="'main-block ' + (load ? 'load' : '')">
+    <div class="main-block">
         <div class="leaderboard-main-bg table-responsive">
             <div v-if="boards.length != undefined && boards.length != 0">
                 <table class="leaderboard-table table-responsive">
