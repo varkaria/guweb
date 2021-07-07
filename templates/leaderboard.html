@@ -58,10 +58,10 @@
             </div>
         </div>
     </div>
-    <div class="main-block">
+    <div :class="'main-block ' + (load ? 'load' : '')">
         <div class="leaderboard-main-bg table-responsive">
-            <div v-if="boards.length !== undefined">
-                <table :class="'leaderboard-table table-responsive ' + (load ? 'load' : '')">
+            <div v-if="boards.length != undefined && boards.length != 0">
+                <table class="leaderboard-table table-responsive">
                     <thead>
                         <tr>
                             <th class="t-heading"> </th>

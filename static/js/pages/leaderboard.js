@@ -26,7 +26,8 @@ new Vue({
             this.$set(this, 'sort', sort);this.$set(this, 'load', true)
             this.$axios.get(`/api/get_leaderboard`, { params: {
                 mode: this.StrtoGulagInt(), sort: this.sort
-            }}).then(res => {this.$set(this, 'boards', res.data.leaderboard);this.$set(this, 'load', false)});
+            }}).then(res => {this.boards = res.data.leaderboard;this.$set(this, 'load', false)
+        });
         },
         scoreFormat(score){
             var addCommas = this.addCommas;
