@@ -7,6 +7,7 @@ from quart import render_template
 from quart import session
 from quart import request
 from quart import redirect
+from quart import jsonify
 
 from objects import glob
 from objects.utils import flash
@@ -148,3 +149,13 @@ async def logs():
         userdata.append(fdata)
     print("\n", userdata, "\n")
     return await render_template('admin/log.html', query_data=userdata)
+
+@admin.route('/api/search')
+async def search_api():
+    s = request.args.get('search', type=str)
+    res = await varka.get_users(search=s)
+    return jsonify(res)
+
+@admin.route('/search')
+async def search():
+    return await render_template('admin/search.html')

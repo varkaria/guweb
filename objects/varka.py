@@ -2,10 +2,22 @@ from objects import glob
 from quart import jsonify
 import json
 
-async def get_users(limit:int=25):
+async def get_users(limit:int=25, search:str=None):
     """Returns the all of a users."""
-    query = (f'SELECT * FROM users ORDER BY id DESC LIMIT {limit}')
-    res = await glob.db.fetchall(query)
+    query = ['SELECT * FROM users']
+    args = []
+
+    if search:
+        query.append("WHERE `name` LIKE %s")
+        args.append(f'{search}%')
+        query.append("OR `email` LIKE %s")
+        args.append(f'{search}%')
+
+    query.append(f'ORDER BY id DESC LIMIT %s')
+    args.append(limit)
+    
+    query = ' '.join(query)
+    res = await glob.db.fetchall(query, args)
     return res
 
 async def get_user(id:int):
