@@ -50,8 +50,21 @@ async def home():
 
     return await render_template('admin/home.html', data=data)
 
-@admin.route('/users')
+@admin.route('/users', methods=['GET','POST'])
 async def users():
+    if request.method == 'POST':
+        try:
+            try:
+                username = (await request.form)['username']
+                id = (await varka.get_user_username(username))['id']
+                return redirect(f'/admin/users/edit/{id}')
+            except:
+                email = (await request.form)['email']
+                id = (await varka.get_user_email(email))['id']
+                return redirect(f'/admin/users/edit/{id}')
+        except:
+            error = 'User not found!'
+            return await render_template('admin/users.html', query_data=await varka.get_users(), error=error)
     return await render_template('admin/users.html', query_data=await varka.get_users())
 
 @admin.route('/users/edit/<id>')

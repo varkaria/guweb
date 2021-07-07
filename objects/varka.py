@@ -14,6 +14,16 @@ async def get_user(id:int):
     res = await glob.db.fetch(query)
     return res
 
+async def get_user_username(username:str):
+    query = (f'SELECT id from users WHERE name="{username}"')
+    res = await glob.db.fetch(query)
+    return res
+
+async def get_user_email(email:str):
+    query = (f'SELECT id from users WHERE email="{email}"')
+    res = await glob.db.fetch(query)
+    return res
+
 async def get_scores(limit:int=25):
     """Returns the all of a scores."""
     query = (
