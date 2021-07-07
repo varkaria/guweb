@@ -81,7 +81,7 @@
                             </td>
                             <td class="column-player-name text-left">
                                 <a :title="flags[user.country]"
-                                    :style="'background-image: url(/static/images/flags/'+user.country+'.png)'"
+                                    :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
                                     class="player-flag">
                                     <div class="flag-dropdown">
                                         <% flags[user.country] %>
