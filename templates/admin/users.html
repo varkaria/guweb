@@ -37,8 +37,9 @@
                             <button type="button" class="btn btn-white w-100" data-bs-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col">
-                            <button type="submit" id="del-submit" form="{{ name }}" class="btn btn-primary w-100">Edit</button>
-                        </div>   
+                            <button type="submit" id="del-submit" form="{{ name }}"
+                                class="btn btn-primary w-100">Edit</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,61 +67,16 @@
     <div class="col-sm-6 col-lg-3">
         {{ card(title='Premium users',data=727) }}
     </div>
-    {% if search_data %}
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">Edit info of {{ search_data.name }}</div>
-            <div class="card-body">
-                <form action="/admin/users/update" method="POST" id="edit-usr">
-                    <label class="form-label">Username</label>
-                    <div>
-                        <div class="input-icon mb-3">
-                            <span class="input-icon-addon">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="7" r="4"></circle><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path></svg>
-                            </span>
-                            <input type="text" name="edit-username" class="form-control" placeholder="{{ search_data.name }}">
-                        </div>
-                        <label class="form-label">Email</label>
-                        <div class="input-icon mb-3">
-                            <span class="input-icon-addon">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                                    <polyline points="3 7 12 13 21 7" />
-                                </svg>
-                            </span>
-                            <input type="text" name="edit-email" class="form-control" placeholder="{{ search_data.email }}">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="w-100">
-                    <div class="row">
-                        <div class="col">
-                            <a href="/admin/users"><button type="button" class="btn btn-white w-100">Cancel</button></a>
-                        </div>
-                        <div class="col">
-                            <form action="/admin/users/forgot/{{ search_data.id }}" method="post">
-                                <button type="submit" class="btn w-100 disabled">User forgot password?</button>
-                            </form>
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#edit-confirmed">Save</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
     <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <div class="d-flex m-auto">
-                    <button type="button" class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-usr">Edit user (username)</button>
-                    <button type="button" class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-ema">Edit user (email)</button>
-                    <button type="button" class="btn m-2 disabled" data-bs-toggle="modal" data-bs-target="#sch-ip">Search user by IP</button>
+                    <button type="button" class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-usr">Edit user
+                        (username)</button>
+                    <button type="button" class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-ema">Edit user
+                        (email)</button>
+                    <button type="button" class="btn m-2 disabled" data-bs-toggle="modal"
+                        data-bs-target="#sch-ip">Search user by IP</button>
                     <button type="button" class="btn m-2 disabled">Silence user</button>
                     <button type="button" class="btn m-2 disabled">Kick user from bancho</button>
                 </div>
@@ -130,7 +86,8 @@
                     <div class="text-muted">
                         Show
                         <div class="mx-2 d-inline-block">
-                            <input type="text" class="form-control form-control-sm" value="8" size="3" aria-label="Users count">
+                            <input type="text" class="form-control form-control-sm" value="8" size="3"
+                                aria-label="Users count">
                         </div>
                         entries
                     </div>
@@ -149,7 +106,6 @@
                             <th>ID</th>
                             <th>Username</th>
                             <th>Privilege groups</th>
-                            <th>Allowed</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -157,11 +113,12 @@
                         {% for i in query_data %}
                         <tr>
                             <td>{{ i.id }}</td>
-                            <td>{{ i.username }}</td>
-                            <td>Developer</td>
+                            <td class="td-truncate">{{ i.name }}</td>
                             <td>Yes</td>
                             <td>
-                                <button type="submit" class="btn" form="username" name="username" value="{{ i.username }}"><i class="far fa-edit" aria-hidden="true"></i></button>
+                                <a class="btn" href="/admin/users/edit/{{ i.id }}">
+                                    <i class="far fa-edit" aria-hidden="true"></i> Edit
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -172,19 +129,27 @@
                 <ul class="pagination m-0 m-auto">
                     <li class="page-item">
                         <a class="page-link" href="#" tabindex="-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="15 6 9 12 15 18"></polyline></svg>
-                            prev
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <polyline points="15 6 9 12 15 18"></polyline>
+                            </svg>
                         </a>
                     </li>
                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li> 
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
                     <li class="page-item">
                         <a class="page-link" href="#">
-                            next
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="9 6 15 12 9 18"></polyline></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <polyline points="9 6 15 12 9 18"></polyline>
+                            </svg>
                         </a>
                     </li>
                 </ul>
@@ -194,33 +159,8 @@
 </div>
 
 {{ modal(title='Username', id="edi-usr-usr", name='username') }}
-
 {{ modal(title='Email', id="edi-usr-ema", name='email') }}
-
 {{ modal(title='IP', id="sch-ip", name='ip') }}
-
-<div class="modal modal-blur fade" id="edit-confirmed" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-header text-center">
-                <h1>Confirmed?</h1>
-            </div>
-            <div class="modal-body text-start pt-4">
-                <div class="w-100">
-                    <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-white w-100" data-bs-dismiss="modal">No</button>
-                        </div>
-                        <div class="col">
-                            <button type="submit" form="edit-usr" class="btn btn-danger w-100">Yes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 {% endblock %}
 
