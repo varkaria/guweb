@@ -1,0 +1,90 @@
+{% extends 'admin/base.html' %}
+{% block title %} Users {% endblock %}
+
+{% block content %}
+{% if error %}
+<div class="alert alert-danger col-lg-3" role="alert" style="display: block; position: relative; margin-top: -3.5rem;">
+    <h4 class="alert-title">{{ error }}</h4>
+</div>
+{% endif %}
+<div class="row row-deck row-cards">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">Edit info of {{ search_data['name'] }}</div>
+            <div class="card-body">
+                <form action="/admin/users/update/{{ search_data['id'] }}" method="POST" id="edit-usr">
+                    <label class="form-label">Username</label>
+                    <div>
+                        <div class="input-icon mb-3">
+                            <span class="input-icon-addon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                </svg>
+                            </span>
+                            <input type="text" name="edit-username" class="form-control" value="{{ search_data.name }}">
+                        </div>
+                        <label class="form-label">Email</label>
+                        <div class="input-icon mb-3">
+                            <span class="input-icon-addon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#2c3e50"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="noneW" />
+                                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                                    <polyline points="3 7 12 13 21 7" />
+                                </svg>
+                            </span>
+                            <input type="text" name="edit-email" class="form-control" value="{{ search_data.email }}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col">
+                            <a href="/admin/users"><button type="button" class="btn btn-white w-100">Cancel</button></a>
+                        </div>
+                        <div class="col">
+                            <form action="/admin/users/forgot/{{ search_data.id }}" method="post">
+                                <button type="submit" class="btn w-100 disabled">User forgot password?</button>
+                            </form>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal"
+                                data-bs-target="#edit-confirmed">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-blur fade" id="edit-confirmed" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header text-center">
+                Are you sure to modify this user?
+            </div>
+            <div class="modal-body text-start pt-4">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-white w-100" data-bs-dismiss="modal">No</button>
+                        </div>
+                        <div class="col">
+                            <button type="submit" form="edit-usr" class="btn btn-danger w-100">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
