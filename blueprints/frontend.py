@@ -519,11 +519,13 @@ async def register_post():
     )
 
     # add to `stats` table.
-    await glob.db.execute(
-        'INSERT INTO stats '
-        '(id) VALUES (%s)',
-        [user_id]
-    )
+    for mode in range(8):
+        await glob.db.execute(
+            'INSERT INTO stats '
+            '(id, mode) VALUES (%s, %s)',
+            [user_id, mode]
+        )
+
     # (end of lock)
 
     if glob.config.debug:
