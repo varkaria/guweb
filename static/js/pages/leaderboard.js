@@ -3,6 +3,7 @@ new Vue({
     delimiters: ["<%", "%>"],
     data() {
         return {
+            flags: window.flags,
             boards : {},
             mode : 'std',
             mods : 'vn',

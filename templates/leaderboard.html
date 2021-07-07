@@ -80,11 +80,11 @@
                             <td class="column-player-rank">#<% index + 1 %>
                             </td>
                             <td class="column-player-name text-left">
-                                <a :title="flags[user.country]"
+                                <a :title="flags[user.country.toUpperCase()]"
                                     :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
                                     class="player-flag">
                                     <div class="flag-dropdown">
-                                        <% flags[user.country] %>
+                                        <% flags[user.country.toUpperCase()] %>
                                     </div>
                                 </a>
                                 <a :href="'/u/'+user.player_id">
@@ -117,6 +117,6 @@
     </div>
 </div>
 
-<script src="/static/js/pages/leaderboard.js"></script>
 <script src="/static/js/asserts/vue-flags.js"></script>
+<script src="/static/js/pages/leaderboard.js"></script>
 {% endblock %}
