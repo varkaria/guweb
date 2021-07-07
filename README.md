@@ -1,3 +1,7 @@
+Warning
+------
+Don't use this branch for production. There's a lot of bugs or something unfinished so you should wait for this branch merge in main would be better. I told you : )
+
 Table of Contents
 ==================
 - [Table of Contents](#table-of-contents)
