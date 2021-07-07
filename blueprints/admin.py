@@ -136,19 +136,14 @@ async def logs():
     #Reassign stuff to make it look clean
     userdata = []
     for i in query_data:
-        mod = await glob.db.fetch(f'SELECT name, country FROM users WHERE id={i["from"]}')
-        user = await glob.db.fetch(f'SELECT name, country FROM users WHERE id={i["to"]}')
+        mod = await glob.db.fetch('SELECT name, country FROM users WHERE id=%s', (i['from']))
+        user = await glob.db.fetch('SELECT name, country FROM users WHERE id=%s', (i['to']))
         fdata = {
-            'logcount': str(lc[0]['n']),
-            'action_id': i['id'],
-            'u1_name': mod['name'],
-            'u1_id': i['from'],
-            'u1_country': mod['country'],
-            'u2_name': user['name'],
-            'u2_id': i['to'],
-            'u2_country': user['country'],
-            'time': i['time'],
-            'msg': i['msg'],
+            'logcount': str(lc[0]['n']), 'action_id': i['id'],
+            'u1_name': mod['name'], 'u1_id': i['from'],
+            'u1_country': mod['country'], 'u2_name': user['name'],
+            'u2_id': i['to'], 'u2_country': user['country'],
+            'time': i['time'], 'msg': i['msg'],
         }
         userdata.append(fdata)
     print("\n", userdata, "\n")
