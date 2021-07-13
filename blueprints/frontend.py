@@ -153,7 +153,7 @@ async def settings_avatar_post():
     for fx in ALLOWED_EXTENSIONS:
         if os.path.isfile(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}'): # Checking file e
             os.remove(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}')
-    
+
     # avatar cropping to 1:1
     pilavatar = Image.open(avatar.stream)
 
@@ -173,35 +173,35 @@ async def settings_custom_post():
     banner = (await request.files).get('banner')
     background = (await request.files).get('background')
     ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png', '.gif']
-    
+
     # no file uploaded; deny post
     if banner is None and background is None:
         return await flash_custom('error', 'No image was selected!', 'settings/custom')
-    
+
     if banner is not None and banner.filename:
         filename, file_extension = os.path.splitext(banner.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
             return await flash_custom('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
-        
+
         # remove old picture
         for fx in ALLOWED_EXTENSIONS:
             if os.path.isfile(f'.data/profbanner/{session["user_data"]["id"]}{fx}'): # Checking file e
                 os.remove(f'.data/profbanner/{session["user_data"]["id"]}{fx}')
-                
+
         await banner.save(os.path.join(f'.data/profbanner', f'{session["user_data"]["id"]}{file_extension.lower()}'))
-        
+
     if background is not None and background.filename:
         filename, file_extension = os.path.splitext(background.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
             return await flash_custom('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
-        
+
         # remove old picture
         for fx in ALLOWED_EXTENSIONS:
             if os.path.isfile(f'.data/profbackground/{session["user_data"]["id"]}{fx}'): # Checking file e
                 os.remove(f'.data/profbackground/{session["user_data"]["id"]}{fx}')
-                
+
         await background.save(os.path.join(f'.data/profbackground', f'{session["user_data"]["id"]}{file_extension.lower()}'))
-    
+
     return await flash_custom('success', 'Your customisation has been successfully changed!', 'settings/custom')
 
 
@@ -587,7 +587,7 @@ async def get_profile_banner(uid:int):
             break
         else:
             e = False
-    
+
     if e == False: return '{ "status": 404 }'
     return await send_file("{}/{}.{}".format('.data/profbanner', uid, e))
 

@@ -75,8 +75,8 @@ new Vue({
                 });
         },
         LoadUserStatus() {
-            this.$axios.get(`/api/get_player_status`, { 
-                // sry cmyui but i didn't have some gulag setup rn 
+            this.$axios.get(`/api/get_player_status`, {
+                // sry cmyui but i didn't have some gulag setup rn
                 params: {id: this.userid}
             })
                 .then(res => {
