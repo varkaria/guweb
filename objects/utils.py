@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from typing import Optional
+from typing import TYPE_CHECKING
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
@@ -11,13 +12,22 @@ from pathlib import Path
 from objects import glob
 from objects import utils
 
-async def flash(status, msg, template):
+if TYPE_CHECKING:
+    from PIL import Image
+
+async def flash(status: str, msg: str, template: str) -> str:
     """Flashes a success/error message on a specified template."""
     return await render_template(f'{template}.html', flash=msg, status=status)
 
-async def flash_custom(status, msg, template):
+async def flash_with_customizations(status: str, msg: str, template: str) -> str:
     """Flashes a success/error message on a specified template. (for customisation settings)"""
-    return await render_template(f'{template}.html', flash=msg, status=status, current=utils.CheckCustomiseProfile(session['user_data']['id']))
+    profile_customizations = utils.has_profile_customizations(session['user_data']['id'])
+    return await render_template(
+        template_name_or_list=f'{template}.html',
+        flash=msg,
+        status=status,
+        customizations=profile_customizations
+    )
 
 def get_safe_name(name: str) -> str:
     """Returns the safe version of a username."""
@@ -115,28 +125,29 @@ def getLevel(totalScore):
 
 BANNERS_PATH = Path.cwd() / '.data/profbanner'
 BACKGROUND_PATH = Path.cwd() / '.data/profbackground'
-def CheckCustomiseProfile(uid=0):
+def has_profile_customizations(uid: int = 0) -> dict[str, bool]:
+    # check for custom banner image file
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
         path = BANNERS_PATH / f'{uid}.{ext}'
-        if path.exists():
-            b = True
+        if has_custom_banner := path.exists():
             break
-        else:
-            b = False
+
+    # check for custom background image file
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
         path = BACKGROUND_PATH / f'{uid}.{ext}'
-        if path.exists():
-            g = True
+        if has_custom_background := path.exists():
             break
-        else:
-            g = False
-    return {'banner' : b, 'background': g}
 
-def crop_image(image):
+    return {
+        'banner' : has_custom_banner,
+        'background': has_custom_background
+    }
+
+def crop_image(image: 'Image') -> 'Image':
     width, height = image.size
     if width == height:
         return image
-    offset  = int(abs(height-width)/2)
+    offset = int(abs(height-width) / 2)
     if width>height:
         image = image.crop([offset,0,width-offset,height])
     else:

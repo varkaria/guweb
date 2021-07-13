@@ -41,8 +41,8 @@
             </div>
             <transition name="click">
                 <div class="online-infomation" v-if='data.status.online == true'
-                    :key="ActionIntToStr(data.status.status)">
-                    <% ActionIntToStr(data.status.status) %>
+                    :key="actionIntToStr(data.status.status)">
+                    <% actionIntToStr(data.status.status) %>
                 </div>
             </transition>
         </div>

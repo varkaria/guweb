@@ -17,13 +17,11 @@ from quart import session
 from quart import send_file
 from pathlib import Path
 
-from quart.helpers import url_for
-
 from constants import regexes
 from objects import glob
 from objects import utils
 from objects.privileges import Privileges
-from objects.utils import flash, flash_custom
+from objects.utils import flash, flash_with_customizations
 from PIL import Image
 from functools import wraps
 
@@ -35,7 +33,7 @@ frontend = Blueprint('frontend', __name__)
 def login_required(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
-        if session == {}:
+        if not session:
             return await flash('error', 'You must be logged in to access that page', 'login')
         return await func(*args, **kwargs)
     return wrapper
@@ -165,7 +163,8 @@ async def settings_avatar_post():
 @frontend.route('/settings/custom')
 @login_required
 async def settings_custom():
-    return await render_template('settings/custom.html', current=utils.CheckCustomiseProfile(session['user_data']['id']))
+    profile_customizations = utils.has_profile_customizations(session['user_data']['id'])
+    return await render_template('settings/custom.html', customizations=profile_customizations)
 
 @frontend.route('/settings/custom', methods=['POST']) # POST
 @login_required
@@ -176,12 +175,12 @@ async def settings_custom_post():
 
     # no file uploaded; deny post
     if banner is None and background is None:
-        return await flash_custom('error', 'No image was selected!', 'settings/custom')
+        return await flash_with_customizations('error', 'No image was selected!', 'settings/custom')
 
     if banner is not None and banner.filename:
         filename, file_extension = os.path.splitext(banner.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
-            return await flash_custom('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
+            return await flash_with_customizations('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
         # remove old picture
         for fx in ALLOWED_EXTENSIONS:
@@ -193,7 +192,7 @@ async def settings_custom_post():
     if background is not None and background.filename:
         filename, file_extension = os.path.splitext(background.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
-            return await flash_custom('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
+            return await flash_with_customizations('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
         # remove old picture
         for fx in ALLOWED_EXTENSIONS:
@@ -202,7 +201,7 @@ async def settings_custom_post():
 
         await background.save(os.path.join(f'.data/profbackground', f'{session["user_data"]["id"]}{file_extension.lower()}'))
 
-    return await flash_custom('success', 'Your customisation has been successfully changed!', 'settings/custom')
+    return await flash_with_customizations('success', 'Your customisation has been successfully changed!', 'settings/custom')
 
 
 @frontend.route('/settings/password')
@@ -293,31 +292,29 @@ async def profile(id):
     # make sure mode & mods are valid args
     if mode is not None:
         if mode not in VALID_MODES:
-            return await render_template('404.html'), 404
+            return (await render_template('404.html'), 404)
     else:
         mode = 'std'
 
     if mods is not None:
         if mods not in VALID_MODS:
-            return await render_template('404.html'), 404
+            return (await render_template('404.html'), 404)
     else:
         mods = 'vn'
 
     user_data = await glob.db.fetch(
         'SELECT name, id, priv, country '
         'FROM users '
-        'WHERE id = %s OR safe_name = %s',
-        [id, utils.get_safe_name(id)]
-        # ^ allow lookup from both
-        #   id and username (safe)
+        'WHERE id = %s',
+        [id]
     )
 
     # user is banned and we're not staff; render 404
     is_staff = 'authenticated' in session and session['user_data']['is_staff']
     if not user_data or not (user_data['priv'] & Privileges.Normal or is_staff):
-        return await render_template('404.html'), 404
+        return (await render_template('404.html'), 404)
 
-    user_data['customisation'] = utils.CheckCustomiseProfile(id)
+    user_data['customisation'] = utils.has_profile_customizations(id)
 
     return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
 
@@ -340,7 +337,8 @@ async def login_post():
     if 'authenticated' in session:
         return await flash('error', "You're already logged in!", 'home')
 
-    login_time = time.time_ns() if glob.config.debug else 0
+    if glob.config.debug:
+        login_time = time.time_ns()
 
     form = await request.form
     username = form.get('username', type=str)
@@ -585,13 +583,10 @@ async def get_profile_banner(uid:int):
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
         path = BANNERS_PATH / f'{uid}.{ext}'
         if path.exists():
-            e = ext
-            break
-        else:
-            e = False
+            return await send_file(f'.data/profbanner/{uid}.{ext}')
 
-    if e == False: return '{ "status": 404 }'
-    return await send_file("{}/{}.{}".format('.data/profbanner', uid, e))
+    return b'{"status":404}'
+
 
 @frontend.route('/profbackground/<uid>')
 async def get_profile_background(uid:int):
@@ -599,10 +594,6 @@ async def get_profile_background(uid:int):
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
         path = BACKGROUND_PATH / f'{uid}.{ext}'
         if path.exists():
-            e = ext
-            break
-        else:
-            e = False
+            return await send_file(f'.data/profbackground/{uid}.{ext}')
 
-    if e == False: return '{ "status": 404 }'
-    return await send_file("{}/{}.{}".format('.data/profbackground', uid, e))
+    return b'{"status":404}'

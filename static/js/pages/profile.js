@@ -112,21 +112,24 @@ new Vue({
                 this.LoadMostBeatmaps()
             }
         },
-        ActionIntToStr(d) {
-            if (d.action == 0) {return 'Idle: 🔍 Selecting a song'}
-            else if (d.action == 1) {return 'Idle: 🌙 AFK'}
-            else if (d.action == 2) {return 'Playing: 🎶 '+ d.info_text}
-            else if (d.action == 3) {return 'Editing: 🔨 '+ d.info_text}
-            else if (d.action == 4) {return 'Modding: 🔨 '+ d.info_text}
-            else if (d.action == 5) {return 'In Multiplayer: Selecting 🏯 ' + d.info_text + ' ⛔️'}
-            else if (d.action == 12) {return 'In Multiplayer: Playing 🌍 '+ d.info_text + ' 🎶'}
-            else if (d.action == 6) {return 'Watching: 👓 '+ d.info_text}
-            else if (d.action == 8) {return 'Testing: 🎾 '+ d.info_text}
-            else if (d.action == 9) {return 'Submitting: 🧼 '+ d.info_text}
-            else if (d.action == 10) {return 'Paused: 🚫 '+ d.info_text}
-            else if (d.action == 11) {return 'Idle: 🏢 In multiplayer lobby'}
-            else if (d.action == 13) {return 'Idle: 🫒 Downloading some beatmaps in osu!direct'}
-            else {return 'Unknown: 🚔 not yet implemented!'}
+        actionIntToStr(d) {
+            switch (d.action) {
+                case 0: return 'Idle: 🔍 Selecting a song';
+                case 1: return 'Idle: 🌙 AFK';
+                case 2: return `Playing: 🎶 ${d.info_text}`;
+                case 3: return `Editing: 🔨 ${d.info_text}`
+                case 4: return `Modding: 🔨 ${d.info_text}`
+                case 5: return `In Multiplayer: Selecting 🏯 ${d.info_text} ⛔️`;
+                case 6: return `Watching: 👓 ${d.info_text}`;
+                // 7 not used
+                case 8: return `Testing: 🎾 ${d.info_text}`;
+                case 9: return `Submitting: 🧼 ${d.info_text}`;
+                case 10: return `Paused: 🚫 ${d.info_text}`;
+                case 11: return 'Idle: 🏢 In multiplayer lobby';
+                case 12: return `In Multiplayer: Playing 🌍 ${d.info_text} 🎶`;
+                case 13: return 'Idle: 🫒 Downloading some beatmaps in osu!direct';
+                default: return 'Unknown: 🚔 not yet implemented!';
+            }
         },
         addCommas(nStr) {
             nStr += '';
