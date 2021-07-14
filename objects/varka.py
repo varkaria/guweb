@@ -1,4 +1,4 @@
-from objects import glob
+from objects import glob, privileges
 from quart import jsonify
 import json
 
@@ -36,9 +36,8 @@ async def get_user_email(email:str):
     res = await glob.db.fetch(query)
     return res
 
-async def get_ban_users(limit:int=25):
-    query = ['SELECT * FROM users WHERE priv = -1']
-    query = ' '.join(query)
+async def get_res_users():
+    query = ('SELECT * FROM users WHERE NOT priv & 1')
     res = await glob.db.fetchall(query)
     return res
 

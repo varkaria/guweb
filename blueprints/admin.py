@@ -84,7 +84,7 @@ async def users_update(id:int):
         )
         try:
             if form['edit-restrict']:
-                data['priv'] = -1
+                data['priv'] = 2
         except:
             data['priv'] = 1
         await varka.update('users', ('id', id), **dict_cmp(data, datadef))
@@ -115,7 +115,7 @@ async def restrictions():
                 return redirect(f'/admin/users/edit/{id}')
         except:
             error = 'User not found!'
-    return await render_template('admin/restrictions.html', query_data=await varka.get_ban_users(), error=error)
+    return await render_template('admin/restrictions.html', query_data=await varka.get_res_users(), error=error)
 
 @admin.route('/privilege')
 async def privilege():
