@@ -42,8 +42,8 @@
             </div>
             <transition name="click">
                 <div class="online-infomation" v-if='data.status.online == true'
-                    :key="ActionIntToStr(data.status.status)">
-                    <% ActionIntToStr(data.status.status) %>
+                    :key="actionIntToStr(data.status.status)">
+                    <% actionIntToStr(data.status.status) %>
                 </div>
             </transition>
         </div>
@@ -427,14 +427,14 @@
     {% if user['customisation']['banner'] == True %}
         .profile-bg {
             min-height: 262px;
-            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/profbanner/{{ user['id'] }}"); 
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/profbanner/{{ user['id'] }}");
             background-size: cover;
         }
     {% endif %}
     {% if user['customisation']['background'] == True %}
         body {
-            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/profbackground/{{ user['id'] }}"); 
-            background-size: cover; 
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/profbackground/{{ user['id'] }}");
+            background-size: cover;
             background-clip: content-box;
         }
     {% endif %}

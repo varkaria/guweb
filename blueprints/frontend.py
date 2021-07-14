@@ -9,23 +9,21 @@ import time
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
+from functools import wraps
+from PIL import Image
+from pathlib import Path
 from quart import Blueprint
 from quart import redirect
 from quart import render_template
 from quart import request
 from quart import session
 from quart import send_file
-from pathlib import Path
-
-from quart.helpers import url_for
 
 from constants import regexes
 from objects import glob
 from objects import utils
 from objects.privileges import Privileges
-from objects.utils import flash, flash_custom
-from PIL import Image
-from functools import wraps
+from objects.utils import flash, flash_with_customizations
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
@@ -35,7 +33,7 @@ frontend = Blueprint('frontend', __name__)
 def login_required(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
-        if session == {}:
+        if not session:
             return await flash('error', 'You must be logged in to access that page', 'login')
         return await func(*args, **kwargs)
     return wrapper
@@ -51,7 +49,7 @@ async def home():
 async def settings_profile():
     return await render_template('settings/profile.html')
 
-@frontend.route('/settings/profile', methods=['POST']) # POST
+@frontend.route('/settings/profile', methods=['POST'])
 @login_required
 async def settings_profile_post():
     form = await request.form
@@ -93,13 +91,14 @@ async def settings_profile_post():
         if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', [new_name]):
             return await flash('error', 'Your new username already taken by another user.', 'settings/profile')
 
+        safe_name = utils.get_safe_name(new_name)
+
         # username change successful
         await glob.db.execute(
             'UPDATE users '
             'SET name = %s, safe_name = %s '
             'WHERE id = %s',
-            [new_name, utils.get_safe_name(new_name),
-            session['user_data']['id']]
+            [new_name, safe_name, session['user_data']['id']]
         )
 
     if new_email != old_email:
@@ -130,7 +129,7 @@ async def settings_profile_post():
 async def settings_avatar():
     return await render_template('settings/avatar.html')
 
-@frontend.route('/settings/avatar', methods=['POST']) # POST
+@frontend.route('/settings/avatar', methods=['POST'])
 @login_required
 async def settings_avatar_post():
     # constants
@@ -153,7 +152,7 @@ async def settings_avatar_post():
     for fx in ALLOWED_EXTENSIONS:
         if os.path.isfile(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}'): # Checking file e
             os.remove(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}')
-    
+
     # avatar cropping to 1:1
     pilavatar = Image.open(avatar.stream)
 
@@ -165,44 +164,51 @@ async def settings_avatar_post():
 @frontend.route('/settings/custom')
 @login_required
 async def settings_custom():
-    return await render_template('settings/custom.html', current=utils.CheckCustomiseProfile(session['user_data']['id']))
+    profile_customizations = utils.has_profile_customizations(session['user_data']['id'])
+    return await render_template('settings/custom.html', customizations=profile_customizations)
 
-@frontend.route('/settings/custom', methods=['POST']) # POST
+@frontend.route('/settings/custom', methods=['POST'])
 @login_required
 async def settings_custom_post():
     banner = (await request.files).get('banner')
     background = (await request.files).get('background')
     ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png', '.gif']
-    
+
     # no file uploaded; deny post
     if banner is None and background is None:
-        return await flash_custom('error', 'No image was selected!', 'settings/custom')
-    
+        return await flash_with_customizations('error', 'No image was selected!', 'settings/custom')
+
     if banner is not None and banner.filename:
         filename, file_extension = os.path.splitext(banner.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
-            return await flash_custom('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
-        
+            return await flash_with_customizations('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
+
+        banner_file_no_ext = os.path.join(f'.data/profbanner', f'{session["user_data"]["id"]}')
+
         # remove old picture
-        for fx in ALLOWED_EXTENSIONS:
-            if os.path.isfile(f'.data/profbanner/{session["user_data"]["id"]}{fx}'): # Checking file e
-                os.remove(f'.data/profbanner/{session["user_data"]["id"]}{fx}')
-                
-        await banner.save(os.path.join(f'.data/profbanner', f'{session["user_data"]["id"]}{file_extension.lower()}'))
-        
+        for ext in ALLOWED_EXTENSIONS:
+            banner_file_with_ext = f'{banner_file_no_ext}{ext}'
+            if os.path.isfile(banner_file_with_ext):
+                os.remove(banner_file_with_ext)
+
+        await banner.save(f'{banner_file_no_ext}{file_extension}')
+
     if background is not None and background.filename:
         filename, file_extension = os.path.splitext(background.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
-            return await flash_custom('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
-        
+            return await flash_with_customizations('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
+
+        background_file_no_ext = os.path.join(f'.data/profbackground', f'{session["user_data"]["id"]}')
+
         # remove old picture
-        for fx in ALLOWED_EXTENSIONS:
-            if os.path.isfile(f'.data/profbackground/{session["user_data"]["id"]}{fx}'): # Checking file e
-                os.remove(f'.data/profbackground/{session["user_data"]["id"]}{fx}')
-                
-        await background.save(os.path.join(f'.data/profbackground', f'{session["user_data"]["id"]}{file_extension.lower()}'))
-    
-    return await flash_custom('success', 'Your customisation has been successfully changed!', 'settings/custom')
+        for ext in ALLOWED_EXTENSIONS:
+            background_file_with_ext = f'{background_file_no_ext}{ext}'
+            if os.path.isfile(background_file_with_ext):
+                os.remove(background_file_with_ext)
+
+        await background.save(f'{background_file_no_ext}{file_extension}')
+
+    return await flash_with_customizations('success', 'Your customisation has been successfully changed!', 'settings/custom')
 
 
 @frontend.route('/settings/password')
@@ -210,7 +216,7 @@ async def settings_custom_post():
 async def settings_password():
     return await render_template('settings/password.html')
 
-@frontend.route('/settings/password', methods=["POST"]) # POST
+@frontend.route('/settings/password', methods=["POST"])
 @login_required
 async def settings_password_post():
     form = await request.form
@@ -293,31 +299,29 @@ async def profile(id):
     # make sure mode & mods are valid args
     if mode is not None:
         if mode not in VALID_MODES:
-            return await render_template('404.html'), 404
+            return (await render_template('404.html'), 404)
     else:
         mode = 'std'
 
     if mods is not None:
         if mods not in VALID_MODS:
-            return await render_template('404.html'), 404
+            return (await render_template('404.html'), 404)
     else:
         mods = 'vn'
 
     user_data = await glob.db.fetch(
         'SELECT name, id, priv, country '
         'FROM users '
-        'WHERE id = %s OR safe_name = %s',
-        [id, utils.get_safe_name(id)]
-        # ^ allow lookup from both
-        #   id and username (safe)
+        'WHERE id = %s',
+        [id]
     )
 
     # user is banned and we're not staff; render 404
     is_staff = 'authenticated' in session and session['user_data']['is_staff']
     if not user_data or not (user_data['priv'] & Privileges.Normal or is_staff):
-        return await render_template('404.html'), 404
+        return (await render_template('404.html'), 404)
 
-    user_data['customisation'] = utils.CheckCustomiseProfile(id)
+    user_data['customisation'] = utils.has_profile_customizations(id)
 
     return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
 
@@ -335,12 +339,13 @@ async def login():
 
     return await render_template('login.html')
 
-@frontend.route('/login', methods=['POST']) # POST
+@frontend.route('/login', methods=['POST'])
 async def login_post():
     if 'authenticated' in session:
         return await flash('error', "You're already logged in!", 'home')
 
-    login_time = time.time_ns() if glob.config.debug else 0
+    if glob.config.debug:
+        login_time = time.time_ns()
 
     form = await request.form
     username = form.get('username', type=str)
@@ -409,8 +414,8 @@ async def login_post():
         'email': user_info['email'],
         'priv': user_info['priv'],
         'silence_end': user_info['silence_end'],
-        'is_staff': user_info['priv'] & Privileges.Staff,
-        'is_donator': user_info['priv'] & Privileges.Donator
+        'is_staff': user_info['priv'] & Privileges.Staff != 0,
+        'is_donator': user_info['priv'] & Privileges.Donator != 0
     }
 
     if glob.config.debug:
@@ -429,7 +434,7 @@ async def register():
 
     return await render_template('register.html')
 
-@frontend.route('/register', methods=['POST']) # POST
+@frontend.route('/register', methods=['POST'])
 async def register_post():
     if 'authenticated' in session:
         return await flash('error', "You're already logged in.", 'home')
@@ -510,21 +515,23 @@ async def register_post():
     else:
         country = 'xx'
 
-    # add to `users` table.
-    user_id = await glob.db.execute(
-        'INSERT INTO users '
-        '(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity) '
-        'VALUES (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())',
-        [username, safe_name, email, pw_bcrypt, country]
-    )
+    async with glob.db.pool.acquire() as conn:
+        async with conn.cursor() as db_cursor:
+            # add to `users` table.
+            await db_cursor.execute(
+                'INSERT INTO users '
+                '(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity) '
+                'VALUES (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())',
+                [username, safe_name, email, pw_bcrypt, country]
+            )
+            user_id = db_cursor.lastrowid
 
-    # add to `stats` table.
-    for mode in range(8):
-        await glob.db.execute(
-            'INSERT INTO stats '
-            '(id, mode) VALUES (%s, %s)',
-            [user_id, mode]
-        )
+            # add to `stats` table.
+            await db_cursor.executemany(
+                'INSERT INTO stats '
+                '(id, mode) VALUES (%s, %s)',
+                [(user_id, mode) for mode in range(8)]
+            )
 
     # (end of lock)
 
@@ -577,30 +584,23 @@ async def instagram_redirect():
 # profile customisation
 BANNERS_PATH = Path.cwd() / '.data/profbanner'
 BACKGROUND_PATH = Path.cwd() / '.data/profbackground'
-@frontend.route('/profbanner/<uid>')
-async def get_profile_banner(uid:int):
+@frontend.route('/profbanner/<user_id>')
+async def get_profile_banner(user_id: int):
     # Check if avatar exists
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
-        path = BANNERS_PATH / f'{uid}.{ext}'
+        path = BANNERS_PATH / f'{user_id}.{ext}'
         if path.exists():
-            e = ext
-            break
-        else:
-            e = False
-    
-    if e == False: return '{ "status": 404 }'
-    return await send_file("{}/{}.{}".format('.data/profbanner', uid, e))
+            return await send_file(f'.data/profbanner/{user_id}.{ext}')
 
-@frontend.route('/profbackground/<uid>')
-async def get_profile_background(uid:int):
+    return b'{"status":404}'
+
+
+@frontend.route('/profbackground/<user_id>')
+async def get_profile_background(user_id: int):
     # Check if avatar exists
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
-        path = BACKGROUND_PATH / f'{uid}.{ext}'
+        path = BACKGROUND_PATH / f'{user_id}.{ext}'
         if path.exists():
-            e = ext
-            break
-        else:
-            e = False
+            return await send_file(f'.data/profbackground/{user_id}.{ext}')
 
-    if e == False: return '{ "status": 404 }'
-    return await send_file("{}/{}.{}".format('.data/profbackground', uid, e))
+    return b'{"status":404}'

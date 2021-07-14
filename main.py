@@ -1,4 +1,4 @@
-#!/usr/bin/python3.9
+#!/usr/bin/env python3.9
 # -*- coding: utf-8 -*-
 
 __all__ = ()
@@ -16,9 +16,6 @@ from cmyui.mysql import AsyncSQLPool
 from cmyui.version import Version
 
 from objects import glob
-
-#if __name__ != '__main__':
-#    raise RuntimeError('main.py should be run directly!')
 
 app = Quart(__name__)
 
@@ -73,7 +70,7 @@ app.register_blueprint(admin, url_prefix='/admin')
 @app.errorhandler(404)
 async def page_not_found(e):
     # NOTE: we set the 404 status explicitly
-    return await render_template('404.html'), 404
+    return (await render_template('404.html'), 404)
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 app.run(debug=glob.config.debug) # blocking call
