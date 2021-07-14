@@ -40,7 +40,7 @@ new Vue({
         },
         LoadProfileData() {
             this.data.load = false
-            this.$axios.get(`/api/get_player_info`, {
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_info`, {
                 params: {id: this.userid, scope: 'all'}
             })
                 .then(res => {
@@ -52,7 +52,7 @@ new Vue({
             let type;
             if (sort == 'best') { type = 0 } else { type = 1 }
             this.$set(this.data.scores.load, type, true)
-            this.$axios.get(`/api/get_player_scores`, {
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_scores`, {
                 params: {id: this.userid, mode: this.StrtoGulagInt(), scope: sort, limit: this.data.loadmore.limit[type]}
             })
                 .then(res => {
@@ -64,7 +64,7 @@ new Vue({
         },
         LoadMostBeatmaps() {
             this.$set(this.data.scores.load, 2, true)
-            this.$axios.get(`/api/get_player_most_played`, {
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_most_played`, {
                 params: {id: this.userid, mode: this.StrtoGulagInt(), limit: this.data.loadmore.limit[2]}
             })
                 .then(res => {
@@ -75,7 +75,7 @@ new Vue({
                 });
         },
         LoadUserStatus() {
-            this.$axios.get(`/api/get_player_status`, { 
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_status`, { 
                 // sry cmyui but i didn't have some gulag setup rn 
                 params: {id: this.userid}
             })

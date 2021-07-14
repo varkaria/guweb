@@ -25,7 +25,7 @@ new Vue({
             window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}`);
             this.$set(this, 'mode', mode);this.$set(this, 'mods', mods)
             this.$set(this, 'sort', sort);this.$set(this, 'load', true)
-            this.$axios.get(`/api/get_leaderboard`, { params: {
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_leaderboard`, { params: {
                 mode: this.StrtoGulagInt(), sort: this.sort
             }}).then(res => {this.boards = res.data.leaderboard;this.$set(this, 'load', false)
         });
