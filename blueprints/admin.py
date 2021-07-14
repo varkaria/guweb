@@ -74,16 +74,23 @@ async def users_edit(id:int):
 
 @admin.route('/users/update/<id>', methods=['POST']) # POST
 async def users_update(id:int):
-    form = await request.form
-    datadef: dict = await get('users', id)
-    data = dict(
-        name = form['edit-username'],
-        safe_name = form['edit-username'].lower().replace(' ', '_'),
-        email = form['edit-email']
-    )
-    
-    await varka.update('users', ('id', id), **dict_cmp(data, datadef))
-    return redirect('/admin/users')
+    try:
+        form = await request.form
+        datadef: dict = await get('users', id)
+        data = dict(
+            name = form['edit-username'],
+            safe_name = form['edit-username'].lower().replace(' ', '_'),
+            email = form['edit-email'],
+        )
+        try:
+            if form['edit-restrict']:
+                data['priv'] = -1
+        except:
+            data['priv'] = 1
+        await varka.update('users', ('id', id), **dict_cmp(data, datadef))
+        return redirect('/admin/users')
+    except: 
+        return redirect('/admin/users')
 
 @admin.route('/reports')
 async def reports():
@@ -93,9 +100,22 @@ async def reports():
 async def recentplay():
     return await render_template('admin/recentplay.html')
 
-@admin.route('/restrictions')
+@admin.route('/restrictions', methods=['GET', 'POST'])
 async def restrictions():
-    return await render_template('admin/restrictions.html')
+    error = ''
+    if request.method == 'POST':
+        try:
+            try:
+                username = (await request.form)['username']
+                id = (await varka.get_user_username(username))['id']
+                return redirect(f'/admin/users/edit/{id}')
+            except:
+                email = (await request.form)['email']
+                id = (await varka.get_user_email(email))['id']
+                return redirect(f'/admin/users/edit/{id}')
+        except:
+            error = 'User not found!'
+    return await render_template('admin/restrictions.html', query_data=await varka.get_ban_users(), error=error)
 
 @admin.route('/privilege')
 async def privilege():

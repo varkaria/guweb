@@ -1,7 +1,157 @@
-<!-- For banning players -->
 {% extends 'admin/base.html' %}
 {% block title %} Restrictions {% endblock %}
 
+{% macro modal(title='base', id='base', name='base') %}
+<div class="modal modal-blur fade" id="{{ id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body text-start pt-4">
+                <form id="{{ name }}" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">{{ title }}</label>
+                        <input type="text" class="form-control" name="{{ name }}">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-white w-100" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="col">
+                            <button type="submit" id="del-submit" form="{{ name }}"
+                                class="btn btn-primary w-100">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro card(title='base', haschart=true, chartname='base', data=0) %}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <div class="subheader">{{ title }}</div>
+        </div>
+        <div class="d-flex align-items-baseline">
+            <div class="h1 mb-0 me-2">{{ data }}</div>
+        </div>
+    </div>
+    {% if haschart %}
+    <div id="chart-{{ chartname }}" class="chart-sm"></div>
+    {% endif %}
+</div>
+{% endmacro %}
+
 {% block content %}
+{% if error %}
+<div class="alert alert-danger col-lg-3" role="alert" style="display: block; position: relative; margin-top: -3.5rem;">
+    <h4 class="alert-title">{{ error }}</h4>
+</div>
+{% endif %}
+<div class="row row-deck row-cards">
+    <div class="col-sm-6 col-lg-3">
+        {{ card(title='Banned Users', data=727, chartname='online-users') }}
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        {{ card(title='Silenced Users',data=727) }}
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex m-auto">
+                    <button type="button" class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-usr">Edit user (username)</button>
+                    <button type="button" class="btn m-2" data-bs-toggle="modal" data-bs-target="#edi-usr-ema">Edit user (email)</button>
+                    <button type="button" class="btn m-2 disabled">Unban user</button>
+                    <button type="button" class="btn m-2 disabled">Unsilence user</button>
+                </div>
+            </div>
+            <div class="card-body border-bottom py-3">
+                <div class="d-flex">
+                    <div class="text-muted">
+                        Show
+                        <div class="mx-2 d-inline-block">
+                            <input type="text" class="form-control form-control-sm" value="8" size="3"
+                                aria-label="Users count">
+                        </div>
+                        entries
+                    </div>
+                    <div class="ms-auto text-muted">
+                        Search:
+                        <div class="ms-2 d-inline-block">
+                            <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table card-table table-vcenter text-nowrap datatable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Reason of ban</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in query_data %}
+                        <tr>
+                            <td>{{ i.id }}</td>
+                            <td class="td-truncate">
+                                <img src="/static/images/flags/{{ i.country|upper }}.png" class="profile-flag" style="width: 25px; height: 17px; -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.63); box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);">⠀
+                                <a href="/u/{{ i.id }}">{{ i.name }}</a>
+                            </td>
+                            <td>{{ i.reason }}</td>
+                            <td>
+                                <a class="btn" href="/admin/users/edit/{{ i.id }}">
+                                    <i class="far fa-edit" aria-hidden="true"></i>⠀Edit
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer d-flex align-items-center">
+                <ul class="pagination m-0 m-auto">
+                    <li class="page-item">
+                        <a class="page-link" href="#" tabindex="-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <polyline points="15 6 9 12 15 18"></polyline>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <polyline points="9 6 15 12 9 18"></polyline>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ modal(title='Username', id="edi-usr-usr", name='username') }}
+{{ modal(title='Email', id="edi-usr-ema", name='email') }}
 
 {% endblock %}

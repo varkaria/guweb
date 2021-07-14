@@ -36,6 +36,12 @@ async def get_user_email(email:str):
     res = await glob.db.fetch(query)
     return res
 
+async def get_ban_users(limit:int=25):
+    query = ['SELECT * FROM users WHERE priv = -1']
+    query = ' '.join(query)
+    res = await glob.db.fetchall(query)
+    return res
+
 async def get_scores(limit:int=25):
     """Returns the all of a scores."""
     query = (

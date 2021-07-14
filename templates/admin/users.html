@@ -117,7 +117,11 @@
                                 <img src="/static/images/flags/{{ i.country|upper }}.png" class="profile-flag" style="width: 25px; height: 17px; -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.63); box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);">⠀
                                 <a href="/u/{{ i.id }}">{{ i.name }}</a>
                             </td>
-                            <td>Yes</td>
+                            {% if i.priv == -1 %}
+                            <td>Banned</td>
+                            {% else %}
+                            <td>Allowed</td>
+                            {% endif %}
                             <td>
                                 <a class="btn" href="/admin/users/edit/{{ i.id }}">
                                     <i class="far fa-edit" aria-hidden="true"></i>⠀Edit
