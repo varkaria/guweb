@@ -199,6 +199,10 @@ button:focus {
     animation-timing-function: ease;
 }
 
+.is-headericon {
+    font-size: 3vw;
+}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
