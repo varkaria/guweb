@@ -85,8 +85,10 @@ async def users_update(id:int):
         try:
             if form['edit-restrict']:
                 data['priv'] = 2
+                data['reason'] = form['res-reason']
         except:
             data['priv'] = 1
+            data['reason'] = None
         await varka.update('users', ('id', id), **dict_cmp(data, datadef))
         return redirect('/admin/users')
     except: 
