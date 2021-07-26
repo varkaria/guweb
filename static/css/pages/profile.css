@@ -160,7 +160,7 @@ td {
   display: block;
   margin-top: 8px;
 }
-
+.grade-block .media-content { overflow-x: unset !important; }
 .map-rank {
   font-size: 24px;
   font-weight: 600;
@@ -604,6 +604,7 @@ span.beatmap-mapper {
   .two-sides {
     display: contents !important;
   }
+  p.ranks { width: 360px; }
   .column.is-one-third,
   .column.is-one-third-tablet {
     flex: none;
@@ -615,9 +616,6 @@ span.beatmap-mapper {
   .profile-bg {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-  }
-  .simple-banner-switch {
-    font-size: 12px;
   }
   .beatmaps {
     grid-template-columns: inherit;
@@ -665,6 +663,7 @@ span.beatmap-mapper {
     border-radius: 3px;
     background: #0000008c;
     margin: 0 12px 0 0;
+    font-size: 12px;
   }
   .mode-icon {
     margin-right: 0px;
@@ -672,9 +671,6 @@ span.beatmap-mapper {
 }
 
 @media screen and (max-width: 600px) {
-  .simple-banner-switch {
-    font-size: 12px;
-  }
   .subtitle {
     width: 200px;
   }
@@ -684,8 +680,18 @@ span.beatmap-mapper {
   .info-block {
     padding: 10px 110px 50px 195px;
   }
-  .simple-banner-switch {
-    font-size: 12px;
+}
+@media screen and (max-width: 550px) {
+  p.ranks {
+      width: 235px;
+  }
+}
+@media screen and (max-width: 450px) {
+  p.ranks {
+    width: 145px;
+  }
+  .info-block {
+    padding: 10 200;
   }
 }
 
@@ -693,7 +699,7 @@ span.beatmap-mapper {
   position: absolute;
   top: 18px;
   left: 42px;
-  padding: 8px 20px 5px 5px;
+  padding: 8px 15px;
   background: #00000040;
   border-radius: 6px;
 }
