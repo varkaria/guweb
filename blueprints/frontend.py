@@ -34,7 +34,7 @@ def login_required(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
         if not session:
-            return await flash('error', 'You must be logged in to access that page', 'login')
+            return await flash('error', 'You must be logged in to access that page.', 'login')
         return await func(*args, **kwargs)
     return wrapper
 
@@ -183,7 +183,7 @@ async def settings_custom_post():
         if not file_extension in ALLOWED_EXTENSIONS:
             return await flash_with_customizations('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
-        banner_file_no_ext = os.path.join(f'.data/profbanner', f'{session["user_data"]["id"]}')
+        banner_file_no_ext = os.path.join(f'.data/banners', f'{session["user_data"]["id"]}')
 
         # remove old picture
         for ext in ALLOWED_EXTENSIONS:
@@ -198,7 +198,7 @@ async def settings_custom_post():
         if not file_extension in ALLOWED_EXTENSIONS:
             return await flash_with_customizations('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
-        background_file_no_ext = os.path.join(f'.data/profbackground', f'{session["user_data"]["id"]}')
+        background_file_no_ext = os.path.join(f'.data/backgrounds', f'{session["user_data"]["id"]}')
 
         # remove old picture
         for ext in ALLOWED_EXTENSIONS:
@@ -289,7 +289,7 @@ async def settings_password_post():
     # logout
     session.pop('authenticated', None)
     session.pop('user_data', None)
-    return await flash('success', 'Your password has been changed! Please login again.', 'login')
+    return await flash('success', 'Your password has been changed! Please log in again.', 'login')
 
 @frontend.route('/u/<id>')
 async def profile(id):
@@ -401,7 +401,7 @@ async def login_post():
     if not user_info['priv'] & Privileges.Normal:
         if glob.config.debug:
             log(f"{username}'s login failed - banned.", Ansi.RED)
-        return await flash('error', 'You are banned!', 'login')
+        return await flash('error', 'Your account is restricted. You are not allowed to log in.', 'login')
 
     # login successful; store session data
     if glob.config.debug:
@@ -582,25 +582,25 @@ async def instagram_redirect():
     return redirect(glob.config.instagram)
 
 # profile customisation
-BANNERS_PATH = Path.cwd() / '.data/profbanner'
-BACKGROUND_PATH = Path.cwd() / '.data/profbackground'
-@frontend.route('/profbanner/<user_id>')
+BANNERS_PATH = Path.cwd() / '.data/banners'
+BACKGROUND_PATH = Path.cwd() / '.data/backgrounds'
+@frontend.route('/banners/<user_id>')
 async def get_profile_banner(user_id: int):
     # Check if avatar exists
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
         path = BANNERS_PATH / f'{user_id}.{ext}'
         if path.exists():
-            return await send_file(f'.data/profbanner/{user_id}.{ext}')
+            return await send_file(path)
 
     return b'{"status":404}'
 
 
-@frontend.route('/profbackground/<user_id>')
+@frontend.route('/backgrounds/<user_id>')
 async def get_profile_background(user_id: int):
     # Check if avatar exists
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
         path = BACKGROUND_PATH / f'{user_id}.{ext}'
         if path.exists():
-            return await send_file(f'.data/profbackground/{user_id}.{ext}')
+            return await send_file(path)
 
     return b'{"status":404}'

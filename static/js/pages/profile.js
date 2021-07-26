@@ -123,20 +123,20 @@ new Vue({
         },
         actionIntToStr(d) {
             switch (d.action) {
-                case 0: return 'Idle: 🔍 Selecting a song';
-                case 1: return 'Idle: 🌙 AFK';
+                case 0: return 'Idle: 🔍 Song Select';
+                case 1: return '🌙 AFK';
                 case 2: return `Playing: 🎶 ${d.info_text}`;
                 case 3: return `Editing: 🔨 ${d.info_text}`;
                 case 4: return `Modding: 🔨 ${d.info_text}`;
-                case 5: return `In Multiplayer: Selecting 🏯 ${d.info_text} ⛔️`;
+                case 5: return 'In Multiplayer: Song Select';
                 case 6: return `Watching: 👓 ${d.info_text}`;
                 // 7 not used
                 case 8: return `Testing: 🎾 ${d.info_text}`;
                 case 9: return `Submitting: 🧼 ${d.info_text}`;
-                case 10: return `Paused: 🚫 ${d.info_text}`;
+                // 10 paused, never used
                 case 11: return 'Idle: 🏢 In multiplayer lobby';
                 case 12: return `In Multiplayer: Playing 🌍 ${d.info_text} 🎶`;
-                case 13: return 'Idle: 🫒 Downloading some beatmaps in osu!direct';
+                case 13: return 'Idle: 🔍 Searching for beatmaps in osu!direct';
                 default: return 'Unknown: 🚔 not yet implemented!';
             }
         },
@@ -159,15 +159,15 @@ new Vue({
             return dDisplay + hDisplay + mDisplay;
         },
         StrtoGulagInt() {
-            switch (this.mode, this.mods) {
-                case 'std', 'vn': return 0;
-                case 'taiko', 'vn': return 1;
-                case 'catch', 'vn': return 2;
-                case 'mania', 'vn': return 3;
-                case 'std', 'rx': return 4;
-                case 'taiko', 'rx': return 5;
-                case 'catch', 'rx': return 6;
-                case 'std', 'ap': return 7;
+            switch (this.mode + "|" + this.mods) {
+                case 'std|vn': return 0;
+                case 'taiko|vn': return 1;
+                case 'catch|vn': return 2;
+                case 'mania|vn': return 3;
+                case 'std|rx': return 4;
+                case 'taiko|rx': return 5;
+                case 'catch|rx': return 6;
+                case 'std|ap': return 7;
                 default: return -1;
             }
         },

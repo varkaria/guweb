@@ -123,8 +123,8 @@ def get_level(totalScore: int) -> int:
 			# Not our level, calculate score for next level
 			level += 1
 
-BANNERS_PATH = Path.cwd() / '.data/profbanner'
-BACKGROUND_PATH = Path.cwd() / '.data/profbackground'
+BANNERS_PATH = Path.cwd() / '.data/banners'
+BACKGROUND_PATH = Path.cwd() / '.data/backgrounds'
 def has_profile_customizations(user_id: int = 0) -> dict[str, bool]:
     # check for custom banner image file
     for ext in ('jpg', 'jpeg', 'png', 'gif'):

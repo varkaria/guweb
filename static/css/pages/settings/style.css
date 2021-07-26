@@ -973,6 +973,9 @@ input:checked+label.checkbox:hover {
   .main-block {
     width: 770px;
   }
+  .avatar-flex {
+    flex-direction: column;
+  }
 }
 
 @media screen and (max-width: 770px) {

@@ -60,15 +60,15 @@ new Vue({
             return x1 + x2;
         },
         StrtoGulagInt() {
-            switch (this.mode, this.mods) {
-                case 'std', 'vn': return 0;
-                case 'taiko', 'vn': return 1;
-                case 'catch', 'vn': return 2;
-                case 'mania', 'vn': return 3;
-                case 'std', 'rx': return 4;
-                case 'taiko', 'rx': return 5;
-                case 'catch', 'rx': return 6;
-                case 'std', 'ap': return 7;
+            switch (this.mode + "|" + this.mods) {
+                case 'std|vn': return 0;
+                case 'taiko|vn': return 1;
+                case 'catch|vn': return 2;
+                case 'mania|vn': return 3;
+                case 'std|rx': return 4;
+                case 'taiko|rx': return 5;
+                case 'catch|rx': return 6;
+                case 'std|ap': return 7;
                 default: return -1;
             }
         },
