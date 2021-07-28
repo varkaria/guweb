@@ -43,6 +43,10 @@ def login_required(func):
 async def home():
     return await render_template('home.html')
 
+@frontend.route('/home/account/edit')
+async def home_account_edit():
+    return redirect('/settings/profile')
+
 @frontend.route('/settings')
 @frontend.route('/settings/profile')
 @login_required
