@@ -73,4 +73,5 @@ async def page_not_found(e):
     return (await render_template('404.html'), 404)
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-app.run(debug=glob.config.debug) # blocking call
+if __name__ == '__main__':
+    app.run(debug=glob.config.debug) # blocking call
