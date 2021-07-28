@@ -69,7 +69,7 @@
         </div>
     </div>
     <div v-if="data.scores.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button" @click="AddLimit('bestscore')">Show more</a>
+        <a class="show-button" @click="AddLimit('{{ id }}score')">Show more</a>
     </div>
 </div>
 {% endmacro %}
