@@ -730,3 +730,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: hsl(var(--main), 15%, 40%);
 }
+
+[v-cloak] {
+  display: none;
+}

@@ -213,8 +213,8 @@ table th {
   opacity: 1;
 }
 
-.mode-select.--selected,
-.simple-banner-switch.switch--active {
+.mode-select.active,
+.simple-banner-switch.active {
   border-bottom-width: 6px;
   opacity: 1;
   font-weight: 600;
