@@ -140,5 +140,6 @@ cython_debug/
 # Project specific
 config.py
 .vscode/
-.data/profbanner/*
-.data/profbackground/*
+.data/*
+!.data/backgrounds/.gitkeep
+!.data/banners/.gitkeep
