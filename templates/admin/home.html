@@ -1,7 +1,10 @@
 {% extends 'admin/base.html' %}
 {% block title %} Dashboard {% endblock %}
-{% block htitle %} Dashboard {% endblock %}
-{% block stitle %} Overview {% endblock %}
+{% block header %}
+<script src="/static/js/asserts/vue.js"></script>
+<script src="/static/js/asserts/vue-axios.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
+{% endblock%}
 
 {% macro card(title='base', haschart=true, chartname='base', data=0) %}
 <div class="card">
@@ -10,7 +13,7 @@
             <div class="subheader">{{ title }}</div>
         </div>
         <div class="d-flex align-items-baseline">
-            <div class="h1 mb-0 me-2">{{ data }}</div>
+            <div class="mb-0 h1 me-2">{{ data }}</div>
         </div>
     </div>
     {% if haschart %}
@@ -54,7 +57,7 @@
     </div>
     <div class="col-lg-6">
         <div class="card">
-            <div class="card-header border-0">
+            <div class="border-0 card-header">
                 <div class="card-title">Registered users list</div>
             </div>
             <div class="card-table table-responsive">

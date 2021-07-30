@@ -9,81 +9,62 @@
     var mode = "{{ mode }}";
     var mods = "{{ mods }}";
     var sort = "{{ sort }}";
+    var domain = "{{ domain() }}";
 </script>
 
 <link rel="stylesheet" href="/static/css/pages/leaderboard.css">
 {% endblock %}
 
 {% block content %}
-<div id="app">
+<div id="app" :class="(load ? 'load' : '')">
     <div class="leaderboard-banner main-banner">
         <div class="main-selector">
-            <a :href="'/lb/osu/'+sort+'/'+mods"
-                :class="'mode-select '+(mode == 'std' ? '--selected ' : '')"
-                @click="LoadLeaderboard(sort, 'std', mods)">
+            <a class="mode-select" v-bind:class="{ 'active': mode === 'std' }"
+            @click="LoadLeaderboard(sort, 'std', mods)">
                 <i class="mode-icon mode-osu"></i><span class="modetext"> osu!</span>
             </a>
-            <a :href="'/lb/taiko/'+sort+'/'+mods"
-                :class="'mode-select '+(mode == 'taiko' ? '--selected ' : '') +
-                (mods == 'ap' ? 'disabled':'')"
-                @click="LoadLeaderboard(sort, 'taiko', mods)">
+            <a class="mode-select" v-bind:class="{ 'active': mode === 'taiko', 'disabled': mods === 'ap' }"
+            @click="LoadLeaderboard(sort, 'taiko', mods)">
                 <i class="mode-icon mode-taiko"></i><span class="modetext"> osu!taiko</span>
             </a>
-            <a :href="'/lb/catch/'+sort+'/'+mods"
-                :class="'mode-select '+(mode == 'catch' ? '--selected ' : '') +
-                (mods == 'ap' ? 'disabled':'')"
-                @click="LoadLeaderboard(sort, 'catch', mods)">
+            <a class="mode-select" v-bind:class="{ 'active': mode === 'catch', 'disabled': mods === 'ap' }"
+            @click="LoadLeaderboard(sort, 'catch', mods)">
                 <i class="mode-icon mode-catch"></i><span class="modetext"> osu!catch</span>
             </a>
-            <a :href="'/lb/mania/'+sort+'/'+mods"
-                :class="'mode-select '+(mode == 'mania' ? '--selected ' : '') +
-                (mods == 'ap' ? 'disabled':'')+
-                (mods == 'rx' ? 'disabled':'')"
-                @click="LoadLeaderboard(sort, 'mania', mods)">
+            <a class="mode-select" v-bind:class="{ 'active': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
+            @click="LoadLeaderboard(sort, 'mania', mods)">
                 <i class="mode-icon mode-mania"></i><span class="modetext"> osu!mania</span>
             </a>
         </div>
         <div class="banner-text">Leaderboard</div>
         <div class="selector">
             <div class="left">
-                <a :href="'/lb/'+mode+'/pp'" @click="LoadLeaderboard('pp', mode, mods, '')"
-                    :class="'simple-banner-switch'+
-                    (sort == 'pp' ? ' switch--active' :'')">PP</a>
-                <a :href="'/lb/'+mode+'/rscore'" @click="LoadLeaderboard('rscore', mode, mods, '')"
-                    :class="'simple-banner-switch'+
-                    (sort == 'rscore' ? ' switch--active' :'')">Score</a>
+                <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'pp' }"
+                @click="LoadLeaderboard('pp', mode, mods, '')">PP</a>
+                <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'rscore' }"
+                @click="LoadLeaderboard('rscore', mode, mods, '')">Score</a>
             </div>
             <div class="right">
-                <a :href="'/lb/'+mode+'/'+sort+'/vn'"
-                    :class="'simple-banner-switch '+
-                    (mods == 'vn' ? 'switch--active' : '')"
-                    @click="LoadLeaderboard(sort, mode, 'vn')">Vanilla</a>
-                <a :href="'/lb/'+mode+'/'+sort+'/rx'"
-                    :class="'simple-banner-switch '+
-                    (mods == 'rx' ? 'switch--active' : '')+
-                    (mode == 'mania' ? 'disabled':'')"
-                    @click="LoadLeaderboard(sort, mode, 'rx')">Relax</a>
-                <a :href="'/lb/'+mode+'/'+sort+'/ap'"
-                    :class="'simple-banner-switch '+
-                    (mods == 'ap' ? 'switch--active' : '')+
-                    (mode == 'mania' ? 'disabled':'')+
-                    (mode == 'catch' ? 'disabled':'')+
-                    (mode == 'taiko' ? 'disabled':'')"
-                    @click="LoadLeaderboard(sort, mode, 'ap')">Autopilot</a>
+                <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'vn' }"
+                @click="LoadLeaderboard(sort, mode, 'vn')">Vanilla</a>
+                <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'rx', 'disabled': mode === 'mania' }"
+                @click="LoadLeaderboard(sort, mode, 'rx')">Relax</a>
+                <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
+                @click="LoadLeaderboard(sort, mode, 'ap')">Autopilot</a>
             </div>
         </div>
     </div>
     <div class="main-block">
         <div class="leaderboard-main-bg table-responsive">
-            <div v-if="boards.length !== undefined">
-                <table :class="'leaderboard-table table-responsive ' + (load ? 'load' : '')">
+            <div v-if="boards.length != undefined && boards.length != 0">
+                <table class="leaderboard-table table-responsive">
                     <thead>
                         <tr>
                             <th class="t-heading"> </th>
                             <th class="t-heading t-heading--main"></th>
                             <th v-if="sort == 'pp' || sort == 'rscore'" class="t-heading table--selected">
                                 <% (sort=='pp' ? "PP" : "" ) %>
-                                <% (sort=='rscore' ? "Score" : "" ) %>
+                                    <% (sort=='rscore' ? "Score" : "" ) %>
                             </th>
                             <th class="t-heading"> Accuracy </th>
                             <th class="t-heading"> Playcount </th>
@@ -95,11 +76,20 @@
                             <td class="column-player-rank">#<% index + 1 %>
                             </td>
                             <td class="column-player-name text-left">
-                                <a :href="'/u/'+user.user_id"><% user.username %></a>
+                                <a :title="flags[user.country.toUpperCase()]"
+                                    :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
+                                    class="player-flag">
+                                    <div class="flag-dropdown">
+                                        <% flags[user.country.toUpperCase()] %>
+                                    </div>
+                                </a>
+                                <a :href="'/u/'+user.player_id">
+                                    <% user.name %>
+                                </a>
                             </td>
                             <td v-if="sort == 'pp' || sort == 'rscore'">
                                 <% (sort=='pp' ? user.pp+'pp' : "" ) %>
-                                <% (sort=='rscore' ? scoreFormat(user.rscore) : "" ) %>
+                                    <% (sort=='rscore' ? scoreFormat(user.rscore) : "" ) %>
                             </td>
                             <td>
                                 <% user.acc.toFixed(2) %>%
@@ -116,12 +106,13 @@
             </div>
             <div v-else>
                 <div class="text-center">
-                    there are no scores to display!
+                    there are no players to display!
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script src="/static/js/asserts/vue-flags.js"></script>
 <script src="/static/js/pages/leaderboard.js"></script>
 {% endblock %}

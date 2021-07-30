@@ -74,6 +74,7 @@ button:focus{
 
 .is-auth {
     width: 485px;
+    border-radius: 36px;
 }
 
 .dialog {

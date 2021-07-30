@@ -4,111 +4,178 @@ new Vue({
     data() {
         return {
             data: {
-                stats: {},
+                stats: {
+                    out: [{}],
+                    load: true
+                },
                 grades: {},
                 scores: {
-                    recent: {},
-                    best: {},
-                    most: {},
-                    load: [false, false, false]
+                    recent: {
+                        out: [],
+                        load: true,
+                        more: {
+                            limit: 5,
+                            full: true
+                        }
+                    },
+                    best: {
+                        out: [],
+                        load: true,
+                        more: {
+                            limit: 5,
+                            full: true
+                        }
+                    }
                 },
+                maps: {
+                    most: {
+                        out: [],
+                        load: true,
+                        more: {
+                            limit: 5,
+                            full: true
+                        }
+                    }
+                },
+                status: {}
             },
-            mode: mode, // Getting from URL
-            mods: mods, // Getting from URL
-            userid: userid, // Getting from URL
-        }
+            mode: mode,
+            mods: mods,
+            modegulag: 0,
+            userid: userid
+        };
     },
     created() {
         // starting a page
-        this.LoadProfileData()
-        this.LoadAllofdata()
+        this.modegulag = this.StrtoGulagInt();
+        this.LoadProfileData();
+        this.LoadAllofdata();
+        this.LoadUserStatus();
     },
     methods: {
         LoadAllofdata() {
-            this.LoadMostBeatmaps()
-            this.LoadScores('best')
-            this.LoadScores('recent')
-            this.LoadGrades()
-        },
-        GettingUrl() {
-            return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+            this.LoadMostBeatmaps();
+            this.LoadScores('best');
+            this.LoadScores('recent');
         },
         LoadProfileData() {
-            var vm = this;
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_info`, {
-                params: {
-                    id: vm.userid,
-                }
-            })
-                .then(function (response) {
-                    vm.data.stats = response.data.userdata;
-                });
-        },
-        LoadGrades() {
-            var vm = this;
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_grade`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                }
-            })
-                .then(function (response) {
-                    vm.data.grades = response.data;
+            this.$set(this.data.stats, 'load', true);
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_info`, {
+                    params: {
+                        id: this.userid,
+                        scope: 'all'
+                    }
+                })
+                .then(res => {
+                    this.$set(this.data.stats, 'out', res.data.player.stats);
+                    this.data.stats.load = false;
                 });
         },
         LoadScores(sort) {
-            var vm = this;
-            let type;
-            switch (sort) {
-                case 'best':
-                    type = 0
-                    break;
-                case 'recent':
-                    type = 1
-                    break;
-                default:
-            }
-            vm.data.scores.load[type] = true
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_scores`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                    sort: sort,
-                    limit: 5
-                }
-            })
-                .then(function (response) {
-                    vm.data.scores[sort] = response.data.scores;
-                    vm.data.scores.load[type] = false
-                    console.log(vm.data.scores.load)
+            this.$set(this.data.scores[`${sort}`], 'load', true);
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_scores`, {
+                    params: {
+                        id: this.userid,
+                        mode: this.StrtoGulagInt(),
+                        scope: sort,
+                        limit: this.data.scores[`${sort}`].more.limit
+                    }
+                })
+                .then(res => {
+                    this.data.scores[`${sort}`].out = res.data.scores;
+                    this.data.scores[`${sort}`].load = false
+                    this.data.scores[`${sort}`].more.full = this.data.scores[`${sort}`].out.length != this.data.scores[`${sort}`].more.limit;
                 });
         },
         LoadMostBeatmaps() {
-            var vm = this;
-            vm.data.scores.load[2] = true
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_most`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                    limit: 5
-                }
-            })
-                .then(function (response) {
-                    vm.data.scores.most = response.data.maps;
-                    vm.data.scores.load[2] = false
+            this.$set(this.data.maps.most, 'load', true);
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_most_played`, {
+                    params: {
+                        id: this.userid,
+                        mode: this.StrtoGulagInt(),
+                        limit: this.data.maps.most.more.limit
+                    }
+                })
+                .then(res => {
+                    this.data.maps.most.out = res.data.maps;
+                    this.data.maps.most.load = false;
+                    this.data.maps.most.more.full = this.data.maps.most.out.length != this.data.maps.most.more.limit;
                 });
         },
+        LoadUserStatus() {
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_status`, {
+                    params: {
+                        id: this.userid
+                    }
+                })
+                .then(res => {
+                    this.$set(this.data, 'status', res.data.player_status)
+                })
+                .catch(function (error) {
+                    clearTimeout(loop);
+                    console.log(error);
+                });
+            loop = setTimeout(this.LoadUserStatus, 5000);
+        },
         ChangeModeMods(mode, mods) {
-            var vm = this;
-            if (window.event) {
+            if (window.event)
                 window.event.preventDefault();
+
+            this.mode = mode;
+            this.mods = mods;
+
+            this.modegulag = this.StrtoGulagInt();
+            this.data.scores.recent.more.limit = 5
+            this.data.scores.best.more.limit = 5
+            this.data.maps.most.more.limit = 6
+            this.LoadAllofdata();
+        },
+        AddLimit(which) {
+            if (window.event)
+                window.event.preventDefault();
+
+            if (which == 'bestscore') {
+                this.data.scores.best.more.limit += 5;
+                this.LoadScores('best');
+            } else if (which == 'recentscore') {
+                this.data.scores.recent.more.limit += 5;
+                this.LoadScores('recent');
+            } else if (which == 'mostplay') {
+                this.data.maps.most.more.limit += 4;
+                this.LoadMostBeatmaps();
             }
-            vm.mode = mode
-            vm.mods = mods
-            vm.LoadAllofdata()
+        },
+        actionIntToStr(d) {
+            switch (d.action) {
+                case 0:
+                    return 'Idle: 🔍 Song Select';
+                case 1:
+                    return '🌙 AFK';
+                case 2:
+                    return `Playing: 🎶 ${d.info_text}`;
+                case 3:
+                    return `Editing: 🔨 ${d.info_text}`;
+                case 4:
+                    return `Modding: 🔨 ${d.info_text}`;
+                case 5:
+                    return 'In Multiplayer: Song Select';
+                case 6:
+                    return `Watching: 👓 ${d.info_text}`;
+                    // 7 not used
+                case 8:
+                    return `Testing: 🎾 ${d.info_text}`;
+                case 9:
+                    return `Submitting: 🧼 ${d.info_text}`;
+                    // 10 paused, never used
+                case 11:
+                    return 'Idle: 🏢 In multiplayer lobby';
+                case 12:
+                    return `In Multiplayer: Playing 🌍 ${d.info_text} 🎶`;
+                case 13:
+                    return 'Idle: 🔍 Searching for beatmaps in osu!direct';
+                default:
+                    return 'Unknown: 🚔 not yet implemented!';
+            }
         },
         addCommas(nStr) {
             nStr += '';
@@ -128,7 +195,40 @@ new Vue({
             var mDisplay = `${Math.floor(seconds % 3600 / 60)}m `;
             return dDisplay + hDisplay + mDisplay;
         },
+        StrtoGulagInt() {
+            switch (this.mode + "|" + this.mods) {
+                case 'std|vn':
+                    return 0;
+                case 'taiko|vn':
+                    return 1;
+                case 'catch|vn':
+                    return 2;
+                case 'mania|vn':
+                    return 3;
+                case 'std|rx':
+                    return 4;
+                case 'taiko|rx':
+                    return 5;
+                case 'catch|rx':
+                    return 6;
+                case 'std|ap':
+                    return 7;
+                default:
+                    return -1;
+            }
+        },
+        StrtoModeInt() {
+            switch (this.mode) {
+                case 'std':
+                    return 0;
+                case 'taiko':
+                    return 1;
+                case 'catch':
+                    return 2;
+                case 'mania':
+                    return 3;
+            }
+        },
     },
-    computed: {
-    }
+    computed: {}
 });

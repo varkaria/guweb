@@ -1,4 +1,4 @@
-#!/usr/bin/python3.9
+#!/usr/bin/env python3.9
 # -*- coding: utf-8 -*-
 
 __all__ = ()
@@ -17,12 +17,9 @@ from cmyui.version import Version
 
 from objects import glob
 
-#if __name__ != '__main__':
-#    raise RuntimeError('main.py should be run directly!')
-
 app = Quart(__name__)
 
-version = Version(1, 2, 0)
+version = Version(1, 3, 0)
 
 # used to secure session data.
 # we recommend using a long randomly generated ascii string.
@@ -70,13 +67,11 @@ app.register_blueprint(frontend)
 from blueprints.admin import admin
 app.register_blueprint(admin, url_prefix='/admin')
 
-from blueprints.api import api
-app.register_blueprint(api, url_prefix='/gw_api')
-
 @app.errorhandler(404)
 async def page_not_found(e):
     # NOTE: we set the 404 status explicitly
-    return await render_template('404.html'), 404
+    return (await render_template('404.html'), 404)
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-app.run(debug=glob.config.debug) # blocking call
+if __name__ == '__main__':
+    app.run(debug=glob.config.debug) # blocking call

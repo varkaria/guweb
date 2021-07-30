@@ -1,14 +1,7 @@
-{% extends 'settings/base.html' %}
+{% extends 'base.html' %}
 {% block title %} Avatar {% endblock %}
 
 {% block content %}
-
-<style>
-  html {
-    --base: 235;
-    --base-deg: 390.0deg;
-  }
-</style>
 <link rel="stylesheet" href="/static/css/pages/settings/style.css">
 
 <div class="main-block">
@@ -19,31 +12,50 @@
         Avatar
       </div>
       <div class="right-block-content">
-        <div class="single-block-content avatar-block-content">
-          <div id="avatar-img" style="background-image: url(https://a.{{ domain() }}/{{ session.user_data['id']}});"
-            alt="Avatar Picture"></div>
-          <form id="upload-profile" action="/settings/avatar" method="post" enctype="multipart/form-data">
-            <div class="buttons margin-top" id="selection">
-              <label class="file-label">
-                <input class="file-input" id="file" type="file" accept="image/jpeg" name="avatar">
-                <span class="file-cta">
-                  <span class="file-icon">
-                    <i class="fa fa-upload"></i>
-                  </span>
-                  <span class="file-label">
-                    Choose file
-                  </span>
-                </span>
-              </label>
-              <button class="button is-primary" type="submit">
-                <span class="icon is-small"><i class="fas fa-check"></i></span><span>Save</span>
-              </button>
+        <div class="flex avatar-flex">
+          <div class="column">
+            <div class="single-block-content avatar-block-content">
+              <h4 class="mb-4">Avatar</h4>
+              <div class="subtitle">We recommend an image of at least 512x512 (or 1:1 ratio).
+                You can upload a PNG, JPG under 5MB
+              </div>
+              <form id="upload-profile" action="/settings/avatar" method="post" enctype="multipart/form-data">
+                <div class="buttons margin-top" id="selection">
+                  <label class="file-label">
+                    <input class="file-input" id="file" type="file" accept="image/jpeg" name="avatar">
+                    <span class="file-cta">
+                      <span class="file-label">
+                        Choose file
+                      </span>
+                      <span class="file-icon">
+                        <i class="fa fa-upload"></i>
+                      </span>
+                    </span>
+                  </label>
+                  <button class="button is-primary" type="submit">
+                    <span class="icon is-small"><i class="fas fa-check"></i></span><span>Save</span>
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
+          <div class="column">
+            <h4 class="mb-4">Preview</h4>
+            <div class="preview-block" id="avatar">
+              <div class="top-block"></div>
+              <div class="bottom-block">
+                <div class="profile-avatar-area">
+                  <img id="avatar-img" src="https://a.{{ domain() }}/{{ session.user_data['id']}}" alt="avatar"
+                  class="rounded-avatar profile-avatar"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.css" />
   <script>
     $("#file")
       .change(function (e) {
@@ -54,7 +66,7 @@
         var u = window.URL.createObjectURL(f[0]);
         var i = $("#avatar-img")[0];
         i.src = u;
-        $("#avatar-img").attr("style", "background-image: url(" + i.src + ");");
+        $('#avatar-img').attr('src', i.src)
       });
   </script>
 </div>

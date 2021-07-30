@@ -44,6 +44,7 @@ a:hover {
   border-spacing: 0 3px;
   border-collapse: separate;
   padding-bottom: 24px;
+  transition: 0.2s ease;
 }
 
 tr td {
@@ -122,6 +123,7 @@ table th {
   justify-content: space-between;
   position: relative;
   padding: 0px 36px;
+  height: 232px;
 }
 
 .main-banner > * {
@@ -131,7 +133,7 @@ table th {
 .banner-text {
   font-size: 46px;
   color: #fff;
-  text-shadow: -1px 2px 2px rgba(0, 0, 0, 0.33);
+  font-weight: 600;
 }
 
 .main-banner::before {
@@ -211,8 +213,8 @@ table th {
   opacity: 1;
 }
 
-.mode-select.--selected,
-.simple-banner-switch.switch--active {
+.mode-select.active,
+.simple-banner-switch.active {
   border-bottom-width: 6px;
   opacity: 1;
   font-weight: 600;
@@ -243,4 +245,47 @@ table th {
   .banner-text {
     font-size: 36px;
   }
+}
+
+.player-flag {
+  display: inline-block;
+  background-size: 100%;
+  margin-right: 4px;
+  width: 30px;
+  height: 20px;
+  margin-bottom: -6px;
+  transition: 0.2s filter ease-out, 0.2s box-shadow ease-out;
+  border-radius: 2px;
+}
+
+.flag-dropdown {
+  margin-top: -41px;
+  margin-left: -41px;
+}
+.popover-body, .tooltip-inner, .flag-dropdown {
+  font-size: 12px;
+}
+.flag-dropdown, .noUi-tooltip {
+  background-color: hsl(var(--main), 15%, 5%) !important;
+  filter: opacity(0.95);
+  border-radius: 4px;
+  padding: 5px;
+  color: white;
+  font-size: 13px;
+  position: absolute;
+  padding-left: 14px;
+  padding-right: 14px;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s visibility, 0.3s opacity;
+  min-width: 110px;
+  max-width: 143px;
+  width: max-content;
+  text-align: center;
+  font-weight: 600;
+  font-style: normal;
+}
+.user-flag:hover>.flag-dropdown, .player-flag:hover>.flag-dropdown {
+  visibility: visible;
+  opacity: 1;
 }

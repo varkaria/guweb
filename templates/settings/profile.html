@@ -1,24 +1,17 @@
-{% extends 'settings/base.html' %}
+{% extends 'base.html' %}
 {% block title %} Profile {% endblock %}
 
 {% block content %}
-
-<style>
-  html {
-    --base: 235;
-    --base-deg: 390.0deg;
-  }
-</style>
 <link rel="stylesheet" href="/static/css/pages/settings/style.css">
 
 <div class="main-block">
   {% include "settings/sidebar.html" %}
-  <div class="block-content right" id="settings-content">
+  <div class="block-content right">
     <div id="general" class="single-right-block">
       <div class="right-block-header">
         User Infomation
       </div>
-      <form action="/settings/profile" method="post" class="right-block-content">
+      <form action="/settings/profile" method="post" class="setting-block-content">
         <div class="single-block-content">
           <div class="block-content--left">
             <div class="field-label is-normal">
@@ -29,7 +22,8 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input {% if not session.user_data['is_donator'] %}is-static{% endif %}" type="text" name="username" value="{{ session.user_data['name'] }}" {% if not session.user_data['is_donator'] %}readonly{% endif %}>
+                  <input class="input" type="text" name="username"
+                  value="{{ session.user_data['name'] }}" {% if not session.user_data['is_donator'] %}readonly{% endif %}>
                 </p>
               </div>
             </div>
@@ -69,7 +63,7 @@
           </div>
         </div>
         -->
-        <button class='button is-primary' type='submit'><span class='icon is-small'><i class='fas fa-check'></i></span><span>Save</span></button>
+        <button class='button is-primary' type='submit'><span>Save</span><span class='icon is-small'><i class='fas fa-check'></i></span></button>
       </form>
     </div>
   </div>
