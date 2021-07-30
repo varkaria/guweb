@@ -3,52 +3,46 @@ new Vue({
     delimiters: ["<%", "%>"],
     data() {
         return {
+            flags: window.flags,
             boards : {},
             mode : 'std',
             mods : 'vn',
             sort : 'pp',
             load : false,
             no_player : false, // soon
-        }
+        };
     },
     created() {
-        this.GettingDataFromUrl(mode, mods, sort)
-        this.LoadLeaderboard(sort, mode, mods)
+        this.LoadData(mode, mods, sort);
+        this.LoadLeaderboard(sort, mode, mods);
     },
     methods: {
-        GettingDataFromUrl(mode,mods,sort) {
-            var vm = this;
-            vm.mode = mode
-            vm.mods = mods
-            vm.sort = sort
-        },
-        GettingUrl() {
-            return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+        LoadData(mode, mods, sort) {
+            this.$set(this, 'mode', mode);
+            this.$set(this, 'mods', mods);
+            this.$set(this, 'sort', sort);
         },
         LoadLeaderboard(sort, mode, mods) {
-            var vm = this;
-            if (window.event){
+            if (window.event)
                 window.event.preventDefault();
-            }
-            vm.load = true;
-            vm.mode = mode;
-            vm.mods = mods;
-            vm.sort = sort;
-            window.history.replaceState('', document.title, `/leaderboard/${vm.mode}/${vm.sort}/${vm.mods}`);
-            vm.$axios.get(`${vm.GettingUrl()}/gw_api/get_leaderboard`, { params: {
-                mode: vm.mode,
-                sort: vm.sort,
-                mods: vm.mods,
-            }})
-            .then(function(response){
-                vm.boards = response.data;
-                vm.load = false;
+
+            window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}`);
+            this.$set(this, 'mode', mode);
+            this.$set(this, 'mods', mods);
+            this.$set(this, 'sort', sort);
+            this.$set(this, 'load', true);
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_leaderboard`, { params: {
+                mode: this.StrtoGulagInt(),
+                sort: this.sort
+            }}).then(res => {
+                this.boards = res.data.leaderboard;
+                this.$set(this, 'load', false);
             });
         },
-        scoreFormat(score){
+        scoreFormat(score) {
             var addCommas = this.addCommas;
-            if (score > 1000 * 1000){
-                if(score > 1000 * 1000 * 1000)
+            if (score > 1000 * 1000) {
+                if (score > 1000 * 1000 * 1000)
                     return `${addCommas((score / 1000000000).toFixed(2))} billion`;
                 return `${addCommas((score / 1000000).toFixed(2))} million`;
             }
@@ -65,7 +59,19 @@ new Vue({
             }
             return x1 + x2;
         },
+        StrtoGulagInt() {
+            switch (this.mode + "|" + this.mods) {
+                case 'std|vn': return 0;
+                case 'taiko|vn': return 1;
+                case 'catch|vn': return 2;
+                case 'mania|vn': return 3;
+                case 'std|rx': return 4;
+                case 'taiko|rx': return 5;
+                case 'catch|rx': return 6;
+                case 'std|ap': return 7;
+                default: return -1;
+            }
+        },
     },
-    computed: {
-    }
+    computed: {}
 });

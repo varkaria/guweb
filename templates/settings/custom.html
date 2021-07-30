@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block title %} Avatar {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/pages/settings/style.css">
+
+<div class="main-block">
+  {% include "settings/sidebar.html" %}
+  <div class="block-content right" id="settings-content">
+    <div class="single-right-block">
+      <div class="right-block-header">
+        Customisation
+      </div>
+      <div class="right-block-content">
+        <div class="flex avatar-flex">
+          <div class="column">
+            <form id="upload-profile" action="/settings/custom" method="post" enctype="multipart/form-data">
+              <div class="single-block-content avatar-block-content mb-6">
+                <h4 class="mb-4">Banner</h4>
+                <div class="subtitle">Recommend with 1440x262 pixels with GIF, PNG, JPG, JPEG</div>
+                <div class="buttons margin-top" id="selection">
+                  <label class="file-label">
+                    <input class="file-input" id="file-bn" type="file" name="banner">
+                    <span class="file-cta">
+                      <span class="file-label">
+                        Choose file
+                      </span>
+                      <span class="file-icon">
+                        <i class="fa fa-upload"></i>
+                      </span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div class="single-block-content avatar-block-content">
+                <h4 class="mb-4">Profile Background</h4>
+                <div class="subtitle">
+                  Recommend with 16:9 ratio with PNG, JPG, JPEG
+                </div>
+                <div class="buttons margin-top" id="selection">
+                  <label class="file-label">
+                    <input class="file-input" id="file-bg" type="file" name="background">
+                    <span class="file-cta">
+                      <span class="file-label">
+                        Choose file
+                      </span>
+                      <span class="file-icon">
+                        <i class="fa fa-upload"></i>
+                      </span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div class="custom-button buttons mt-6">
+                <button class='button is-primary' type='submit'><span class='icon is-small'><i class='fas fa-check'></i></span><span>Save</span></button>
+              </div>
+            </form>
+          </div>
+          <div class="column">
+            <h4 class="mb-4">Preview</h4>
+            <div class="preview-block" id="avatar">
+              <div class="top-block" {% if customizations['banner'] == True %}style="background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url(/profbanner/{{ session['user_data']['id'] }}); background-size: cover"{% endif %}></div>
+              <div class="bottom-block">
+                <div class="profile-avatar-area">
+                  <img id="avatar-img" src="https://a.{{ domain() }}/{{ session.user_data['id']}}" alt="avatar"
+                    class="rounded-avatar profile-avatar">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.css" />
+  <script>
+    $("#file-bg")
+      .change(function (e) {
+        var f = e.target.files;
+        if (f.length < 1) {
+          return;
+        }
+        var u = window.URL.createObjectURL(f[0]);
+        var i = $("body")[0];
+        i.src = u;
+        $('body').css({'background': `linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url(${i.src})`, 'background-size': 'cover'})
+      });
+
+      $("#file-bn")
+      .change(function (e) {
+        var f = e.target.files;
+        if (f.length < 1) {
+          return;
+        }
+        var u = window.URL.createObjectURL(f[0]);
+        var i = $(".top-block")[0];
+        i.src = u;
+        $('.top-block').css({'background': `linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url(${i.src})`, 'background-size': 'cover'})
+      });
+  </script>
+</div>
+
+{% if flash %}
+<div class='noti-banner noti-banner-warning'>
+  <div class="container">
+    <div class="noti-column">
+      <div class='noti-col noti-col-icon'></div>
+      <div class='noti-col noti-col-label'>
+        <div class='noti-bannertype'>
+          {% if status=='error' %}
+          Warning
+          {% elif status=='success' %}
+          Notice
+          {% endif %}
+        </div>
+        <div class='noti-bannertext'>
+          {% if status=='error' %}
+          Uh oh! Be careful!
+          {% elif status=='success' %}
+          Hey! Listen!
+          {% endif %}
+        </div>
+      </div>
+      <div class='noti-banner-text'>
+        {{ flash }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block bottom %}
+<style>
+    {% if customizations['background'] == True %}
+        body {
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/profbackground/{{ session['user_data']['id'] }}");
+            background-size: cover !important;
+        }
+    {% endif %}
+</style>
+{% endblock bottom %}

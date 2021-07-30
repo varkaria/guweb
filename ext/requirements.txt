@@ -8,3 +8,4 @@ asyncpg
 orjson
 timeago
 markdown2
+Pillow

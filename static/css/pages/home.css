@@ -43,6 +43,9 @@
   .gulag-avatar {
     display: none;
   }
+  #home-hero .columns.flex-vcenter {
+    padding: 0 20px;
+  }
   .main-block {
     width: initial;
     height: 285px;
