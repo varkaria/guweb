@@ -4,7 +4,6 @@ bcrypt
 aiomysql
 aiohttp
 mysql-connector
-asyncpg
 orjson
 timeago
 markdown2
