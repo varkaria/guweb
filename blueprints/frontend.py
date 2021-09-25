@@ -339,7 +339,6 @@ async def profile_select(id):
     # force use id
     else:
         use_safe_name = request.args.get("isName")
-        log(use_safe_name)
         if (use_safe_name == ""):
             for user in user_data:
                 if user['safe_name'] == id:
