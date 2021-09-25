@@ -296,8 +296,8 @@ async def settings_password_post():
     session.pop('user_data', None)
     return await flash('success', 'Your password has been changed! Please log in again.', 'login')
 
-@frontend.route('/u/<id>')
-async def profile(id):
+
+async def render_profile(user):
     mode = request.args.get('mode', type=str)
     mods = request.args.get('mods', type=str)
 
@@ -314,21 +314,44 @@ async def profile(id):
     else:
         mods = 'vn'
 
-    user_data = await glob.db.fetch(
-        'SELECT name, id, priv, country '
-        'FROM users '
-        'WHERE id = %s',
-        [id]
-    )
-
-    # user is banned and we're not staff; render 404
     is_staff = 'authenticated' in session and session['user_data']['is_staff']
-    if not user_data or not (user_data['priv'] & Privileges.Normal or is_staff):
+    if not user or not (user['priv'] & Privileges.Normal or is_staff):
         return (await render_template('404.html'), 404)
 
-    user_data['customisation'] = utils.has_profile_customizations(id)
+    user['customisation'] = utils.has_profile_customizations(id)
 
-    return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
+    return await render_template('profile.html', user=user, mode=mode, mods=mods)
+
+@frontend.route('/u/<id>')
+async def profile_select(id):
+
+    user_data = await glob.db.fetchall(
+        'SELECT name, safe_name, id, priv, country '
+        'FROM `users` '
+        'WHERE `id` = %s OR `name` = %s OR `safe_name` = %s',
+        [id, id, id]
+    )
+
+    # no user
+    if (len(user_data) == 0): return (await render_template('404.html'), 404)
+
+    # more than 0 user
+    # force use id
+    else:
+        use_safe_name = request.args.get("isName")
+        log(use_safe_name)
+        if (use_safe_name == ""):
+            for user in user_data:
+                if user['safe_name'] == id:
+                    return await render_profile(user)
+            return (await render_template('404.html'), 404)
+    # 1 user
+        if (len(user_data) == 1): 
+            return await render_profile(user_data[0])
+    
+    # more than 1 users, service UserList
+    return await render_template('list-user.html', users=user_data)
+
 
 @frontend.route('/leaderboard')
 @frontend.route('/lb')
