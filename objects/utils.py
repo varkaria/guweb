@@ -31,6 +31,9 @@ async def flash_with_customizations(status: str, msg: str, template: str) -> str
 
 def get_safe_name(name: str) -> str:
     """Returns the safe version of a username."""
+    # Safe name should meet few criterias.
+    # - Whole name should be lower letters.
+    # - Space must be replaced with _
     return name.lower().replace(' ', '_')
 
 def convert_mode_int(mode: str) -> Optional[int]:
