@@ -13,7 +13,7 @@ api = Blueprint('api', __name__)
 
 """ /search_users"""
 @api.route('/search_users') # GET
-async def get_achievements():
+async def search_users():
     q = request.args.get('q', type=str)
 
     if not q:
@@ -22,7 +22,7 @@ async def get_achievements():
     res = await glob.db.fetchall(
         'SELECT id, name '
         'FROM `users` '
-        'WHERE priv >= 3 AND `name` LIKE %s '
+        'WHERE `name` LIKE %s '
         'LIMIT 5',
         [q.join("%%")]
     )
