@@ -34,8 +34,7 @@ def get_safe_name(name: str) -> str:
     # Safe name should meet few criterias.
     # - Whole name should be lower letters.
     # - Space must be replaced with _
-    # - Whitespace from right side should be removed.
-    return name.lower().replace(' ', '_').rstrip()
+    return name.lower().replace(' ', '_')
 
 def convert_mode_int(mode: str) -> Optional[int]:
     """Converts mode (str) to mode (int)."""
