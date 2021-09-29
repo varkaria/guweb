@@ -67,6 +67,9 @@ app.register_blueprint(frontend)
 from blueprints.admin import admin
 app.register_blueprint(admin, url_prefix='/admin')
 
+from blueprints.api import api
+app.register_blueprint(api, url_prefix='/gw_api')
+
 @app.errorhandler(404)
 async def page_not_found(e):
     # NOTE: we set the 404 status explicitly

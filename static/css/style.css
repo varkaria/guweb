@@ -734,3 +734,24 @@ body::-webkit-scrollbar-thumb {
 [v-cloak] {
   display: none;
 }
+
+#u-search {
+  vertical-align: middle;
+  border: 0;
+  background: #fff;
+  font-size: 15px;
+  width: 150px;
+  padding: 5px 10px;
+  margin-top: 12px;
+  outline: none;
+}
+
+.search-view {
+  width: 150px;
+  top: 40px;
+  height: 160px;
+  position: absolute;
+  background: #fff;
+  border-radius: 2px;
+  display: none; /*temp*/
+}
