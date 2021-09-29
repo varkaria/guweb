@@ -175,8 +175,9 @@ async def settings_custom():
 @frontend.route('/settings/custom', methods=['POST'])
 @login_required
 async def settings_custom_post():
-    banner = (await request.files).get('banner')
-    background = (await request.files).get('background')
+    files = await request.files
+    banner = files.get('banner')
+    background = files.get('background')
     ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png', '.gif']
 
     # no file uploaded; deny post
@@ -184,7 +185,7 @@ async def settings_custom_post():
         return await flash_with_customizations('error', 'No image was selected!', 'settings/custom')
 
     if banner is not None and banner.filename:
-        filename, file_extension = os.path.splitext(banner.filename.lower())
+        _, file_extension = os.path.splitext(banner.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
             return await flash_with_customizations('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
@@ -199,7 +200,7 @@ async def settings_custom_post():
         await banner.save(f'{banner_file_no_ext}{file_extension}')
 
     if background is not None and background.filename:
-        filename, file_extension = os.path.splitext(background.filename.lower())
+        _, file_extension = os.path.splitext(background.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
             return await flash_with_customizations('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
@@ -297,59 +298,35 @@ async def settings_password_post():
     return await flash('success', 'Your password has been changed! Please log in again.', 'login')
 
 
-async def render_profile(user):
-    mode = request.args.get('mode', type=str)
-    mods = request.args.get('mods', type=str)
-
-    # make sure mode & mods are valid args
-    if mode is not None:
-        if mode not in VALID_MODES:
-            return (await render_template('404.html'), 404)
-    else:
-        mode = 'std'
-
-    if mods is not None:
-        if mods not in VALID_MODS:
-            return (await render_template('404.html'), 404)
-    else:
-        mods = 'vn'
-
-    is_staff = 'authenticated' in session and session['user_data']['is_staff']
-    if not user or not (user['priv'] & Privileges.Normal or is_staff):
-        return (await render_template('404.html'), 404)
-
-    user['customisation'] = utils.has_profile_customizations(id)
-
-    return await render_template('profile.html', user=user, mode=mode, mods=mods)
-
 @frontend.route('/u/<id>')
 async def profile_select(id):
 
-    user_data = await glob.db.fetchall(
+    mode = request.args.get('mode', 'std', type=str) # 1. key 2. default value
+    mods = request.args.get('mods', 'vn', type=str)
+    user_data = await glob.db.fetch(
         'SELECT name, safe_name, id, priv, country '
-        'FROM `users` '
-        'WHERE `id` = %s OR `name` = %s OR `safe_name` = %s',
-        [id, id, id]
+        'FROM users '
+        'WHERE safe_name IN (%s) OR id IN (%s) LIMIT 1',
+        [id, utils.get_safe_name(id)]
     )
 
     # no user
-    if (len(user_data) == 0): return (await render_template('404.html'), 404)
+    if not user_data:
+        return (await render_template('404.html'), 404)
 
-    # more than 0 user
-    # force use id
-    else:
-        use_safe_name = request.args.get("isName")
-        if (use_safe_name == ""):
-            for user in user_data:
-                if user['safe_name'] == id:
-                    return await render_profile(user)
-            return (await render_template('404.html'), 404)
-    # 1 user
-        if (len(user_data) == 1): 
-            return await render_profile(user_data[0])
+    # make sure mode & mods are valid args
+    if mode is not None and mode not in VALID_MODES:
+        return (await render_template('404.html'), 404)
     
-    # more than 1 users, service UserList
-    return await render_template('list-user.html', users=user_data)
+    if mods is not None and mods not in VALID_MODS:
+        return (await render_template('404.html'), 404)
+
+    is_staff = 'authenticated' in session and session['user_data']['is_staff']
+    if not user_data or not (user_data['priv'] & Privileges.Normal or is_staff):
+        return (await render_template('404.html'), 404)
+
+    user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
+    return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
 
 
 @frontend.route('/leaderboard')
