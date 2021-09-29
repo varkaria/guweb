@@ -22,7 +22,7 @@ async def search_users():
     res = await glob.db.fetchall(
         'SELECT id, name '
         'FROM `users` '
-        'WHERE `name` LIKE %s '
+        'WHERE priv >= 3 AND `name` LIKE %s '
         'LIMIT 5',
         [q.join("%%")]
     )
