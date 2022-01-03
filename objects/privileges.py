@@ -3,7 +3,7 @@
 from enum import IntFlag
 from enum import unique
 
-__all__ = ('Privileges')
+__all__ = ('Privileges',)
 
 @unique
 class Privileges(IntFlag):

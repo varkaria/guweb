@@ -13,7 +13,7 @@ from objects import glob
 from objects import utils
 
 if TYPE_CHECKING:
-    from PIL import Image
+    from PIL.Image import Image
 
 async def flash(status: str, msg: str, template: str) -> str:
     """Flashes a success/error message on a specified template."""
@@ -84,12 +84,12 @@ async def validate_captcha(data: str) -> bool:
     """Verify `data` with hcaptcha's API."""
     url = f'https://hcaptcha.com/siteverify'
 
-    data = {
+    request_data = {
         'secret': glob.config.hCaptcha_secret,
         'response': data
     }
 
-    async with glob.http.post(url, data=data) as resp:
+    async with glob.http.post(url, data=request_data) as resp:
         if not resp or resp.status != 200:
             if glob.config.debug:
                 log('Failed to verify captcha: request failed.', Ansi.LRED)
@@ -134,12 +134,16 @@ def has_profile_customizations(user_id: int = 0) -> dict[str, bool]:
         path = BANNERS_PATH / f'{user_id}.{ext}'
         if has_custom_banner := path.exists():
             break
+    else:
+        has_custom_banner = False
 
     # check for custom background image file
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
         path = BACKGROUND_PATH / f'{user_id}.{ext}'
         if has_custom_background := path.exists():
             break
+    else:
+        has_custom_background = False
 
     return {
         'banner' : has_custom_banner,
