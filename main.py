@@ -36,6 +36,11 @@ async def http_conn() -> None:
     glob.http = aiohttp.ClientSession(json_serialize=orjson.dumps)
     log('Got our Client Session!', Ansi.LGREEN)
 
+@app.after_serving
+async def shutdown() -> None:
+    await glob.db.close()
+    await glob.http.close()
+
 # globals which can be used in template code
 _version = repr(version)
 @app.before_serving
