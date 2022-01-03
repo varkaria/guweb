@@ -60,7 +60,7 @@ new Vue({
         },
         LoadProfileData() {
             this.$set(this.data.stats, 'load', true);
-            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_info`, {
+            this.$axios.get(`${window.location.protocol}//api.${domain}/get_player_info`, {
                     params: {
                         id: this.userid,
                         scope: 'all'
@@ -73,7 +73,7 @@ new Vue({
         },
         LoadScores(sort) {
             this.$set(this.data.scores[`${sort}`], 'load', true);
-            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_scores`, {
+            this.$axios.get(`${window.location.protocol}//api.${domain}/get_player_scores`, {
                     params: {
                         id: this.userid,
                         mode: this.StrtoGulagInt(),
@@ -89,7 +89,7 @@ new Vue({
         },
         LoadMostBeatmaps() {
             this.$set(this.data.maps.most, 'load', true);
-            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_most_played`, {
+            this.$axios.get(`${window.location.protocol}//api.${domain}/get_player_most_played`, {
                     params: {
                         id: this.userid,
                         mode: this.StrtoGulagInt(),
@@ -103,7 +103,7 @@ new Vue({
                 });
         },
         LoadUserStatus() {
-            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_status`, {
+            this.$axios.get(`${window.location.protocol}//api.${domain}/get_player_status`, {
                     params: {
                         id: this.userid
                     }
