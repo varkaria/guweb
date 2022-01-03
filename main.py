@@ -69,6 +69,6 @@ async def page_not_found(e):
     # NOTE: we set the 404 status explicitly
     return (await render_template('404.html'), 404)
 
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
 if __name__ == '__main__':
-    app.run(debug=glob.config.debug) # blocking call
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    app.run(port=8000, debug=glob.config.debug) # blocking call
