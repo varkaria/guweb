@@ -42,29 +42,21 @@ async def shutdown() -> None:
     await glob.http.close()
 
 # globals which can be used in template code
-_version = repr(version)
-@app.before_serving
 @app.template_global()
 def appVersion() -> str:
-    return _version
+    return repr(version)
 
-_app_name = glob.config.app_name
-@app.before_serving
 @app.template_global()
 def appName() -> str:
-    return _app_name
+    return glob.config.app_name
 
-_captcha_key = glob.config.hCaptcha_sitekey
-@app.before_serving
 @app.template_global()
 def captchaKey() -> str:
-    return _captcha_key
+    return glob.config.hCaptcha_sitekey
 
-_domain = glob.config.domain
-@app.before_serving
 @app.template_global()
 def domain() -> str:
-    return _domain
+    return glob.config.domain
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)
