@@ -68,7 +68,7 @@ new Vue({
                 case 'std|rx': return 4;
                 case 'taiko|rx': return 5;
                 case 'catch|rx': return 6;
-                case 'std|ap': return 7;
+                case 'std|ap': return 8;
                 default: return -1;
             }
         },

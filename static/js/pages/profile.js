@@ -68,6 +68,7 @@ new Vue({
                 })
                 .then(res => {
                     this.$set(this.data.stats, 'out', res.data.player.stats);
+                    this.data.stats.out.splice(6, 0, {}); //tempfix until better gulag-side fix
                     this.data.stats.load = false;
                 });
         },
@@ -212,7 +213,7 @@ new Vue({
                 case 'catch|rx':
                     return 6;
                 case 'std|ap':
-                    return 7;
+                    return 8;
                 default:
                     return -1;
             }
