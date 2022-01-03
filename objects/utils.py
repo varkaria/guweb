@@ -103,9 +103,9 @@ def get_required_score_for_level(level: int) -> float:
 	if level <= 100:
 		if level >= 2:
 			return 5000 / 3 * (4 * (level ** 3) - 3 * (level ** 2) - level) + 1.25 * (1.8 ** (level - 60))
-		elif level <= 0 or level == 1:
+		else:
 			return 1.0  # Should be 0, but we get division by 0 below so set to 1
-	elif level >= 101:
+	else:
 		return 26931190829 + 1e11 * (level - 100)
 
 def get_level(totalScore: int) -> int:
