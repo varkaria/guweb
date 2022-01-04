@@ -317,7 +317,7 @@ async def profile_select(id):
     # make sure mode & mods are valid args
     if mode is not None and mode not in VALID_MODES:
         return (await render_template('404.html'), 404)
-    
+
     if mods is not None and mods not in VALID_MODS:
         return (await render_template('404.html'), 404)
 
@@ -534,7 +534,16 @@ async def register_post():
             await db_cursor.executemany(
                 'INSERT INTO stats '
                 '(id, mode) VALUES (%s, %s)',
-                [(user_id, mode) for mode in range(8)]
+                [(user_id, mode) for mode in (
+                    0,  # vn!std
+                    1,  # vn!taiko
+                    2,  # vn!catch
+                    3,  # vn!mania
+                    4,  # rx!std
+                    5,  # rx!taiko
+                    6,  # rx!catch
+                    8,  # ap!std
+                )]
             )
 
     # (end of lock)

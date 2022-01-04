@@ -60,7 +60,7 @@ new Vue({
         },
         LoadProfileData() {
             this.$set(this.data.stats, 'load', true);
-            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_info`, {
+            this.$axios.get(`${window.location.protocol}//api.${domain}/get_player_info`, {
                     params: {
                         id: this.userid,
                         scope: 'all'
@@ -68,12 +68,13 @@ new Vue({
                 })
                 .then(res => {
                     this.$set(this.data.stats, 'out', res.data.player.stats);
+                    this.data.stats.out.splice(6, 0, {}); //tempfix until better gulag-side fix
                     this.data.stats.load = false;
                 });
         },
         LoadScores(sort) {
             this.$set(this.data.scores[`${sort}`], 'load', true);
-            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_scores`, {
+            this.$axios.get(`${window.location.protocol}//api.${domain}/get_player_scores`, {
                     params: {
                         id: this.userid,
                         mode: this.StrtoGulagInt(),
@@ -89,7 +90,7 @@ new Vue({
         },
         LoadMostBeatmaps() {
             this.$set(this.data.maps.most, 'load', true);
-            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_most_played`, {
+            this.$axios.get(`${window.location.protocol}//api.${domain}/get_player_most_played`, {
                     params: {
                         id: this.userid,
                         mode: this.StrtoGulagInt(),
@@ -103,7 +104,7 @@ new Vue({
                 });
         },
         LoadUserStatus() {
-            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_status`, {
+            this.$axios.get(`${window.location.protocol}//api.${domain}/get_player_status`, {
                     params: {
                         id: this.userid
                     }
@@ -212,7 +213,7 @@ new Vue({
                 case 'catch|rx':
                     return 6;
                 case 'std|ap':
-                    return 7;
+                    return 8;
                 default:
                     return -1;
             }

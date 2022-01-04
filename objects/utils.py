@@ -13,7 +13,7 @@ from objects import glob
 from objects import utils
 
 if TYPE_CHECKING:
-    from PIL import Image
+    from PIL.Image import Image
 
 async def flash(status: str, msg: str, template: str) -> str:
     """Flashes a success/error message on a specified template."""
@@ -84,12 +84,12 @@ async def validate_captcha(data: str) -> bool:
     """Verify `data` with hcaptcha's API."""
     url = f'https://hcaptcha.com/siteverify'
 
-    data = {
+    request_data = {
         'secret': glob.config.hCaptcha_secret,
         'response': data
     }
 
-    async with glob.http.post(url, data=data) as resp:
+    async with glob.http.post(url, data=request_data) as resp:
         if not resp or resp.status != 200:
             if glob.config.debug:
                 log('Failed to verify captcha: request failed.', Ansi.LRED)
@@ -103,9 +103,9 @@ def get_required_score_for_level(level: int) -> float:
 	if level <= 100:
 		if level >= 2:
 			return 5000 / 3 * (4 * (level ** 3) - 3 * (level ** 2) - level) + 1.25 * (1.8 ** (level - 60))
-		elif level <= 0 or level == 1:
+		else:
 			return 1.0  # Should be 0, but we get division by 0 below so set to 1
-	elif level >= 101:
+	else:
 		return 26931190829 + 1e11 * (level - 100)
 
 def get_level(totalScore: int) -> int:
@@ -134,12 +134,16 @@ def has_profile_customizations(user_id: int = 0) -> dict[str, bool]:
         path = BANNERS_PATH / f'{user_id}.{ext}'
         if has_custom_banner := path.exists():
             break
+    else:
+        has_custom_banner = False
 
     # check for custom background image file
     for ext in ('jpg', 'jpeg', 'png', 'gif'):
         path = BACKGROUND_PATH / f'{user_id}.{ext}'
         if has_custom_background := path.exists():
             break
+    else:
+        has_custom_background = False
 
     return {
         'banner' : has_custom_banner,

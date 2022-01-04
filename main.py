@@ -28,38 +28,35 @@ app.secret_key = glob.config.secret_key
 @app.before_serving
 async def mysql_conn() -> None:
     glob.db = AsyncSQLPool()
-    await glob.db.connect(glob.config.mysql)
+    await glob.db.connect(glob.config.mysql) # type: ignore
     log('Connected to MySQL!', Ansi.LGREEN)
 
 @app.before_serving
 async def http_conn() -> None:
-    glob.http = aiohttp.ClientSession(json_serialize=orjson.dumps)
+    glob.http = aiohttp.ClientSession(json_serialize=lambda x: orjson.dumps(x).decode())
     log('Got our Client Session!', Ansi.LGREEN)
 
+@app.after_serving
+async def shutdown() -> None:
+    await glob.db.close()
+    await glob.http.close()
+
 # globals which can be used in template code
-_version = repr(version)
-@app.before_serving
 @app.template_global()
 def appVersion() -> str:
-    return _version
+    return repr(version)
 
-_app_name = glob.config.app_name
-@app.before_serving
 @app.template_global()
 def appName() -> str:
-    return _app_name
+    return glob.config.app_name
 
-_captcha_key = glob.config.hCaptcha_sitekey
-@app.before_serving
 @app.template_global()
 def captchaKey() -> str:
-    return _captcha_key
+    return glob.config.hCaptcha_sitekey
 
-_domain = glob.config.domain
-@app.before_serving
 @app.template_global()
 def domain() -> str:
-    return _domain
+    return glob.config.domain
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)
@@ -72,6 +69,6 @@ async def page_not_found(e):
     # NOTE: we set the 404 status explicitly
     return (await render_template('404.html'), 404)
 
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
 if __name__ == '__main__':
-    app.run(debug=glob.config.debug) # blocking call
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    app.run(port=8000, debug=glob.config.debug) # blocking call
