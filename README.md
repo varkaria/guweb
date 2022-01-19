@@ -62,9 +62,9 @@ sudo nginx -s reload
 cp ext/config.sample.py config.py
 nano config.py
 
-# Run guweb.
-python3.9 main.py # Run directly to access debug features for development! (Port 5000)
-hypercorn main.py # Please run guweb with hypercorn when in production! It will improve performance drastically by disabling all of the debug features a developer would need! (Port 8000)
+# Run guweb (on port 8000).
+python3.9 main.py # Run directly to access debug features for development!
+hypercorn main.py # Please run guweb with hypercorn when in production! It will improve performance drastically by disabling all of the debug features a developer would need!
 ```
 
 Directory Structure
