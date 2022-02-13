@@ -35,10 +35,10 @@ async def home():
 
     recent_users = await glob.db.fetchall('SELECT * FROM users ORDER BY id DESC LIMIT 5')
     recent_scores = await glob.db.fetchall(
-        'SELECT scores_vn.*, maps.artist, maps.title, '
+        'SELECT scores.*, maps.artist, maps.title, '
         'maps.set_id, maps.creator, maps.version '
-        'FROM scores_vn JOIN maps ON scores_vn.map_md5 = maps.md5 '
-        'ORDER BY scores_vn.id DESC LIMIT 5'
+        'FROM scores JOIN maps ON scores.map_md5 = maps.md5 '
+        'ORDER BY scores.id DESC LIMIT 5'
     )
 
     return await render_template(
