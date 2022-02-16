@@ -13,9 +13,9 @@ new Vue({
     methods: {
         GetOnlineUsers() {
             var vm = this;
-            vm.$axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/gw_api/get_online`)
+            vm.$axios.get(`${window.location.protocol}//api.${window.location.hostname}:${window.location.port}/get_player_count`)
                 .then(function (response) {
-                    vm.online_users = response.data.online;
+                    vm.online_users = response.data.counts.online;
                 });
         },
         addCommas(nStr) {
