@@ -13,7 +13,7 @@ new Vue({
     methods: {
         GetOnlineUsers() {
             var vm = this;
-            vm.$axios.get(`${window.location.protocol}//api.${window.location.hostname}:${window.location.port}/get_player_count`)
+            vm.$axios.get(`${window.location.protocol}//api.${domain}/get_player_count`)
                 .then(function (response) {
                     vm.online_users = response.data.counts.online;
                 });
