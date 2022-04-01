@@ -306,7 +306,7 @@ async def profile_select(id):
     user_data = await glob.db.fetch(
         'SELECT name, safe_name, id, priv, country '
         'FROM users '
-        'WHERE safe_name IN (%s) OR id IN (%s) LIMIT 1',
+        'WHERE safe_name = %s OR id = %s LIMIT 1',
         [utils.get_safe_name(id), id]
     )
 
