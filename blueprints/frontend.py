@@ -307,7 +307,7 @@ async def profile_select(id):
         'SELECT name, safe_name, id, priv, country '
         'FROM users '
         'WHERE safe_name IN (%s) OR id IN (%s) LIMIT 1',
-        [id, utils.get_safe_name(id)]
+        [utils.get_safe_name(id), id]
     )
 
     # no user
