@@ -136,7 +136,7 @@
 <style>
     {% if customizations['background'] == True %}
         body {
-            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/profbackground/{{ session['user_data']['id'] }}");
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ session['user_data']['id'] }}");
             background-size: cover !important;
         }
     {% endif %}
