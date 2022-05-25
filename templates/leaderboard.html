@@ -43,6 +43,12 @@
                 @click="LoadLeaderboard('pp', mode, mods, '')">PP</a>
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'rscore' }"
                 @click="LoadLeaderboard('rscore', mode, mods, '')">Score</a>
+                <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'acc' }"
+                @click="LoadLeaderboard('acc', mode, mods, '')">Acc</a>
+                <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'plays' }"
+                @click="LoadLeaderboard('plays', mode, mods, '')">PlayCount</a>
+                <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'playtime' }"
+                @click="LoadLeaderboard('playtime', mode, mods, '')">PlayTime</a>
             </div>
             <div class="right">
                 <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'vn' }"
@@ -69,6 +75,7 @@
                             <th class="t-heading"> Accuracy </th>
                             <th class="t-heading"> Playcount </th>
                             <th class="t-heading"> Max Combo </th>
+                            <th class="t-heading"> Play Time </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,6 +107,9 @@
                             <td>
                                 <% addCommas(user.max_combo) %>
                             </td>
+                            <td>
+                                <% secondsToDhm(user.playtime) %>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -114,5 +124,5 @@
 </div>
 
 <script src="/static/js/asserts/vue-flags.js"></script>
-<script src="/static/js/pages/leaderboard.js"></script>
+<script src="/static/js/pages/leaderboard.js?v=1.0"></script>
 {% endblock %}

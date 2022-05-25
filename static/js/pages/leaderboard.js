@@ -17,6 +17,13 @@ new Vue({
         this.LoadLeaderboard(sort, mode, mods);
     },
     methods: {
+        secondsToDhm(seconds) {
+            seconds = Number(seconds);
+            var dDisplay = `${Math.floor(seconds / (3600 * 24))}d `;
+            var hDisplay = `${Math.floor(seconds % (3600 * 24) / 3600)}h `;
+            var mDisplay = `${Math.floor(seconds % 3600 / 60)}m `;
+            return dDisplay + hDisplay + mDisplay;
+        },
         LoadData(mode, mods, sort) {
             this.$set(this, 'mode', mode);
             this.$set(this, 'mods', mods);

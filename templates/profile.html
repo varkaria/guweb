@@ -11,7 +11,7 @@
     <div v-if="data.scores.{{ id }}.out.length != 0" class="scores">
         <div v-for="(map, index) in data.scores.{{ id }}.out" class="map-single"
             :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${map.beatmap.set_id}/covers/cover.jpg)`">
-            <div class="map-data">
+            <div class="map-data" @click="window.open('https://osu.ppy.sh/beatmaps/' + map.beatmap.id) ">
                 <div class="map-content1">
                     <div class="map-image">
                         <img v-bind:src="'https://assets.ppy.sh/beatmaps/' + map.beatmap.set_id + '/covers/card.jpg'"
@@ -24,7 +24,7 @@
                             </a>
                         </div>
                         <div class="play-stats">
-                            <% addCommas(map.score) %> / <% map.max_combo %><b>x</b>
+                            <% map.mods_str %> / <% map.max_combo %><b>x</b>
                         </div>
                         <div class="map-date">
                             <time>
@@ -126,7 +126,7 @@
 <script src="/static/js/asserts/vue.js"></script>
 <script src="/static/js/asserts/vue-axios.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
-<link rel="stylesheet" href="/static/css/pages/profile.css">
+<link rel="stylesheet" href="/static/css/pages/profile.css?v=1.0">
 
 <script>
     var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
@@ -199,11 +199,6 @@
                         @click="ChangeModeMods(mode,'ap')"><span class="mods-fulltext">Autopilot</span><span
                             class="mods-shorttext">AP</span></a>
                 </div>
-            </div>
-            <div class="bar-selection badge-selects">
-                <span>
-                    Badges not yet implemented!
-                </span>
             </div>
         </div>
     </div>
