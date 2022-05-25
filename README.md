@@ -8,7 +8,7 @@ Table of Contents
   - [The team](#the-team)
   - [The End](#the-end)
 
-What is guweb?
+What is ppy-sb-guweb?
 ------
 
 guweb is the front-facing appearance of the osu! server protocol, [gulag](https://github.com/cmyui/gulag)!
@@ -59,7 +59,7 @@ sudo nano ext/nginx.conf
 sudo nginx -s reload
 
 # Configure guweb.
-cp ext/config.sample.py config.py
+cp ext/config.py config.py
 nano config.py
 
 # Run guweb (on port 8000).
