@@ -6,6 +6,7 @@ __all__ = ()
 import os
 
 import aiohttp
+import i18n
 import orjson
 from quart import Quart
 from quart import render_template
@@ -47,6 +48,10 @@ def appVersion() -> str:
     return repr(version)
 
 @app.template_global()
+def t(key, **kwargs) -> str:
+    return i18n.t(key, **kwargs)
+
+@app.template_global()
 def appName() -> str:
     return glob.config.app_name
 
@@ -71,4 +76,6 @@ async def page_not_found(e):
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    app.run(port=8000, debug=glob.config.debug) # blocking call
+    i18n.load_path.append(os.getcwd() + '/locales')
+    i18n.set('filename_format', '{locale}.{format}')
+    app.run(port=8000, debug=glob.config.debug)  # blocking call

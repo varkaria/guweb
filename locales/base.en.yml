@@ -9,3 +9,4 @@ en:
   right-click-properties: 'Right click -> Properties'
   find-target-element-box: 'Find "Target element" Box'
   add-domain$: 'Add " -devserver %{ domain } at the end of it'
+  some-coolest-features: 'Some of our coolest features'
