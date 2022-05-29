@@ -26,6 +26,8 @@ from objects.privileges import Privileges
 from objects.utils import flash
 from objects.utils import flash_with_customizations
 
+import i18n
+
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
 
