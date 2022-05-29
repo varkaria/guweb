@@ -612,7 +612,7 @@ async def get_profile_banner(user_id: int):
 @frontend.route('/language/<lang>')
 async def set_language(lang: str):
     session['lang'] = lang
-    return await render_template('home.html')
+    return redirect('/home')
 
 
 @frontend.route('/backgrounds/<user_id>')
