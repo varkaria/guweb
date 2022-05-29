@@ -8,13 +8,14 @@ import os
 import aiohttp
 import i18n
 import orjson
-from quart import Quart
+from quart import Quart, session
 from quart import render_template
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
 from cmyui.mysql import AsyncSQLPool
 from cmyui.version import Version
+from requests import cookies
 
 from objects import glob
 
@@ -49,7 +50,11 @@ def appVersion() -> str:
 
 @app.template_global()
 def t(key, **kwargs) -> str:
-    return i18n.t(key, **kwargs)
+    kwargs['locale'] = session.get('lang', 'en_GB')
+    try:
+        return i18n.t(key, **kwargs)
+    except:
+        return key
 
 @app.template_global()
 def appName() -> str:

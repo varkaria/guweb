@@ -21,7 +21,7 @@
                 Leaderboards
             </a>
 
-            <!--<div class="navbar-item has-dropdown is-hoverable">
+            <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
                     Information
                 </a>
@@ -37,7 +37,7 @@
                         Report an issue
                     </a>
                 </div>
-            </div>-->
+            </div>
 
             {% if session.authenticated and session.user_data['is_staff'] %}
             <a class="navbar-item" href="/admin">
@@ -47,6 +47,24 @@
         </div>
 
         <div class="navbar-end">
+            <div class="navbar-item has-dropdown is-hoverable" >
+                <i style="display: flex;" class="fa fa-globe navbar-link"></i>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/language/zh_CN">
+                        <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/CN.png">
+                        简体中文
+                    </a>
+                    <a class="navbar-item" href="/language/en_US">
+                        <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/US.png">
+                        English - US
+                    </a>
+                    <a class="navbar-item" href="/language/en_GB">
+                        <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/GB.png">
+                        English - Global
+                    </a>
+                </div>
+            </div>
+
             {% if session.authenticated %}
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">

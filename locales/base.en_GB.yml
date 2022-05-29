@@ -1,12 +1,12 @@
-en:
+en_GB:
   verification: 'Verification'
   how-to-verify-your-account: 'How to verify your account'
   what-do-you-mean-this-must-be-easy-right: 'What do you mean? This must be easy right?'
-  follow-these-three-simple-steps$: 'Follow these three simple steps to get started playing %{ appName }!'
+  follow-these-three-simple-steps$: 'Follow these three simple steps to get started playing %{appName} !'
   osu-shortcut: 'Osu shortcut'
   find-your-shortcut$: 'Find your shortcut to osu on desktop and copy it!'
   edit-it: 'Edit it'
   right-click-properties: 'Right click -> Properties'
   find-target-element-box: 'Find "Target element" Box'
-  add-domain$: 'Add " -devserver %{ domain } at the end of it'
+  add-domain$: 'Add " -devserver %{domain} at the end of it'
   some-coolest-features: 'Some of our coolest features'

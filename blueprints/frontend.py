@@ -609,6 +609,11 @@ async def get_profile_banner(user_id: int):
 
     return b'{"status":404}'
 
+@frontend.route('/language/<lang>')
+async def set_language(lang: str):
+    session['lang'] = lang
+    return await render_template('home.html')
+
 
 @frontend.route('/backgrounds/<user_id>')
 async def get_profile_background(user_id: int):
