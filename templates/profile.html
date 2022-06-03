@@ -63,13 +63,13 @@
                 <h1 class="title">: (</h1>
             </div>
             <div class="column">
-                <h1 class="title is-6">No scores available</h1>
-                <p class="subtitle is-7">Try playing something?</p>
+                <h1 class="title is-6">{{ 'No-scores-available'}}</h1>
+                <p class="subtitle is-7">{{ 'Try-playing-something'}}</p>
             </div>
         </div>
     </div>
     <div v-if="data.scores.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button" @click="AddLimit('{{ id }}score')">Show more</a>
+        <a class="show-button" @click="AddLimit('{{ id }}score')">{{ 'Show-more'}}</a>
     </div>
 </div>
 {% endmacro %}
@@ -78,7 +78,7 @@
 <div class="log-block" v-bind:class="{ 'load' : data.maps.{{ id }}.load }">
     <div class="header">
         <div class="title">
-            <i class="fas fa-address-book"></i> Most Played Beatmaps
+            <i class="fas fa-address-book"></i> {{ 'Most-Played-Beatmaps'}}
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.out.length != 0" class="beatmaps">
@@ -111,13 +111,13 @@
                 <h1 class="title">: (</h1>
             </div>
             <div class="column">
-                <h1 class="title is-6">No beatmaps available</h1>
-                <p class="subtitle is-7">Try playing something?</p>
+                <h1 class="title is-6">{{ 'No-beatmaps-available'}}</h1>
+                <p class="subtitle is-7">{{ 'Try-playing-something'}}</p>
             </div>
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button" @click="AddLimit('mostplay')">Show more</a>
+        <a class="show-button" @click="AddLimit('mostplay')">{{ 'Show-more'}}</a>
     </div>
 </div>
 {% endmacro %}
@@ -149,10 +149,10 @@
                 </h1>
                 <transition name="fade">
                     <div class="subtitle" v-if='data.status.online == false'>
-                        <a class='circle'>●</a> Offline
+                        <a class='circle'>●</a> {{ 'Offline' }}
                     </div>
                     <div class="subtitle" v-else-if='data.status.online == true'>
-                        <a class='circle green'>●</a> Online
+                        <a class='circle green'>●</a> {{ 'Online' }}
                     </div>
                 </transition>
             </div>
@@ -234,7 +234,7 @@
                 </div>-->
                 <div class="header">
                     <div class="title">
-                        <i class="fas fa-chart-pie"></i> Statistics
+                        <i class="fas fa-chart-pie"></i> {{ 'Statistics' }}
                     </div>
                 </div>
                 <div class="stats-block">

@@ -36,7 +36,7 @@
                 <i class="mode-icon mode-mania"></i><span class="modetext"> osu!mania</span>
             </a>
         </div>
-        <div class="banner-text">Leaderboard</div>
+        <div class="banner-text">{{ 'Leaderboard' }}</div>
         <div class="selector">
             <div class="left">
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'pp' }"
@@ -116,7 +116,7 @@
             </div>
             <div v-else>
                 <div class="text-center">
-                    there are no players to display!
+                    {{ 'there-are-no-players-to-display'}}
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@
 <div class="main-block is-marginless is-paddingless is-auth">
   <div class="columns pm-reset is-weeb">
     <div class="column title-block">
-      <h1 class="title" id="regtitle">Registration</h1>
+      <h1 class="title" id="regtitle">{{ 'Registration' }}</h1>
     </div>
   </div>
   <div class="columns pm-reset flex-lcenter is-block">
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="field">
-          <label for="email" class="label">Email</label>
+          <label for="email" class="label">{{ 'Email' }}</label>
           <div class="control has-icons-left">
             <input id="email" type="email" name="email" placeholder="e.g. aika@gul.ag" class="input" autocomplete="email" required>
             <span class="icon is-small is-left">
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="field">
-          <label for="pass" class="label">Password</label>
+          <label for="pass" class="label">{{ 'Password' }}</label>
           <div class="control has-icons-left">
             <input id="pass" type="password" name="password" placeholder="*************" class="input" autocomplete="new-password" required>
             <span class="icon is-small is-left">
@@ -45,7 +45,7 @@
         </div>
         <div class="mt-5"></div>
         <div class="dialog">
-          Already have an account? <a href="/login">Login</a>
+            {{ 'Already-have-an-account'}} <a href="/login">{{ 'Login' }}</a>
         </div>
         {% if not captchaKey() == 'changeme' %}
         <div class="field">
