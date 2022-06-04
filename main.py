@@ -4,6 +4,8 @@
 __all__ = ()
 
 import os
+import locale
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 import aiohttp
 import orjson

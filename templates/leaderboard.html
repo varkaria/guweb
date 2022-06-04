@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Leaderboard {% endblock %}
+{% block title %} Classificação {% endblock %}
 
 {% block header %}
 <script src="/static/js/asserts/vue.js"></script>
@@ -36,7 +36,7 @@
                 <i class="mode-icon mode-mania"></i><span class="modetext"> osu!mania</span>
             </a>
         </div>
-        <div class="banner-text">Leaderboard</div>
+        <div class="banner-text">Classificação</div>
         <div class="selector">
             <div class="left">
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'pp' }"
@@ -66,9 +66,9 @@
                                 <% (sort=='pp' ? "PP" : "" ) %>
                                     <% (sort=='rscore' ? "Score" : "" ) %>
                             </th>
-                            <th class="t-heading"> Accuracy </th>
-                            <th class="t-heading"> Playcount </th>
-                            <th class="t-heading"> Max Combo </th>
+                            <th class="t-heading"> Precisão </th>
+                            <th class="t-heading"> Vezes jogadas </th>
+                            <th class="t-heading"> Combo máximo </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,7 +106,7 @@
             </div>
             <div v-else>
                 <div class="text-center">
-                    there are no players to display!
+                    não há jogadores para mostrar!
                 </div>
             </div>
         </div>
