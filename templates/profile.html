@@ -40,7 +40,7 @@
                                 <div class="map-pp">
                                     <% map.pp.toFixed() %><span class="map-pp-unit">pp</span>
                                 </div>
-                                <div class="map-acc">accuracy:&nbsp;<b>
+                                <div class="map-acc">precisão:&nbsp;<b>
                                         <% map.acc.toFixed(2) %>%
                                     </b></div>
                             </div>
@@ -78,7 +78,7 @@
 <div class="log-block" v-bind:class="{ 'load' : data.maps.{{ id }}.load }">
     <div class="header">
         <div class="title">
-            <i class="fas fa-address-book"></i> Beatmaps mais jogados
+            <i class="fas fa-address-book"></i> Beatmaps Mais Jogados
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.out.length != 0" class="beatmaps">
@@ -342,9 +342,9 @@
                 </div>-->
             </div>
             <div class="column">
-                {{ scores('Best Scores', 'best')}}
-                {{ scores('Recent Scores', 'recent')}}
-                {{ maps('Most Beatmaps Played', 'most')}}
+                {{ scores('Melhores Pontuações', 'best')}}
+                {{ scores('Pontuações Recentes', 'recent')}}
+                {{ maps('Beatmaps Mais Jogados', 'most')}}
             </div>
         </div>
     </div>
