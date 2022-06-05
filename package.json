@@ -1,0 +1,29 @@
+{
+  "name": "guweb",
+  "version": "1.0.0",
+  "description": "Table of Contents ================== - [Table of Contents](#table-of-contents)   - [What is guweb?](#what-is-guweb)   - [Requirements](#requirements)   - [Setup](#setup)   - [Directory Structure](#directory-structure)   - [The team](#the-team)   - [The End](#the-end)",
+  "main": "",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "i18n:compile": "node utils/i18n/commands/compile.mjs",
+    "i18n:make-sure-you-understand-what-you-are-doing:migrate": "node utils/i18n/commands/migrate.mjs",
+    "i18n": "node utils/i18n/run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ppy-sb/guweb.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ppy-sb/guweb/issues"
+  },
+  "homepage": "https://github.com/ppy-sb/guweb#readme",
+  "dependencies": {
+    "glob": "^8.0.3",
+    "js-yaml": "^4.1.0"
+  }
+}

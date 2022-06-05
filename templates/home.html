@@ -15,16 +15,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-          Warning
+          {{ t('home.warning') }}
           {% elif status=='success' %}
-          Notice
+          {{ t('home.notice') }}
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          Uh oh! Be careful!
+          {{ t('home.error') }}
           {% elif status=='success' %}
-          Hey! Listen!
+          {{ t('home.success') }}
           {% endif %}
         </div>
       </div>
