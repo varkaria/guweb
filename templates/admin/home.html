@@ -69,12 +69,12 @@
                         <div class="user-footer">
                             <span class="user-mapper">
                             {{ timeago.format((datetime.datetime.fromtimestamp(user.creation_time)),
-                                (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                                (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4)), locale="pt-BR") }}
                             </span>
                             <div class="d-flex align-items-baseline">
                                 <span>
                                 {{ timeago.format((datetime.datetime.fromtimestamp(user.latest_activity)),
-                                    (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                                    (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4)), locale="pt-BR") }}
                                 </span>
                                 <div class="target-button newmaps-color">
                                     <i class="fa fa-arrow-right"></i>
@@ -110,7 +110,7 @@
                                 {{ maps.score }} / {{ maps.max_combo }}x
                             </div>
                             <div class="map-date"><time>
-                                {{ timeago.format((maps.play_time), (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                                {{ timeago.format((maps.play_time), (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4)), locale="pt-BR") }}
                                 </time></div>
                         </div>
                     </div>

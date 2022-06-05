@@ -6,8 +6,6 @@ __all__ = ()
 import os
 import blueprints.frontend as bf
 import locale
-import timeago
-import datetime
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 import aiohttp
@@ -66,10 +64,6 @@ def domain() -> str:
 @app.template_global()
 def get_img_subn() -> int:
     return bf.get_img_counter()[0]
-
-@app.template_global()
-def calc_map_timedelta(pt) -> int:
-    return timeago.format((pt), (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4)))
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)

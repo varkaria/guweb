@@ -28,7 +28,7 @@
                         </div>
                         <div class="map-date">
                             <time>
-                                {{ calc_map_timedelta(map.play_time) }}
+                                <% timeago.format(map.play_time, locale='pt-BR') %>
                                 </time>
                         </div>
                     </div>
