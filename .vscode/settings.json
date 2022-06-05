@@ -1,0 +1,12 @@
+{
+    "nuxt.isNuxtApp": false,
+    "i18n-ally.namespace": true,
+    "i18n-ally.pathMatcher": "{namespace}/{locale}.{ext}",
+    "i18n-ally.localesPaths": "locales",
+    "i18n-ally.extract.keygenStyle": "kebab-case",
+    "i18n-ally.extract.keyMaxLength": 50,
+    "i18n-ally.extract.parsers.html": {
+        "attributes": ["text", "title", "alt", "placeholder", "label", "aria-label", "content", "empty-text", "prev-text", "next-text", "confirmText", "range-separator", "start-placeholder", "end-placeholder"]
+    },
+    "i18n-ally.extract.autoDetect": false,
+}
