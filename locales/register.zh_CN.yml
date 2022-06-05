@@ -1,6 +1,6 @@
-en_GB:
-  Registration: Registration
-  Email: Email
-  Password: Password
-  Already-have-an-account: Already have an account?
-  Login: Login
+zh_CN:
+  registration: 注册
+  register: 注册账号
+  email: 电子邮箱
+  password: 密码
+  already-have-an-account: 已经拥有账号了?
