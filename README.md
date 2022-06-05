@@ -1,9 +1,13 @@
 Table of Contents
 ==================
 - [Table of Contents](#table-of-contents)
-  - [What is guweb?](#what-is-guweb)
+  - [What is ppy-sb-guweb?](#what-is-ppy-sb-guweb)
   - [Requirements](#requirements)
   - [Setup](#setup)
+  - [Translation](#translation)
+    - [requirements](#requirements-1)
+    - [prepare](#prepare)
+    - [how to](#how-to)
   - [Directory Structure](#directory-structure)
   - [The team](#the-team)
   - [The End](#the-end)
@@ -67,6 +71,23 @@ python3.9 main.py # Run directly to access debug features for development!
 hypercorn main.py # Please run guweb with hypercorn when in production! It will improve performance drastically by disabling all of the debug features a developer would need!
 ```
 
+Translation
+------
+
+### requirements
+- VSCode (recommend)
+- VSCode plugin: i18n-ally (recommend)
+- Node
+  
+### prepare
+`npm install -D`
+
+### how to
+- open any html files with i18n-ally plugin enabled.
+- translate keys
+- run `npm run i18n:compile` to generate files for python-i18n
+
+
 Directory Structure
 ------
 
@@ -76,6 +97,7 @@ Directory Structure
     ├── ext          # External files from guweb's primary operation.
     ├── objects      # Code for representing privileges, global objects, and more.
     ├── static       # Code or content that is not modified or processed by guweb itself.
+    ├── locales      # translations
     ├── templates    # HTML that contains content that is rendered after the page has loaded.
         ├── admin    # Templated content for the admin panel (/admin).
         ├── settings # Templated content for settings (/settings).

@@ -22,7 +22,7 @@
     "url": "https://github.com/ppy-sb/guweb/issues"
   },
   "homepage": "https://github.com/ppy-sb/guweb#readme",
-  "dependencies": {
+  "devDependencies": {
     "glob": "^8.0.3",
     "js-yaml": "^4.1.0"
   }
