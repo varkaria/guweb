@@ -63,7 +63,7 @@ def domain() -> str:
 
 @app.template_global()
 def get_current_time() -> int:
-    return bf.get_img_counter()
+    return bf.get_img_counter()[0]
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)
