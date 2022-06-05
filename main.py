@@ -4,7 +4,7 @@
 __all__ = ()
 
 import os
-import blueprints.frontend as bf
+from  blueprints.frontend import get_img_counter
 import locale
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
@@ -63,7 +63,7 @@ def domain() -> str:
 
 @app.template_global()
 def get_current_time() -> int:
-    return bf.UPDATE_IMAGE_COUNTER
+    return get_img_counter()
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)

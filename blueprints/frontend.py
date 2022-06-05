@@ -33,6 +33,9 @@ UPDATE_IMAGE_COUNTER = random.randint(0, 7272727272727)
 
 frontend = Blueprint('frontend', __name__)
 
+def get_img_counter():
+    return UPDATE_IMAGE_COUNTER
+
 def login_required(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
