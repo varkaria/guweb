@@ -134,7 +134,6 @@
     var mode = '{{ mode }}';
     var mods = '{{ mods }}';
     var domain = "{{ domain() }}";
-    var time = "{{ time.time() }}";
 </script>
 {% endblock %}
 
@@ -172,7 +171,7 @@
         </div>
         <div class="profile-flex">
             <div class="profile-avatar-area">
-                <img src="https://a.{{ domain() }}/{{ user['id'] }}?{{ time }}" alt="avatar" class="rounded-avatar profile-avatar"
+                <img src="https://a.{{ domain() }}/{{ user['id'] }}?{{ get_current_time() }}" alt="avatar" class="rounded-avatar profile-avatar"
                     onError="this.src='/static/images/avatar_notwork.png';">
             </div>
             <div class="bar-selection mode-selects">
