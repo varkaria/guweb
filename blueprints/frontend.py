@@ -214,7 +214,7 @@ async def settings_custom_post():
 
         await background.save(f'{background_file_no_ext}{file_extension}')
 
-    return await flash_with_customizations('success', 'Sua customização ocorreu sem problemas.', 'settings/custom')
+    return await flash_with_customizations('success', 'Seu perfil foi customizado com SUCESSO!.', 'settings/custom')
 
 
 @frontend.route('/settings/password')
