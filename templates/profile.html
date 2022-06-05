@@ -28,7 +28,7 @@
                         </div>
                         <div class="map-date">
                             <time>
-                                <% timeago.format(map.play_time, 'pt-BR') %>
+                                <% timeago.format(map.play_time + Date.getTimezoneOffset(), 'pt-BR') %>
                                 </time>
                         </div>
                     </div>
