@@ -14,34 +14,27 @@
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="/home">
-                Home
+                {{ t('navbar.home') }}
             </a>
 
             <a class="navbar-item" href="/leaderboard">
-                Leaderboards
+                {{ t('navbar.leaderboards') }}
             </a>
 
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                    Information
+                    {{ t('navbar.information') }}
                 </a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" href="/doc/rules">
-                        Rules
-                    </a>
-                    <a class="navbar-item" href="/discord">
-                        Discord
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" href="https://github.com/varkaria/guweb/issues/new">
-                        Report an issue
+                        Todo...
                     </a>
                 </div>
             </div>
 
             {% if session.authenticated and session.user_data['is_staff'] %}
             <a class="navbar-item" href="/admin">
-                Admin
+                {{ t('navbar.admin') }}
             </a>
             {% endif %}
         </div>
@@ -88,10 +81,10 @@
             <div class="navbar-item">
                 <div class="buttons">
                     <a class="button is-primary" href="/register">
-                        <strong>Sign up</strong>
+                        <strong>{{ t('global.sign-up') }}</strong>
                     </a>
                     <a class="button is-light" href="/login">
-                        Log in
+                        {{ t('global.log-in') }}
                     </a>
                 </div>
             </div>

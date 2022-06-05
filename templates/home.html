@@ -42,19 +42,16 @@
       <div class="column flex-vcenter flex-lcenter is-size-2-desktop is-size-1-fullhd" id="title">
         <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">{{ appName() }}</h1>
         <h2 class="subtitle">
-          We are an osu! private server built from the ground up with many
-          unique features not seen elsewhere - for more information, check
-          out <a href="http://github.com/cmyui/gulag">gulag</a>
-          and <a href="https://github.com/Varkaria/guweb">guweb</a>
-          on GitHub - we're fully open source!
+            {{ t('home.subtitle-big') }}
+
         </h2>
         {% if not session.authenticated %}
         <div class="buttons">
           <a class="button is-primary" href="/register">
-            <strong>Sign up</strong>
+            <strong>{{ t('global.sign-up') }}</strong>
           </a>
           <a class="button is-light" href="/login">
-            Log in
+            {{ t('global.log-in') }}
           </a>
         </div>
         {% endif %}
@@ -68,7 +65,7 @@
 
 <section class="section">
   <div class="container has-text-centered py-4">
-    <h2 class="title mb-6">{{ t('some-coolest-features') }}</h2>
+    <h2 class="title mb-6">{{ t('home.some-of-our-coolest-features') }}</h2>
     <div class="columns has-text-left mb-6">
       <div class="column is-4">
         <div class="columns">
@@ -119,12 +116,10 @@
 <section class="hero splash">
   <div class="hero-body">
     <div class="container has-text-centered">
-      <h1 class="title is-spaced">What are you waiting for?</h1>
-      <h2 class="subtitle">Join {{ appName() }}! It's risk-free! You won't get your account banned on official servers
-        if
-        you play here with us! And don't worry, as you can always switch between the official servers and us at any time!</h2>
-      <div class="buttons is-centered"><a class="control button is-primary" href="/register">Sign up for free</a><a
-          class="control button is-light" href="/login">Login</a></div>
+      <h1 class="title is-spaced">{{ t('home.what-are-you-waiting-for') }}</h1>
+      <h2 class="subtitle">{{ t('home.subtitle', appName = appName()) }}</h2>
+      <div class="buttons is-centered"><a class="control button is-primary" href="/register">{{ t('home.sign-up-for-free') }}</a><a
+          class="control button is-light" href="/login">{{ t('home.login') }}</a></div>
     </div>
   </div>
 </section>
