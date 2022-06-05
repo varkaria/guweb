@@ -28,13 +28,7 @@
                         </div>
                         <div class="map-date">
                             <time>
-                                <script>
-                                    var date = new Date();
-                                    var offset = date.getTimezoneOffset() * 60;
-                                    var time = (Date.now() - 60 * 3.4);
-                                    var death = map.play_time;
-                                </script>
-                                <% timeago.format(time - offset) %>
+                                <% timeago.format(play_time) %>
                                 </time>
                         </div>
                     </div>
