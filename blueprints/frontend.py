@@ -6,6 +6,7 @@ import bcrypt
 import hashlib
 import os
 import time
+import random
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
@@ -28,6 +29,7 @@ from objects.utils import flash_with_customizations
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
+UPDATE_IMAGE_COUNTER = random.randint(0, 7272727272727)
 
 frontend = Blueprint('frontend', __name__)
 
@@ -164,6 +166,7 @@ async def settings_avatar_post():
     # avatar change success
     pilavatar = utils.crop_image(pilavatar)
     pilavatar.save(os.path.join(AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
+    UPDATE_IMAGE_COUNTER = random.randint(0, 7272727272727)
     return await flash('success', 'A sua foto de perfil foi alterada com sucesso', 'settings/avatar')
 
 @frontend.route('/settings/custom')
@@ -214,6 +217,7 @@ async def settings_custom_post():
 
         await background.save(f'{background_file_no_ext}{file_extension}')
 
+    UPDATE_IMAGE_COUNTER = random.randint(0, 7272727272727)
     return await flash_with_customizations('success', 'Seu perfil foi customizado com SUCESSO!.', 'settings/custom')
 
 

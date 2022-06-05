@@ -4,9 +4,9 @@
 __all__ = ()
 
 import os
+from blueprints.frontend import UPDATE_IMAGE_COUNTER
+
 import locale
-import time
-import math
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 import aiohttp
@@ -64,7 +64,7 @@ def domain() -> str:
 
 @app.template_global()
 def get_current_time() -> int:
-    return math.floor(time.time())
+    return UPDATE_IMAGE_COUNTER
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)
