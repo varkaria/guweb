@@ -129,11 +129,12 @@
 <link rel="stylesheet" href="/static/css/pages/profile.css">
 
 <script>
+    
     var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
     var mode = '{{ mode }}';
     var mods = '{{ mods }}';
     var domain = "{{ domain() }}";
-    var time = "{{ Date.now() }}";
+    var time = "{{ time.time() }}";
 </script>
 {% endblock %}
 

@@ -5,6 +5,7 @@ __all__ = ()
 
 import os
 import locale
+import time
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 import aiohttp
