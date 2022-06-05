@@ -9,15 +9,15 @@
   <div class="block-content right" id="settings-content">
     <div class="single-right-block">
       <div class="right-block-header">
-        Avatar
+        Foto de perfil
       </div>
       <div class="right-block-content">
         <div class="flex avatar-flex">
           <div class="column">
             <div class="single-block-content avatar-block-content">
-              <h4 class="mb-4">Avatar</h4>
-              <div class="subtitle">We recommend an image of at least 512x512 (or 1:1 ratio).
-                You can upload a PNG, JPG under 5MB
+              <h4 class="mb-4">Foto de perfil</h4>
+              <div class="subtitle">Nós recomendamos uma imagem de pelo menos 512x512 (ou aspecto 1:1).
+                Você pode fazer um PNG ou JPG de no máximo 5MB.
               </div>
               <form id="upload-profile" action="/settings/avatar" method="post" enctype="multipart/form-data">
                 <div class="buttons margin-top" id="selection">
@@ -25,7 +25,7 @@
                     <input class="file-input" id="file" type="file" accept="image/jpeg" name="avatar">
                     <span class="file-cta">
                       <span class="file-label">
-                        Choose file
+                        Escolher arquivo..
                       </span>
                       <span class="file-icon">
                         <i class="fa fa-upload"></i>
@@ -33,14 +33,14 @@
                     </span>
                   </label>
                   <button class="button is-primary" type="submit">
-                    <span class="icon is-small"><i class="fas fa-check"></i></span><span>Save</span>
+                    <span class="icon is-small"><i class="fas fa-check"></i></span><span>Salvar</span>
                   </button>
                 </div>
               </form>
             </div>
           </div>
           <div class="column">
-            <h4 class="mb-4">Preview</h4>
+            <h4 class="mb-4">Pré-visualizar</h4>
             <div class="preview-block" id="avatar">
               <div class="top-block"></div>
               <div class="bottom-block">
@@ -79,16 +79,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-          Warning
+          Atenção
           {% elif status=='success' %}
-          Notice
+          Aviso
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          Uh oh! Be careful!
+          Opa! Tenha cuidado!
           {% elif status=='success' %}
-          Hey! Listen!
+          E aí? Saca só!
           {% endif %}
         </div>
       </div>

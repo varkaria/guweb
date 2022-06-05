@@ -9,7 +9,7 @@
   <div class="block-content right" id="settings-content">
     <div class="single-right-block">
       <div class="right-block-header">
-        Customisation
+        Customização
       </div>
       <div class="right-block-content">
         <div class="flex avatar-flex">
@@ -17,13 +17,13 @@
             <form id="upload-profile" action="/settings/custom" method="post" enctype="multipart/form-data">
               <div class="single-block-content avatar-block-content mb-6">
                 <h4 class="mb-4">Banner</h4>
-                <div class="subtitle">Recommend with 1440x262 pixels with GIF, PNG, JPG, JPEG</div>
+                <div class="subtitle">Recomendamos com dimensões de 1440x262 pixels sendo GIF, PNG, JPG, JPEG.</div>
                 <div class="buttons margin-top" id="selection">
                   <label class="file-label">
                     <input class="file-input" id="file-bn" type="file" name="banner">
                     <span class="file-cta">
                       <span class="file-label">
-                        Choose file
+                        Escolher arquivo..
                       </span>
                       <span class="file-icon">
                         <i class="fa fa-upload"></i>
@@ -33,16 +33,16 @@
                 </div>
               </div>
               <div class="single-block-content avatar-block-content">
-                <h4 class="mb-4">Profile Background</h4>
+                <h4 class="mb-4">Plano de fundo do perfil</h4>
                 <div class="subtitle">
-                  Recommend with 16:9 ratio with PNG, JPG, JPEG
+                  Recomendamos uma foto com aspecto 16:9 podendo ser PNG, JPG, JPEG.
                 </div>
                 <div class="buttons margin-top" id="selection">
                   <label class="file-label">
                     <input class="file-input" id="file-bg" type="file" name="background">
                     <span class="file-cta">
                       <span class="file-label">
-                        Choose file
+                        Escolher arquivo..
                       </span>
                       <span class="file-icon">
                         <i class="fa fa-upload"></i>
@@ -109,16 +109,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-          Warning
+          Atenção
           {% elif status=='success' %}
-          Notice
+          Aviso
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          Uh oh! Be careful!
+          Opa! Tenha cuidado!
           {% elif status=='success' %}
-          Hey! Listen!
+          E aí? Saca só!
           {% endif %}
         </div>
       </div>
