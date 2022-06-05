@@ -31,10 +31,10 @@
                                 <script>
                                     var date = new Date();
                                     var offset = date.getTimezoneOffset() * 60;
-                                    var time = (Date.now() - 60 * 3.4)
-                                    console.log(map.play_time)
+                                    var time = (Date.now() - 60 * 3.4);
+                                    var death = map.play_time;
                                 </script>
-                                <% timeago.format(map.play_time - offset, 'pt-BR') %>
+                                <% timeago.format(time - offset) %>
                                 </time>
                         </div>
                     </div>
