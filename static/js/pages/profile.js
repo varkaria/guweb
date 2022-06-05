@@ -160,7 +160,7 @@ new Vue({
                 case 5:
                     return 'No multiplayer: Seleção de músicas';
                 case 6:
-                    return `Assistindo: 👓 ${d.info_text}`;
+                    return `Assistindo: 👓 ${d.info_text}`.replace("play", "a jogar");
                     // 7 not used
                 case 8:
                     return `Testando: 🎾 ${d.info_text}`;
