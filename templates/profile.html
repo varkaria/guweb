@@ -28,7 +28,11 @@
                         </div>
                         <div class="map-date">
                             <time>
-                                <% timeago.format(map.play_time + Date.getTimezoneOffset(), 'pt-BR') %>
+                                <script>
+                                    var date = new Date();
+                                    var offset = date.getTimezoneOffset() * 60;
+                                </script>
+                                <% timeago.format(map.play_time - offset, 'pt-BR') %>
                                 </time>
                         </div>
                     </div>
