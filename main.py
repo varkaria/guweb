@@ -62,7 +62,7 @@ def domain() -> str:
     return glob.config.domain
 
 @app.template_global()
-def get_current_time() -> int:
+def get_img_subn() -> int:
     return bf.get_img_counter()[0]
 
 from blueprints.frontend import frontend

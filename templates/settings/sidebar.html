@@ -1,7 +1,7 @@
 <div class="block-content left">
     <div class="left-header">
         <a href="/u/{{ session.user_data['id'] }}" class="user-avatar-header user-avatar"
-            style="background-image: url(https://a.{{ domain() }}/{{ session.user_data['id']}}?{{ get_current_time() }});"></a>
+            style="background-image: url(https://a.{{ domain() }}/{{ session.user_data['id']}}?{{ get_img_subn() }});"></a>
         <div class="welcome-text">
             <span class="username pink-bold">{{ session.user_data['name']}}</span>
             <span class="welcome">Configurações</span>
