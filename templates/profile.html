@@ -28,8 +28,8 @@
                         </div>
                         <div class="map-date">
                             <time>
-                                <% timeago.format((map.play_time), (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) %>
-                            </time>
+                                {{ timeago.format((maps.play_time), (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                                </time>
                         </div>
                     </div>
                 </div>
