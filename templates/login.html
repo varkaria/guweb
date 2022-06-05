@@ -10,7 +10,7 @@
 <div class="main-block is-marginless is-paddingless is-auth">
   <div class="columns is-reset is-weeb">
     <div class="column title-block">
-      <h1 class="title" id="regtitle">{{ 'global.log-in' }}</h1>
+      <h1 class="title" id="regtitle">{{ t('global.log-in') }}</h1>
     </div>
   </div>
   <div class="columns is-reset flex-lcenter is-block">
@@ -18,7 +18,7 @@
      <div class="content">
     <form action="/login" method="post" class="form-content">
       <div class="field">
-        <label for="user" class="label">{{ 'login.username' }}</label>
+        <label for="user" class="label">{{ t('login.username') }}</label>
         <div class="control has-icons-left">
           <input id="user" type="text" name="username" placeholder="Username" class="input" autocomplete="username" required>
           <span class="icon is-small is-left">
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="field">
-        <label for="pass" class="label">{{ 'login.password' }}</label>
+        <label for="pass" class="label">{{ t('login.password') }}</label>
         <div class="control has-icons-left">
           <input id="pass" type="password" name="password" placeholder="Password" class="input" autocomplete="current-password" required>
           <span class="icon is-small is-left">
@@ -37,18 +37,18 @@
       </div>
       <div class="mt-5"></div>
       <div class="dialog">
-          {{ 'login.dont-have-an-account'}}
+          {{ t('login.dont-have-an-account') }}
         <a href="/register">
-            {{ 'login.register' }}
+            {{ t('login.register') }}
         </a>
       </div>
       <div class="field flex-vcenter">
         <div class="buttons">
           <button type="submit" class="button is-primary">
-              {{ 'global.log-in' }}
+              {{ t('global.log-in') }}
           </button>
           <a href="/forgot" class="button is-info"> <!-- will probably have paths "/forgot/username" and "/forgot/password" -->
-              {{ 'login.forgot-login'}}
+              {{ t('login.forgot-login') }}
           </a>
         </div>
       </div>
