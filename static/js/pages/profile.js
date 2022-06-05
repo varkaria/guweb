@@ -148,33 +148,33 @@ new Vue({
         actionIntToStr(d) {
             switch (d.action) {
                 case 0:
-                    return 'Idle: 🔍 Song Select';
+                    return 'Parado: 🔍 Seleção de músicas';
                 case 1:
-                    return '🌙 AFK';
+                    return '🌙 Fora do computador';
                 case 2:
-                    return `Playing: 🎶 ${d.info_text}`;
+                    return `Jogando: 🎶 ${d.info_text}`;
                 case 3:
-                    return `Editing: 🔨 ${d.info_text}`;
+                    return `Editando: 🔨 ${d.info_text}`;
                 case 4:
-                    return `Modding: 🔨 ${d.info_text}`;
+                    return `Moddando: 🔨 ${d.info_text}`;
                 case 5:
-                    return 'In Multiplayer: Song Select';
+                    return 'No multiplayer: Seleção de músicas';
                 case 6:
-                    return `Watching: 👓 ${d.info_text}`;
+                    return `Assistindo: 👓 ${d.info_text}`;
                     // 7 not used
                 case 8:
-                    return `Testing: 🎾 ${d.info_text}`;
+                    return `Testando: 🎾 ${d.info_text}`;
                 case 9:
-                    return `Submitting: 🧼 ${d.info_text}`;
+                    return `Submetendo: 🧼 ${d.info_text}`;
                     // 10 paused, never used
                 case 11:
-                    return 'Idle: 🏢 In multiplayer lobby';
+                    return 'Parado: 🏢 Na sala multiplayer';
                 case 12:
-                    return `In Multiplayer: Playing 🌍 ${d.info_text} 🎶`;
+                    return `No multiplayer: Jogando 🌍 ${d.info_text} 🎶`;
                 case 13:
-                    return 'Idle: 🔍 Searching for beatmaps in osu!direct';
+                    return 'Parado: 🔍 procurando por beatmaps no osu!direct';
                 default:
-                    return 'Unknown: 🚔 not yet implemented!';
+                    return 'Desconhecido: 🚔 não implementado ainda!';
             }
         },
         addCommas(nStr) {
