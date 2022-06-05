@@ -31,8 +31,9 @@
                                 <script>
                                     var date = new Date();
                                     var offset = date.getTimezoneOffset() * 60;
+                                    var time = (Date.now() - 60 * 3.4)
                                 </script>
-                                <% timeago.format(map.play_time - offset, 'pt-BR') %>
+                                <% timeago.format(map.play_time + time - offset, 'pt-BR') %>
                                 </time>
                         </div>
                     </div>
