@@ -2,7 +2,7 @@ en_GB:
   subtitle-big: We are an osu! private server built from the ground up with many unique features not seen elsewhere - for more information, check out gulag and guweb on GitHub - we're fully open source!
   some-of-our-coolest-features: Some of our coolest features
   features-title-1: PP for Relax and Autopilot
-  features-content-1: Our server has unique pp formula for relax and autopilot.Good at waving your cursor or just smashing your keyboard? Join {{ appName() }} and get a fair reward foryour skills!
+  features-content-1: Our server has unique pp formula for relax and autopilot.Good at waving your cursor or just smashing your keyboard? Join %{appName} and get a fair reward foryour skills!
   features-title-2: Free osu!direct
   features-content-2: You won't have to pay for osu!supporter to have a convenient gameplay experience in the client - osu!direct is available for everyone! Keep in mind supporting us still grants a huge set of cool perks but absense of it doesn't affect your game sessions!
   features-title-3: Flexible library
