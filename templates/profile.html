@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Perfil {% endblock %}
 
+{% macro scores(title, id) %}
 <script>
     let current_date_v = new Date();
     let this_utc_v = current_date_v.getTimezoneOffset() / 60;
@@ -11,8 +12,6 @@
         utc_str_v = "UTC+" + (this_utc_v.replace("-", ""))
     }
 </script>
-
-{% macro scores(title, id) %}
 <div class="log-block" v-bind:class="{ 'load' : data.scores.{{ id }}.load }">
     <div class="header">
         <div class="title">
