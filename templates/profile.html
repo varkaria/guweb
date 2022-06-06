@@ -27,8 +27,18 @@
                             <% addCommas(map.score) %> / <% map.max_combo %><b>x</b>
                         </div>
                         <div class="map-date">
+                            <script>
+                                let now = new Date();
+                                let this_utc = now.getTimezoneOffset() / 60;
+                                let utc_str = "";
+                                if (this_utc > 0) {
+                                    utc_str = "UTC-" + this_utc
+                                } else {
+                                    utc_str = "UTC+" + (this_utc.replace("-", ""))
+                                }
+                            </script>
                             <time>
-                                <% timeago.format(map.play_time) %>
+                                <% timeago.format(map.play_time + utc_str) %>
                                 </time>
                         </div>
                     </div>
