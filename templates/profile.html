@@ -29,7 +29,7 @@
                         <div class="map-date">
                             <script>
                                 let current_date_v = new Date();
-                                let this_utc_v = current_date.getTimezoneOffset() / 60;
+                                let this_utc_v = current_date_v.getTimezoneOffset() / 60;
                                 let utc_str_v = "";
                                 if (this_utc_v > 0) {
                                     utc_str_v = "UTC-" + this_utc_v
