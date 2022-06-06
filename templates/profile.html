@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% block title %} Perfil {% endblock %}
 
+<script>
+    let current_date_v = new Date();
+    let this_utc_v = current_date_v.getTimezoneOffset() / 60;
+    let utc_str_v = "";
+    if (this_utc_v > 0) {
+        utc_str_v = "UTC-" + this_utc_v
+    } else {
+        utc_str_v = "UTC+" + (this_utc_v.replace("-", ""))
+    }
+</script>
+
 {% macro scores(title, id) %}
 <div class="log-block" v-bind:class="{ 'load' : data.scores.{{ id }}.load }">
     <div class="header">
@@ -27,16 +38,6 @@
                             <% addCommas(map.score) %> / <% map.max_combo %><b>x</b>
                         </div>
                         <div class="map-date">
-                            <script>
-                                let current_date_v = new Date();
-                                let this_utc_v = current_date_v.getTimezoneOffset() / 60;
-                                let utc_str_v = "";
-                                if (this_utc_v > 0) {
-                                    utc_str_v = "UTC-" + this_utc_v
-                                } else {
-                                    utc_str_v = "UTC+" + (this_utc_v.replace("-", ""))
-                                }
-                            </script>
                             <time>
                                 <% timeago.format(map.play_time + utc_str_v) %>
                                 </time>
