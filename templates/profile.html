@@ -2,15 +2,6 @@
 {% block title %} Perfil {% endblock %}
 
 {% macro scores(title, id) %}
-<script>
-    this_utc_v = current_date_v.getTimezoneOffset() / 60;
-    utc_str_v = "";
-    if (this_utc_v > 0) {
-        utc_str_v = "UTC-" + this_utc_v
-    } else {
-        utc_str_v = "UTC+" + (this_utc_v.replace("-", ""))
-    }
-</script>
 <div class="log-block" v-bind:class="{ 'load' : data.scores.{{ id }}.load }">
     <div class="header">
         <div class="title">
@@ -37,7 +28,7 @@
                         </div>
                         <div class="map-date">
                             <time>
-                                <% timeago.format(map.play_time + utc_str_v) %>
+                                <% timeago.format(new Date(map.play_time) - ((new Date()).getTimezoneOffset()*60*1000)) %>
                                 </time>
                         </div>
                     </div>

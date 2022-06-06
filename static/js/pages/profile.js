@@ -42,10 +42,7 @@ new Vue({
             mode: mode,
             mods: mods,
             modegulag: 0,
-            userid: userid,
-            current_date_v: new Date(),
-            this_utc_v: 0,
-            utc_str_v: ""
+            userid: userid
         };
     },
     created() {
