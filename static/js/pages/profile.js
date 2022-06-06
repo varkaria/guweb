@@ -150,7 +150,7 @@ new Vue({
                 case 0:
                     return 'Parado: 🔍 Seleção de músicas';
                 case 1:
-                    return '🌙 Fora do computador';
+                    return '🌙 Ausente';
                 case 2:
                     return `Jogando: 🎶 ${d.info_text}`;
                 case 3:
