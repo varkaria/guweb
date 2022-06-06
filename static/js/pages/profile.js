@@ -208,9 +208,9 @@ new Vue({
         actionIntToStr(d) {
             switch (d.action) {
                 case 0:
-                    return 'Parado: 🔍 Seleção de músicas';
+                    return 'Parado: 🔍 Selecionando um mapa';
                 case 1:
-                    return '🌙 Ausente';
+                    return '🌙 - Ausente';
                 case 2:
                     return `Jogando: 🎶 ${d.info_text}`;
                 case 3:
@@ -218,7 +218,7 @@ new Vue({
                 case 4:
                     return `Moddando: 🔨 ${d.info_text}`;
                 case 5:
-                    return 'No multiplayer: Seleção de músicas';
+                    return 'No multiplayer: Selecionando um mapa';
                 case 6:
                     return `Assistindo: 👓 ${d.info_text}`.replace("play", "a jogar");
                     // 7 not used

@@ -20,8 +20,9 @@
                     <div class="map-title-block">
                         <div class="map-title">
                             <a class="beatmap-link">
-                                <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>] <!--<span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>-->
+                                <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>]
                             </a>
+                            <span>+ <% modsStr(map.mods) %></span>
                         </div>
                         <div class="play-stats">
                             <% addCommas(map.score) %> / <% map.max_combo %><b>x</b>
