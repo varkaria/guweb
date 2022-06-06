@@ -28,17 +28,17 @@
                         </div>
                         <div class="map-date">
                             <script>
-                                let now = new Date();
-                                let this_utc = now.getTimezoneOffset() / 60;
-                                let utc_str = "";
-                                if (this_utc > 0) {
-                                    utc_str = "UTC-" + this_utc
+                                let current_date_v = new Date();
+                                let this_utc_v = current_date.getTimezoneOffset() / 60;
+                                let utc_str_v = "";
+                                if (this_utc_v > 0) {
+                                    utc_str_v = "UTC-" + this_utc_v
                                 } else {
-                                    utc_str = "UTC+" + (this_utc.replace("-", ""))
+                                    utc_str_v = "UTC+" + (this_utc_v.replace("-", ""))
                                 }
                             </script>
                             <time>
-                                <% timeago.format(map.play_time + utc_str) %>
+                                <% timeago.format(map.play_time + utc_str_v) %>
                                 </time>
                         </div>
                     </div>
