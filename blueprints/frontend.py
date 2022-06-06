@@ -569,30 +569,6 @@ async def logout():
     # render login
     return await flash('success', 'Successfully logged out!', 'login')
 
-# social media redirections
-
-@frontend.route('/github')
-@frontend.route('/gh')
-async def github_redirect():
-    return redirect(glob.config.github)
-
-@frontend.route('/discord')
-async def discord_redirect():
-    return redirect(glob.config.discord_server)
-
-@frontend.route('/youtube')
-@frontend.route('/yt')
-async def youtube_redirect():
-    return redirect(glob.config.youtube)
-
-@frontend.route('/twitter')
-async def twitter_redirect():
-    return redirect(glob.config.twitter)
-
-@frontend.route('/instagram')
-@frontend.route('/ig')
-async def instagram_redirect():
-    return redirect(glob.config.instagram)
 
 # profile customisation
 BANNERS_PATH = Path.cwd() / '.data/banners'
