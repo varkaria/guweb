@@ -2,6 +2,7 @@ import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
+import { merge }from 'lodash-es'
 
 import { compiledFileSchema, path as translationPath, contextFromFileName } from './config.mjs'
 
@@ -61,10 +62,7 @@ export const readLocales = () => new Promise((resolve, reject) => {
                 const context = contextFromFileName(relative)
                 const data = await parseLocale(match, context)
                 if (!acc[context.locale]) acc[context.locale] = {}
-                acc[context.locale] = {
-                    ...acc[context.locale],
-                    ...data[context.locale]
-                }
+                acc[context.locale] = merge(acc[context.locale], data[context.locale])
                 return acc
             } catch (error) {
                 reject(error)
