@@ -9,9 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "i18n:compile": "node utils/i18n/commands/compile.mjs",
+    "i18n:format": "node utils/i18n/commands/format.mjs",
     "i18n:dev": "nodemon --watch ./locales -e yml, yaml utils/i18n/commands/compile.mjs",
-    "i18n:make-sure-you-understand-what-you-are-doing:migrate": "node utils/i18n/commands/migrate.mjs",
-    "i18n": "node utils/i18n/run"
+    "i18n:make-sure-you-understand-what-you-are-doing:migrate": "node utils/i18n/commands/migrate.mjs"
   },
   "repository": {
     "type": "git",
