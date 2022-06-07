@@ -35,6 +35,10 @@ async def mysql_conn() -> None:
     log('Connected to MySQL!', Ansi.LGREEN)
 
 @app.before_serving
+async def load_lang():
+    i18n.load_path.append(os.getcwd() + '/.locales')
+
+@app.before_serving
 async def http_conn() -> None:
     glob.http = aiohttp.ClientSession(json_serialize=lambda x: orjson.dumps(x).decode())
     log('Got our Client Session!', Ansi.LGREEN)
@@ -86,5 +90,4 @@ async def page_not_found(e):
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    i18n.load_path.append(os.getcwd() + '/.locales')
     app.run(port=8000, debug=glob.config.debug)  # blocking call
