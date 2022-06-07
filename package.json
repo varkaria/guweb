@@ -25,5 +25,8 @@
   "devDependencies": {
     "glob": "^8.0.3",
     "js-yaml": "^4.1.0"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.16"
   }
 }

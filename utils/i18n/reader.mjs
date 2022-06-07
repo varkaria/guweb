@@ -9,12 +9,23 @@ import { compiledFileSchema, path as translationPath, contextFromFileName } from
 const parseLocale = (file, context) => {
     const locale = yaml.load(fs.readFileSync(file, 'utf8'))
     const _parse = (locale) => {
-        const rtn = {
+        if (!context.namespaces) return {
             [context.locale]: {
                 [context.namespace]: locale
             }
         }
-        return rtn
+        const rtn = {}
+        let inner = rtn
+        context.namespaces.forEach((ns, index) => {
+            if (index === context.namespaces.length - 1) {
+                return inner[ns] = locale
+            }
+            rtn[ns] = {}
+            inner = rtn[ns]
+        })
+        return {
+            [context.locale]: rtn
+        }
     }
     if (Array.isArray(locale)) {
         const toMerge = locale.forEach(_parse)
@@ -25,6 +36,7 @@ const parseLocale = (file, context) => {
                 ...item
             }
         }
+        return rtn
     } else {
         return _parse(locale)
     }
