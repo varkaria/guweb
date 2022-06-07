@@ -14,39 +14,50 @@
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="/home">
-                Home
+                {{ t('navbar.home') }}
             </a>
 
             <a class="navbar-item" href="/leaderboard">
-                Leaderboards
+                {{ t('navbar.leaderboards') }}
             </a>
 
-            <!--<div class="navbar-item has-dropdown is-hoverable">
+            <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                    Information
+                    {{ t('navbar.information') }}
                 </a>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item" href="/doc/rules">
-                        Rules
-                    </a>
-                    <a class="navbar-item" href="/discord">
-                        Discord
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" href="https://github.com/varkaria/guweb/issues/new">
-                        Report an issue
+                    <a class="navbar-item">
+                        Todo...
                     </a>
                 </div>
-            </div>-->
+            </div>
 
             {% if session.authenticated and session.user_data['is_staff'] %}
-            <a class="navbar-item" href="/admin">
-                Admin
+            <a class=" navbar-item" href="/admin">
+                {{ t('navbar.admin') }}
             </a>
             {% endif %}
         </div>
 
         <div class="navbar-end">
+            <div class="navbar-item has-dropdown is-hoverable">
+                <i style="display: flex;" class="fa fa-globe navbar-link"></i>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/language/zh_CN">
+                        <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/CN.png">
+                        简体中文
+                    </a>
+                    <a class="navbar-item" href="/language/en_US">
+                        <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/US.png">
+                        English - US
+                    </a>
+                    <a class="navbar-item" href="/language/en_GB">
+                        <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/GB.png">
+                        English - Global
+                    </a>
+                </div>
+            </div>
+
             {% if session.authenticated %}
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
@@ -70,10 +81,10 @@
             <div class="navbar-item">
                 <div class="buttons">
                     <a class="button is-primary" href="/register">
-                        <strong>Sign up</strong>
+                        <strong>{{ t('global.sign-up') }}</strong>
                     </a>
                     <a class="button is-light" href="/login">
-                        Log in
+                        {{ t('global.log-in') }}
                     </a>
                 </div>
             </div>

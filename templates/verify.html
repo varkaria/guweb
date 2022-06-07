@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Verify {% endblock %}
+{% block title %} {{ t('global.verify') }} {% endblock %}
 
 {% block header %}
 <link rel="stylesheet" href="/static/css/pages/verify.css">
@@ -10,8 +10,8 @@
     <div class="columns pm-reset is-weeb">
         <div class="column title-block">
             <div class="titlewithsub">
-                <h1 class="title is-left">How to verify your account</h1>
-                <h2 class="subtitle">What do you mean? This must be easy right?</h2>
+                <h1 class="title is-left">{{ t('verify.how-to-verify-your-account') }}</h1>
+                <h2 class="subtitle">{{ t('verify.what-do-you-mean-this-must-be-easy-right') }}</h2>
             </div>
         </div>
         <div class="column icon-block">
@@ -22,8 +22,8 @@
         <div class="box is-padding">
             <div class="bordertitle">
                 <div class="titlewithsub">
-                    <h1 class="title is-left">Verification</h1>
-                    <h2 class="subtitle">Follow these three simple steps to get started playing {{ appName() }}!</h2>
+                    <h1 class="title is-left">{{ t('verify.verification') }}</h1>
+                    <h2 class="subtitle">{{ t('verify.follow-these-three-simple-steps', appName = appName()) }}</h2>
                 </div>
             </div>
             <div class="howto-content">
@@ -35,8 +35,8 @@
                                 <div class="howto-number">1</div>
                             </div>
                             <div class="howto-withsub">
-                                <h1 class="title is-left">Osu shortcut</h1>
-                                <h2 class="subtitle">Find your shortcut to osu on desktop and copy it!</h2>
+                                <h1 class="title is-left">{{ t('verify.osu-shortcut') }}</h1>
+                                <h2 class="subtitle">{{ t('verify.find-your-shortcut') }}</h2>
                             </div>
                         </div>
                     </div>
@@ -47,8 +47,12 @@
                                 <div class="howto-number">2</div>
                             </div>
                             <div class="howto-withsub">
-                                <h1 class="title is-left">Edit it</h1>
-                                <h2 class="subtitle"><strong>1.</strong> Right click -> Properties <strong>2.</strong> Find "Target element" Box <strong>3.</strong> Add " -devserver {{ domain() }}" at the end of it</h2>
+                                <h1 class="title is-left">{{ t('verify.edit-it') }}</h1>
+                                <h2 class="subtitle">
+                                    <strong>1.</strong>{{ t('verify.right-click-properties') }}
+                                    <strong>2.</strong>{{ t('verify.find-target-element-box') }}
+                                    <strong>3.</strong>{{ t('verify.add-domain', domain = domain()) }}
+                                </h2>
                             </div>
                         </div>
                     </div>
@@ -59,8 +63,8 @@
                                 <div class="howto-number">3</div>
                             </div>
                             <div class="howto-withsub">
-                                <h1 class="title is-left">Login to your account</h1>
-                                <h2 class="subtitle">Login to your {{ appName() }} account and you should be done!</h2>
+                                <h1 class="title is-left">{{ t('verify.login-to-your-account') }}</h1>
+                                <h2 class="subtitle">{{ t('verify.login-to-your-app-name-account', appName = appName()) }}</h2>
                             </div>
                         </div>
                     </div>
@@ -68,8 +72,8 @@
             </div>
             <div class="bordertitle">
                 <div class="titlewithsub">
-                    <h1 class="title is-left">Oh crap! I'm stuck please help me!</h1>
-                    <h2 class="subtitle">Need help? We've got you covered - join the Discord so our community can help you out!</h2>
+                    <h1 class="title is-left">{{ t('verify.oh-crap-i-am-stuck') }}</h1>
+                    <h2 class="subtitle">{{ t('verify.need-help-join-discord-server') }}</h2>
                 </div>
             </div>
             <div class="box flex is-mpadding is-marginless">
@@ -77,7 +81,7 @@
                         src="https://cdn.iconscout.com/icon/free/png-256/discord-2752210-2285027.png"
                         class="discord-logo">
                     <div class="clickhere-title flex flex-vcenter">
-                        <h1 class="title">Click here to join our Discord!</h1>
+                        <h1 class="title">{{ t('verify.click-here-to-join-our-discord') }}</h1>
                     </div>
                 </a>
             </div>
@@ -85,8 +89,8 @@
                 <div class="columns flex is-paddingless is-marginless">
                     <div class="column flex flex-vcenter">
                         <div>
-                            <h1 class="title is-left">Waiting for verification!</h1>
-                            <h2 class="subtitle">Follow the simple instructions above and once you're done reload this page!</h2>
+                            <h1 class="title is-left">{{ t('verify.waiting-for-verification') }}</h1>
+                            <h2 class="subtitle">{{ t('verify.follow-the-simple-instructions') }}</h2>
                         </div>
                     </div>
                     <div class="column icon-block">

@@ -1,0 +1,19 @@
+verification: Verification
+how-to-verify-your-account: How to verify your account
+what-do-you-mean-this-must-be-easy-right: What do you mean? This must be easy right?
+follow-these-three-simple-steps: Follow these three simple steps to get started playing %{appName} !
+osu-shortcut: Osu shortcut
+find-your-shortcut: Find your shortcut to osu on desktop and copy it!
+edit-it: Edit it
+right-click-properties: Right click -> Properties
+find-target-element-box: Find "Target element" Box
+add-domain: Add -devserver %{domain} at the end of it
+login-to-your-account: Login to your account
+login-to-your-app-name-account: Login to your %{appName} account and you should be done!
+oh-crap-i-am-stuck: Oh crap! I'm stuck please help me!
+need-help-join-discord-server: >-
+  Need help? We've got you covered - join the Discord so our community can help
+  you out!
+click-here-to-join-our-discord: Click here to join our Discord!
+waiting-for-verification: Waiting for verification!
+follow-the-simple-instructions: Follow the simple instructions above and once you're done reload this page!

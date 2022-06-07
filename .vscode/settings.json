@@ -1,0 +1,43 @@
+{
+  "nuxt.isNuxtApp": false,
+  "i18n-ally.namespace": true,
+  "i18n-ally.pathMatcher": "{namespace}/{locale}.{ext}",
+  "i18n-ally.localesPaths": "locales",
+  "i18n-ally.extract.keygenStyle": "kebab-case",
+  "i18n-ally.extract.keyMaxLength": 50,
+  "i18n-ally.extract.parsers.html": {
+    "attributes": [
+      "text",
+      "title",
+      "alt",
+      "placeholder",
+      "label",
+      "aria-label",
+      "content",
+      "empty-text",
+      "prev-text",
+      "next-text",
+      "confirmText",
+      "range-separator",
+      "start-placeholder",
+      "end-placeholder"
+    ],
+    "ignoredTags": ["script", "style"],
+    "vBind": true,
+    "inlineText": true
+  },
+  "i18n-ally.extract.autoDetect": true,
+  // Make sure that particular refactoring templates would be picked up be the bulk extraction depending on the context
+  "i18n-ally.refactor.templates": [
+    {
+      // affect scope (optional)
+      // see https://github.com/lokalise/i18n-ally/blob/master/src/core/types.ts#L156-L156
+      "source": "html-attribute",
+      "templates": ["i18n.t('{key}'{args})", "custom.t('{key}'{args})"],
+      // accept globs, resolved to project root (optional)
+      "include": ["templates/**/*.html"],
+    }
+    // ...
+  ],
+  "i18n-ally.keystyle": "nested"
+}

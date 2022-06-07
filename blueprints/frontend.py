@@ -26,6 +26,8 @@ from objects.privileges import Privileges
 from objects.utils import flash
 from objects.utils import flash_with_customizations
 
+import i18n
+
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
 
@@ -582,6 +584,11 @@ async def get_profile_banner(user_id: int):
             return await send_file(path)
 
     return b'{"status":404}'
+
+@frontend.route('/language/<lang>')
+async def set_language(lang: str):
+    session['lang'] = lang
+    return redirect('/home')
 
 
 @frontend.route('/backgrounds/<user_id>')
