@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Register {% endblock %}
+{% block title %} {{ t('global.register') }} {% endblock %}
 
 {% block header %}
 <link rel="stylesheet" href="/static/css/pages/auth.css">
@@ -9,7 +9,7 @@
 <div class="main-block is-marginless is-paddingless is-auth">
   <div class="columns pm-reset is-weeb">
     <div class="column title-block">
-      <h1 class="title" id="regtitle">Registration</h1>
+      <h1 class="title" id="regtitle">{{ t('register.registration') }}</h1>
     </div>
   </div>
   <div class="columns pm-reset flex-lcenter is-block">
@@ -17,7 +17,7 @@
       <div class="login-bg"></div>
       <form action="/register" method="post" class="form-content">
         <div class="field">
-          <label for="user" class="label">Username</label>
+          <label for="user" class="label">{{ t('register.username') }}</label>
           <div class="control has-icons-left">
             <input id="user" type="text" name="username" placeholder="e.g. Aika" class="input" autocomplete="username" required>
             <span class="icon is-small is-left">
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="field">
-          <label for="email" class="label">Email</label>
+          <label for="email" class="label">{{ t('register.email') }}</label>
           <div class="control has-icons-left">
             <input id="email" type="email" name="email" placeholder="e.g. aika@gul.ag" class="input" autocomplete="email" required>
             <span class="icon is-small is-left">
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="field">
-          <label for="pass" class="label">Password</label>
+          <label for="pass" class="label">{{ t('register.password') }}</label>
           <div class="control has-icons-left">
             <input id="pass" type="password" name="password" placeholder="*************" class="input" autocomplete="new-password" required>
             <span class="icon is-small is-left">
@@ -45,7 +45,7 @@
         </div>
         <div class="mt-5"></div>
         <div class="dialog">
-          Already have an account? <a href="/login">Login</a>
+            {{ t('register.already-have-an-account') }} <a href="/login">{{ t('global.log-in') }}</a>
         </div>
         {% if not captchaKey() == 'changeme' %}
         <div class="field">
@@ -54,7 +54,7 @@
         {% endif %}
         <div class="field">
           <button type="submit" class="button is-primary">
-            Register
+              {{ t('register.register') }}
           </button>
         </div>
       </form>

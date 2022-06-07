@@ -24,13 +24,14 @@
     crossorigin="anonymous"></script>
 
   <!-- Bulma -->
-  <link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/HakuraSukinoe/bulma-hsl/bulma.min-v7.css" />
+  <link rel="stylesheet" href="/static/css/bulma.css?v={{ rand() }}" />
+
 
   <!-- Font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <!-- Custom style -->
-  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/style.css?v={{ rand() }}">
 
   {% block header %}
   {% endblock %}
@@ -50,7 +51,7 @@
   {% include 'components/footer.html' %}
 
   <!-- Main JS script -->
-  <script src="/static/js/main.js" crossorigin="anonymous"></script>
+  <script src="/static/js/main.js?v={{ rand() }}" crossorigin="anonymous"></script>
 
   <!-- Customisation -->
   {% block bottom %}{% endblock %}
