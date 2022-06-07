@@ -4,16 +4,19 @@
 __all__ = ()
 
 import os
+import random
 
 import aiohttp
+import i18n
 import orjson
-from quart import Quart
+from quart import Quart, session
 from quart import render_template
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
 from cmyui.mysql import AsyncSQLPool
 from cmyui.version import Version
+from requests import cookies
 
 from objects import glob
 
@@ -47,8 +50,20 @@ def appVersion() -> str:
     return repr(version)
 
 @app.template_global()
+def t(key, **kwargs) -> str:
+    kwargs['locale'] = session.get('lang', 'zh_CN')
+    try:
+        return i18n.t(key, **kwargs)
+    except:
+        return key
+
+@app.template_global()
 def appName() -> str:
     return glob.config.app_name
+
+@app.template_global()
+def rand() -> str:
+    return str(random.randint(0,100000))
 
 @app.template_global()
 def captchaKey() -> str:
@@ -71,4 +86,5 @@ async def page_not_found(e):
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    app.run(port=8000, debug=glob.config.debug) # blocking call
+    i18n.load_path.append(os.getcwd() + '/.locales')
+    app.run(port=8000, debug=glob.config.debug)  # blocking call
