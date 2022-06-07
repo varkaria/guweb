@@ -5,6 +5,95 @@
   src: url(/static/fonts/extra.ttf) format("truetype")
 }
 
+body * {
+  font-family: Quicksand, Noto Sans SC, -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Helvetica, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif
+}
+
+body {
+  color: #fff;
+  box-sizing: border-box;
+  accent-color: #fff;
+  scroll-behavior: smooth;
+  color: #fff;
+  padding: 0;
+  margin: 0
+}
+
+#head {
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center
+}
+
+#title {
+  font-size: 6.5rem
+}
+
+#subtitle {
+  font-size: 2rem;
+  margin-bottom: 2rem
+}
+
+#head a {
+  background: #ff66ab;
+  font-size: 2rem;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: .5rem 2rem;
+  transition: all .2s ease;
+  text-decoration: none;
+  user-select: none
+}
+
+#head a:hover {
+  transform: scale(1.1)
+}
+
+#head a:active {
+  transform: scale(1)
+}
+
+*::selection {
+  background: #ff66ab33
+}
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave .56s ease-in-out
+}
+
+@keyframes octocat-wave {
+
+  0%,
+  to {
+    transform: rotate(0)
+  }
+
+  20%,
+  60% {
+    transform: rotate(-25deg)
+  }
+
+  40%,
+  80% {
+    transform: rotate(10deg)
+  }
+}
+
+@media (max-width:500px) {
+  .github-corner:hover .octo-arm {
+    animation: none
+  }
+
+  .github-corner .octo-arm {
+    animation: octocat-wave .56s ease-in-out
+  }
+}
+
 /* layout */
 
 body {
@@ -112,6 +201,7 @@ a.foot-link {
     -webkit-transform: translateY(5px);
     opacity: 0;
   }
+
   100% {
     -webkit-transform: translateY(0);
     opacity: 1;
@@ -157,12 +247,13 @@ a.foot-link {
 
 #app {
   width: 96vw;
-  transition: 0.2s ease; /* for responsive animation */
+  transition: 0.2s ease;
+  /* for responsive animation */
 }
 
 @media (min-width: 1140px) {
   #app {
-      width: 1140px;
+    width: 1140px;
   }
 }
 
@@ -232,23 +323,23 @@ a.foot-link {
 .navbar.is-primary .navbar-end .navbar-link.is-active,
 .navbar.is-primary .navbar-end .navbar-link:focus,
 .navbar.is-primary .navbar-end .navbar-link:hover,
-.navbar.is-primary .navbar-end > a.navbar-item.is-active,
-.navbar.is-primary .navbar-end > a.navbar-item:focus,
-.navbar.is-primary .navbar-end > a.navbar-item:hover,
+.navbar.is-primary .navbar-end>a.navbar-item.is-active,
+.navbar.is-primary .navbar-end>a.navbar-item:focus,
+.navbar.is-primary .navbar-end>a.navbar-item:hover,
 .navbar.is-primary .navbar-item.has-dropdown.is-active .navbar-link,
 .navbar.is-primary .navbar-item.has-dropdown:focus .navbar-link,
 .navbar.is-primary .navbar-item.has-dropdown:hover .navbar-link,
 .navbar.is-primary .navbar-start .navbar-link.is-active,
 .navbar.is-primary .navbar-start .navbar-link:focus,
 .navbar.is-primary .navbar-start .navbar-link:hover,
-.navbar.is-primary .navbar-start > a.navbar-item.is-active,
-.navbar.is-primary .navbar-start > a.navbar-item:focus,
-.navbar.is-primary .navbar-start > a.navbar-item:hover {
+.navbar.is-primary .navbar-start>a.navbar-item.is-active,
+.navbar.is-primary .navbar-start>a.navbar-item:focus,
+.navbar.is-primary .navbar-start>a.navbar-item:hover {
   background-color: transparent;
   color: #fff;
 }
 
-.navbar.is-primary .navbar-brand > a.navbar-item:hover {
+.navbar.is-primary .navbar-brand>a.navbar-item:hover {
   background-color: transparent;
   color: #fff;
 }
@@ -288,7 +379,7 @@ a.foot-link {
 }
 
 .bg-seccond {
-  background-color: hsl(var(--main),10%,15%);
+  background-color: hsl(var(--main), 10%, 15%);
 }
 
 /* auth notification */
@@ -424,9 +515,11 @@ a.foot-link {
   .noti-col-icon {
     display: none;
   }
+
   .noti-col-label {
     padding-bottom: 0;
   }
+
   .noti-col-label:after {
     height: 0px;
   }
@@ -726,6 +819,7 @@ body::-webkit-scrollbar {
   background-color: hsl(var(--main), 10%, 25%);
   border-bottom-right-radius: 8px;
 }
+
 body::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: hsl(var(--main), 15%, 40%);

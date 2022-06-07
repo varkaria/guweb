@@ -42,7 +42,7 @@
       <div class="column flex-vcenter flex-lcenter is-size-2-desktop is-size-1-fullhd" id="title">
         <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">{{ appName() }}</h1>
         <h2 class="subtitle">
-            {{ t('home.subtitle-big') }}
+          {{ t('home.subtitle-big') }}
 
         </h2>
         {% if not session.authenticated %}
@@ -63,7 +63,7 @@
   </div>
 </div>
 
-<section class="section">
+<section class="section" style="display: none;">
   <div class="container has-text-centered py-4">
     <h2 class="title mb-6">{{ t('home.some-of-our-coolest-features') }}</h2>
     <div class="columns has-text-left mb-6">
@@ -105,13 +105,14 @@
 </section>
 
 {% if not session.authenticated %}
-<section class="hero splash">
+<section class="hero splash" style="display: none;">
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title is-spaced">{{ t('home.what-are-you-waiting-for') }}</h1>
       <h2 class="subtitle">{{ t('home.subtitle', appName = appName()) }}</h2>
-      <div class="buttons is-centered"><a class="control button is-primary" href="/register">{{ t('home.sign-up-for-free') }}</a><a
-          class="control button is-light" href="/login">{{ t('global.log-in') }}</a></div>
+      <div class="buttons is-centered"><a class="control button is-primary" href="/register">{{
+          t('home.sign-up-for-free') }}</a><a class="control button is-light" href="/login">{{ t('global.log-in') }}</a>
+      </div>
     </div>
   </div>
 </section>

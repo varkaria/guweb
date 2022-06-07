@@ -26,21 +26,21 @@
                     {{ t('navbar.information') }}
                 </a>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item" href="/doc/rules">
+                    <a class="navbar-item">
                         Todo...
                     </a>
                 </div>
             </div>
 
             {% if session.authenticated and session.user_data['is_staff'] %}
-            <a class="navbar-item" href="/admin">
+            <a class=" navbar-item" href="/admin">
                 {{ t('navbar.admin') }}
             </a>
             {% endif %}
         </div>
 
         <div class="navbar-end">
-            <div class="navbar-item has-dropdown is-hoverable" >
+            <div class="navbar-item has-dropdown is-hoverable">
                 <i style="display: flex;" class="fa fa-globe navbar-link"></i>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" href="/language/zh_CN">
