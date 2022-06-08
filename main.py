@@ -4,6 +4,7 @@
 __all__ = ()
 
 import os
+import random
 
 import aiohttp
 import i18n
@@ -34,6 +35,10 @@ async def mysql_conn() -> None:
     log('Connected to MySQL!', Ansi.LGREEN)
 
 @app.before_serving
+async def load_lang():
+    i18n.load_path.append(os.getcwd() + '/.locales')
+
+@app.before_serving
 async def http_conn() -> None:
     glob.http = aiohttp.ClientSession(json_serialize=lambda x: orjson.dumps(x).decode())
     log('Got our Client Session!', Ansi.LGREEN)
@@ -50,7 +55,7 @@ def appVersion() -> str:
 
 @app.template_global()
 def t(key, **kwargs) -> str:
-    kwargs['locale'] = session.get('lang', 'en_GB')
+    kwargs['locale'] = session.get('lang', 'zh_CN')
     try:
         return i18n.t(key, **kwargs)
     except:
@@ -59,6 +64,10 @@ def t(key, **kwargs) -> str:
 @app.template_global()
 def appName() -> str:
     return glob.config.app_name
+
+@app.template_global()
+def rand() -> str:
+    return str(random.randint(0,100000))
 
 @app.template_global()
 def captchaKey() -> str:
@@ -81,5 +90,4 @@ async def page_not_found(e):
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    i18n.load_path.append(os.getcwd() + '/.locales')
     app.run(port=8000, debug=glob.config.debug)  # blocking call
