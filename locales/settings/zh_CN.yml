@@ -1,20 +1,19 @@
-avatar: Avatar
-avatar-description: >-
-  We recommend an image of at least 512x512 (or 1:1 ratio).You can upload a PNG,
-  JPG under 5MB
-choose-file: Choose file
-save: Save
-preview: Preview
-customisation: Customisation
-banner: Banner
-banner-description: Recommend with 1440x262 pixels with GIF, PNG, JPG, JPEG
-profile-background: Profile Background
-profile-background-description: Recommend with 16:9 ratio with PNG, JPG, JPEG
-password: Password
-password-change: Password Change
-old-password: Old Password
-new-password: New Password
-repeat-password: Repeat Password
-profile: Profile
-user-information: User Infomation
-username: Username
+avatar: 头像
+avatar-description: 我们建议至少上传分辨率为 512x512 (或者长宽比为 1:1)的PNG或JPG图片.并且图片大小低于5MB
+choose-file: 选择一张图片
+save: 保存
+preview: 预览
+customisation: 个性化
+banner: 背景横幅
+banner-description: 建议上传分辨率为 1440x262 的 GIF, PNG, JPG, JPEG 等四种格式的图片
+profile-background: 资料背景
+profile-background-description: 建议上传长宽比为 16:9  的 PNG, JPG, JPEG 格式的图片
+password: 密码
+password-change: 更改密码
+old-password: 旧密码
+new-password: 新密码
+repeat-password: 确认新密码
+profile: 玩家资料
+user-information: 用户信息
+username: 你的用户名
+settings: 设置
