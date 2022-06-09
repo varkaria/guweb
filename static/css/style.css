@@ -29,6 +29,12 @@ body {
   justify-content: center
 }
 
+div#app{
+  border-radius: 2em;
+  overflow: hidden;
+}
+
+
 #title {
   font-size: 6.5rem
 }
@@ -163,6 +169,11 @@ html {
 
 .h-max {
   height: 100%;
+}
+
+.header
+{
+  border-radius: 1em 1em 0 0;
 }
 
 .w-locked {
@@ -366,6 +377,16 @@ a.foot-link {
 
 .navbar-dropdown {
   width: 152px;
+}
+
+.scores + .extra-block
+{
+  border-radius: 0 0 1em 1em;
+}
+
+.stats-block
+{
+  border-radius: 0 0 1em 1em;
 }
 
 .input,

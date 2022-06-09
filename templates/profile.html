@@ -78,7 +78,7 @@
 <div class="log-block" v-bind:class="{ 'load' : data.maps.{{ id }}.load }">
     <div class="header">
         <div class="title">
-            <i class="fas fa-address-book"></i> {{ t('profile.most-played-beatmaps') }}
+            <i class="fas fa-address-book"></i> {{ title }}
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.out.length != 0" class="beatmaps">
@@ -337,9 +337,9 @@
                 </div>-->
             </div>
             <div class="column">
-                {{ scores('Best Scores', 'best')}}
-                {{ scores('Recent Scores', 'recent')}}
-                {{ maps('Most Beatmaps Played', 'most')}}
+                {{ scores(t('profile.best-scores')  , 'best')}}
+                {{ scores(t('profile.recent-scores'), 'recent')}}
+                {{ maps(t('profile.most-played-beatmaps'), 'most')}}
             </div>
         </div>
     </div>
