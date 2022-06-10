@@ -14,11 +14,12 @@ export const contextToFileName = function generateFileName(context) {
     return `${context.namespace}/${context.locale}.${context.extension || 'yml'}`
 }
 export const contextFromFileName = function generateContext(fileName) {
-    const split = fileName.split('/')
-    const namespace = split[0]
-    const [locale, extension] = split[1].split(divider)
+    const split = fileName.split('/').join(divider).split(divider)
+    const namespaces = split.slice(0, split.length - 2)
+    const [locale, extension] = split.slice(-2)
     return {
-        namespace,
+        namespace: namespaces.join('.'),
+        namespaces,
         locale: locale.replace('_', '-'),
         extension
     }

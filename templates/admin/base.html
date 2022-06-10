@@ -2,7 +2,7 @@
 
 <head>
   <!-- title -->
-  <title>{{ appName() }} - Admin - {% block title %}{% endblock %}</title>
+  <title>{{ appName() }} - {{ t('admin.base.admin') }} - {% block title %}{% endblock %}</title>
 
   <!-- favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
@@ -47,10 +47,10 @@
       <div class="colmun">
         <div class="sidebar">
           <div id="style-3" class="sidebar-wrapper">
-            <div class="logo"><a class="simple-text logo-normal">{{ appName() }} Admin Panel</a></div>
+            <div class="logo"><a class="simple-text logo-normal">{{ t('admin.base.admin-panel', appName = appName()) }}</a></div>
             <ul class="nav">
               <li class="nav-item"><a class="nav-link"><span class="icon"><i class="fa fa-home"></i></span> <span
-                    class="name">Dashboard</span></a></li>
+                    class="name">{{ t('admin.base.dashboard') }}</span></a></li>
             </ul>
           </div>
         </div>
@@ -63,8 +63,8 @@
                 onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
             </div>
             <div class="column is-paddingless flex-vcenter">
-              <h2 class="section-title">Dashboard</h2>
-              <p class="section-lead">Welcome to {{ appName() }} admin panel!</p>
+              <h2 class="section-title">{{ t('admin.base.dashboard') }}</h2>
+              <p class="section-lead">{{ t('admin.base.welcome-to-admin-panel', appName = appName()) }}</p>
             </div>
           </div>
           <section class="section">
@@ -80,11 +80,11 @@
   <footer class="footer">
     <div class="content">
       <span>{{ appName() }} <strong>v{{ appVersion() }}</strong></span>
-      <a class="foot-link" href="/github"><i class="fa fa-github"></i> GitHub</a>
-      <a class="foot-link" href="/discord"><i class="fab fa-discord"></i> Discord</a>
-      <a class="foot-link" href="/youtube"><i class="fab fa-youtube"></i> YouTube</a>
-      <a class="foot-link" href="/twitter"><i class="fab fa-twitter"></i> Twitter</a>
-      <a class="foot-link" href="/instagram"><i class="fab fa-instagram"></i> Instagram</a>
+      <a class="foot-link" href="/github"><i class="fa fa-github"></i> {{ t('admin.base.github') }}</a>
+      <a class="foot-link" href="/discord"><i class="fab fa-discord"></i> {{ t('admin.base.discord') }}</a>
+      <a class="foot-link" href="/youtube"><i class="fab fa-youtube"></i> {{ t('admin.base.youtube') }}</a>
+      <a class="foot-link" href="/twitter"><i class="fab fa-twitter"></i> {{ t('admin.base.twitter') }}</a>
+      <a class="foot-link" href="/instagram"><i class="fab fa-instagram"></i> {{ t('admin.base.instagram') }}</a>
     </div>
   </footer>
 

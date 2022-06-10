@@ -2,6 +2,7 @@ import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
+import { merge }from 'lodash-es'
 
 import { compiledFileSchema, path as translationPath, contextFromFileName } from './config.mjs'
 
@@ -9,12 +10,23 @@ import { compiledFileSchema, path as translationPath, contextFromFileName } from
 const parseLocale = (file, context) => {
     const locale = yaml.load(fs.readFileSync(file, 'utf8'))
     const _parse = (locale) => {
-        const rtn = {
+        if (!context.namespaces) return {
             [context.locale]: {
                 [context.namespace]: locale
             }
         }
-        return rtn
+        const rtn = {}
+        let inner = rtn
+        context.namespaces.forEach((ns, index) => {
+            if (index === context.namespaces.length - 1) {
+                return inner[ns] = locale
+            }
+            rtn[ns] = {}
+            inner = rtn[ns]
+        })
+        return {
+            [context.locale]: rtn
+        }
     }
     if (Array.isArray(locale)) {
         const toMerge = locale.forEach(_parse)
@@ -25,6 +37,7 @@ const parseLocale = (file, context) => {
                 ...item
             }
         }
+        return rtn
     } else {
         return _parse(locale)
     }
@@ -49,10 +62,7 @@ export const readLocales = () => new Promise((resolve, reject) => {
                 const context = contextFromFileName(relative)
                 const data = await parseLocale(match, context)
                 if (!acc[context.locale]) acc[context.locale] = {}
-                acc[context.locale] = {
-                    ...acc[context.locale],
-                    ...data[context.locale]
-                }
+                acc[context.locale] = merge(acc[context.locale], data[context.locale])
                 return acc
             } catch (error) {
                 reject(error)

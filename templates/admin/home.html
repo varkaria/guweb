@@ -15,15 +15,15 @@
     <div class="columns is-marginless is-paddingless">
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">total users</div>
+                <div class="title">{{ ('admin.home.total-users') }}</div>
                 <i class="fa fa-users"></i>
                 <div class="value">{{ dashdata['count'] }}</div>
-                <div class="stat">that's a lot of people!</div>
+                <div class="stat">{{ t('admin.home.that-s-a-lot-of-people') }}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">total online</div>
+                <div class="title">{{ t('admin.home.total-online') }}</div>
                 <i class="fa fa-circle"></i>
                 <div class="value">
                     <% online_users %>

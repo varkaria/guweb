@@ -22,3 +22,7 @@ zh_CN:
     赶紧加入到 %{appName} 当中吧! 没有风险!
     并且游玩我们的服务器不会导致你的官服账号被封禁。而且不用担心,你可以随时在官方服务器与我们的服务器之间随意切换。
   sign-up-for-free: 免 费 注 册！
+  error: Uh oh! Be careful!
+  success: Hey! Listen!
+  notice: Notice
+  warning: Warning
