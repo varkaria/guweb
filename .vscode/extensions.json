@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "samuelcolvin.jinjahtml",
+        "lokalise.i18n-ally",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "emeraldwalk.RunOnSave"
+    ]
+}

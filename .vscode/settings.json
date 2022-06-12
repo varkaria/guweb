@@ -36,7 +36,7 @@
       "source": "html-attribute",
       "templates": ["i18n.t('{key}'{args})", "custom.t('{key}'{args})"],
       // accept globs, resolved to project root (optional)
-      "include": ["templates/**/*.html"],
+      "include": ["templates/**/*.html"]
     }
     // ...
   ],
@@ -50,7 +50,10 @@
       {
         "match": ".html",
         "cmd": "npm run i18n:format"
-      },
+      }
     ]
+  },
+  "files.associations": {
+    "*.html": "jinja-html"
   }
 }
