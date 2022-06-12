@@ -5,6 +5,7 @@
 languageIds:
   - html
   - jinja-html
+  - python
   
 
 # An array of RegExes to find the key usage. **The key should be captured in the first match group**.

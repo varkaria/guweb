@@ -12,3 +12,30 @@ en_US:
   error: uh oh! Be careful!
   success: Hey! Listen!
   verify: Verify
+  PP: PP
+  acc: Acc
+  accuracy: Accuracy
+  max-combo: Max Combo
+  mode:
+    AP: AP
+    RX: RX
+    VN: VN
+    autopilot: Autopilot
+    catch: osu!catch
+    mania: osu!mania
+    osu: osu!
+    relax: Relax
+    taiko: osu!taiko
+    vanilla: Vanilla
+  playcount: Play Count
+  playtime: Play Time
+  pp: pp
+  rank:
+    a: A
+    s: S
+    sh: S
+    ss: SS
+    ssh: SS
+  ranked-score: Ranked score
+  score: Score
+  total-score: Total Score

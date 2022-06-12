@@ -16,7 +16,8 @@ en_GB:
   old-password: Old Password
   new-password: New Password
   repeat-password: Repeat Password
-  profile: Profile
+  profile:
+    invalid-parameters: Invalid parameters.
   user-information: User Infomation
   username: Username
   settings: Settings

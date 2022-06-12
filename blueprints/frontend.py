@@ -20,6 +20,7 @@ from quart import session
 from quart import send_file
 
 from constants import regexes
+from main import t
 from objects import glob
 from objects import utils
 from objects.privileges import Privileges
@@ -65,7 +66,7 @@ async def settings_profile_post():
     new_email = form.get('email', type=str)
 
     if new_name is None or new_email is None:
-        return await flash('error', 'Invalid parameters.', 'home')
+        return await flash('error', t('settings.profile.invalid-parameters'), 'home')
 
     old_name = session['user_data']['name']
     old_email = session['user_data']['email']

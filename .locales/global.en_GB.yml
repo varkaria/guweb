@@ -31,3 +31,11 @@ en_GB:
     VN: VN
     RX: RX
     AP: AP
+  ranked-score: Ranked score
+  total-score: Total Score
+  rank:
+    ss: SS
+    ssh: SS
+    s: S
+    sh: S
+    a: A
