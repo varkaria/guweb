@@ -30,3 +30,11 @@ mode:
   VN: VN
   RX: RX
   AP: AP
+ranked-score: Ranked score
+total-score: Total score
+rank:
+  ss: SS
+  ssh: SS
+  s: S
+  sh: S
+  a: A

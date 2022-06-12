@@ -91,7 +91,7 @@
                 </span> <span class="beatmap-artist">
                     <% map.artist %>
                 </span>
-                <div class="beatmap-footer"><span class="beatmap-mapper"> by <span
+                <div class="beatmap-footer"><span class="beatmap-mapper"> {{ t('profile.by') }} <span
                             class="newmaps-color">
                             <% map.creator %>
                         </span></span>
@@ -214,7 +214,7 @@
                     <table class="is-striped">
                         <tbody>
                             <tr>
-                                <td>Global rank</td>
+                                <td>{{ t('profile.global-rank') }}</td>
                                 <td class="right-aligned">
                                     <span id="global-rank">
                                         <% '#' + data.stats[`rank_global_${modegulag}`] %>
@@ -222,7 +222,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Country rank</td>
+                                <td>{{ t('profile.country-rank') }}</td>
                                 <td class="right-aligned">
                                     <span id="country-rank">
                                         <% '#' + data.stats[`rank_country_${modegulag}`] %>
@@ -241,43 +241,43 @@
                     <table class="is-striped">
                         <tbody>
                             <tr>
-                                <td><b>PP</b></td>
+                                <td><b>{{ t('global.PP') }}</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].pp) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Ranked score</b></td>
+                                <td><b>{{ t('global.ranked-score') }}</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].rscore) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Total score</b></td>
+                                <td><b>{{ t('global.total-score') }}</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].tscore) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Max combo</b></td>
+                                <td><b>{{ t('global.max-combo') }}</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].max_combo) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Playcount</b></td>
+                                <td><b>{{ t('global.playcount') }}</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].plays) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Playtime</b></td>
+                                <td><b>{{ t('global.playtime') }}</b></td>
                                 <td class="right-aligned">
                                     <% secondsToDhm(data.stats.out[modegulag].playtime) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Accuracy</b></td>
+                                <td><b>{{ t('global.accuracy') }}</b></td>
                                 <td class="right-aligned">
                                     <% data.stats.out[modegulag].acc %>%
                                 </td>
@@ -289,13 +289,13 @@
                             <div class="media-content">
                                 <div class="grade-line">
                                     <div class="rank-single">
-                                        <div class="map-rank rank-X">SS</div>
+                                        <div class="map-rank rank-X">{{ t('global.rank.ss') }}</div>
                                         <div class="rank-amount">
                                             <% data.stats.out[modegulag].x_count %>
                                         </div>
                                     </div>
                                     <div class="rank-single">
-                                        <div class="map-rank rank-XH">SS</div>
+                                        <div class="map-rank rank-XH">{{ t('global.rank.ssh') }}</div>
                                         <div class="rank-amount">
                                             <% data.stats.out[modegulag].xh_count %>
                                         </div>
@@ -303,19 +303,19 @@
                                 </div>
                                 <div class="grade-line">
                                     <div class="rank-single">
-                                        <div class="map-rank rank-S">S</div>
+                                        <div class="map-rank rank-S">{{ t('global.rank.s') }}</div>
                                         <div class="rank-amount">
                                             <% data.stats.out[modegulag].s_count %>
                                         </div>
                                     </div>
                                     <div class="rank-single">
-                                        <div class="map-rank rank-SH">S</div>
+                                        <div class="map-rank rank-SH">{{ t('global.rank.sh') }}</div>
                                         <div class="rank-amount">
                                             <% data.stats.out[modegulag].sh_count %>
                                         </div>
                                     </div>
                                     <div class="rank-single">
-                                        <div class="map-rank rank-A">A</div>
+                                        <div class="map-rank rank-A">{{ t('global.rank.a') }}</div>
                                         <div class="rank-amount">
                                             <% data.stats.out[modegulag].a_count %>
                                         </div>
