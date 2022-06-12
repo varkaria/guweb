@@ -44,7 +44,7 @@
   "emeraldwalk.runonsave": {
     "commands": [
       {
-        "match": ".(yml | yaml)$",
+        "match": ".(yml|yaml)$",
         "cmd": "npm run i18n:compile"
       },
       {
