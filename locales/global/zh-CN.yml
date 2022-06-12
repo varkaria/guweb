@@ -7,7 +7,7 @@ login: Login
 profile: Profile
 register: Register
 notice: Notice
-warning: Warning
+warning: 注意
 error: uh oh! Be careful!
 success: Hey! Listen!
 verify: Verify
