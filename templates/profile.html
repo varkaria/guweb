@@ -38,9 +38,9 @@
                         <div class="score-details_right-block">
                             <div class="score-details_pp-block">
                                 <div class="map-pp">
-                                    <% map.pp.toFixed() %><span class="map-pp-unit">pp</span>
+                                    <% map.pp.toFixed() %><span class="map-pp-unit">{{ t('global.pp') }}</span>
                                 </div>
-                                <div class="map-acc">accuracy:&nbsp;<b>
+                                <div class="map-acc">{{ t('global.accuracy') }}:&nbsp;<b>
                                         <% map.acc.toFixed(2) %>%
                                     </b></div>
                             </div>
@@ -177,27 +177,27 @@
                 <div class="select-left">
                     <a class="simple-banner-switch" v-bind:class="{ 'selected': mode === 'std' }"
                         @click="ChangeModeMods('std',mods)"><i class="mode-icon mode-osu"></i><span
-                            class="mode-text">osu!</span></a>
+                            class="mode-text">{{ t('global.mode.osu') }}</span></a>
                     <a class="simple-banner-switch" v-bind:class="{ 'selected': mode === 'taiko', 'disabled': mods === 'ap' }"
                         @click="ChangeModeMods('taiko',mods)"><i class="mode-icon mode-taiko"></i><span
-                            class="mode-text">osu!taiko</span></a>
+                            class="mode-text">{{ t('global.mode.taiko') }}</span></a>
                     <a class="simple-banner-switch" v-bind:class="{ 'selected': mode === 'catch', 'disabled': mods === 'ap' }"
                         @click="ChangeModeMods('catch',mods)"><i class="mode-icon mode-catch"></i><span
-                            class="mode-text">osu!catch</span></a>
+                            class="mode-text">{{ t('global.mode.catch') }}</span></a>
                     <a class="simple-banner-switch" v-bind:class="{ 'selected': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
                         @click="ChangeModeMods('mania',mods)"><i class="mode-icon mode-mania"></i><span
-                            class="mode-text">osu!mania</span></a>
+                            class="mode-text">{{ t('global.mode.mania') }}</span></a>
                 </div>
                 <div class="select-right">
                     <a class="simple-banner-switch" v-bind:class=" { 'selected': mods === 'vn' }"
-                        @click="ChangeModeMods(mode,'vn')"><span class="mods-fulltext">Vanilla</span>
-                        <span class="mods-shorttext">VN</span></a>
+                        @click="ChangeModeMods(mode,'vn')"><span class="mods-fulltext">{{ t('global.mode.vanilla') }}</span>
+                        <span class="mods-shorttext">{{ t('global.mode.VN') }}</span></a>
                     <a class="simple-banner-switch" v-bind:class=" { 'selected': mods === 'rx', 'disabled': mode === 'mania' }"
-                        @click="ChangeModeMods(mode,'rx')"><span class="mods-fulltext">Relax</span>
-                        <span class="mods-shorttext">RX</span></a>
+                        @click="ChangeModeMods(mode,'rx')"><span class="mods-fulltext">{{ t('global.mode.relax') }}</span>
+                        <span class="mods-shorttext">{{ t('global.mode.RX') }}</span></a>
                     <a class="simple-banner-switch" v-bind:class=" { 'selected': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
-                        @click="ChangeModeMods(mode,'ap')"><span class="mods-fulltext">Autopilot</span><span
-                            class="mods-shorttext">AP</span></a>
+                        @click="ChangeModeMods(mode,'ap')"><span class="mods-fulltext">{{ t('global.mode.autopilot') }}</span><span
+                            class="mods-shorttext">{{ t('global.mode.AP') }}</span></a>
                 </div>
             </div>
         </div>
