@@ -1,6 +1,8 @@
-admin: Admin
-dashboard: Dashboard
-welcome-to-admin-panel: Welcome to %{appName} admin panel!
+admin: 管理员
+dashboard: 控制面板
+welcome-to-admin-panel: 欢迎来到 %{appName} 管理面板!
 discord: Discord
-admin-panel: '%{appName} Admin Panel'
+admin-panel: '%{appName} 管理员面板'
 instagram: Instagram
+github: GitHub
+twitter: 推特

@@ -6,5 +6,9 @@ en_US:
     discord: Discord
     admin-panel: '%{appName} Admin Panel'
     instagram: Instagram
+    github: GitHub
+    twitter: Twitter
   home:
     that-s-a-lot-of-people: that's a lot of people!
+    total-users: total users
+    total-online: total online
