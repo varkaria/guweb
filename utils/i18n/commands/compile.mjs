@@ -1,5 +1,12 @@
 
 import { readLocales } from '../reader.mjs'
 import { writeToDisk } from '../original-writer.mjs'
+import clui from 'clui'
+const { Spinner } = clui
 
-readLocales().then(locales => writeToDisk(locales))
+const work = new Spinner('reading locales...')
+const data = await readLocales()
+work.message('transforming to python-i18n format...')
+await writeToDisk(data)
+work.stop()
+console.log('transformed to python-i18n format')

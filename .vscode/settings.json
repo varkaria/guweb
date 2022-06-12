@@ -4,6 +4,7 @@
   "i18n-ally.pathMatcher": "{namespaces}/{locale}.{ext}",
   "i18n-ally.localesPaths": "locales",
   "i18n-ally.extract.keygenStyle": "kebab-case",
+  "i18n-ally.translate.engines": ["google-cn"],
   "i18n-ally.extract.keyMaxLength": 50,
   "i18n-ally.extract.parsers.html": {
     "attributes": [
@@ -39,5 +40,19 @@
     }
     // ...
   ],
-  "i18n-ally.keystyle": "nested"
+  "i18n-ally.keystyle": "nested",
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": ".(yml | yaml)$",
+        "isAsync": true,
+        "cmd": "npm run i18n:format && npm run i18n:compile"
+      },
+      {
+        "match": ".html",
+        "isAsync": true,
+        "cmd": "npm run i18n:format"
+      },
+    ]
+  }
 }

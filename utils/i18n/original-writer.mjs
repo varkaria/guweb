@@ -36,7 +36,8 @@ export function generateFileName(context) {
     return compiledFileNameSchema.map(k => context[k].replace('-','_')).join(divider)
 }
 
-export function writeToDisk(locales) {
+export async function writeToDisk(locales) {
+    const works = []
     for (const locale in locales) {
         const namespaces = locales[locale]
         for (const namespace in namespaces) {
@@ -53,7 +54,8 @@ export function writeToDisk(locales) {
             if (!existsSync(path)) {
                 mkdirSync(dir, {recursive: true})
             }
-            fs.writeFile(path, yaml, 'utf8')
+            works.push(fs.writeFile(path, yaml, 'utf8'))
         }
     }
+    return Promise.all(works)
 }
