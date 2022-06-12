@@ -8,6 +8,6 @@ profile: Profile
 register: Register
 notice: Notice
 warning: Warning
-uh-oh-be-careful: uh oh! Be careful!
-hey-listen: Hey! Listen!
+error: uh oh! Be careful!
+success: Hey! Listen!
 verify: Verify
