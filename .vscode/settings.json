@@ -45,12 +45,10 @@
     "commands": [
       {
         "match": ".(yml | yaml)$",
-        "isAsync": true,
-        "cmd": "npm run i18n:format && npm run i18n:compile"
+        "cmd": "npm run i18n:compile"
       },
       {
         "match": ".html",
-        "isAsync": true,
         "cmd": "npm run i18n:format"
       },
     ]
