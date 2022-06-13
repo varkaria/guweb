@@ -38,7 +38,7 @@
                         <div class="score-details_right-block">
                             <div class="score-details_pp-block">
                                 <div class="map-pp">
-                                    <% map.pp.toFixed() %><span class="map-pp-unit">{{ t('global.pp') }}</span>
+                                    <% map.pp.toFixed() %><span class="map-pp-unit">{{ t('global.pp').upper() }}</span>
                                 </div>
                                 <div class="map-acc">{{ t('global.accuracy') }}:&nbsp;<b>
                                         <% map.acc.toFixed(2) %>%
@@ -241,7 +241,7 @@
                     <table class="is-striped">
                         <tbody>
                             <tr>
-                                <td><b>{{ t('global.PP') }}</b></td>
+                                <td><b>{{ t('global.pp').upper() }}</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].pp) %>
                                 </td>

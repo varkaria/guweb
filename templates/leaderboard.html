@@ -40,7 +40,7 @@
         <div class="selector">
             <div class="left">
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'pp' }"
-                @click="LoadLeaderboard('pp', mode, mods, '')">{{ t('global.PP') }}</a>
+                @click="LoadLeaderboard('pp', mode, mods, '')">{{ t('global.pp').upper() }}</a>
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'rscore' }"
                 @click="LoadLeaderboard('rscore', mode, mods, '')">{{ t('global.score') }}</a>
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'acc' }"
