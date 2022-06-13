@@ -38,7 +38,7 @@ def login_required(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
         if not session:
-            return await flash('error', 'You must be logged in to access that page.', 'login')
+            return await flash('error', t('global.you-must-be-logged-in-to-access-this-page'), 'login')
         return await func(*args, **kwargs)
     return wrapper
 
@@ -76,11 +76,11 @@ async def settings_profile_post():
         new_name == old_name and
         new_email == old_email
     ):
-        return await flash('error', 'No changes have been made.', 'settings/profile')
+        return await flash('error', t('settings.profile.no-changes-have-been-made'), 'settings/profile')
 
     if new_name != old_name:
         if not session['user_data']['is_donator']:
-            return await flash('error', 'Username changes are currently a supporter perk.', 'settings/profile')
+            return await flash('error', t('settings.profile.username-changes-supporter-only'), 'settings/profile')
 
         # Usernames must:
         # - be within 2-15 characters in length
@@ -88,16 +88,16 @@ async def settings_profile_post():
         # - not be in the config's `disallowed_names` list
         # - not already be taken by another player
         if not regexes.username.match(new_name):
-            return await flash('error', 'Your new username syntax is invalid.', 'settings/profile')
+            return await flash('error', t('settings.profile.new-username-is-invalid'), 'settings/profile')
 
         if '_' in new_name and ' ' in new_name:
-            return await flash('error', 'Your new username may contain "_" or " ", but not both.', 'settings/profile')
+            return await flash('error', t('settings.profile.username-cannot-contains-both-dash-and-space'), 'settings/profile')
 
         if new_name in glob.config.disallowed_names:
-            return await flash('error', "Your new username isn't allowed; pick another.", 'settings/profile')
+            return await flash('error', t("settings.profile.username-disallowed"), 'settings/profile')
 
         if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', [new_name]):
-            return await flash('error', 'Your new username already taken by another user.', 'settings/profile')
+            return await flash('error', t('settings.profile.username-already-taken-by-others'), 'settings/profile')
 
         safe_name = utils.get_safe_name(new_name)
 
@@ -114,10 +114,10 @@ async def settings_profile_post():
         # - match the regex `^[^@\s]{1,200}@[^@\s\.]{1,30}\.[^@\.\s]{1,24}$`
         # - not already be taken by another player
         if not regexes.email.match(new_email):
-            return await flash('error', 'Your new email syntax is invalid.', 'settings/profile')
+            return await flash('error', t('settings.profile.email-is-invalid'), 'settings/profile')
 
         if await glob.db.fetch('SELECT 1 FROM users WHERE email = %s', [new_email]):
-            return await flash('error', 'Your new email already taken by another user.', 'settings/profile')
+            return await flash('error', '', 'settings/profile')
 
         # email change successful
         await glob.db.execute(
@@ -130,7 +130,7 @@ async def settings_profile_post():
     # logout
     session.pop('authenticated', None)
     session.pop('user_data', None)
-    return await flash('success', 'Your username/email have been changed! Please login again.', 'login')
+    return await flash('success', t('settings.profile.succeed-please-login-again'), 'login')
 
 @frontend.route('/settings/avatar')
 @login_required
@@ -148,13 +148,13 @@ async def settings_avatar_post():
 
     # no file uploaded; deny post
     if avatar is None or not avatar.filename:
-        return await flash('error', 'No image was selected!', 'settings/avatar')
+        return await flash('error', t('settings.no-image-was-selected'), 'settings/avatar')
 
     filename, file_extension = os.path.splitext(avatar.filename.lower())
 
     # bad file extension; deny post
     if not file_extension in ALLOWED_EXTENSIONS:
-        return await flash('error', 'The image you select must be either a .JPG, .JPEG, or .PNG file!', 'settings/avatar')
+        return await flash('error', t('settings.bad-image-extension', imageFor = t('settings.avatar').lower()), 'settings/avatar')
 
     # remove old avatars
     for fx in ALLOWED_EXTENSIONS:
@@ -167,7 +167,7 @@ async def settings_avatar_post():
     # avatar change success
     pilavatar = utils.crop_image(pilavatar)
     pilavatar.save(os.path.join(AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
-    return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
+    return await flash('success', t('settings.image-change-succeed', imageFor = t('settings.avatar').lower()), 'settings/avatar')
 
 @frontend.route('/settings/custom')
 @login_required
@@ -185,12 +185,12 @@ async def settings_custom_post():
 
     # no file uploaded; deny post
     if banner is None and background is None:
-        return await flash_with_customizations('error', 'No image was selected!', 'settings/custom')
+        return await flash_with_customizations('error', t('settings.no-image-was-selected'), 'settings/custom')
 
     if banner is not None and banner.filename:
         _, file_extension = os.path.splitext(banner.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
-            return await flash_with_customizations('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
+            return await flash_with_customizations('error', t('settings.bad-image-extension', imageFor = t('settings.banner').lower()), 'settings/custom')
 
         banner_file_no_ext = os.path.join(f'.data/banners', f'{session["user_data"]["id"]}')
 
@@ -205,7 +205,7 @@ async def settings_custom_post():
     if background is not None and background.filename:
         _, file_extension = os.path.splitext(background.filename.lower())
         if not file_extension in ALLOWED_EXTENSIONS:
-            return await flash_with_customizations('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
+            return await flash_with_customizations('error', t('settings.bad-image-extension', imageFor = t('settings.background').lower()), 'settings/custom')
 
         background_file_no_ext = os.path.join(f'.data/backgrounds', f'{session["user_data"]["id"]}')
 
