@@ -9,6 +9,8 @@ en_GB:
     youtube: YouTube
     twitter: Twitter
     instagram: Instagram
+  please-login-in-first: Please login first.
+  you-have-sufficient-privileges: You have insufficient privileges
   home:
     total-users: total users
     that-s-a-lot-of-people: that's a lot of people!

@@ -19,3 +19,15 @@ profile: Profile
 user-information: User Infomation
 username: Username
 settings: Settings
+# server literals
+no-changes-have-been-made: No changes have been made.
+username-changes-supporter-only: Username changes are currently a supporter perk.
+new-username-is-invalid: Your new username syntax is invalid.
+username-cannot-contains-both-dash-and-space: Your new username may contain "_" or " ", but not both.
+username-disallowed: Your new username isn't allowed; pick another.
+username-already-taken-by-others: Your new username already taken by another user.
+email-is-invalid: Your new email syntax is invalid.
+succeed-please-login-again: Your username/email have been changed! Please login again.
+bad-image-extension: The %{imageFor} you select must be either a .JPG, .JPEG, or .PNG file!
+image-change-succeed: Your %{imageFor} has been successfully changed!
+no-image-was-selected: No image was selected!
