@@ -4,7 +4,7 @@
   "i18n-ally.pathMatcher": "{namespaces}/{locale}.{ext}",
   "i18n-ally.localesPaths": "locales",
   "i18n-ally.extract.keygenStyle": "kebab-case",
-  "i18n-ally.translate.engines": ["google-cn"],
+  "i18n-ally.translate.engines": ["google"],
   "i18n-ally.extract.keyMaxLength": 50,
   "i18n-ally.extract.parsers.html": {
     "attributes": [
@@ -33,8 +33,8 @@
     {
       // affect scope (optional)
       // see https://github.com/lokalise/i18n-ally/blob/master/src/core/types.ts#L156-L156
-      "source": "html-attribute",
-      "templates": ["i18n.t('{key}'{args})", "custom.t('{key}'{args})"],
+      "source": "html-inline",
+      "templates": ["t('{key}'{args})", "t('{key}'{args})"],
       // accept globs, resolved to project root (optional)
       "include": ["templates/**/*.html"]
     }
@@ -49,7 +49,7 @@
       },
       {
         "match": ".html",
-        "cmd": "npm run i18n:format"
+        "cmd": "npm run i18n:format:templates"
       }
     ]
   },

@@ -1,6 +1,5 @@
 registration: Registration
 register: register
 email: Email
-password: Password
 already-have-an-account: Already have an account?
 username: Username

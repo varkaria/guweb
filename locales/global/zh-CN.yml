@@ -11,7 +11,6 @@ warning: 注意
 error: uh oh! Be careful!
 success: Hey! Listen!
 verify: Verify
-PP: PP
 acc: Acc
 accuracy: 准确度
 max-combo: 最大连击
@@ -38,3 +37,4 @@ rank:
 score: 分数
 total-score: 总分
 ranked-score: 记分总分
+password: 密码
