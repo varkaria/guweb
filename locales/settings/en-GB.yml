@@ -1,7 +1,6 @@
 avatar: Avatar
-avatar-description: >-
-  We recommend an image of at least 512x512 (or 1:1 ratio).You can upload a PNG,
-  JPG under 5MB
+avatar-description: |-
+  We recommend an image of at least 512x512 (or 1:1 ratio).You can upload a PNG, JPG under 5MB
 choose-file: Choose file
 save: Save
 preview: Preview

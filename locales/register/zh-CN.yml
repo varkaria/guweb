@@ -2,5 +2,4 @@ registration: 注册
 register: 注册账号
 email: 电子邮箱
 already-have-an-account: 已经拥有账号了?
-username: |
-  你的用户名
+username: 你的用户名

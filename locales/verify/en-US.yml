@@ -11,9 +11,8 @@ add-domain: Add -devserver %{domain} at the end of it
 login-to-your-account: Login to your account
 login-to-your-app-name-account: Login to your %{appName} account and you should be done!
 oh-crap-i-am-stuck: Oh crap! I'm stuck please help me!
-need-help-join-discord-server: >-
-  Need help? We've got you covered - join the Discord so our community can help
-  you out!
+need-help-join-discord-server: |-
+  Need help? We've got you covered - join the Discord so our community can help you out!
 click-here-to-join-our-discord: Click here to join our Discord!
 waiting-for-verification: Waiting for verification!
 follow-the-simple-instructions: Follow the simple instructions above and once you're done reload this page!

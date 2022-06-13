@@ -11,9 +11,8 @@ add-domain: 在文本的末尾添加 -devserver %{domain}
 login-to-your-account: 登入你的账号
 login-to-your-app-name-account: 登录你的 %{appName} 账号,然后就应该万事大吉了!
 oh-crap-i-am-stuck: 妈的，我卡在这个步骤了,赶紧过来帮我一下
-need-help-join-discord-server: >-
-  Need help? We've got you covered - join the Discord so our community can help
-  you out!
+need-help-join-discord-server: |-
+  Need help? We've got you covered - join the Discord so our community can help you out!
 click-here-to-join-our-discord: Click here to join our Discord!
 waiting-for-verification: 正在等待验证结果~
 follow-the-simple-instructions: 只需按照上面的简单说明进行操作，完成后重新加载此页面！
