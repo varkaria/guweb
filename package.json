@@ -10,6 +10,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "i18n:compile": "node utils/i18n/commands/compile.mjs",
     "i18n:format:templates": "node utils/i18n/commands/format-html.mjs",
+    "i18n:format:locales": "node utils/i18n/commands/format-yaml.mjs",
+    "i18n:format": "npm run i18n:format:templates & npm run i18n:format:locales",
+    "i18n:format:parallel": "PARALLEL=TRUE npm run i18n:format",
     "i18n:dev": "nodemon --watch ./locales -e yml, yaml utils/i18n/commands/compile.mjs",
     "i18n:make-sure-you-understand-what-you-are-doing:migrate": "node utils/i18n/commands/migrate.mjs"
   },
