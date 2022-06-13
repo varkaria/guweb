@@ -1,6 +1,6 @@
 const parallel = process.env.PARALLEL || false
 
-import yaml from 'js-yaml'
+import YAML, { parseDocument } from 'yaml'
 
 import glob from 'glob'
 import path from 'path'
@@ -12,8 +12,11 @@ import { path as translationPath } from '../config.mjs'
 
 const doWork = async (match) => {
     try {
-        const data = yaml.load(await fs.readFile(match, { encoding: 'utf8' }))
-        const formatted = yaml.dump(data)
+        const data = parseDocument(await fs.readFile(match, { encoding: 'utf8' }))
+        const formatted = data.toString({
+            blockQuote: 'literal',
+            defaultStringType: 'BLOCK_FOLDED'
+        })
         await fs.writeFile(match, formatted, 'utf8')
     } catch (error) {
         console.error(error)

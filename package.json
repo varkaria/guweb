@@ -28,7 +28,8 @@
   "homepage": "https://github.com/ppy-sb/guweb#readme",
   "devDependencies": {
     "glob": "^8.0.3",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "yaml": "^2.1.1"
   },
   "dependencies": {
     "clui": "^0.3.6",
