@@ -27,13 +27,13 @@
   },
   "homepage": "https://github.com/ppy-sb/guweb#readme",
   "devDependencies": {
+    "clui": "^0.3.6",
     "glob": "^8.0.3",
     "js-yaml": "^4.1.0",
-    "yaml": "^2.1.1"
+    "nodemon": "^2.0.16",
+    "yaml": "^2.1.1",
+    "lodash-es": "^4.17.21"
   },
   "dependencies": {
-    "clui": "^0.3.6",
-    "lodash-es": "^4.17.21",
-    "nodemon": "^2.0.16"
   }
 }

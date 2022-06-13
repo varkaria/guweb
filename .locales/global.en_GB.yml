@@ -7,13 +7,13 @@ en_GB:
   login: Login
   profile: Profile
   register: Register
+  password: Password
   warning: Warning
   notice: Notice
   error: uh oh! Be careful!
   success: Hey! Listen!
   verify: Verify
   pp: pp
-  PP: PP
   accuracy: Accuracy
   score: Score
   acc: Acc
@@ -40,3 +40,5 @@ en_GB:
     sh: S
     a: A
   you-must-be-logged-in-to-access-this-page: You must be logged in to access this page.
+  invalid-parameters: Invalid parameters.
+  you-are-already-logged-in: You're already logged in!

@@ -12,7 +12,6 @@ en_US:
   error: uh oh! Be careful!
   success: Hey! Listen!
   verify: Verify
-  PP: PP
   acc: Acc
   accuracy: Accuracy
   max-combo: Max Combo
@@ -39,3 +38,4 @@ en_US:
   ranked-score: Ranked score
   score: Score
   total-score: Total Score
+  password: Password

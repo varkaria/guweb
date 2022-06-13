@@ -2,7 +2,7 @@ import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
-import { merge }from 'lodash-es'
+import { merge } from 'lodash-es'
 
 import { compiledFileSchema, path as translationPath, contextFromFileName } from './config.mjs'
 
