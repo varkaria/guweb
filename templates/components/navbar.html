@@ -27,7 +27,7 @@
                 </a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item">
-                        {{t("navbar.todo")}}
+                        {{ t('navbar.todo') }}
                     </a>
                 </div>
             </div>
@@ -65,16 +65,16 @@
                 </a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" href="/u/{{ session.user_data['id'] }}">
-                        {{t("navbar.profile")}}
+                        {{ t('navbar.profile') }}
                     </a>
                     <a class="navbar-item" href="/settings">
-                        {{t("navbar.settings")}}
+                        {{ t('navbar.settings') }}
                     </a>
                 </div>
             </div>
             <div class="navbar-item">
                 <a class="button is-light" href="/logout">
-                    {{t("navbar.logout")}}
+                    {{ t('navbar.logout') }}
                 </a>
             </div>
             {% else %}

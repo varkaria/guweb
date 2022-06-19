@@ -4,6 +4,8 @@
 # You can check avaliable language ids here: https://code.visualstudio.com/docs/languages/overview#_language-id
 languageIds:
   - html
+  - jinja-html
+  - python
   
 
 # An array of RegExes to find the key usage. **The key should be captured in the first match group**.
