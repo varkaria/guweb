@@ -8,7 +8,6 @@ import timeago
 from quart import Blueprint
 from quart import render_template
 from quart import session
-from main import t
 
 from objects import glob
 from objects.utils import flash

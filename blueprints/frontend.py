@@ -7,6 +7,7 @@ import hashlib
 import os
 import time
 
+
 from cmyui.logging import Ansi
 from cmyui.logging import log
 from functools import wraps
@@ -20,7 +21,6 @@ from quart import session
 from quart import send_file
 
 from constants import regexes
-from main import t
 from objects import glob
 from objects import utils
 from objects.privileges import Privileges
@@ -28,6 +28,8 @@ from objects.utils import flash
 from objects.utils import flash_with_customizations
 
 import i18n
+
+
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
