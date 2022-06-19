@@ -3,14 +3,14 @@ log-in: 登录
 offline: 离线
 online: 在线
 leaderboard: 排行榜
-login: Login
+login: 登录
 profile: Profile
-register: Register
+register: 注册
 notice: Notice
 warning: 注意
 error: uh oh! Be careful!
 success: Hey! Listen!
-verify: Verify
+verify: 验证
 acc: Acc
 accuracy: 准确度
 max-combo: 最大连击
@@ -38,3 +38,6 @@ score: 分数
 total-score: 总分
 ranked-score: 记分总分
 password: 密码
+invalid-parameters: 请输入用户名密码以及邮箱
+you-are-already-logged-in: 你已经登录啦!
+you-must-be-logged-in-to-access-this-page: 你必须登录了才能访问该页面
