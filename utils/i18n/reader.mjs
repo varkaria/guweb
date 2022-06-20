@@ -2,9 +2,9 @@ import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
-import { merge } from 'lodash-es'
+import { mergeWith, merge } from 'lodash-es'
 
-import { compiledFileSchema, path as translationPath, contextFromFileName } from './config.mjs'
+import { compiledFileSchema, path as translationPath, contextFromFileName, onConflictingKey } from './config.mjs'
 
 
 const parseLocale = (file, context) => {
@@ -62,7 +62,26 @@ export const readLocales = () => new Promise((resolve, reject) => {
                 const context = contextFromFileName(relative)
                 const data = await parseLocale(match, context)
                 if (!acc[context.locale]) acc[context.locale] = {}
-                acc[context.locale] = merge(acc[context.locale], data[context.locale])
+                acc[context.locale] = mergeWith(
+                    acc[context.locale],
+                    data[context.locale],
+                    (objValue, srcValue, key, object, source, stack) => {
+                        if (!objValue) {
+                            return srcValue
+                        }
+                        for (const k in srcValue) {
+                            if (objValue[k]) {
+                                console.warn(`[Warning] Merging into initilazed value:\n  ${key}.${k}:\n    [${typeof srcValue[k]}${typeof srcValue[k] === 'string' && ' `' + srcValue[k] + '`' || ''}] merging into [${typeof objValue[k]}${typeof objValue[k] === 'string' && ' `' + objValue[k] + '`' || ''}].`)
+                                objValue = onConflictingKey(objValue, srcValue, k)
+                                console.log('')
+                            } else {
+                                objValue[k] = srcValue[k]
+                            }
+                        }
+                        return objValue
+                        // return merge(objValue, srcValue)
+                    }
+                )
                 return acc
             } catch (error) {
                 reject(error)

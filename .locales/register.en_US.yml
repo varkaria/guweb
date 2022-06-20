@@ -4,3 +4,15 @@ en_US:
   email: Email
   already-have-an-account: Already have an account?
   username: Username
+  captcha-failed: Captcha failed.
+  currently-disabled: Registrations are currently disabled.
+  email-already-taken: Email already taken by another user.
+  email-is-invalid: Invalid email syntax.
+  password:
+    must-have-more-than-3-unique-characters: Password must have more than 3 unique characters.
+    too-simple: That password was deemed too simple.
+    must-between-8-32-characters-in-length: Password must be 8-32 characters in length.
+  username-cannot-contains-both-dash-and-space: Username may contain "_" or " ", but not both.
+  username-already-taken-by-others: Username already taken by another user.
+  username-disallowed: Disallowed username; pick another.
+  username-syntax-is-invalid: Invalid username syntax.

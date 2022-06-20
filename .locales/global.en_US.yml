@@ -39,3 +39,6 @@ en_US:
   score: Score
   total-score: Total Score
   password: Password
+  invalid-parameters: Invalid parameters.
+  you-are-already-logged-in: You're already logged in!
+  you-must-be-logged-in-to-access-this-page: You must be logged in to access this page.

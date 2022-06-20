@@ -1,6 +1,7 @@
 import { join } from 'path'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { merge } from 'lodash-es'
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -22,5 +23,34 @@ export const contextFromFileName = function generateContext(fileName) {
         namespaces,
         locale: locale.replace('_', '-'),
         extension
+    }
+}
+export function onConflictingKey(oldVal, newVal, key) {
+    if (!typeof newVal[key] === 'object' || !typeof oldVal[key] === 'object') {
+        console.error('onConflictingKey: unable to merge text with text.')
+    }
+    if (typeof newVal[key] === 'object' && typeof oldVal[key] === 'object') {
+        console.info('merged object', oldVal, newVal)
+        return merge(oldVal, newVal)
+    }
+    if (typeof newVal[key] === 'string') {
+        console.info(`[info] ${key} renamed into ${key}._string.`)
+        return {
+            ...oldVal,
+            [key]: {
+                ...oldVal[key],
+                _string: newVal[key]
+            }
+        }
+    }
+    else if (typeof oldVal[key] === 'string') {
+        console.info(`[info] ${key} renamed into ${key}._string.`)
+        return {
+            ...newVal,
+            [key]: {
+                ...newVal[key],
+                _string: oldVal[key]
+            }
+        }
     }
 }

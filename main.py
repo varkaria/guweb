@@ -59,7 +59,10 @@ def t(key, **kwargs) -> str:
     try:
         return i18n.t(key, **kwargs)
     except:
-        return key
+        try:
+            return i18n.t(key + '._string', **kwargs)
+        except:
+            return key
 
 @app.template_global()
 def appName() -> str:

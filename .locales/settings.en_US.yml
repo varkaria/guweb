@@ -1,22 +1,18 @@
 en_US:
-  avatar: Avatar
-  avatar-description: >-
-    We recommend an image of at least 512x512 (or 1:1 ratio).You can upload a
-    PNG, JPG under 5MB
-  choose-file: Choose file
-  save: Save
-  preview: Preview
-  customisation: Customisation
-  banner: Banner
-  banner-description: Recommend with 1440x262 pixels with GIF, PNG, JPG, JPEG
-  profile-background: Profile Background
-  profile-background-description: Recommend with 16:9 ratio with PNG, JPG, JPEG
-  password: null
-  password-change: Password Change
-  old-password: Old Password
-  new-password: New Password
-  repeat-password: Repeat Password
-  profile: null
-  user-information: User Infomation
-  username: Username
-  settings: Settings
+  password:
+    new-passoword-mismatch-repeated-password: Your new password doesn't match your repeated password!
+    new-passoword-cannot-be-same-as-old-password: Your new password cannot be the same as your old password!
+    must-between-8-32-characters-in-length: Your new password must be 8-32 characters in length.
+    must-have-more-than-3-unique-characters: Your new password must have more than 3 unique characters.
+    too-simple: Your new password was deemed too simple.
+    old-password-incorrect: Your old password is incorrect.
+    _string: Password
+  profile:
+    no-changes-have-been-made: No changes have been made.
+    username-changes-supporter-only: Username changes are currently a supporter perk.
+    new-username-is-invalid: Your new username syntax is invalid.
+    new-username-cannot-contains-both-dash-and-space: Your new username may contain "_" or " ", but not both.
+    new-username-disallowed: Your new username isn't allowed; pick another.
+    new-username-already-taken-by-others: Your new username already taken by another user.
+    new-email-is-invalid: Your new email syntax is invalid.
+    succeed-please-login-again: Your username/email have been changed! Please login again.
