@@ -1,25 +1,18 @@
-subtitle-big: >-
-  欢迎来到ppysb, 一个面向全模式的osu!私服. 我们有最先进的RX, AP算法, 同时为全模式提供PP计算支持. 我们拥有全图排行榜,
-  以及无限次数的改名机会. 群内的兽耳机器人24小时为您提供成绩查询等服务. 详情请加QQ群: 792778662. ppysb新版本目前仍在测试阶段,
-  如出现问题或有改进建议, 欢迎与我们联系与沟通.
+subtitle-big: |-
+  欢迎来到ppysb, 一个面向全模式的osu!私服. 我们有最先进的RX, AP算法, 同时为全模式提供PP计算支持. 我们拥有全图排行榜, 以及无限次数的改名机会. 群内的兽耳机器人24小时为您提供成绩查询等服务. 详情请加QQ群: 792778662. ppysb新版本目前仍在测试阶段, 如出现问题或有改进建议, 欢迎与我们联系与沟通.
 some-of-our-coolest-features: 我们觉得最酷的一些功能
 features-title-1: 对Relax 和 Autopilot mod的PP计算
-features-content-1: >-
-  我们的服务器针对RX和AP有专门的PP计算算法。有超高的AIM移动能力但是左手无力？又或者左手超强的手速speed却不会移动AIM? 在
-  %{appName} 当中都可以完美发挥你的强项。
+features-content-1: |-
+  我们的服务器针对RX和AP有专门的PP计算算法。有超高的AIM移动能力但是左手无力？又或者左手超强的手速speed却不会移动AIM? 在 %{appName} 当中都可以完美发挥你的强项。
 features-title-2: 免费的 osu!direct 服务
-features-content-2: >-
-  你不用特意成为 osu!supporter 以此来提高你在客户端下图方面的体验。osu!direct 对所有人开放(并且使用的是国内的sayo镜像站)!
-  虽然如此,如果你愿意支持我们,你仍然可以获得一些超酷的特权。只不过这些特权并不会影响到你的game sessions!
+features-content-2: |-
+  你不用特意成为 osu!supporter 以此来提高你在客户端下图方面的体验。osu!direct 对所有人开放(并且使用的是国内的sayo镜像站)! 虽然如此,如果你愿意支持我们,你仍然可以获得一些超酷的特权。只不过这些特权并不会影响到你的game sessions!
 features-title-3: Flexible library
-features-content-3: >-
-  We're written on top of cmyui's multipurpose library allowing for a fully
-  asynchronous environment, both improving performance and the user's experience
-  in the long term!
+features-content-3: |-
+  We're written on top of cmyui's multipurpose library allowing for a fully asynchronous environment, both improving performance and the user's experience in the long term!
 what-are-you-waiting-for: 你 还 在 等 什 么?
-subtitle: >-
-  赶紧加入到 %{appName} 当中吧! 没有风险!
-  并且游玩我们的服务器不会导致你的官服账号被封禁。而且不用担心,你可以随时在官方服务器与我们的服务器之间随意切换。
+subtitle: |-
+  赶紧加入到 %{appName} 当中吧! 没有风险! 并且游玩我们的服务器不会导致你的官服账号被封禁。而且不用担心,你可以随时在官方服务器与我们的服务器之间随意切换。
 sign-up-for-free: 免 费 注 册！
 error: Uh oh! Be careful!
 success: Hey! Listen!

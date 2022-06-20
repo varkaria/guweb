@@ -3,5 +3,4 @@ en_US:
   register: Register
   forgot-login: Forgot login?
   username: Username
-  password: Password
   email: Email

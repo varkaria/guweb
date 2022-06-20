@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} {{ t('settings.profile') }} {% endblock %}
+{% block title %} {{ t('global.profile') }} {% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="/static/css/pages/settings/style.css">
@@ -9,7 +9,7 @@
   <div class="block-content right">
     <div id="general" class="single-right-block">
       <div class="right-block-header">
-          {{ t('settings.user-information')}}
+          {{ t('settings.user-information') }}
       </div>
       <form action="/settings/profile" method="post" class="setting-block-content">
         <div class="single-block-content">
@@ -49,7 +49,7 @@
         <div class="single-block-content">
           <div class="block-content--left">
             <div class="field-label is-normal">
-              <label class="label">name aka</label>
+              <label class="label">{{ t('profile.name-aka') }}</label>
             </div>
           </div>
           <div class="block-content--right">
@@ -84,9 +84,9 @@
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          {{ t('global.uh-oh-be-careful') }}
+          {{ t('global.error') }}
           {% elif status=='success' %}
-            {{ t('global.hey-listen')}}
+            {{ t('global.success') }}
           {% endif %}
         </div>
       </div>

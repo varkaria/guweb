@@ -4,3 +4,6 @@ welcome-to-admin-panel: Welcome to %{appName} admin panel!
 discord: Discord
 admin-panel: '%{appName} Admin Panel'
 instagram: Instagram
+github: GitHub
+twitter: Twitter
+youtube: YouTube

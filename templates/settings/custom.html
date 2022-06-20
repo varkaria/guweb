@@ -23,7 +23,7 @@
                     <input class="file-input" id="file-bn" type="file" name="banner">
                     <span class="file-cta">
                       <span class="file-label">
-                        {{ t('settings.choose-file')}}
+                        {{ t('settings.choose-file') }}
                       </span>
                       <span class="file-icon">
                         <i class="fa fa-upload"></i>
@@ -33,16 +33,16 @@
                 </div>
               </div>
               <div class="single-block-content avatar-block-content">
-                <h4 class="mb-4">{{ t('settings.profile-background')}}</h4>
+                <h4 class="mb-4">{{ t('settings.profile-background') }}</h4>
                 <div class="subtitle">
-                    {{ t('settings.profile-background-description')}}
+                    {{ t('settings.profile-background-description') }}
                 </div>
                 <div class="buttons margin-top" id="selection">
                   <label class="file-label">
                     <input class="file-input" id="file-bg" type="file" name="background">
                     <span class="file-cta">
                       <span class="file-label">
-                        {{ t('settings.choose-file')}}
+                        {{ t('settings.choose-file') }}
                       </span>
                       <span class="file-icon">
                         <i class="fa fa-upload"></i>
@@ -52,7 +52,7 @@
                 </div>
               </div>
               <div class="custom-button buttons mt-6">
-                <button class='button is-primary' type='submit'><span class='icon is-small'><i class='fas fa-check'></i></span><span>Save</span></button>
+                <button class='button is-primary' type='submit'><span class='icon is-small'><i class='fas fa-check'></i></span><span>{{ t('settings.save') }}</span></button>
               </div>
             </form>
           </div>
@@ -116,9 +116,9 @@
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          {{ t('global.uh-oh-be-careful') }}
+          {{ t('global.error') }}
           {% elif status=='success' %}
-          {{ t('global.hey-listen')}}
+          {{ t('global.success') }}
           {% endif %}
         </div>
       </div>
