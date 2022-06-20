@@ -11,10 +11,10 @@ export const compiled = join(__dirname, '../../.locales')
 export const path = join(__dirname, '../../locales')
 export const divider = '.'
 
-export const contextToFileName = function generateFileName(context) {
+export function contextToFileName (context) {
     return `${context.namespace}/${context.locale}.${context.extension || 'yml'}`
 }
-export const contextFromFileName = function generateContext(fileName) {
+export function contextFromFileName(fileName) {
     const split = fileName.split('/').join(divider).split(divider)
     const namespaces = split.slice(0, split.length - 2)
     const [locale, extension] = split.slice(-2)
