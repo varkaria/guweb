@@ -5,6 +5,9 @@ __all__ = ()
 import datetime
 
 import timeago
+
+from blueprints.i18npy import t
+
 from quart import Blueprint
 from quart import render_template
 from quart import session
