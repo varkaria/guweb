@@ -1,7 +1,7 @@
 /* gulag mascot/avatar */
 
 .gulag-avatar {
-  background-image: url("/static/images/gulag.png");
+  background-image: url("/static/images/gulag.png?v=1.0");
   background-repeat: no-repeat;
   /*     available avatar widths & heights      */
   /* gulag.png:   width: 512px; height: 363px;  */
