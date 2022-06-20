@@ -39,6 +39,6 @@ en_GB:
     s: S
     sh: S
     a: A
-  you-must-be-logged-in-to-access-this-page: You must be logged in to access this page.
   invalid-parameters: Invalid parameters.
   you-are-already-logged-in: You're already logged in!
+  you-must-be-logged-in-to-access-this-page: You must be logged in to access this page.

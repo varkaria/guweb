@@ -27,14 +27,13 @@ from objects.privileges import Privileges
 from objects.utils import flash
 from objects.utils import flash_with_customizations
 
-import i18n
-
-
+from blueprints.i18npy import t
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
 
 frontend = Blueprint('frontend', __name__)
+
 
 def login_required(func):
     @wraps(func)
@@ -96,7 +95,7 @@ async def settings_profile_post():
             return await flash('error', t('settings.profile.new-username-cannot-contains-both-dash-and-space'), 'settings/profile')
 
         if new_name in glob.config.disallowed_names:
-            return await flash('error', t("settings.profile.new-username-disallowed"), 'settings/profile')
+            return await flash('error', t('settings.profile.new-username-disallowed'), 'settings/profile')
 
         if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', [new_name]):
             return await flash('error', t('settings.profile.new-username-already-taken-by-others'), 'settings/profile')
@@ -237,7 +236,7 @@ async def settings_password_post():
 
     # new password and repeat password don't match; deny post
     if new_password != repeat_password:
-        return await flash('error', t("settings.password.new-passoword-mismatch-repeated-password"), 'settings/password')
+        return await flash('error', t('settings.password.new-passoword-mismatch-repeated-password'), 'settings/password')
 
     # new password and old password match; deny post
     if old_password == new_password:
@@ -344,14 +343,14 @@ async def leaderboard(mode='std', sort='pp', mods='vn'):
 @frontend.route('/login')
 async def login():
     if 'authenticated' in session:
-        return await flash('error', t("global.you-are-already-logged-in"), 'home')
+        return await flash('error', t('global.you-are-already-logged-in'), 'home')
 
     return await render_template('login.html')
 
 @frontend.route('/login', methods=['POST'])
 async def login_post():
     if 'authenticated' in session:
-        return await flash('error', t("global.you-are-already-logged-in"), 'home')
+        return await flash('error', t('global.you-are-already-logged-in'), 'home')
 
     if glob.config.debug:
         login_time = time.time_ns()
@@ -436,7 +435,7 @@ async def login_post():
 @frontend.route('/register')
 async def register():
     if 'authenticated' in session:
-        return await flash('error', t("global.you-are-already-logged-in"), 'home')
+        return await flash('error', t('global.you-are-already-logged-in'), 'home')
 
     if not glob.config.registration:
         return await flash('error', t('register.currently-disabled'), 'home')
@@ -446,7 +445,7 @@ async def register():
 @frontend.route('/register', methods=['POST'])
 async def register_post():
     if 'authenticated' in session:
-        return await flash('error', t("global.you-are-already-logged-in"), 'home')
+        return await flash('error', t('global.you-are-already-logged-in'), 'home')
 
     if not glob.config.registration:
         return await flash('error', t('register.currently-disabled'), 'home')
@@ -480,7 +479,7 @@ async def register_post():
         return await flash('error', t('register.username-cannot-contains-both-dash-and-space'), 'register')
 
     if username in glob.config.disallowed_names:
-        return await flash('error', t("register.username-disallowed"), 'register')
+        return await flash('error', t('register.username-disallowed'), 'register')
 
     if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', username):
         return await flash('error', t('register.username-already-taken-by-others'), 'register')
@@ -562,7 +561,7 @@ async def register_post():
 @frontend.route('/logout')
 async def logout():
     if 'authenticated' not in session:
-        return await flash('error', t("logout.cannot-logout-if-not-logged-in"), 'login')
+        return await flash('error', t('logout.cannot-logout-if-not-logged-in'), 'login')
 
     if glob.config.debug:
         log(f'{session["user_data"]["name"]} logged out.', Ansi.LGREEN)
