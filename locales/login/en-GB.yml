@@ -2,5 +2,8 @@ dont-have-an-account: Don't have an account?
 register: Register
 forgot-login: Forgot login?
 username: Username
-password: Password
 email: Email
+password-incorrect: Password is incorrect.
+restricted-not-allowed-to-login: Your account is restricted. You are not allowed to log in.
+welcome-back: Hey, welcome back %{username}!
+account-does-not-exist: Account does not exist.

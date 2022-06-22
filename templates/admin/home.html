@@ -15,7 +15,7 @@
     <div class="columns is-marginless is-paddingless">
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">{{ ('admin.home.total-users') }}</div>
+                <div class="title">{{ t('admin.home.total-users') }}</div>
                 <i class="fa fa-users"></i>
                 <div class="value">{{ dashdata['count'] }}</div>
                 <div class="stat">{{ t('admin.home.that-s-a-lot-of-people') }}</div>
@@ -28,23 +28,23 @@
                 <div class="value">
                     <% online_users %>
                 </div>
-                <div class="stat">rising in popularity are we?</div>
+                <div class="stat">{{ t('admin.home.rising-in-popularity-aren-t-we') }}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">lastest user</div>
+                <div class="title">{{ t('admin.home.latest-user') }}</div>
                 <i class="fa fa-book"></i>
                 <div class="value">{{ dashdata['lastest_user'] }}</div>
-                <div class="stat">latest and greatest! welcome!</div>
+                <div class="stat">{{ t('admin.home.latest-and-greatest-welcome') }}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">total banned</div>
+                <div class="title">{{ t('admin.home.total-banned') }}</div>
                 <i class="fa fa-calendar"></i>
                 <div class="value">{{ dashdata['banned'] }}</div>
-                <div class="stat">naughty naughty :(</div>
+                <div class="stat">{{ t('admin.home.naughty-sad-face') }}</div>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
         <div class="recent-beat">
             <div class="columns is-marginless">
                 <div class="column is-paddingless flex-vcenter">
-                    <h2 class="section-title">Recent Users</h2>
+                    <h2 class="section-title">{{ t('admin.home.recent-users') }}</h2>
                 </div>
             </div>
             <div class="blockdata">
@@ -93,7 +93,7 @@
         <div class="recent-beat">
             <div class="columns is-marginless">
                 <div class="column is-paddingless flex-vcenter">
-                    <h2 class="section-title">Recent Score</h2>
+                    <h2 class="section-title">{{ t('admin.home.recent-score') }}</h2>
                 </div>
             </div>
             <div class="blockdata">
@@ -119,8 +119,8 @@
                             <div class="score-details_right-block">
                                 <div class="score-details_pp-block">
                                     <div class="map-pp">
-                                        {{ maps.pp }}<span class="map-pp-unit">pp</span></div>
-                                    <div class="map-acc">accuracy:&nbsp;<b>
+                                        {{ maps.pp }}<span class="map-pp-unit">{{ t('global.pp').upper() }}</span></div>
+                                    <div class="map-acc">{{ t('global.accuracy') }}:&nbsp;<b>
                                         {{ maps.acc }}%
                                         </b></div>
                                 </div>

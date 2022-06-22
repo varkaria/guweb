@@ -9,7 +9,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "i18n:compile": "node utils/i18n/commands/compile.mjs",
-    "i18n:format": "node utils/i18n/commands/format.mjs",
+    "i18n:format:templates": "node utils/i18n/commands/format-html.mjs",
+    "i18n:format:locales": "node utils/i18n/commands/format-yaml.mjs",
+    "i18n:format": "npm run i18n:format:templates & npm run i18n:format:locales",
+    "i18n:format:parallel": "PARALLEL=TRUE npm run i18n:format",
     "i18n:dev": "nodemon --watch ./locales -e yml, yaml utils/i18n/commands/compile.mjs",
     "i18n:make-sure-you-understand-what-you-are-doing:migrate": "node utils/i18n/commands/migrate.mjs"
   },
@@ -24,11 +27,13 @@
   },
   "homepage": "https://github.com/ppy-sb/guweb#readme",
   "devDependencies": {
+    "clui": "^0.3.6",
     "glob": "^8.0.3",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "nodemon": "^2.0.16",
+    "yaml": "^2.1.1",
+    "lodash-es": "^4.17.21"
   },
   "dependencies": {
-    "lodash-es": "^4.17.21",
-    "nodemon": "^2.0.16"
   }
 }

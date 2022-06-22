@@ -9,7 +9,7 @@ import random
 import aiohttp
 import i18n
 import orjson
-from quart import Quart, session
+from quart import Blueprint, Quart, session
 from quart import render_template
 
 from cmyui.logging import Ansi
@@ -59,7 +59,10 @@ def t(key, **kwargs) -> str:
     try:
         return i18n.t(key, **kwargs)
     except:
-        return key
+        try:
+            return i18n.t(key + '._string', **kwargs)
+        except:
+            return key
 
 @app.template_global()
 def appName() -> str:
@@ -90,4 +93,4 @@ async def page_not_found(e):
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    app.run(port=8000, debug=glob.config.debug)  # blocking call
+    app.run(port=10000, debug=glob.config.debug)  # blocking call

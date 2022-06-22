@@ -1,10 +1,24 @@
 zh_CN:
   base:
-    admin: Admin
-    dashboard: Dashboard
-    welcome-to-admin-panel: Welcome to %{appName} admin panel!
+    admin: 管理员
+    dashboard: 控制面板
+    welcome-to-admin-panel: 欢迎来到 %{appName} 管理面板!
     discord: Discord
-    admin-panel: '%{appName} Admin Panel'
+    admin-panel: '%{appName} 管理员面板'
     instagram: Instagram
+    github: GitHub
+    twitter: 推特
+    youtube: YouTube
   home:
-    that-s-a-lot-of-people: that's a lot of people!
+    that-s-a-lot-of-people: 好多人！
+    total-users: 总用户
+    total-online: 总在线
+    latest-and-greatest-welcome: 最新最热！欢迎！
+    latest-user: 最新用户
+    naughty-sad-face: 坏坏 :(
+    recent-score: 最近成绩
+    recent-users: 最新用户
+    rising-in-popularity-aren-t-we: 要火了咱们？
+    total-banned: 总被ban
+  please-login-in-first: 请先登录。
+  you-have-sufficient-privileges: 您的权限不足

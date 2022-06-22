@@ -6,8 +6,40 @@ leaderboard: Leaderboard
 login: Login
 profile: Profile
 register: Register
-notice: Notice
+password: Password
 warning: Warning
-uh-oh-be-careful: uh oh! Be careful!
-hey-listen: Hey! Listen!
+notice: Notice
+error: uh oh! Be careful!
+success: Hey! Listen!
 verify: Verify
+pp: pp
+accuracy: Accuracy
+score: Score
+acc: Acc
+playcount: Play Count
+playtime: Play Time
+max-combo: Max Combo
+mode:
+  vanilla: Vanilla
+  relax: Relax
+  autopilot: Autopilot
+  taiko: osu!taiko
+  osu: osu!
+  catch: osu!catch
+  mania: osu!mania
+  VN: VN
+  RX: RX
+  AP: AP
+ranked-score: Ranked score
+total-score: Total Score
+rank:
+  ss: SS
+  ssh: SS
+  s: S
+  sh: S
+  a: A
+# server literals
+invalid-parameters: Invalid parameters.
+you-are-already-logged-in: You're already logged in!
+you-must-be-logged-in-to-access-this-page: You must be logged in to access this page.
+

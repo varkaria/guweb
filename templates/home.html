@@ -2,7 +2,7 @@
 {% block title %} Home {% endblock %}
 
 {% block header %}
-<link rel="stylesheet" href="/static/css/pages/home.css?v={{ rand() }}">
+<link rel="stylesheet" href="/static/css/pages/home.css">
 {% endblock %}
 
 {% block content %}
@@ -15,16 +15,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-          {{ t('home.warning') }}
+          {{ t('global.warning') }}
           {% elif status=='success' %}
-          {{ t('home.notice') }}
+          {{ t('global.notice') }}
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          {{ t('home.error') }}
+          {{ t('global.error') }}
           {% elif status=='success' %}
-          {{ t('home.success') }}
+          {{ t('global.success') }}
           {% endif %}
         </div>
       </div>

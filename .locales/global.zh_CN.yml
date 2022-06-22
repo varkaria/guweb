@@ -3,12 +3,42 @@ zh_CN:
   log-in: 登录
   offline: 离线
   online: 在线
-  leaderboard: 排行榜2
-  login: Login
-  profile: Profile
-  register: Register
+  leaderboard: 排行榜
+  login: 登录
+  profile: 用户信息
+  register: 注册
   notice: Notice
-  warning: Warning
-  uh-oh-be-careful: uh oh! Be careful!
-  hey-listen: Hey! Listen!
-  verify: Verify
+  warning: 注意
+  error: uh oh! Be careful!
+  success: Hey! Listen!
+  verify: 验证
+  acc: Acc
+  accuracy: 准确度
+  max-combo: 最大连击
+  mode:
+    AP: AP
+    RX: RX
+    VN: VN
+    autopilot: Autopilot
+    catch: osu!接水果
+    mania: osu!面条
+    osu: osu!
+    relax: Relax
+    taiko: osu!太鼓
+    vanilla: Vanilla
+  playcount: 游玩次数
+  playtime: 游玩时间
+  pp: pp
+  rank:
+    a: A
+    s: S
+    sh: S
+    ss: SS
+    ssh: SS
+  score: 分数
+  total-score: 总分
+  ranked-score: 记分总分
+  password: 密码
+  invalid-parameters: 请输入用户名密码以及邮箱
+  you-are-already-logged-in: 你已经登录啦!
+  you-must-be-logged-in-to-access-this-page: 你必须登录了才能访问该页面

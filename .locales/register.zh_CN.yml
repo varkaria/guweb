@@ -2,7 +2,17 @@ zh_CN:
   registration: 注册
   register: 注册账号
   email: 电子邮箱
-  password: 密码
   already-have-an-account: 已经拥有账号了?
-  username: |
-    你的用户名
+  username: 你的用户名
+  captcha-failed: Captcha failed.
+  currently-disabled: 注册功能目前正在禁用中
+  email-already-taken: 该电子邮箱已经被其他用户注册过了
+  email-is-invalid: 无效的邮箱格式
+  password:
+    must-have-more-than-3-unique-characters: 密码必须包含三个以上的特殊字符
+    too-simple: 这个密码看上去太简单了
+    must-between-8-32-characters-in-length: 密码的长度只能是8到32个字符之内
+  username-cannot-contains-both-dash-and-space: 用户名不能同时存在"_"和" "(空格)符号
+  username-already-taken-by-others: 该用户名已经被其他用户使用了
+  username-disallowed: 该用户名不允许被使用,请选择别的
+  username-syntax-is-invalid: 无效的用户名格式

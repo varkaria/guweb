@@ -4,7 +4,7 @@ what-do-you-mean-this-must-be-easy-right: 别想太复杂, 肯定很简单拉~�
 follow-these-three-simple-steps: 跟随以下三个简单的步骤即可游玩 %{appName} 了!
 osu-shortcut: Osu! 快捷方式
 find-your-shortcut: 在桌面上寻找你的osu!快捷方式并复制一份 (如果没有，可以去osu!目录里创建一份)
-edit-it: Edit it
+edit-it: 修改属性
 right-click-properties: 右键快捷方式,在菜单中找到 "属性" 选项,(一般在最下边)
 find-target-element-box: 找到 "目标" 这一行
 add-domain: 在文本的末尾添加 -devserver %{domain}
