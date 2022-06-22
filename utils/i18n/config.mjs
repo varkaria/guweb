@@ -25,9 +25,10 @@ export function contextFromFileName(fileName) {
         extension
     }
 }
-export function onConflictingKey(oldVal, newVal, key) {
-    if (!typeof newVal[key] === 'object' || !typeof oldVal[key] === 'object') {
-        console.error('onConflictingKey: unable to merge text with text.')
+export function onConflictingKey(newVal, oldVal, key) {
+    if (typeof newVal[key] !== 'object' && typeof oldVal[key]  !== 'object') {
+        // console.log(typeof newVal[key], oldVal[key], newVal[key])
+        return newVal
     }
     if (typeof newVal[key] === 'object' && typeof oldVal[key] === 'object') {
         console.info('merged object', oldVal, newVal)
@@ -37,6 +38,7 @@ export function onConflictingKey(oldVal, newVal, key) {
         console.info(`[info] ${key} renamed into ${key}._string.`)
         return {
             ...oldVal,
+            ...newVal,
             [key]: {
                 ...oldVal[key],
                 _string: newVal[key]
@@ -46,6 +48,7 @@ export function onConflictingKey(oldVal, newVal, key) {
     else if (typeof oldVal[key] === 'string') {
         console.info(`[info] ${key} renamed into ${key}._string.`)
         return {
+            ...oldVal,
             ...newVal,
             [key]: {
                 ...newVal[key],

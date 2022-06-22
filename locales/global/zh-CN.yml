@@ -39,6 +39,6 @@ total-score: 总分
 ranked-score: 记分总分
 password: 密码
 # server literals
-  invalid-parameters: 请输入用户名密码以及邮箱
-  you-are-already-logged-in: 你已经登录啦!
-  you-must-be-logged-in-to-access-this-page: 你必须登录了才能访问该页面
+invalid-parameters: 请输入用户名密码以及邮箱
+you-are-already-logged-in: 你已经登录啦!
+you-must-be-logged-in-to-access-this-page: 你必须登录了才能访问该页面
