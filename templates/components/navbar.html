@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var the_domain = '{{ domain() }}'
+</script>
 <nav id="navbar" class="navbar is-primary">
     <div class="navbar-brand">
         <a class="navbar-item navbar-logo" href="/home">
@@ -40,6 +43,13 @@
         </div>
 
         <div class="navbar-end">
+            <div class="navbar-item has-dropdown is-hoverable" style="align-items: center;">
+                <div class="navbar-search">
+                    <input autocomplete="off" type="text" placeholder="Looking for someone?" id="u-search" oninput="search()">
+                </div>
+                <div id="u-search-content" class="navbar-dropdown" style="display: none;">
+                </div>
+            </div>
             <div class="navbar-item has-dropdown is-hoverable">
                 <i style="display: flex;" class="fa fa-globe navbar-link"></i>
                 <div class="navbar-dropdown">

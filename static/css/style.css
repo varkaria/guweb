@@ -849,3 +849,24 @@ body::-webkit-scrollbar-thumb {
 [v-cloak] {
   display: none;
 }
+
+#u-search {
+  margin: 0;
+  max-width: 100%;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  text-align: left;
+  line-height: 1.2142em;
+  font-family: var(--font);
+  padding: 0.67861429em 1em;
+  background: #00000060;
+  border: 1px solid rgba(34, 36, 38, 0.15);
+  color: rgba(255, 255, 255, 0.93);
+  border-radius: 0.28571429rem;
+  -webkit-transition: box-shadow 0.1s ease, border-color 0.1s ease;
+  transition: box-shadow 0.1s ease, border-color 0.1s ease;
+  box-shadow: none;
+}
