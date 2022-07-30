@@ -5,12 +5,12 @@ follow-these-three-simple-steps: 跟随以下三个简单的步骤即可游玩 %
 osu-shortcut: Osu! 快捷方式
 find-your-shortcut: 在桌面上寻找你的osu!快捷方式并复制一份 (如果没有，可以去osu!目录里创建一份)
 edit-it: 修改属性
-right-click-properties: 右键快捷方式,在菜单中找到 "属性" 选项,(一般在最下边)
+right-click-properties: 右键快捷方式, 在菜单中找到 "属性" 选项, (一般在最下边)
 find-target-element-box: 找到 "目标" 这一行
 add-domain: 在文本的末尾添加 -devserver %{domain}
 login-to-your-account: 登入你的账号
-login-to-your-app-name-account: 登录你的 %{appName} 账号,然后就应该万事大吉了!
-oh-crap-i-am-stuck: 妈的，我卡在这个步骤了,赶紧过来帮我一下
+login-to-your-app-name-account: 登录你的 %{appName} 账号, 然后就应该万事大吉了!
+oh-crap-i-am-stuck: 妈的，我卡在这个步骤了, 赶紧过来帮我一下
 need-help-join-discord-server: >-
   Need help? We've got you covered - join the Discord so our community can help
   you out!
