@@ -2,10 +2,11 @@ from objects import glob, privileges
 from quart import jsonify
 import json
 
-async def get_users(limit:int=25, search:str=None):
+async def get_users(limit:int=100, search:str=None):
     """Returns the all of a users."""
-    query = ['SELECT * FROM users']
+    query = ['SELECT * FROM users u']
     args = []
+    query.append('left join (select userid, ANY_VALUE(ip) as ip, ANY_VALUE(osu_stream) as osu_stream, max(datetime) as last_login from ingame_logins group by userid) as l on u.id = l.userid')
 
     if search:
         query.append("WHERE `name` LIKE %s")
@@ -13,10 +14,12 @@ async def get_users(limit:int=25, search:str=None):
         query.append("OR `email` LIKE %s")
         args.append(f'{search}%')
 
-    query.append(f'ORDER BY id DESC LIMIT %s')
+    query.append(f'ORDER BY u.id DESC LIMIT %s')
     args.append(limit)
     
+    
     query = ' '.join(query)
+    print (query)
     res = await glob.db.fetchall(query, args)
     return res
 
@@ -37,7 +40,7 @@ async def get_user_email(email:str):
     return res
 
 async def get_res_users():
-    query = ('SELECT * FROM users WHERE NOT priv & 1')
+    query = ('select ru.id, ru.country, ru.name,`logs`.msg, `logs`.time  from (SELECT * FROM `users` where NOT users.priv & 1) ru left join `logs` on ru.id=`logs`.to')
     res = await glob.db.fetchall(query)
     return res
 

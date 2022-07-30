@@ -19,14 +19,14 @@ function togglenavbar() {
 function search() {
     const value = document.getElementById('u-search').value
     document.getElementById('u-search-content').innerHTML = "";
-    $.get('//osu.' + the_domain + '/apiv1/search?q=' + value, function(data, status) {
+    $.get('//osu.' + the_domain + '/search?q=' + value, function(data, status) {
         if (data != '{}') {
             document.getElementById('u-search-content').style = ''
             $.each(data, function(e, n){
                 var result = ({
                     title: n.name,
                     url: "/u/" + n.id,
-                    image: 'https://a.ppy.sb/' + n.id
+                    image: '//a.' + the_domain + '/' + n.id
                 })
                 var root = document.createElement('a')
                 root.href = result.url
@@ -45,5 +45,15 @@ function search() {
             document.getElementById('u-search-content').style = 'display: none;'
         }
     })
-    
 }
+
+function admin_search() {
+    var search = document.getElementById('search-bar').value
+    window.location.href='//osu.' + the_domain + '/admin/users?search=' + search
+}
+
+function map_admin_search(name) {
+    var search = document.getElementById('search-bar').value
+    window.location.href='//osu.' + the_domain + '/admin/beatmaps/search?' + name + '=' + search
+}
+

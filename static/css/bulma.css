@@ -5830,7 +5830,7 @@ button.dropdown-item {
 a.dropdown-item:hover,
 button.dropdown-item:hover {
     background-color: hsl(var(--main), 10%, 15%);
-    color: #0a0a0a
+    color: #fff
 }
 
 a.dropdown-item.is-active,
