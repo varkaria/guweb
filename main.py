@@ -93,4 +93,4 @@ async def page_not_found(e):
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    app.run(port=10000, debug=glob.config.debug)  # blocking call
+    app.run(host='0.0.0.0', port=10000, debug=glob.config.debug)  # blocking call
