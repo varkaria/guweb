@@ -348,22 +348,22 @@
 
 {% block bottom %}
 <script src="/static/js/pages/profile.js"></script>
-{% if user['customisation']['banner'] == True or user['customisation']['background'] == True %}
-<style>
-    {% if user['customisation']['banner'] == True %}
+{% if user['customisation']['banner'] == True %}
+    <style>
         .profile-bg {
             min-height: 262px;
             background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/banners/{{ user['id'] }}");
             background-size: cover;
         }
-    {% endif %}
-    {% if user['customisation']['background'] == True %}
+    </style>
+{% endif %}
+{% if user['customisation']['background'] == True %}
+    <style>
         body {
             background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ user['id'] }}");
             background-size: cover;
             background-clip: content-box;
         }
-    {% endif %}
-</style>
+    </style>
 {% endif %}
 {% endblock bottom %}
