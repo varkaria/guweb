@@ -19,12 +19,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- jquery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
-    integrity="sha512-/DXTXr6nQodMUiq+IUJYCt2PPOUjrHJ9wFrqpJ3XkgPNOZVfMok7cRw6CSxyCQxXn6ozlESsSh1/sMCTF1rL/g=="
-    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
 
   <!-- bulma -->
   <link rel="stylesheet" href="/static/css/bulma.css?v={{ rand() }}" />
+
+  <link rel="stylesheet" href="https://unpkg.com/@tabler/core@latest/dist/css/tabler.min.css">
 
   <!-- font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
@@ -55,41 +55,55 @@
           </div>
         </div>
       </div>
-      <div class="column content">
-        <div class="main-content">
-          <div class="columns is-marginless">
-            <div class="column is-paddingless is-avatar">
-              <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
-                onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
-            </div>
-            <div class="column is-paddingless flex-vcenter">
-              <h2 class="section-title">{{ t('admin.base.dashboard') }}</h2>
-              <p class="section-lead">{{ t('admin.base.welcome-to-admin-panel', appName = appName()) }}</p>
+      <div class="page-wrapper">
+        <div class="container-xl">
+          <!-- Page title -->
+          <div class="page-header d-print-none">
+            <div class="row align-items-center">
+              <div class="col">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                  {% block stitle %}
+                  {% endblock %}
+                </div>
+                <h2 class="page-title">
+                  {% block htitle %}
+                  {% endblock %}
+                </h2>
+              </div>
             </div>
           </div>
-          <section class="section">
+        </div>
+        <div class="page-body">
+          <div class="container-xl">
             {% block content %}
             {% endblock %}
-          </section>
+          </div>
         </div>
+        <footer class="footer footer-transparent d-print-none">
+          <div class="container">
+            <div class="flex-row-reverse text-center row align-items-center">
+              <div class="col-lg-auto ms-lg-auto">
+                <ul class="mb-0 list-inline list-inline-dots">
+                </ul>
+              </div>
+              <div class="mt-3 col-12 col-lg-auto mt-lg-0">
+                <ul class="mb-0 list-inline list-inline-dots">
+                  <li class="list-inline-item">
+                    Copyright © 2021
+                    <a href="." class="link-secondary">{{ appName() }}</a>.
+                    All rights reserved.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
-  </div>
-
-  <!-- footer -->
-  <footer class="footer">
-    <div class="content">
-      <span>{{ appName() }} <strong>v{{ appVersion() }}</strong></span>
-      <a class="foot-link" href="/github"><i class="fa fa-github"></i> {{ t('admin.base.github') }}</a>
-      <a class="foot-link" href="/discord"><i class="fab fa-discord"></i> {{ t('admin.base.discord') }}</a>
-      <a class="foot-link" href="/youtube"><i class="fab fa-youtube"></i> {{ t('admin.base.youtube') }}</a>
-      <a class="foot-link" href="/twitter"><i class="fab fa-twitter"></i> {{ t('admin.base.twitter') }}</a>
-      <a class="foot-link" href="/instagram"><i class="fab fa-instagram"></i> {{ t('admin.base.instagram') }}</a>
-    </div>
-  </footer>
-
-  <!-- main js script -->
-  <script src="/static/js/main.js" crossorigin="anonymous"></script>
+    <script src="https://preview.tabler.io/dist/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="https://unpkg.com/@tabler/core@latest/dist/js/tabler.min.js"></script>
+    {% block scriptb %}{% endblock scriptb %}
 </body>
 
 </html>

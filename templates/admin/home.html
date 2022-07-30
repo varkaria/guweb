@@ -9,139 +9,154 @@
 </script>
 {% endblock%}
 
-{% block content %}
-
-<div class="dashboard" id="dashboard">
-    <div class="columns is-marginless is-paddingless">
-        <div class="column is-paddingless p-3">
-            <div class="card">
-                <div class="title">{{ t('admin.home.total-users') }}</div>
-                <i class="fa fa-users"></i>
-                <div class="value">{{ dashdata['count'] }}</div>
-                <div class="stat">{{ t('admin.home.that-s-a-lot-of-people') }}</div>
-            </div>
+{% macro card(title='base', haschart=true, chartname='base', data=0) %}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <div class="subheader">{{ title }}</div>
         </div>
-        <div class="column is-paddingless p-3">
-            <div class="card">
-                <div class="title">{{ t('admin.home.total-online') }}</div>
-                <i class="fa fa-circle"></i>
-                <div class="value">
-                    <% online_users %>
-                </div>
-                <div class="stat">{{ t('admin.home.rising-in-popularity-aren-t-we') }}</div>
-            </div>
-        </div>
-        <div class="column is-paddingless p-3">
-            <div class="card">
-                <div class="title">{{ t('admin.home.latest-user') }}</div>
-                <i class="fa fa-book"></i>
-                <div class="value">{{ dashdata['lastest_user'] }}</div>
-                <div class="stat">{{ t('admin.home.latest-and-greatest-welcome') }}</div>
-            </div>
-        </div>
-        <div class="column is-paddingless p-3">
-            <div class="card">
-                <div class="title">{{ t('admin.home.total-banned') }}</div>
-                <i class="fa fa-calendar"></i>
-                <div class="value">{{ dashdata['banned'] }}</div>
-                <div class="stat">{{ t('admin.home.naughty-sad-face') }}</div>
-            </div>
+        <div class="d-flex align-items-baseline">
+            <div class="mb-0 h1 me-2">{{ data }}</div>
         </div>
     </div>
-<div class="columns is-marginless is-paddingless">
-    {% if recentusers %}
-    <div class="column is-paddingless m-2 is-3">
-        <div class="recent-beat">
-            <div class="columns is-marginless">
-                <div class="column is-paddingless flex-vcenter">
-                    <h2 class="section-title">{{ t('admin.home.recent-users') }}</h2>
-                </div>
-            </div>
-            <div class="blockdata">
-                {% for user in recentusers %}
-                <a href="/u/{{ user.id }}" class="user-block{% if user.priv == 1 %} unverified{% endif %}">
-                    <img src="https://a.{{ domain() }}/{{ user.id }}" class="avatar-picture">
-                    <div class="user-stats"><span class="user-title">
-                        <img src="/static/images/flags/{{ user.country|upper }}.png" class="profile-flag"> {{ user.name }}
-                        </span><span class="user-artist">
-                            {{ user.email }}
-                        </span>
-                        <div class="user-footer">
-                            <span class="user-mapper">
-                            {{ timeago.format((datetime.datetime.fromtimestamp(user.creation_time)),
-                                (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
-                            </span>
-                            <div class="d-flex align-items-baseline">
-                                <span>
-                                {{ timeago.format((datetime.datetime.fromtimestamp(user.latest_activity)),
-                                    (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
-                                </span>
-                                <div class="target-button newmaps-color">
-                                    <i class="fa fa-arrow-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    {% if recentscores %}
-    <div class="column is-paddingless m-2">
-        <div class="recent-beat">
-            <div class="columns is-marginless">
-                <div class="column is-paddingless flex-vcenter">
-                    <h2 class="section-title">{{ t('admin.home.recent-score') }}</h2>
-                </div>
-            </div>
-            <div class="blockdata">
-                {% for maps in recentscores %}
-                <div class="map-single">
-                    <div class="map-content1">
-                        <div class="map-image"><img src="https://assets.ppy.sh/beatmaps/{{ maps.set_id }}/covers/cover.jpg"
-                                class="map-image-picture"></div>
-                        <div class="map-title-block">
-                            <div class="map-title"><a class="user-link">
-                                    [{{ maps.mode }}] {{ maps.title }} [{{ maps.version }}]
-                                </a></div>
-                            <div class="play-stats">
-                                {{ maps.score }} / {{ maps.max_combo }}x
-                            </div>
-                            <div class="map-date"><time>
-                                {{ timeago.format((maps.play_time), (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
-                                </time></div>
-                        </div>
-                    </div>
-                    <div class="map-content2">
-                        <div class="score-details d-flex">
-                            <div class="score-details_right-block">
-                                <div class="score-details_pp-block">
-                                    <div class="map-pp">
-                                        {{ maps.pp }}<span class="map-pp-unit">{{ t('global.pp').upper() }}</span></div>
-                                    <div class="map-acc">{{ t('global.accuracy') }}:&nbsp;<b>
-                                        {{ maps.acc }}%
-                                        </b></div>
-                                </div>
-                                <div class="score-details_grade-block">
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-{{ maps.grade|upper }}">
-                                            {{ maps.grade.replace("X", "SS").replace("H", "") }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+    {% if haschart %}
+    <div id="chart-{{ chartname }}" class="chart-sm"></div>
     {% endif %}
 </div>
+{% endmacro %}
 
-<script src="/static/js/pages/admin/dashboard.js"></script>
+{% macro log() %}
+<div>
+    <div class="row">
+        <div class="col-auto">
+            <span class="avatar">VK</span>
+        </div>
+        <div class="col">
+            <div class="text-truncate">
+                <strong>Varkaria</strong> was banned username <strong>"Among us"</strong>
+            </div>
+            <div class="text-muted">yesterday</div>
+        </div>
+        <div class="col-auto align-self-center">
+            <div class="badge bg-primary"></div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
 
+{% block content %}
+<div class="row row-deck row-cards">
+    <div class="col-sm-6 col-lg-3">
+        {{ card(title='Online Users', data=3, chartname='online-users') }}
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        {{ card(title='Registered Users',data=0) }}
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        {{ card(title='Banned Users',data=0) }}
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        {{ card(title='Supporter Users',data=0) }}
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="border-0 card-header">
+                <div class="card-title">Registered users list</div>
+            </div>
+            <div class="card-table table-responsive">
+                <table class="table table-vcenter">
+                    <thead>
+                        <tr>
+                            <th>Avatar</th>
+                            <th>Username</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="w-1">
+                                <span class="avatar avatar-sm">VK</span>
+                            </td>
+                            <td class="td-truncate">
+                                <div class="text-truncate">
+                                    Varkaria
+                                </div>
+                            </td>
+                            <td class="text-nowrap text-muted">28 Nov 2019</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body card-body-scrollable card-body-scrollable-shadow">
+                <div class="divide-y">
+                    {{ log() }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+{% block scriptb %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        window.ApexCharts && (new ApexCharts(document.getElementById('chart-online-users'), {
+            chart: {
+                type: "area",
+                fontFamily: 'inherit',
+                height: 40.0,
+                sparkline: {
+                    enabled: true
+                },
+                animations: {
+                    enabled: false
+                },
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            fill: {
+                opacity: .16,
+                type: 'solid'
+            },
+            stroke: {
+                width: 2,
+                lineCap: "round",
+                curve: "smooth",
+            },
+            series: [{
+                name: "Online Users",
+                data: [0, 2, 3]
+            }],
+            grid: {
+                strokeDashArray: 4,
+            },
+            xaxis: {
+                labels: {
+                    padding: 0,
+                },
+                tooltip: {
+                    enabled: false
+                },
+                axisBorder: {
+                    show: false,
+                }
+            },
+            yaxis: {
+                labels: {
+                    padding: 4
+                },
+            },
+            labels: ['soon', 'soon', 'soon'],
+            colors: ["#206bc4"],
+            legend: {
+                show: false,
+            },
+        })).render();
+    });
+</script>
+{% endblock scriptb %}
