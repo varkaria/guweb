@@ -49,11 +49,11 @@ function search() {
 
 function admin_search() {
     var search = document.getElementById('search-bar').value
-    window.location.href='//osu.' + the_domain + '/admin/users?search=' + search
+    window.location.href='/admin/users?search=' + search
 }
 
 function map_admin_search(name) {
     var search = document.getElementById('search-bar').value
-    window.location.href='//osu.' + the_domain + '/admin/beatmaps/search?' + name + '=' + search
+    window.location.href='/admin/beatmaps/search?' + name + '=' + search
 }
 

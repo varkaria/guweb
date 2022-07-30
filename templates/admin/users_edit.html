@@ -2,7 +2,14 @@
 {% block title %} Users {% endblock %} 
 
 {% block content %} 
-
+<style>
+    .text-nowrap {
+        white-space: nowrap;
+    }
+    .w-100 {
+        width: 100%;
+    }
+</style>
 <form action="/admin/users/update/{{ search_data['id'] }}" method="POST" id="edit-user">
     <div style="display: flex; align-items: center; flex-direction: column;">
         <article style="width: 40%;" class="panel is-primary">
@@ -10,7 +17,7 @@
             Edit Info of {{ search_data['name'] }}
             </p>
             <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter">
+                <div class="column is-one-quarter text-nowrap">
                     <i class="fas fa-user" aria-hidden="true"></i>
                     Username
                 </div>
@@ -19,7 +26,7 @@
                 </div>
             </div>
             <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter">
+                <div class="column is-one-quarter text-nowrap">
                     <i class="fas fa-user" aria-hidden="true"></i>
                     Email
                 </div>
@@ -28,7 +35,7 @@
                 </div>
             </div>
             <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter">
+                <div class="column is-one-quarter text-nowrap">
                     <i class="fas fa-user" aria-hidden="true"></i>
                     Country
                 </div>
@@ -37,13 +44,13 @@
                 </div>
             </div>
             <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter">
+                <div class="column is-one-quarter text-nowrap">
                     <i class="fas fa-user" aria-hidden="true"></i>
                     Legality
                 </div>
                 <div class="column">
-                    <div class="select">
-                        <select name="legality">
+                    <div class="select w-100">
+                        <select name="legality" class="w-100">
                             <option value="unrestricted">Unrestricted</option>
                             {% if search_data.priv == 2 %}
                             <option value="restricted" selected>Restricted</option>
@@ -55,8 +62,8 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-block">
-                <button type="submit" form="edit-user" style="margin: auto; width: 100px;" class="button is-primary">Update</button>
+            <div class="panel-block pb-4">
+                <button type="submit" form="edit-user" style="margin-left: auto; margin-right: 1em; width: 100px;" class="button is-primary">Update</button>
             </div>
         </article>
     </div>

@@ -2,19 +2,44 @@
 {% block title %} Beatmaps {% endblock %}\
 
 {% block content %}
+<style>
+    .rounded-sm {
+        border-radius: 8px !important;
+    }
+
+    .rounded {
+        border-radius: 0.5em
+    }
+
+    .h-100 {
+        height: 100%
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .gap-2 {
+        grid-gap: 1em 1em;
+    }
+
+    .i-text-no-wrap * {
+        white-space: nowrap;
+    }
+</style>
 <div class="columns is-marginless">
     <div class="column is-paddingless is-avatar">
-      <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
-        onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
+        <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
+            onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
     </div>
     <div class="column is-paddingless flex-vcenter">
-      <h2 class="section-title">Beatmaps</h2>
-      <p class="section-lead">Welcome to beatmaps panel</p>
+        <h2 class="section-title">Beatmaps</h2>
+        <p class="section-lead">Welcome to beatmaps panel</p>
     </div>
 </div>
 <div class="row row-deck row-cards" style="margin-top: 20px">
     <div class="columns is-marginless is-paddingless">
-        <div class="column is-paddingless p-3">
+        <div class="column is-paddingless pr-3 py-3">
             <a href="/admin/beatmaps/osu" class="button" style="width: 100%; margin-bottom: 10px">osu!</a>
             <div class="card">
                 <div class="title">Total beatmaps</div>
@@ -41,7 +66,7 @@
                 <div class="stat">We loved them so much</div>
             </div>
         </div>
-        <div class="column is-paddingless p-3">
+        <div class="column is-paddingless pl-3 py-3">
             <a href="/admin/beatmaps/mania" class="button" style="width: 100%; margin-bottom: 10px">osu!mania</a>
             <div class="card">
                 <div class="title">Pending</div>
@@ -51,22 +76,16 @@
             </div>
         </div>
     </div>
-    <div class="column is-paddingless" style="margin: 20px">
-        <div class="columns is-marginless">
-            <div class="column is-paddingless">
-                <input id="search-bar" class="input" value="{{ search_word }}">
-            </div>
-            <div style="margin-left: 20px" class="column is-paddingless">
-                <button onclick="map_admin_search('bid')" class="button" style="width: 200px">Search by BID</button>
-                <button onclick="map_admin_search('sid')" class="button" style="width: 200px">Search by SID</button>
-                <button onclick="map_admin_search('name')" class="button" style="width: 200px">Search by Name</button>
-            </div>
-        </div>
+    <div class="p-0 d-flex gap-2 py-3">
+        <input id="search-bar" class="input" value="{{ search_word }}">
+        <button onclick="map_admin_search('bid')" class="button" style="width: 200px">Search by BID</button>
+        <button onclick="map_admin_search('sid')" class="button" style="width: 200px">Search by SID</button>
+        <button onclick="map_admin_search('name')" class="button" style="width: 200px">Search by Name</button>
     </div>
-    <div class="table-responsive">
-        <table class="table card-table table-vcenter text-nowrap datatable">
+    <div class="table-responsive py-3">
+        <table class="table card-table table-vcenter text-nowrap datatable rounded">
             <thead style="text-align: center;">
-                <tr>
+                <tr class="i-text-no-wrap">
                     <th>Beatmap</th>
                     <th>CS / Keys</th>
                     <th>AR</th>
@@ -81,11 +100,10 @@
             <tbody style="text-align: center;">
                 {% for i in bmap_query %}
                 <tr>
-                    <td class="no-padding">
-                        <div onclick="window.open('https://osu.ppy.sh/beatmapsets/{{ i.set_id }}')"
-                            class="card song-banner"
-                            style="cursor:pointer; background-image: url(https://assets.ppy.sh/beatmaps/{{ i.set_id }}/covers/cover.jpg); background-size:cover; height: 140px; width: 450px;">
-                            <div class="card-body" style="background-color: rgba(0, 0, 0, 0.8);">
+                    <td>
+                        <div onclick="window.open('https://osu.ppy.sh/beatmapsets/{{ i.set_id }}')" class="card p-0"
+                            style="cursor:pointer; background-image: url(https://assets.ppy.sh/beatmaps/{{ i.set_id }}/covers/cover.jpg); background-size: cover; height: 100px; width: 400px;">
+                            <div class="card-body rounded-sm h-100 p-4" style="background-color: rgba(0, 0, 0, 0.8);">
                                 <a class="play-detail__title">{{ i.title }}
                                     <small style="display: inline;">by {{ i.creator }}</small>
                                 </a>
@@ -115,7 +133,37 @@
                         {{ decode_map_status(i.status) }}
                     </td>
                     <td>
-                        <div>
+                        <div class="dropdown">
+                            <div class="dropdown-trigger">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                    <span>Dropdown button</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <a href="#" class="dropdown-item">
+                                        Dropdown item
+                                    </a>
+                                    <a class="dropdown-item">
+                                        Other dropdown item
+                                    </a>
+                                    <a href="#" class="dropdown-item is-active">
+                                        Active dropdown item
+                                    </a>
+                                    <a href="#" class="dropdown-item">
+                                        Other dropdown item
+                                    </a>
+                                    <hr class="dropdown-divider">
+                                    <a href="#" class="dropdown-item">
+                                        With a divider
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {# <div>
                             <a class="button" href="/admin/beatmaps/edit/{{ i.map_id }}?status=2&set=0">Ranked</a>
                             <a class="button" href="/admin/beatmaps/edit/{{ i.map_id }}?status=5&set=0">Loved</a>
                             <a class="button" href="/admin/beatmaps/edit/{{ i.map_id }}?status=3&set=0">Approved</a>
@@ -131,7 +179,7 @@
                             <a class="button" href="/admin/beatmaps/sync/{{ i.set_id }}">
                                 Sync Beatmapsets with Bancho
                             </a>
-                        </div>
+                        </div> #}
                     </td>
                 </tr>
                 {% endfor %}
