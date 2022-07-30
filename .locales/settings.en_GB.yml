@@ -1,14 +1,4 @@
 en_GB:
-  profile:
-    no-changes-have-been-made: No changes have been made.
-    username-changes-supporter-only: Username changes are currently a supporter perk.
-    new-username-is-invalid: Your new username syntax is invalid.
-    new-username-cannot-contains-both-dash-and-space: Your new username may contain "_" or " ", but not both.
-    new-username-disallowed: Your new username isn't allowed; pick another.
-    new-username-already-taken-by-others: Your new username already taken by another user.
-    new-email-is-invalid: Your new email syntax is invalid.
-    succeed-please-login-again: Your username/email have been changed! Please login again.
-    _string: Profile
   avatar: Avatar
   avatar-description: >-
     We recommend an image of at least 512x512 (or 1:1 ratio).You can upload a
@@ -25,6 +15,16 @@ en_GB:
   old-password: Old Password
   new-password: New Password
   repeat-password: Repeat Password
+  profile:
+    no-changes-have-been-made: No changes have been made.
+    username-changes-supporter-only: Username changes are currently a supporter perk.
+    new-username-is-invalid: Your new username syntax is invalid.
+    new-username-cannot-contains-both-dash-and-space: Your new username may contain "_" or " ", but not both.
+    new-username-disallowed: Your new username isn't allowed; pick another.
+    new-username-already-taken-by-others: Your new username already taken by another user.
+    new-email-is-invalid: Your new email syntax is invalid.
+    succeed-please-login-again: Your username/email have been changed! Please login again.
+    _string: Profile
   user-information: User Infomation
   username: Username
   settings: Settings
