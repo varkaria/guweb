@@ -72,7 +72,7 @@ export const readLocales = () => new Promise((resolve, reject) => {
                         for (const k in srcValue) {
                             if (objValue[k] && objValue[k] !== srcValue[k]) {
                                 console.warn(`[Warning] Merging into initilazed value:
-  ${key}.${k} ${relative}:
+  ${key}.${k} (${relative}):
     [${typeof srcValue[k]}${typeof srcValue[k] === 'string' && ' `' + srcValue[k] + '`' || ''}] merging into [${typeof objValue[k]}${typeof objValue[k] === 'string' && ' `' + objValue[k] + '`' || ''}].`)
                                 objValue = onConflictingKey(objValue, srcValue, k)
                                 console.log('')
