@@ -145,4 +145,11 @@ config.py
 
 node_modules/
 package-lock.json
+yarn.lock
+
 .vscode/launch.json
+
+# custom language pack
+locales/**/*.custom.yml
+# compiled locales
+.locales

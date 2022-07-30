@@ -1,10 +1,11 @@
+// @ts-check
 import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import { mergeWith, merge } from 'lodash-es'
 
-import { compiledFileSchema, path as translationPath, contextFromFileName, onConflictingKey } from './config.mjs'
+import { compiledFileSchema, path as translationPath, contextFromFileName, createConfilitKeyHandler } from './config.mjs'
 
 
 const parseLocale = (file, context) => {
@@ -29,7 +30,7 @@ const parseLocale = (file, context) => {
         }
     }
     if (Array.isArray(locale)) {
-        const toMerge = locale.forEach(_parse)
+        const toMerge = locale.map(_parse)
         let rtn = {}
         for (const item of toMerge) {
             rtn = {
@@ -50,16 +51,27 @@ const parseLocale = (file, context) => {
       }
   }    
 }
+* allow customization if {lang}.custom.(yml|yaml) is provided.
 */
 export const readLocales = () => new Promise((resolve, reject) => {
     glob(path.join(translationPath, '**/*.yml'), async (err, matches) => {
         if (err) throw err
-        const locales = await matches.reduce(async (acc, match) => {
+        const { normal, custom } = matches.reduce((acc, cur) => {
+            if (!cur.includes('.custom')) {
+                acc.normal.push(cur)
+            }
+            else {
+                acc.custom.push(cur)
+            }
+            return acc
+        }, { normal: [], custom: [] })
+        const reducer = (customMerge) => async (acc, match) => {
+            console.log('parsing', match, '...\n')
             try {
                 acc = await acc
-
                 const relative = path.relative(translationPath, match)
-                const context = contextFromFileName(relative)
+                const removeOverwrite = relative.replace('.custom', '')
+                const context = contextFromFileName(removeOverwrite)
                 const data = await parseLocale(match, context)
                 if (!acc[context.locale]) acc[context.locale] = {}
                 acc[context.locale] = mergeWith(
@@ -70,10 +82,12 @@ export const readLocales = () => new Promise((resolve, reject) => {
                             return srcValue
                         }
                         for (const k in srcValue) {
-                            if (objValue[k]) {
-                                console.warn(`[Warning] Merging into initilazed value:\n  ${key}.${k}:\n    [${typeof srcValue[k]}${typeof srcValue[k] === 'string' && ' `' + srcValue[k] + '`' || ''}] merging into [${typeof objValue[k]}${typeof objValue[k] === 'string' && ' `' + objValue[k] + '`' || ''}].`)
-                                objValue = onConflictingKey(objValue, srcValue, k)
-                                console.log('')
+                            if (objValue[k] && objValue[k] !== srcValue[k]) {
+                                if (!customMerge) console.warn(`[Warning] Merging into initilazed value:
+  ${key}.${k}:
+    [${typeof srcValue[k]}${typeof srcValue[k] === 'string' && ' `' + srcValue[k] + '`' || ''}] merging into [${typeof objValue[k]}${typeof objValue[k] === 'string' && ' `' + objValue[k] + '`' || ''}].`)
+                                objValue = createConfilitKeyHandler(customMerge)(objValue, srcValue, k)
+                                if (!customMerge) console.log('')
                             } else {
                                 objValue[k] = srcValue[k]
                             }
@@ -86,8 +100,10 @@ export const readLocales = () => new Promise((resolve, reject) => {
             } catch (error) {
                 reject(error)
             }
-        }, {})
-
+        }
+        let locales = await normal.reduce(reducer(false), {})
+        locales = await custom.reduce(reducer(true), locales)
+        // console.log(locales)
         resolve(locales)
     })
 })
