@@ -51,13 +51,13 @@ const parseLocale = (file, context) => {
       }
   }    
 }
-* allow customization if {lang}.overwrite.(yml|yaml) is provided.
+* allow customization if {lang}.custom.(yml|yaml) is provided.
 */
 export const readLocales = () => new Promise((resolve, reject) => {
     glob(path.join(translationPath, '**/*.yml'), async (err, matches) => {
         if (err) throw err
         const { normal, custom } = matches.reduce((acc, cur) => {
-            if (!cur.includes('.overwrite')) {
+            if (!cur.includes('.custom')) {
                 acc.normal.push(cur)
             }
             else {
@@ -70,7 +70,7 @@ export const readLocales = () => new Promise((resolve, reject) => {
             try {
                 acc = await acc
                 const relative = path.relative(translationPath, match)
-                const removeOverwrite = relative.replace('.overwrite', '')
+                const removeOverwrite = relative.replace('.custom', '')
                 const context = contextFromFileName(removeOverwrite)
                 const data = await parseLocale(match, context)
                 if (!acc[context.locale]) acc[context.locale] = {}

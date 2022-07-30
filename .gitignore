@@ -148,3 +148,6 @@ package-lock.json
 yarn.lock
 
 .vscode/launch.json
+
+# custom language pack
+locales/**/*.custom.yml
