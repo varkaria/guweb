@@ -19,7 +19,6 @@ async def get_users(limit:int=100, search:str=None):
     
     
     query = ' '.join(query)
-    print (query)
     res = await glob.db.fetchall(query, args)
     return res
 
