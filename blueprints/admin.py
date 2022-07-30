@@ -93,7 +93,7 @@ async def beatmaps_edit(bid:int):
     if not 'authenticated' in session:
         return await flash('error', t('admin.please-login-in-first'), 'login')
 
-    if not session['user_data']['is_staff']:
+    if not session['user_data']['is_staff'] and not session['user_data']['is_bn']:
         return await flash('error', t('admin.you-have-sufficient-privileges'), 'home')
     
     status = request.args.get('status', type=int)
@@ -188,7 +188,7 @@ async def beatmaps(mode: str):
     if not 'authenticated' in session:
         return await flash('error', t('admin.please-login-in-first'), 'login')
 
-    if not session['user_data']['is_staff']:
+    if not session['user_data']['is_staff'] and not session['user_data']['is_bn']:
         return await flash('error', t('admin.you-have-sufficient-privileges'), 'home')
 
     mode_vn = 0
@@ -226,7 +226,7 @@ async def beatmaps_search():
     if not 'authenticated' in session:
         return await flash('error', t('admin.please-login-in-first'), 'login')
 
-    if not session['user_data']['is_staff']:
+    if not session['user_data']['is_staff'] and not session['user_data']['is_bn']:
         return await flash('error', t('admin.you-have-sufficient-privileges'), 'home')
 
     query = await glob.db.fetch(

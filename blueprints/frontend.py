@@ -19,6 +19,7 @@ from quart import render_template
 from quart import request
 from quart import session
 from quart import send_file
+from quart import jsonify
 
 from constants import regexes
 from objects import glob
@@ -423,6 +424,7 @@ async def login_post():
         'priv': user_info['priv'],
         'silence_end': user_info['silence_end'],
         'is_staff': user_info['priv'] & Privileges.Staff != 0,
+        'is_bn': user_info['priv'] & Privileges.Nominator != 0,
         'is_donator': user_info['priv'] & Privileges.Donator != 0
     }
 
