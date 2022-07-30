@@ -53,9 +53,9 @@
                     class="name">{{ t('admin.base.dashboard') }}</span></a></li>
               <li class="nav-item"><a class="nav-link" href="/admin/users"><span class="icon"><i class="fa fa-user"></i></span> <span
                 class="name">Users</span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/restrictions"><span class="icon"><i class="fa fa-user"></i></span> <span
+              <li class="nav-item"><a class="nav-link" href="/admin/restrictions"><span class="icon"><i class="fa fa-ban"></i></span> <span
                 class="name">Restrictions</span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/beatmaps"><span class="icon"><i class="fa fa-user"></i></span> <span
+              <li class="nav-item"><a class="nav-link" href="/admin/beatmaps"><span class="icon"><i class="fa fa-map"></i></span> <span
                 class="name">Beatmaps</span></a></li>
             </ul>
           </div>
@@ -78,7 +78,7 @@
   </footer>
 
   <!-- main js script -->
-  <script src="/static/js/main.js" crossorigin="anonymous"></script>
+  <script src="/static/js/main.js?v={{ rand() }}" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -2,7 +2,17 @@
 {% block title %} Beatmaps {% endblock %}\
 
 {% block content %}
-<div class="row row-deck row-cards">
+<div class="columns is-marginless">
+    <div class="column is-paddingless is-avatar">
+      <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
+        onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
+    </div>
+    <div class="column is-paddingless flex-vcenter">
+      <h2 class="section-title">Beatmaps</h2>
+      <p class="section-lead">Welcome to beatmaps panel</p>
+    </div>
+</div>
+<div class="row row-deck row-cards" style="margin-top: 20px">
     <div class="columns is-marginless is-paddingless">
         <div class="column is-paddingless p-3">
             <a href="/admin/beatmaps/osu" class="button" style="width: 100%; margin-bottom: 10px">osu!</a>
