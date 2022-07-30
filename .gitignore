@@ -151,3 +151,5 @@ yarn.lock
 
 # custom language pack
 locales/**/*.custom.yml
+# compiled locales
+.locales

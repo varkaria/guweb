@@ -45,7 +45,12 @@ wget https://bootstrap.pypa.io/get-pip.py
 python3.9 get-pip.py && rm get-pip.py
 
 # Install MySQL and NGINX.
+
 sudo apt install mysql-server nginx
+
+
+# Install Nodejs and npm or yarn
+# see https://nodejs.org/en/download/ .
 
 # Clone guweb from GitHub.
 git clone https://github.com/varkaria/guweb.git
@@ -57,14 +62,22 @@ git submodule init && git submodule update
 # Install requirements from pip.
 python3.9 -m pip install -r ext/requirements.txt
 
+
 # Add and configure guweb's NGINX config to your nginx/sites-enabled.
 sudo ln -r -s ext/nginx.conf /etc/nginx/sites-enabled/guweb.conf
 sudo nano ext/nginx.conf
 sudo nginx -s reload
 
+
 # Configure guweb.
 cp ext/config.py config.py
 nano config.py
+
+
+# build locales
+npm run i18n:build 
+# or use yarn
+yarn i18n:c
 
 # Run guweb (on port 8000).
 python3.9 main.py # Run directly to access debug features for development!
@@ -85,7 +98,7 @@ Translation
 ### how to
 - open any html files with i18n-ally plugin enabled.
 - translate keys
-- run `npm run i18n:compile` to generate files for python-i18n
+- run `npm run i18n:build` to generate files for python-i18n
 
 
 Directory Structure
