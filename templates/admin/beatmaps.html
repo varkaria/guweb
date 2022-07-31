@@ -146,13 +146,15 @@
                         {{ i.bpm }}
                     </td>
                     <td class="!bigger_td my-auto has-text-right">
-                        {{ i.stars }}
+                        {{ i.stars }} {{ i.status }}
                     </td>
                     <td class="!bigger_td my-auto has-text-centered">
                         <div class="tag
                         {% if i.status == 2 %} is-primary
-                        {% elif i.status == 3 %} is-info
-                        {% elif i.status == 4 %} is-success {% endif %}
+                        {% elif i.status == 3 %} is-warning
+                        {% elif i.status == 4 %} is-success 
+                        {% elif i.status == 5 %} is-danger 
+                        {% endif %}
                         ">{{ decode_map_status(i.status) }}</div>
                     </td>
                     <td class="!bigger_td my-auto has-text-centered">

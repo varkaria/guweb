@@ -99,9 +99,9 @@ async def beatmaps_edit(bid:int):
     status = request.args.get('status', type=int)
     is_set = request.args.get('set', type=int) == 1
     if is_set:
-        await glob.db.execute("UPDATE maps SET status=%s WHERE set_id=%s", [str(status), str(bid)])
+        await glob.db.execute("UPDATE maps SET frozen=1, status=%s WHERE set_id=%s", [str(status), str(bid)])
     else:
-        await glob.db.execute("UPDATE maps SET status=%s WHERE id=%s", [str(status), str(bid)])
+        await glob.db.execute("UPDATE maps SET frozen=1, status=%s WHERE id=%s", [str(status), str(bid)])
 
     query = await glob.db.fetch(
         'SELECT (SELECT COUNT(id) as `r` FROM maps WHERE `status`= 2) AS `r`, '
