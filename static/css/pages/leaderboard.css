@@ -85,7 +85,7 @@ tr td {
   width: 100%;
 }
 
-.t-column:first-child {
+/* .t-column:first-child {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
@@ -93,7 +93,21 @@ tr td {
 .t-column:last-child {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
+} */
+/* what left beyond this line are clearly not working */
+.leaderboard-column:first-of-type .column-player-rank {
+  border-top-left-radius: 6px;
 }
+.leaderboard-column:first-of-type td:last-of-type {
+  border-top-right-radius: 6px;
+}
+.leaderboard-column:last-of-type .column-player-rank {
+  border-bottom-left-radius: 6px;
+}
+.leaderboard-column:last-of-type td:last-of-type {
+  border-bottom-right-radius: 6px;
+}
+
 
 tr.leaderboard-column td {
   font-weight: 600;
@@ -126,7 +140,7 @@ table th {
   height: 232px;
 }
 
-.main-banner > * {
+.main-banner>* {
   z-index: 2;
 }
 
@@ -225,7 +239,7 @@ table th {
   border-top-left-radius: 8px;
 }
 
-.leaderboard-table > tbody {
+.leaderboard-table>tbody {
   transition: 0.2s opacity;
 }
 
@@ -239,9 +253,11 @@ table th {
   .mode-icon {
     display: none;
   }
+
   .main-banner {
     padding: 0px 12px;
   }
+
   .banner-text {
     font-size: 36px;
   }
@@ -262,10 +278,15 @@ table th {
   margin-top: -41px;
   margin-left: -41px;
 }
-.popover-body, .tooltip-inner, .flag-dropdown {
+
+.popover-body,
+.tooltip-inner,
+.flag-dropdown {
   font-size: 12px;
 }
-.flag-dropdown, .noUi-tooltip {
+
+.flag-dropdown,
+.noUi-tooltip {
   background-color: hsl(var(--main), 15%, 5%) !important;
   filter: opacity(0.95);
   border-radius: 4px;
@@ -285,7 +306,9 @@ table th {
   font-weight: 600;
   font-style: normal;
 }
-.user-flag:hover>.flag-dropdown, .player-flag:hover>.flag-dropdown {
+
+.user-flag:hover>.flag-dropdown,
+.player-flag:hover>.flag-dropdown {
   visibility: visible;
   opacity: 1;
 }

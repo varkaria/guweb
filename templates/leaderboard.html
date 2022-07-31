@@ -69,8 +69,8 @@
                             <th class="t-heading"> </th>
                             <th class="t-heading t-heading--main"></th>
                             <th v-if="sort == 'pp' || sort == 'rscore'" class="t-heading table--selected">
-                                <% (sort=='pp' ? "PP" : "" ) %>
-                                    <% (sort=='rscore' ? "Score" : "" ) %>
+                                <% (sort=='pp' ? "{{ t('global.pp').upper() }}" : "" ) %>
+                                    <% (sort=='rscore' ? "{{ t('global.score') }}" : "" ) %>
                             </th>
                             <th class="t-heading"> {{ t('global.accuracy') }} </th>
                             <th class="t-heading"> {{ t('global.playcount') }} </th>
@@ -82,7 +82,7 @@
                         <tr v-for="(user, index) in boards" class="leaderboard-column">
                             <td class="column-player-rank">#<% index + 1 %>
                             </td>
-                            <td class="column-player-name text-left">
+                            <td class="column-player-name has-text-left">
                                 <a :title="flags[user.country.toUpperCase()]"
                                     :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
                                     class="player-flag">
@@ -94,20 +94,20 @@
                                     <% user.name %>
                                 </a>
                             </td>
-                            <td v-if="sort == 'pp' || sort == 'rscore'">
-                                <% (sort=='pp' ? user.pp+'pp' : "" ) %>
+                            <td v-if="sort == 'pp' || sort == 'rscore'" class="has-text-right pr-3">
+                                <% (sort=='pp' ? addCommas(user.pp) : "" ) %>
                                     <% (sort=='rscore' ? scoreFormat(user.rscore) : "" ) %>
                             </td>
-                            <td>
+                            <td class="has-text-right pr-3">
                                 <% user.acc.toFixed(2) %>%
                             </td>
-                            <td>
+                            <td class="has-text-right pr-3">
                                 <% addCommas(user.plays) %>
                             </td>
-                            <td>
+                            <td class="has-text-right pr-3">
                                 <% addCommas(user.max_combo) %>
                             </td>
-                            <td>
+                            <td class="has-text-right pr-3">
                                 <% secondsToDhm(user.playtime) %>
                             </td>
                         </tr>

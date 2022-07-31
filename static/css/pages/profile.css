@@ -282,7 +282,6 @@ html {
   transition: 0.2s ease;
   cursor: pointer;
 }
-
 .map-data {
   height: 72px;
   min-width: 100%;
@@ -298,16 +297,20 @@ html {
   cursor: pointer;
 }
 
+.map-single:first-child {
+  margin-top: 0;
+  border-radius: 8px 8px 0 0;
+}
+.map-single:last-child {
+  margin-top: 0;
+  border-radius: 0 0 8px 8px;
+}
 .map-single:hover {
   border-radius: 8px;
   transform: translateY(-1px);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
     0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);
   background: hsl(var(--main), 30%, 30%);
-}
-
-.map-single:first-child {
-  margin-top: 0;
 }
 
 .map-content1 {

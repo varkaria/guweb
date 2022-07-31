@@ -38,7 +38,7 @@
                         <div class="score-details_right-block">
                             <div class="score-details_pp-block">
                                 <div class="map-pp">
-                                    <% map.pp.toFixed() %><span class="map-pp-unit">{{ t('global.pp').upper() }}</span>
+                                    <% map.pp.toFixed() %> <span class="map-pp-unit">{{ t('global.pp') }}</span>
                                 </div>
                                 <div class="map-acc">{{ t('global.accuracy') }}:&nbsp;<b>
                                         <% map.acc.toFixed(2) %>%
@@ -47,7 +47,7 @@
                             <div class="score-details_grade-block">
                                 <div class="rank-single">
                                     <div v-bind:class="'map-rank rank-'+map.grade">
-                                        <% map.grade.replace("X", "SS" ).replace("H", "" ) %>
+                                        <% map.grade.replace("X", "SS").replace("H", "") %>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
         </div>
     </div>
     <div v-if="data.scores.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button" @click="AddLimit('{{ id }}score')">{{ t('profile.show-more') }}</a>
+        <a class="show-button rounded-sm" @click="AddLimit('{{ id }}score')">{{ t('profile.show-more') }}</a>
     </div>
 </div>
 {% endmacro %}
@@ -82,7 +82,7 @@
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.out.length != 0" class="beatmaps">
-        <a v-for="(map, index) in data.maps.{{ id }}.out" class="beatmap-block">
+        <a v-for="(map, index) in data.maps.{{ id }}.out" class="beatmap-block rounded-sm">
             <div class="beatmap-preview"
                 v-bind:style='{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }'>
             </div>
@@ -117,7 +117,7 @@
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button" @click="AddLimit('mostplay')">{{ t('profile.show-more') }}</a>
+        <a class="show-button rounded-sm" @click="AddLimit('mostplay')">{{ t('profile.show-more') }}</a>
     </div>
 </div>
 {% endmacro %}
@@ -134,6 +134,11 @@
     var mods = '{{ mods }}';
     var domain = "{{ domain() }}";
 </script>
+<style>
+    .rounded-sm {
+        border-radius: 8px;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
