@@ -7,6 +7,12 @@
     .w-100 {
         width: 100%;
     }
+    .ml-auto {
+        margin-left: auto;
+    }
+    .gap-2 {
+        gap: 0.5em;
+    }
 </style>
 {% endblock %} 
 {% block title %} Users {% endblock %} 
@@ -19,8 +25,8 @@
             Edit Info of {{ search_data['name'] }}
             </p>
             <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">
-                    <i class="fas fa-user" aria-hidden="true"></i>
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-id-card" aria-hidden="true"></i>
                     Username
                 </div>
                 <div class="column">
@@ -28,8 +34,8 @@
                 </div>
             </div>
             <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">
-                    <i class="fas fa-user" aria-hidden="true"></i>
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
                     Email
                 </div>
                 <div class="column">
@@ -37,8 +43,8 @@
                 </div>
             </div>
             <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">
-                    <i class="fas fa-user" aria-hidden="true"></i>
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-globe-americas" aria-hidden="true"></i>
                     Country
                 </div>
                 <div class="column">
@@ -46,8 +52,8 @@
                 </div>
             </div>
             <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">
-                    <i class="fas fa-user" aria-hidden="true"></i>
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-ban"  aria-hidden="true"></i>
                     Legality
                 </div>
                 <div class="column">
