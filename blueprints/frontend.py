@@ -6,6 +6,7 @@ import bcrypt
 import hashlib
 import os
 import time
+import uuid
 
 
 from cmyui.logging import Ansi
@@ -81,9 +82,6 @@ async def settings_profile_post():
         return await flash('error', t('settings.profile.no-changes-have-been-made'), 'settings/profile')
 
     if new_name != old_name:
-        if not session['user_data']['is_donator']:
-            return await flash('error', t('settings.profile.username-changes-supporter-only'), 'settings/profile')
-
         # Usernames must:
         # - be within 2-15 characters in length
         # - not contain both ' ' and '_', one is fine
@@ -366,7 +364,7 @@ async def login_post():
     # check if account exists
     user_info = await glob.db.fetch(
         'SELECT id, name, email, priv, '
-        'pw_bcrypt, silence_end '
+        'pw_bcrypt, silence_end, api_key '
         'FROM users '
         'WHERE safe_name = %s',
         [utils.get_safe_name(username)]
@@ -412,6 +410,15 @@ async def login_post():
             log(f"{username}'s login failed - banned.", Ansi.RED)
         return await flash('error', t('login.restricted-not-allowed-to-login'), 'login')
 
+    api_key = user_info['api_key']
+
+    if api_key is None:
+        api_key = str(uuid.uuid4())
+        await glob.db.execute(
+        "UPDATE users SET api_key = %s WHERE id = %s",
+        [api_key, user_info['id']]
+    )
+
     # login successful; store session data
     if glob.config.debug:
         log(f"{username}'s login succeeded.", Ansi.LGREEN)
@@ -422,6 +429,7 @@ async def login_post():
         'name': user_info['name'],
         'email': user_info['email'],
         'priv': user_info['priv'],
+        'api_key': api_key,
         'silence_end': user_info['silence_end'],
         'is_staff': user_info['priv'] & Privileges.Staff != 0,
         'is_bn': user_info['priv'] & Privileges.Nominator != 0,

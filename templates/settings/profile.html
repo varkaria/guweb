@@ -23,7 +23,7 @@
               <div class="field">
                 <p class="control">
                   <input class="input" type="text" name="username"
-                  value="{{ session.user_data['name'] }}" {% if not session.user_data['is_donator'] %}readonly{% endif %}>
+                  value="{{ session.user_data['name'] }}">
                 </p>
               </div>
             </div>
@@ -45,24 +45,22 @@
             </div>
           </div>
         </div>
-        <!-- Disabled - Username AKA doesn't exist in gulag? (for now?)
         <div class="single-block-content">
           <div class="block-content--left">
             <div class="field-label is-normal">
-              <label class="label">{{ t('profile.name-aka') }}</label>
+              <label class="label">API Key</label>
             </div>
           </div>
           <div class="block-content--right">
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input" type="aka" value="">
+                  <input class="input" readonly type="text" name="api_key" value="{{ session.user_data['api_key'] }}">
                 </p>
               </div>
             </div>
           </div>
         </div>
-        -->
         <button class='button is-primary' type='submit'><span>{{ t('settings.save') }}</span><span class='icon is-small'><i class='fas fa-check'></i></span></button>
       </form>
     </div>
