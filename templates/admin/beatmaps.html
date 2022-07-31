@@ -4,7 +4,7 @@
 {% block content %}
 <style>
     .rounded-sm {
-        border-radius: 8px !important;
+        border-radius: 7px !important;
     }
 
     .rounded {
@@ -35,6 +35,12 @@
         width: 85%;
         z-index: 1;
     }
+    .shadow {
+        filter: drop-shadow(0 0 0.5rem rgba(0,0,0,0.2));
+    }
+    .card .title, .card .stat {
+        font-size: 12px
+    }
 </style>
 <script>
     var api_key = '{{ session.user_data['api_key'] }}'
@@ -54,38 +60,38 @@
     <div class="columns is-marginless is-paddingless">
         <div class="column is-paddingless pr-3 py-3">
             <a href="/admin/beatmaps/osu" class="button" style="width: 100%; margin-bottom: 10px">osu!</a>
-            <div class="card">
-                <div class="title">Total beatmaps</div>
+            <div class="card has-text-right">
                 <i class="fa fa-plus"></i>
+                <div class="title">Total beatmaps</div>
                 <div class="value">{{ counts['total'] }}</div>
-                <div class="stat">That's a lot of maps</div>
+                <div class="stat has-text-left">That's a lot of maps</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <a href="/admin/beatmaps/taiko" class="button" style="width: 100%; margin-bottom: 10px">osu!taiko</a>
-            <div class="card">
-                <div class="title">Ranked</div>
+            <div class="card has-text-right">
                 <i class="fa fa-bolt"></i>
+                <div class="title">Ranked</div>
                 <div class="value">{{ counts['ranked'] }}</div>
-                <div class="stat">These maps can gain many pp</div>
+                <div class="stat has-text-left">These maps can gain many pp</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <a href="/admin/beatmaps/catch" class="button" style="width: 100%; margin-bottom: 10px">osu!catch</a>
-            <div class="card">
-                <div class="title">Loved</div>
+            <div class="card has-text-right">
                 <i class="fa fa-heart"></i>
+                <div class="title">Loved</div>
                 <div class="value">{{ counts['loved'] }}</div>
-                <div class="stat">We loved them so much</div>
+                <div class="stat has-text-left">We loved them so much</div>
             </div>
         </div>
         <div class="column is-paddingless pl-3 py-3">
             <a href="/admin/beatmaps/mania" class="button" style="width: 100%; margin-bottom: 10px">osu!mania</a>
-            <div class="card">
-                <div class="title">Pending</div>
+            <div class="card has-text-right">
                 <i class="fa fa-arrows-rotate"></i>
+                <div class="title">Pending</div>
                 <div class="value">{{ counts['pending'] }}</div>
-                <div class="stat">They are also good maps</div>
+                <div class="stat has-text-left">They are also good maps</div>
             </div>
         </div>
     </div>
@@ -99,22 +105,22 @@
         <table class="table rounded">
             <thead>
                 <tr class="i-text-no-wrap">
-                    <th style="width: 400px">Beatmap</th>
-                    <th>CS / Keys</th>
-                    <th>AR</th>
-                    <th>HP</th>
-                    <th>OD</th>
-                    <th>BPM</th>
-                    <th>Stars</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th class="has-text-centered" style="width: 400px">Beatmap</th>
+                    <th class="has-text-right">CS / Keys</th>
+                    <th class="has-text-right">AR</th>
+                    <th class="has-text-right">HP</th>
+                    <th class="has-text-right">OD</th>
+                    <th class="has-text-right">BPM</th>
+                    <th class="has-text-right">Stars</th>
+                    <th class="has-text-centered">Status</th>
+                    <th class="has-text-centered">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for i in bmap_query %}
                 <tr>
                     <td style="width: 400px">
-                        <div class="card p-0 m-0"
+                        <div class="card p-0 m-0 shadow"
                             style="background-image: url(https://assets.ppy.sh/beatmaps/{{ i.set_id }}/covers/cover.jpg); background-size: cover; height: 100px; width: 400px;">
                             <div class="card-body rounded-sm h-100 p-4" style="background-color: rgba(0, 0, 0, 0.8);cursor:pointer; " onclick="window.open('https://osu.ppy.sh/beatmapsets/{{ i.set_id }}')">
                                 <a class="play-detail__title">{{ i.title }}
@@ -124,28 +130,32 @@
                             </div>
                         </div>
                     </td>
-                    <td class="!bigger_td my-auto">
+                    <td class="!bigger_td my-auto has-text-right">
                         {{ i.cs }}
                     </td>
-                    <td class="!bigger_td my-auto">
+                    <td class="!bigger_td my-auto has-text-right">
                         {{ i.ar }}
                     </td>
-                    <td class="!bigger_td my-auto">
+                    <td class="!bigger_td my-auto has-text-right">
                         {{ i.hp }}
                     </td>
-                    <td class="!bigger_td my-auto">
+                    <td class="!bigger_td my-auto has-text-right">
                         {{ i.od }}
                     </td>
-                    <td class="!bigger_td my-auto">
+                    <td class="!bigger_td my-auto has-text-right">
                         {{ i.bpm }}
                     </td>
-                    <td class="!bigger_td my-auto">
+                    <td class="!bigger_td my-auto has-text-right">
                         {{ i.stars }}
                     </td>
-                    <td class="!bigger_td my-auto">
-                        {{ decode_map_status(i.status) }} {{i.status}}
+                    <td class="!bigger_td my-auto has-text-centered">
+                        <div class="tag
+                        {% if i.status == 2 %} is-primary
+                        {% elif i.status == 3 %} is-info
+                        {% elif i.status == 4 %} is-success {% endif %}
+                        ">{{ decode_map_status(i.status) }}</div>
                     </td>
-                    <td class="!bigger_td my-auto">
+                    <td class="!bigger_td my-auto has-text-centered">
                         <div class="dropdown is-right" id="i-dropdown-{{ i.map_id }}">
                             <div class="dropdown-trigger">
                                 <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" onclick="document.getElementById('i-dropdown-{{ i.map_id }}').classList.toggle('is-active')">
