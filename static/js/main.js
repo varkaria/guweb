@@ -57,3 +57,11 @@ function map_admin_search(name) {
     window.location.href='/admin/beatmaps/search?' + name + '=' + search
 }
 
+function map_admin_force_update(sid) {
+    var bar = document.getElementById('progress_bar')
+    bar.style=""
+    $.get('//api.' + the_domain + '/update_beatmapsets?api_key=' + api_key + '&sid=' + sid, function(data, status) {
+        bar.style="display: none;"
+        alert('finished')
+    })
+}

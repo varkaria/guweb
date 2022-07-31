@@ -1,5 +1,5 @@
 {% extends 'admin/base.html' %}
-{% block title %} Beatmaps {% endblock %}\
+{% block title %} Beatmaps {% endblock %}
 
 {% block content %}
 <style>
@@ -29,7 +29,17 @@
     .my-auto {
         vertical-align: middle !important;
     }
+    .progress {
+        position: fixed;
+        margin-top: -30px;
+        width: 85%;
+        z-index: 1;
+    }
 </style>
+<script>
+    var api_key = '{{ session.user_data['api_key'] }}'
+</script>
+<progress id="progress_bar" class="progress is-small is-primary" max="100" style="display: none;"></progress>
 <div class="columns is-marginless">
     <div class="column is-paddingless is-avatar">
         <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
@@ -157,7 +167,7 @@
                                     <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=3&set=1">Approve BeatmapSet</a>
                                     <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=0&set=1">Pending BeatmapSet</a>
                                     <hr class="dropdown-divider">
-                                    <a class="dropdown-item" href="/admin/beatmaps/sync/{{ i.set_id }}">
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="map_admin_force_update({{ i.set_id }})">
                                         Sync Beatmapsets with Bancho
                                     </a>
                                 </div>
@@ -192,7 +202,6 @@
                 $(this).removeClass('is-active');
             });
         });
-
     });
 </script>
 {% endblock %}
