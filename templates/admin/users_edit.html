@@ -1,7 +1,5 @@
 {% extends 'admin/base.html' %} 
-{% block title %} Users {% endblock %} 
-
-{% block content %} 
+{% block header %}
 <style>
     .text-nowrap {
         white-space: nowrap;
@@ -10,6 +8,10 @@
         width: 100%;
     }
 </style>
+{% endblock %} 
+{% block title %} Users {% endblock %} 
+
+{% block content %} 
 <form action="/admin/users/update/{{ search_data['id'] }}" method="POST" id="edit-user">
     <div style="display: flex; align-items: center; flex-direction: column;">
         <article style="width: 40%;" class="panel is-primary">

@@ -1,7 +1,5 @@
 {% extends 'admin/base.html' %}
-{% block title %} Beatmaps {% endblock %}
-
-{% block content %}
+{% block header %}
 <style>
     .rounded-sm {
         border-radius: 7px !important;
@@ -42,6 +40,10 @@
         font-size: 12px
     }
 </style>
+{% endblock %}
+{% block title %} Beatmaps {% endblock %}
+
+{% block content %}
 <script>
     var api_key = '{{ session.user_data['api_key'] }}'
 </script>

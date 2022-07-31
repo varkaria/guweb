@@ -1,7 +1,5 @@
 {% extends 'admin/base.html' %}
-{% block title %} Users {% endblock %}
-
-{% block content %}
+{% block header %}
 <style>
     .text-nowrap {
         white-space: nowrap;
@@ -19,6 +17,10 @@
         grid-gap: 1em 1em;
     }
 </style>
+{% endblock %}
+{% block title %} Users {% endblock %}
+
+{% block content %}
 <div class="columns is-marginless">
     <div class="column is-paddingless is-avatar">
         <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
