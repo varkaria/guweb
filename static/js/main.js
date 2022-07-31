@@ -59,9 +59,18 @@ function map_admin_search(name) {
 
 function map_admin_force_update(sid) {
     var bar = document.getElementById('progress_bar')
+    var elements = document.getElementsByClassName('operate-button');
     bar.style=""
+    Array.prototype.forEach.call(elements, function (element) {
+        element.classList.add('is-disabled')
+    });
     $.get('//api.' + the_domain + '/update_beatmapsets?api_key=' + api_key + '&sid=' + sid, function(data, status) {
         bar.style="display: none;"
-        alert('finished')
+        Array.prototype.forEach.call(elements, function (element) {
+            element.classList.remove('is-disabled')
+        });
+        if (status == 'success') {
+            window.location.href='/admin/beatmaps/search?sid=' + data['sid']
+        }
     })
 }
