@@ -1,7 +1,5 @@
 {% extends 'admin/base.html' %}
-{% block title %} Beatmaps {% endblock %}
-
-{% block content %}
+{% block header %}
 <style>
     .rounded-sm {
         border-radius: 7px !important;
@@ -42,6 +40,10 @@
         font-size: 12px
     }
 </style>
+{% endblock %}
+{% block title %} Beatmaps {% endblock %}
+
+{% block content %}
 <script>
     var api_key = '{{ session.user_data['api_key'] }}'
 </script>
@@ -126,7 +128,10 @@
                                 <a class="play-detail__title">{{ i.title }}
                                     <small style="display: inline;">by {{ i.creator }}</small>
                                 </a>
-                                <span style="color: #ea0; font-size: 14px">Skystar's Tragic Love Extra</span>
+                                <span style="color: #ea0; font-size: 14px; display: block;">Skystar's Tragic Love Extra</span>
+                                <div style="font-size: 14px; position: absolute;bottom: 1em; right: 1em; opacity: 0.7;">
+                                    bid: <span style="color: #ea0;">{{ i.map_id }}</span>
+                                </div>
                             </div>
                         </div>
                     </td>
