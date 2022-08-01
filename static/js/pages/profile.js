@@ -91,8 +91,8 @@ new Vue({
                 toShow.forEach(el => el.classList.add('show'))
                 this.data.scores[`${sort}`].load = false
             } else {
+                this.data.scores[`${sort}`].load = false
                 toShow.forEach((el, index) => {
-                    this.data.scores[`${sort}`].load = false
                     setTimeout(() => {
                         el.classList.add('show')
                     }, index * 30)

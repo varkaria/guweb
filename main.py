@@ -25,7 +25,7 @@ from objects import glob
 
 app = Quart(__name__)
 
-version = Version(1, 3, 1)
+version = Version(1, 3, 2)
 
 # used to secure session data.
 # we recommend using a long randomly generated ascii string.
