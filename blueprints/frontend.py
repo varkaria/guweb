@@ -668,10 +668,11 @@ async def get_profile_banner(user_id: int):
 
     return b'{"status":404}'
 
-@frontend.route('/language/<lang>')
-async def set_language(lang: str):
+@frontend.route('/language/<lang>/<path:path>')
+@frontend.route('/language/<lang>', defaults = {'path' : 'home'})
+async def set_language(lang: str, path: str):
     session['lang'] = lang
-    return redirect('/home')
+    return redirect('/' + path)
 
 
 @frontend.route('/backgrounds/<user_id>')

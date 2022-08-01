@@ -45,7 +45,7 @@
         <div class="navbar-end">
             <div class="navbar-item has-dropdown is-hoverable" style="align-items: center;">
                 <div class="navbar-search">
-                    <input autocomplete="off" type="text" placeholder="Looking for someone?" id="u-search" oninput="search()">
+                    <input autocomplete="off" type="text" placeholder="Looking for someone?" id="u-search" oninput="searchUser()">
                 </div>
                 <div id="u-search-content" class="navbar-dropdown" style="display: none;">
                 </div>
@@ -53,15 +53,15 @@
             <div class="navbar-item has-dropdown is-hoverable">
                 <i style="display: flex;" class="fa fa-globe navbar-link"></i>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item" href="/language/zh_CN">
+                    <a class="navbar-item" href="/language/zh_CN{{ request.path }}">
                         <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/CN.png">
                         简体中文
                     </a>
-                    <a class="navbar-item" href="/language/en_US">
+                    <a class="navbar-item" href="/language/en_US{{ request.path }}">
                         <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/US.png">
                         English - US
                     </a>
-                    <a class="navbar-item" href="/language/en_GB">
+                    <a class="navbar-item" href="/language/en_GB{{ request.path }}">
                         <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/GB.png">
                         English - Global
                     </a>

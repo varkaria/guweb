@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/ppy-sb/guweb#readme",
   "devDependencies": {
+    "@types/jquery": "^3.5.14",
     "@types/node": "^18.6.2",
     "clui": "^0.3.6",
     "glob": "^8.0.3",

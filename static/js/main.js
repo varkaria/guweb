@@ -1,6 +1,8 @@
+// @ts-check
 // sticky header
 $(window).scroll(() => {
     var header = document.getElementById("navbar");
+    if (!header) return
     var sticky = header.offsetTop;
 
     if (window.pageYOffset > sticky) {
@@ -12,65 +14,92 @@ $(window).scroll(() => {
 
 //toggle navbar for mobile
 function togglenavbar() {
-    document.getElementById('navbar').classList.toggle("is-active");
-    document.getElementById('navbar-burger').classList.toggle("is-active");
+    const navbar = document.getElementById('navbar')
+    navbar && navbar.classList.toggle("is-active");
+    const burger = document.getElementById('navbar-burger')
+    burger && burger.classList.toggle("is-active");
 }
 
-function search() {
-    const value = document.getElementById('u-search').value
-    document.getElementById('u-search-content').innerHTML = "";
-    $.get('//osu.' + the_domain + '/search?q=' + value, function(data, status) {
+function setStyle(el, obj) {
+    Object.entries(obj).forEach(([k, v]) => {
+        el.style[k] = v
+    })
+}
+
+function searchUser() {
+    const search = document.getElementById('u-search')
+    if (!search) return
+    const value = search.value
+    const content = document.getElementById('u-search-content')
+    content && (content.innerHTML = "");
+    $.get('//osu.' + the_domain + '/search?q=' + value, function (data, status) {
         if (data != '{}') {
-            document.getElementById('u-search-content').style = ''
-            $.each(data, function(e, n){
-                var result = ({
+            content && content.removeAttribute('style')
+            $.each(data, function (e, n) {
+                const result = ({
                     title: n.name,
                     url: "/u/" + n.id,
                     image: '//a.' + the_domain + '/' + n.id
                 })
-                var root = document.createElement('a')
+                const root = document.createElement('a')
                 root.href = result.url
                 root.className = 'navbar-item'
-                var image = document.createElement('img')
+                const image = document.createElement('img')
                 image.src = result.image
-                image.style = 'max-height: 3rem; width: 3rem; background-size: cover;'
+                setStyle(image, {
+                    width: '3rem',
+                    maxHeight: '3rem',
+                    backgroundSize: 'cover',
+                    borderRadius: '0.5em'
+                })
                 root.appendChild(image)
-                var textSpan = document.createElement('span')
-                textSpan.style = 'margin-left:5px; font-weight: 700;font-size: 1.2em;color: rgba(255, 255, 255, 0.9);'
+                const textSpan = document.createElement('span')
+                setStyle(textSpan, {
+                    marginLeft: '5px',
+                    fontWeight: 700,
+                    fontSize: '1.2em',
+                    color: 'rgba(255,255,255,0.9)'
+                })
                 textSpan.innerText = result.title
                 root.appendChild(textSpan)
-                document.getElementById('u-search-content').appendChild(root)
+                content && content.appendChild(root)
             })
         } else {
-            document.getElementById('u-search-content').style = 'display: none;'
+            content && setStyle(content, {
+                display: 'none'
+            })
         }
     })
 }
 
 function admin_search() {
-    var search = document.getElementById('search-bar').value
-    window.location.href='/admin/users?search=' + search
+    const search = document.getElementById('search-bar')
+    if (!search) return
+    window.location.href = '/admin/users?search=' + search.value
 }
 
 function map_admin_search(name) {
-    var search = document.getElementById('search-bar').value
-    window.location.href='/admin/beatmaps/search?' + name + '=' + search
+    const search = document.getElementById('search-bar')
+    if (!search) return
+    window.location.href = '/admin/beatmaps/search?' + name + '=' + search.value
 }
 
 function map_admin_force_update(sid) {
     var bar = document.getElementById('progress_bar')
     var elements = document.getElementsByClassName('operate-button');
-    bar.style=""
+    bar && bar.removeAttribute('style')
     Array.prototype.forEach.call(elements, function (element) {
         element.classList.add('is-disabled')
     });
-    $.get('//api.' + the_domain + '/update_beatmapsets?api_key=' + api_key + '&sid=' + sid, function(data, status) {
-        bar.style="display: none;"
+    $.get('//api.' + the_domain + '/update_beatmapsets?api_key=' + api_key + '&sid=' + sid, function (data, status) {
+        bar && setStyle(bar, {
+            display: 'none'
+        })
         Array.prototype.forEach.call(elements, function (element) {
             element.classList.remove('is-disabled')
         });
         if (status == 'success') {
-            window.location.href='/admin/beatmaps/search?sid=' + data['sid']
+            window.location.href = '/admin/beatmaps/search?sid=' + data['sid']
         }
     })
 }

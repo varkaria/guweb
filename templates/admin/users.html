@@ -60,8 +60,8 @@
                     <td class="has-text-right">{{ i.id }}</td>
                     <td class="td-truncate text-nowrap">
                         <img src="/static/images/flags/{{ i.country|upper }}.png" class="profile-flag"
-                            style="width: 25px; height: 17px; -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.63); box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);">⠀
-                        <a href="/u/{{ i.id }}">{{ i.name }}</a>
+                            style="width: 25px; height: 17px; -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.63); box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);">
+                        <a class='ml-2' href="/u/{{ i.id }}">{{ i.name }}</a>
                     </td>
                     <td class="has-text-centered">{{ decode_priv(i.priv) }}</td>
                     <td class="has-text-centered">
