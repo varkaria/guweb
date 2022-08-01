@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %} Reset Password {% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="/static/css/pages/auth.css?v={{ appVersion() }} ">
+{% endblock %}
+
+{% block content %}
+
+<div class="main-block is-marginless is-paddingless is-auth">
+  <div class="columns is-reset is-weeb">
+    <div class="column title-block">
+      <h1 class="title" id="regtitle">Reset Password</h1>
+    </div>
+  </div>
+  <div class="columns is-reset flex-lcenter is-block">
+    <div class="box">
+     <div class="content">
+    <form action="/reset_password" method="post" class="form-content">
+      <div class="field">
+        <label for="user" class="label">Username</label>
+        <div class="control has-icons-left">
+          <input id="user" type="text" name="username" placeholder="Username" class="input" autocomplete="off" required>
+          <span class="icon is-small is-left">
+            <i class="fa fa-user"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="email" class="label">Email</label>
+        <div class="control has-icons-left">
+          <input id="email" type="text" name="email" placeholder="Email" class="input" autocomplete="off" required>
+          <span class="icon is-small is-left">
+            <i class="fa fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="code" class="label">Verify Code</label>
+        <div class="control has-icons-left">
+          <input id="code" type="text" name="code" placeholder="Verify Code" class="input" autocomplete="off" required>
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </div>
+      </div>
+      <div class="mt-5"></div>
+      <div class="field flex-vcenter">
+        <div class="buttons">
+          <button type="submit" class="button is-primary">
+              Reset
+          </button>
+        </div>
+      </div>
+    </form></div>
+    </div>
+  </div>
+</div>
+
+{% if flash %}
+<div class="paper-snackbar is-{{ status }}" style="opacity: 1;">
+  {{ flash }}
+</div>
+{% endif %}
+
+{% endblock %}

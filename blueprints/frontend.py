@@ -252,6 +252,10 @@ async def settings_aboutme_post():
 async def settings_password():
     return await render_template('settings/password.html')
 
+@frontend.route('/forgot')
+async def reset_password():
+    return await render_template('forgot.html')
+
 @frontend.route('/settings/password', methods=["POST"])
 @login_required
 async def settings_password_post():
