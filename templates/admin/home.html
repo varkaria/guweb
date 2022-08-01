@@ -1,8 +1,8 @@
 {% extends 'admin/base.html' %}
 {% block title %} Dashboard {% endblock %}
 {% block header %}
-<script src="/static/js/assets/vue.js?v={{ version() }}"></script>
-<script src="/static/js/assets/vue-axios.js?v={{ version() }}"></script>
+<script src="/static/js/assets/vue.js?v={{ appVersion() }} "></script>
+<script src="/static/js/assets/vue-axios.js?v={{ appVersion() }} "></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
 <script>
     var domain = "{{ domain() }}";
@@ -157,6 +157,6 @@
     {% endif %}
 </div>
 
-<script src="/static/js/pages/admin/dashboard.js?v={{ version() }}"></script>
+<script src="/static/js/pages/admin/dashboard.js?v={{ appVersion() }} "></script>
 
 {% endblock %}

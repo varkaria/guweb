@@ -22,14 +22,14 @@
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
   <!-- bulma -->
-  <link rel="stylesheet" href="/static/css/bulma.css?v={{ version() }}" />
+  <link rel="stylesheet" href="/static/css/bulma.css?v={{ appVersion() }} " />
 
   <!-- font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <!-- custom style -->
-  <link rel="stylesheet" href="/static/css/style.css?v={{ version() }}">
-  <link rel="stylesheet" href="/static/css/pages/admin/style.css?v={{ version() }}">
+  <link rel="stylesheet" href="/static/css/style.css?v={{ appVersion() }} ">
+  <link rel="stylesheet" href="/static/css/pages/admin/style.css?v={{ appVersion() }} ">
 
   {% block header %}
   {% endblock %}
@@ -76,7 +76,7 @@
   </footer>
 
   <!-- main js script -->
-  <script src="/static/js/main.js?v={{ version() }}" crossorigin="anonymous"></script>
+  <script src="/static/js/main.js?v={{ appVersion() }} " crossorigin="anonymous"></script>
 </body>
 
 </html>
