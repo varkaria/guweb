@@ -14,7 +14,6 @@ from cmyui.logging import log
 from functools import wraps
 from PIL import Image
 from pathlib import Path
-import markdown
 from quart import Blueprint
 from quart import redirect
 from quart import render_template
