@@ -199,7 +199,7 @@ html {
 }
 
 a.foot-link {
-  margin: 8px;
+  margin: 0.5em;
 }
 
 .container {
@@ -379,16 +379,6 @@ a.foot-link {
   width: 152px;
 }
 
-.scores + .extra-block
-{
-  border-radius: 0 0 1em 1em;
-}
-
-.stats-block
-{
-  border-radius: 0 0 1em 1em;
-}
-
 .input,
 .select select,
 .textarea {
@@ -429,7 +419,7 @@ a.foot-link {
 
 .noti-banner {
   display: flex;
-  padding: 8px;
+  padding: 0.5em;
   font-size: 12px;
   color: #fff;
   background-color: hsl(var(--main), 25%, 20%);
@@ -735,7 +725,7 @@ a.foot-link {
 .score-stats-group {
   margin: 5px;
   display: grid;
-  grid-gap: 8px;
+  grid-gap: 0.5em;
   width: 100%;
 }
 
@@ -758,7 +748,7 @@ a.foot-link {
   text-align: center;
   background: hsl(var(--main), 25%, 20%);
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 0.5em;
 }
 
 .score-stats-stat-row {
@@ -838,7 +828,7 @@ a.foot-link {
 body::-webkit-scrollbar {
   width: 12px;
   background-color: hsl(var(--main), 10%, 25%);
-  border-bottom-right-radius: 8px;
+  border-bottom-right-radius: 0.5em;
 }
 
 body::-webkit-scrollbar-thumb {

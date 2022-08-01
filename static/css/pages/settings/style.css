@@ -8,7 +8,7 @@
   flex-direction: column;
   padding: 21px 22px;
   position: relative;
-  border-radius: 8px;
+  border-radius: 0.5em;
 }
 
 .title-block {
@@ -139,7 +139,7 @@ button:focus {
 }
 
 .main-block {
-  border-radius: 8px;
+  border-radius: 0.5em;
   display: flex;
   min-height: 688px;
 }
@@ -172,7 +172,7 @@ button:focus {
   display: flex;
   padding-left: 24px;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 0.5em;
 }
 
 .left-selector {
@@ -204,8 +204,8 @@ button:focus {
   padding-left: 38px;
   color: #222;
   font-weight: 700;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+  border-top-right-radius: 0.5em;
+  border-top-left-radius: 0.5em;
   background-color: #f7f7f7;
 }
 
@@ -293,7 +293,7 @@ label.user-avatar:hover:before {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 8px;
+  padding-bottom: 0.5em;
   flex-direction: column;
   opacity: 0.7;
   font-weight: 400;
@@ -390,7 +390,7 @@ input::placeholder {
 .welcome-text {
   display: flex;
   flex-direction: column;
-  padding-left: 8px;
+  padding-left: 0.5em;
 }
 
 .welcome {
@@ -428,7 +428,7 @@ input::placeholder {
   width: 100%;
   box-shadow: none;
   border: solid 2px transparent;
-  border-radius: 8px;
+  border-radius: 0.5em;
 }
 
 .bootstrap-select.btn-group .dropdown-menu {
@@ -462,7 +462,7 @@ input::placeholder {
   padding: 0;
   border: 2px solid #fff;
   border-radius: 4px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 0.5em 15px rgba(0, 0, 0, 0.22);
 }
 
 .bootstrap-select.btn-group .dropdown-menu li {
@@ -503,8 +503,8 @@ input::placeholder {
 
 .settings-btn {
   color: #f6a;
-  border-radius: 8px;
-  padding: 8px;
+  border-radius: 0.5em;
+  padding: 0.5em;
   font-size: 14px;
   font-weight: 500;
   background-color: #fff;
@@ -589,7 +589,7 @@ input::placeholder {
   width: 100px;
   color: #fff;
   border: none;
-  padding: 8px;
+  padding: 0.5em;
 }
 
 .menu-icon {
@@ -756,7 +756,7 @@ input:checked+label.checkbox:hover {
 }
 
 label.user-avatar:hover {
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.5em 15px rgba(0, 0, 0, 0.3);
 }
 
 label.user-avatar.loading:after {
@@ -838,7 +838,7 @@ i.loadspin {
   position: absolute;
   background-color: #0000008b;
   border-radius: 120px;
-  padding: 4px 8px;
+  padding: 4px 0.5em;
   margin-top: -6px;
   opacity: 0.8;
   transition: 150ms opacity;
@@ -855,7 +855,7 @@ i.loadspin {
 
 .single-right-block .right-block-content>span {
   font-size: 13px;
-  padding-bottom: 8px;
+  padding-bottom: 0.5em;
 }
 
 .btn.dropdown-toggle,
@@ -1017,13 +1017,13 @@ input:checked+label.checkbox:hover {
   width: 80px;
   height: 80px;
   margin-top: -50px;
-  border-radius: 8px;
+  border-radius: 0.5em;
   object-fit: cover;
   transition: 0.2s ease;
 }
 
 .buttons .button {
-  margin-top: 8px;
+  margin-top: 0.5em;
   border-radius: 0.4em;
   margin-left: 0px;
   width: 100%;
@@ -1038,8 +1038,8 @@ input:checked+label.checkbox:hover {
   display: flex;
   flex-direction: column;
   padding: 18px 48px;
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
   align-items: center;
 }
 

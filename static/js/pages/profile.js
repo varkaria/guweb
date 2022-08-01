@@ -61,53 +61,66 @@ new Vue({
         LoadProfileData() {
             this.$set(this.data.stats, 'load', true);
             this.$axios.get(`//api.${domain}/get_player_info`, {
-                    params: {
-                        id: this.userid,
-                        scope: 'all'
-                    }
-                })
+                params: {
+                    id: this.userid,
+                    scope: 'all'
+                }
+            })
                 .then(res => {
                     this.$set(this.data.stats, 'out', res.data.player.stats);
                     this.data.stats.load = false;
                 });
         },
-        LoadScores(sort) {
+        async LoadScores(sort) {
             this.$set(this.data.scores[`${sort}`], 'load', true);
-            this.$axios.get(`//api.${domain}/get_player_scores`, {
-                    params: {
-                        id: this.userid,
-                        mode: this.StrtoGulagInt(),
-                        scope: sort,
-                        limit: this.data.scores[`${sort}`].more.limit
-                    }
-                })
+            await this.$axios.get(`//api.${domain}/get_player_scores`, {
+                params: {
+                    id: this.userid,
+                    mode: this.StrtoGulagInt(),
+                    scope: sort,
+                    limit: this.data.scores[`${sort}`].more.limit
+                }
+            })
                 .then(res => {
                     this.data.scores[`${sort}`].out = res.data.scores;
                     this.data.scores[`${sort}`].load = false
                     this.data.scores[`${sort}`].more.full = this.data.scores[`${sort}`].out.length != this.data.scores[`${sort}`].more.limit;
                 });
+            // animation
+            this.$refs.scores && this.$refs.scores.filter(el => !el.classList.contains('show')).forEach((el, index) => {
+                index += 1
+                setTimeout(() => {
+                    el.classList.add('show')
+                }, index * 30)
+            })
         },
-        LoadMostBeatmaps() {
+        async LoadMostBeatmaps() {
             this.$set(this.data.maps.most, 'load', true);
-            this.$axios.get(`//api.${domain}/get_player_most_played`, {
-                    params: {
-                        id: this.userid,
-                        mode: this.StrtoGulagInt(),
-                        limit: this.data.maps.most.more.limit
-                    }
-                })
+            await this.$axios.get(`//api.${domain}/get_player_most_played`, {
+                params: {
+                    id: this.userid,
+                    mode: this.StrtoGulagInt(),
+                    limit: this.data.maps.most.more.limit
+                }
+            })
                 .then(res => {
                     this.data.maps.most.out = res.data.maps;
                     this.data.maps.most.load = false;
                     this.data.maps.most.more.full = this.data.maps.most.out.length != this.data.maps.most.more.limit;
                 });
+            // animation
+            this.$refs.mostPlayed && this.$refs.mostPlayed.filter(el => !el.classList.contains('show')).forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('show')
+                }, index * 20)
+            })
         },
         LoadUserStatus() {
             this.$axios.get(`//api.${domain}/get_player_status`, {
-                    params: {
-                        id: this.userid
-                    }
-                })
+                params: {
+                    id: this.userid
+                }
+            })
                 .then(res => {
                     this.$set(this.data, 'status', res.data.player_status)
                 })
@@ -161,12 +174,12 @@ new Vue({
                     return 'In Multiplayer: Song Select';
                 case 6:
                     return `Watching: 👓 ${d.info_text}`;
-                    // 7 not used
+                // 7 not used
                 case 8:
                     return `Testing: 🎾 ${d.info_text}`;
                 case 9:
                     return `Submitting: 🧼 ${d.info_text}`;
-                    // 10 paused, never used
+                // 10 paused, never used
                 case 11:
                     return 'Idle: 🏢 In multiplayer lobby';
                 case 12:

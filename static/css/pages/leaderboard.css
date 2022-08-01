@@ -19,8 +19,8 @@ a:hover {
   background-color: hsl(var(--main), 30%, 50%);
   height: 194px;
   border-radius: 0;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+  border-top-right-radius: 0.5em;
+  border-top-left-radius: 0.5em;
 }
 
 .leaderboard-column {
@@ -32,8 +32,8 @@ a:hover {
 }
 
 .leaderboard-main-bg {
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
   padding: 24px 24px;
 }
 
@@ -156,8 +156,8 @@ table th {
   height: 100%;
   position: absolute;
   left: 0;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+  border-top-right-radius: 0.5em;
+  border-top-left-radius: 0.5em;
   z-index: 1;
 }
 
@@ -220,7 +220,7 @@ table th {
   cursor: pointer;
   transition: 0.3s ease;
   font-size: 14px;
-  margin: 10px 8px;
+  margin: 10px 0.5em;
 }
 
 .simple-banner-switch:hover {
@@ -235,8 +235,8 @@ table th {
 }
 
 .main-selector {
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+  border-top-right-radius: 0.5em;
+  border-top-left-radius: 0.5em;
 }
 
 .leaderboard-table>tbody {

@@ -25,13 +25,13 @@
             <i class="fas fa-trophy"></i> {{ title }}
         </div>
     </div>
-    <div v-if="data.scores.{{ id }}.out.length != 0" class="scores">
-        <div v-for="(map, index) in data.scores.{{ id }}.out" class="map-single"
+    <div v-if="data.scores.{{ id }}.out.length" class="scores">
+        <div v-for="(map, index) in data.scores.{{ id }}.out" class="map-single" ref="scores" :key="map.beatmap.map_id" 
             :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${map.beatmap.set_id}/covers/cover.jpg)`">
-            <div class="map-data" @click="window.open('https://osu.ppy.sh/beatmaps/' + map.beatmap.id) ">
+            <div class="map-data" @click="window.open(`https://osu.ppy.sh/beatmaps/${map.beatmap.id}`) ">
                 <div class="map-content1">
                     <div class="map-image">
-                        <img v-bind:src="'https://assets.ppy.sh/beatmaps/' + map.beatmap.set_id + '/covers/card.jpg'"
+                        <img v-bind:src="`https://assets.ppy.sh/beatmaps/${map.beatmap.set_id}/covers/card.jpg`"
                             class="map-image-picture">
                     </div>
                     <div class="map-title-block">
@@ -98,8 +98,8 @@
             <i class="fas fa-address-book"></i> {{ title }}
         </div>
     </div>
-    <div v-if="data.maps.{{ id }}.out.length != 0" class="beatmaps">
-        <a v-for="(map, index) in data.maps.{{ id }}.out" class="beatmap-block rounded-sm">
+    <div v-if="data.maps.{{ id }}.out.length" class="beatmaps">
+        <a v-for="(map, index) in data.maps.{{ id }}.out" class="beatmap-block rounded-sm" ref="mostPlayed" :key="map.id">
             <div class="beatmap-preview"
                 v-bind:style='{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }'>
             </div>
@@ -153,7 +153,7 @@
 </script>
 <style>
     .rounded-sm {
-        border-radius: 8px;
+        border-radius: 0.5em;
     }
 </style>
 {% endblock %}

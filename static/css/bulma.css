@@ -1742,7 +1742,7 @@ print {
 
 .box {
     background-color: hsl(var(--main), 10%, 15%);
-    border-radius: 8px;
+    border-radius: 0.5em;
     box-shadow: none;
     color: #fff;
     display: block;
@@ -6373,8 +6373,8 @@ print {
 
 .modal-card-head {
     border-bottom: 1px solid #5e6d6f;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em
 }
 
 .modal-card-title {
@@ -6386,8 +6386,8 @@ print {
 }
 
 .modal-card-foot {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
     border-top: 1px solid #5e6d6f
 }
 
@@ -6485,7 +6485,7 @@ html.has-navbar-fixed-bottom {
     background-color: currentColor;
     display: block;
     height: 1px;
-    left: calc(50% - 8px);
+    left: calc(50% - 0.5em);
     position: absolute;
     transform-origin: center;
     transition-duration: 86ms;
@@ -6644,7 +6644,7 @@ a.navbar-item:hover {
 
     .navbar-menu {
         background-color: hsl(var(--main), 45%, 45%);
-        box-shadow: 0 8px 16px rgba(10, 10, 10, .1);
+        box-shadow: 0 0.5em 16px rgba(10, 10, 10, .1);
         padding: .5rem 0
     }
 
@@ -6775,10 +6775,10 @@ a.navbar-item:hover {
 
     .navbar-item.has-dropdown-up .navbar-dropdown {
         border-bottom: 1px solid rgba(0, 0, 0, .2);
-        border-radius: 8px 8px 0 0;
+        border-radius: 0.5em 0.5em 0 0;
         border-top: none;
         bottom: 100%;
-        box-shadow: 0 -8px 8px rgba(10, 10, 10, .1);
+        box-shadow: 0 -0.5em 0.5em rgba(10, 10, 10, .1);
         top: auto
     }
 
@@ -6819,10 +6819,10 @@ a.navbar-item:hover {
 
     .navbar-dropdown {
         background-color: hsl(var(--main), 45%, 45%);
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 0.5em;
+        border-bottom-right-radius: 0.5em;
         border-top: 1px solid rgba(0, 0, 0, .2);
-        box-shadow: 0 8px 8px rgba(10, 10, 10, .1);
+        box-shadow: 0 0.5em 0.5em rgba(10, 10, 10, .1);
         display: none;
         font-size: .875rem;
         left: 0;
@@ -6843,9 +6843,9 @@ a.navbar-item:hover {
 
     .navbar-dropdown.is-boxed,
     .navbar.is-spaced .navbar-dropdown {
-        border-radius: 8px;
+        border-radius: 0.5em;
         border-top: none;
-        box-shadow: 0 8px 8px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+        box-shadow: 0 0.5em 0.5em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
         display: block;
         opacity: 0;
         pointer-events: none;
@@ -7109,7 +7109,7 @@ print {
 }
 
 .panel {
-    border-radius: 8px;
+    border-radius: 0.5em;
     box-shadow: 0 .5em 1em -.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
     font-size: 15px;
     background: hsl(var(--main), 15%, 12%)
@@ -7251,7 +7251,7 @@ print {
 
 .panel-heading {
     background-color: hsl(var(--main), 10%, 15%);
-    border-radius: 8px 8px 0 0;
+    border-radius: 0.5em 0.5em 0 0;
     color: #f2f2f2;
     font-size: 1.25em;
     line-height: 1.25;
@@ -7310,8 +7310,8 @@ print {
 }
 
 .panel-block:last-child {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em
 }
 
 a.panel-block,

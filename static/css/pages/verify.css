@@ -8,7 +8,7 @@
     flex-direction: column;
     padding: 21px 22px;
     position: relative;
-    border-radius: 8px;
+    border-radius: 0.5em;
 }
 
 .title-block {
