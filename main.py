@@ -114,7 +114,7 @@ def decode_map_status(status: int) -> str:
 
 @app.template_global()
 def rand() -> str:
-    return str(random.randint(0,100000))
+    return "20220801"
 
 @app.template_global()
 def captchaKey() -> str:
