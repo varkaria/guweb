@@ -6,8 +6,6 @@ aiohttp
 mysql-connector
 orjson
 timeago
-markdown2
-Pillow
 
 python-i18n[YAML]
 requires
