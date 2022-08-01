@@ -49,14 +49,14 @@ new Vue({
         // starting a page
         this.modegulag = this.StrtoGulagInt();
         this.LoadProfileData();
-        this.LoadAllofdata();
-        this.LoadUserStatus();
+        this.LoadAllofdata({ animation: false });
+        this.LoadUserStatus({ animation: false });
     },
     methods: {
-        LoadAllofdata() {
-            this.LoadMostBeatmaps();
-            this.LoadScores('best');
-            this.LoadScores('recent');
+        LoadAllofdata(opt) {
+            this.LoadMostBeatmaps(opt);
+            this.LoadScores('best', opt);
+            this.LoadScores('recent', opt);
         },
         LoadProfileData() {
             this.$set(this.data.stats, 'load', true);
@@ -71,7 +71,7 @@ new Vue({
                     this.data.stats.load = false;
                 });
         },
-        async LoadScores(sort) {
+        async LoadScores(sort, { animation = true } = {}) {
             this.$set(this.data.scores[`${sort}`], 'load', true);
             await this.$axios.get(`//api.${domain}/get_player_scores`, {
                 params: {
@@ -86,15 +86,19 @@ new Vue({
                     this.data.scores[`${sort}`].load = false
                     this.data.scores[`${sort}`].more.full = this.data.scores[`${sort}`].out.length != this.data.scores[`${sort}`].more.limit;
                 });
+            const toShow = this.$refs.scores && this.$refs.scores.filter(el => !el.classList.contains('show')) || [];
             // animation
-            this.$refs.scores && this.$refs.scores.filter(el => !el.classList.contains('show')).forEach((el, index) => {
-                index += 1
-                setTimeout(() => {
-                    el.classList.add('show')
-                }, index * 30)
-            })
+            if (!animation) {
+                toShow.forEach(el => el.classList.add('show'))
+            } else {
+                toShow.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('show')
+                    }, index * 30)
+                })
+            }
         },
-        async LoadMostBeatmaps() {
+        async LoadMostBeatmaps({ animation = true } = {}) {
             this.$set(this.data.maps.most, 'load', true);
             await this.$axios.get(`//api.${domain}/get_player_most_played`, {
                 params: {
@@ -108,12 +112,17 @@ new Vue({
                     this.data.maps.most.load = false;
                     this.data.maps.most.more.full = this.data.maps.most.out.length != this.data.maps.most.more.limit;
                 });
+            const toShow = this.$refs.mostPlayed && this.$refs.mostPlayed.filter(el => !el.classList.contains('show')) || [];
             // animation
-            this.$refs.mostPlayed && this.$refs.mostPlayed.filter(el => !el.classList.contains('show')).forEach((el, index) => {
-                setTimeout(() => {
-                    el.classList.add('show')
-                }, index * 20)
-            })
+            if (!animation) {
+                toShow.forEach(el => el.classList.add('show'))
+            } else {
+                toShow.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('show')
+                    }, index * 20)
+                })
+            }
         },
         LoadUserStatus() {
             this.$axios.get(`//api.${domain}/get_player_status`, {
