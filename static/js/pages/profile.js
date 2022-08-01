@@ -83,15 +83,16 @@ new Vue({
             })
                 .then(res => {
                     this.data.scores[`${sort}`].out = res.data.scores;
-                    this.data.scores[`${sort}`].load = false
                     this.data.scores[`${sort}`].more.full = this.data.scores[`${sort}`].out.length != this.data.scores[`${sort}`].more.limit;
                 });
             const toShow = this.$refs.scores && this.$refs.scores.filter(el => !el.classList.contains('show')) || [];
             // animation
             if (!animation) {
                 toShow.forEach(el => el.classList.add('show'))
+                this.data.scores[`${sort}`].load = false
             } else {
                 toShow.forEach((el, index) => {
+                    this.data.scores[`${sort}`].load = false
                     setTimeout(() => {
                         el.classList.add('show')
                     }, index * 30)
@@ -109,14 +110,15 @@ new Vue({
             })
                 .then(res => {
                     this.data.maps.most.out = res.data.maps;
-                    this.data.maps.most.load = false;
                     this.data.maps.most.more.full = this.data.maps.most.out.length != this.data.maps.most.more.limit;
                 });
             const toShow = this.$refs.mostPlayed && this.$refs.mostPlayed.filter(el => !el.classList.contains('show')) || [];
             // animation
             if (!animation) {
                 toShow.forEach(el => el.classList.add('show'))
+                this.data.maps.most.load = false;
             } else {
+                this.data.maps.most.load = false;
                 toShow.forEach((el, index) => {
                     setTimeout(() => {
                         el.classList.add('show')
