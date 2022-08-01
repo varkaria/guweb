@@ -146,10 +146,10 @@
 <link rel="stylesheet" href="/static/css/pages/profile.css?v={{ appVersion() }} ">
 
 <script>
-    var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
-    var mode = '{{ mode }}';
-    var mods = '{{ mods }}';
-    var domain = "{{ domain() }}";
+    window.userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
+    window.mode = '{{ mode }}';
+    window.mods = '{{ mods }}';
+    window.domain = "{{ domain() }}";
 </script>
 <style>
     .rounded-sm {

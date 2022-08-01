@@ -1,3 +1,8 @@
+// @ts-check
+_testGlobals(
+    { exists: ['mode', 'mods', 'userid', 'domain'] }
+)
+// @ts-ignore
 new Vue({
     el: "#app",
     delimiters: ["<%", "%>"],
@@ -39,10 +44,10 @@ new Vue({
                 },
                 status: {}
             },
-            mode: mode,
-            mods: mods,
+            mode: window.mode,
+            mods: window.mods,
             modegulag: 0,
-            userid: userid
+            userid: window.userid
         };
     },
     created() {
@@ -60,7 +65,7 @@ new Vue({
         },
         LoadProfileData() {
             this.$set(this.data.stats, 'load', true);
-            this.$axios.get(`//api.${domain}/get_player_info`, {
+            this.$axios.get(`//api.${window.domain}/get_player_info`, {
                 params: {
                     id: this.userid,
                     scope: 'all'
@@ -73,7 +78,7 @@ new Vue({
         },
         async LoadScores(sort, { animation = true } = {}) {
             this.$set(this.data.scores[`${sort}`], 'load', true);
-            await this.$axios.get(`//api.${domain}/get_player_scores`, {
+            await this.$axios.get(`//api.${window.domain}/get_player_scores`, {
                 params: {
                     id: this.userid,
                     mode: this.StrtoGulagInt(),
@@ -101,7 +106,7 @@ new Vue({
         },
         async LoadMostBeatmaps({ animation = true } = {}) {
             this.$set(this.data.maps.most, 'load', true);
-            await this.$axios.get(`//api.${domain}/get_player_most_played`, {
+            await this.$axios.get(`//api.${window.domain}/get_player_most_played`, {
                 params: {
                     id: this.userid,
                     mode: this.StrtoGulagInt(),
@@ -127,7 +132,7 @@ new Vue({
             }
         },
         LoadUserStatus() {
-            this.$axios.get(`//api.${domain}/get_player_status`, {
+            this.$axios.get(`//api.${window.domain}/get_player_status`, {
                 params: {
                     id: this.userid
                 }
@@ -136,10 +141,10 @@ new Vue({
                     this.$set(this.data, 'status', res.data.player_status)
                 })
                 .catch(function (error) {
-                    clearTimeout(loop);
+                    clearTimeout(window.loop);
                     console.log(error);
                 });
-            loop = setTimeout(this.LoadUserStatus, 5000);
+            window.loop = setTimeout(this.LoadUserStatus, 5000);
         },
         ChangeModeMods(mode, mods) {
             if (window.event)

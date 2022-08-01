@@ -1,3 +1,8 @@
+// @ts-check
+_testGlobals(
+    { exists: ['domain'] }
+)
+// @ts-ignore
 new Vue({
     el: "#dashboard",
     delimiters: ["<%", "%>"],
@@ -13,7 +18,7 @@ new Vue({
     methods: {
         GetOnlineUsers() {
             var vm = this;
-            vm.$axios.get(`//api.${domain}/get_player_count`)
+            vm.$axios.get(`//api.${window.domain}/get_player_count`)
                 .then(function (response) {
                     vm.online_users = response.data.counts.online;
                 });

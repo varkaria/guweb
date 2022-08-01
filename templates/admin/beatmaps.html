@@ -45,7 +45,7 @@
 
 {% block content %}
 <script>
-    var api_key = '{{ session.user_data['api_key'] }}'
+    window.api_key = '{{ session.user_data['api_key'] }}'
 </script>
 <progress id="progress_bar" class="progress is-small is-primary" max="100" style="display: none;"></progress>
 <div class="columns is-marginless">

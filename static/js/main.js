@@ -27,19 +27,22 @@ function setStyle(el, obj) {
 }
 
 function searchUser() {
+    _testGlobals(
+        { exists: ['domain'] }
+    )
     const search = document.getElementById('u-search')
     if (!search) return
     const value = search.value
     const content = document.getElementById('u-search-content')
     content && (content.innerHTML = "");
-    $.get('//osu.' + the_domain + '/search?q=' + value, function (data, status) {
+    $.get('//osu.' + window.domain + '/search?q=' + value, function (data, status) {
         if (data != '{}') {
             content && content.removeAttribute('style')
             $.each(data, function (e, n) {
                 const result = ({
                     title: n.name,
                     url: "/u/" + n.id,
-                    image: '//a.' + the_domain + '/' + n.id
+                    image: '//a.' + window.domain + '/' + n.id
                 })
                 const root = document.createElement('a')
                 root.href = result.url
@@ -85,13 +88,16 @@ function map_admin_search(name) {
 }
 
 function map_admin_force_update(sid) {
+    _testGlobals(
+        { exists: ['domain', 'api_key'] }
+    )
     var bar = document.getElementById('progress_bar')
     var elements = document.getElementsByClassName('operate-button');
     bar && bar.removeAttribute('style')
     Array.prototype.forEach.call(elements, function (element) {
         element.classList.add('is-disabled')
     });
-    $.get('//api.' + the_domain + '/update_beatmapsets?api_key=' + api_key + '&sid=' + sid, function (data, status) {
+    $.get('//api.' + window.domain + '/update_beatmapsets?api_key=' + window.api_key + '&sid=' + sid, function (data, status) {
         bar && setStyle(bar, {
             display: 'none'
         })

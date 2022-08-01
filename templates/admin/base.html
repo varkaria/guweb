@@ -1,6 +1,8 @@
 <html>
 
 <head>
+  <!-- injection check -->
+  <script src="/static/js/_runtime-check.js"></script>
   <!-- title -->
   <title>{{ appName() }} - {{ t('admin.base.admin') }} - {% block title %}{% endblock %}</title>
 
@@ -19,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- jquery -->
-  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>=
 
   <!-- bulma -->
   <link rel="stylesheet" href="/static/css/bulma.css?v={{ appVersion() }} " />
@@ -45,16 +47,17 @@
       <div class="colmun">
         <div class="sidebar">
           <div id="style-3" class="sidebar-wrapper">
-            <div class="logo"><a class="simple-text logo-normal">{{ t('admin.base.admin-panel', appName = appName()) }}</a></div>
+            <div class="logo"><a class="simple-text logo-normal">{{ t('admin.base.admin-panel', appName = appName())
+                }}</a></div>
             <ul class="nav">
-              <li class="nav-item"><a class="nav-link" href="/admin/dashboard"><span class="icon"><i class="fa fa-home"></i></span> <span
-                    class="name">{{ t('admin.base.dashboard') }}</span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/users"><span class="icon"><i class="fa fa-user"></i></span> <span
-                class="name">Users</span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/restrictions"><span class="icon"><i class="fa fa-ban"></i></span> <span
-                class="name">Restrictions</span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/beatmaps"><span class="icon"><i class="fa fa-map"></i></span> <span
-                class="name">Beatmaps</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/dashboard"><span class="icon"><i
+                      class="fa fa-home"></i></span> <span class="name">{{ t('admin.base.dashboard') }}</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/users"><span class="icon"><i
+                      class="fa fa-user"></i></span> <span class="name">Users</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/restrictions"><span class="icon"><i
+                      class="fa fa-ban"></i></span> <span class="name">Restrictions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/beatmaps"><span class="icon"><i
+                      class="fa fa-map"></i></span> <span class="name">Beatmaps</span></a></li>
             </ul>
           </div>
         </div>

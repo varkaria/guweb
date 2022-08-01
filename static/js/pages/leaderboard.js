@@ -1,20 +1,23 @@
+// @ts-check
+_testGlobals({ exists: ['flags', 'mode', 'mods', 'sort', 'domain'] })
+// @ts-ignore
 new Vue({
     el: "#app",
     delimiters: ["<%", "%>"],
     data() {
         return {
             flags: window.flags,
-            boards : {},
-            mode : 'std',
-            mods : 'vn',
-            sort : 'pp',
-            load : false,
-            no_player : false, // soon
+            boards: {},
+            mode: window.mode || 'std',
+            mods: window.mods || 'vn',
+            sort: window.sort || 'pp',
+            load: false,
+            no_player: false, // soon ^TM
         };
     },
     created() {
-        this.LoadData(mode, mods, sort);
-        this.LoadLeaderboard(sort, mode, mods);
+        this.LoadData(window.mode, window.mods, window.sort);
+        this.LoadLeaderboard(this.sort, this.mode, this.mods);
     },
     methods: {
         secondsToDhm(seconds) {
@@ -25,9 +28,9 @@ new Vue({
             return dDisplay + hDisplay + mDisplay;
         },
         LoadData(mode, mods, sort) {
-            this.$set(this, 'mode', mode);
-            this.$set(this, 'mods', mods);
-            this.$set(this, 'sort', sort);
+            this.mode = mode
+            this.mods = mods
+            this.sort = sort
         },
         LoadLeaderboard(sort, mode, mods) {
             if (window.event)
@@ -38,10 +41,12 @@ new Vue({
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
             this.$set(this, 'load', true);
-            this.$axios.get(`//api.${domain}/get_leaderboard`, { params: {
-                mode: this.StrtoGulagInt(),
-                sort: this.sort
-            }}).then(res => {
+            this.$axios.get(`//api.${window.domain}/get_leaderboard`, {
+                params: {
+                    mode: this.StrtoGulagInt(),
+                    sort: this.sort
+                }
+            }).then(res => {
                 this.boards = res.data.leaderboard;
                 this.$set(this, 'load', false);
             });
