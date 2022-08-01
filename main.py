@@ -113,7 +113,7 @@ def decode_map_status(status: int) -> str:
     return ', '.join(priv_list)
 
 @app.template_global()
-def rand() -> str:
+def version() -> str:
     return "20220801"
 
 @app.template_global()

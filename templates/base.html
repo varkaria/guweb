@@ -22,14 +22,14 @@
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
   <!-- Bulma -->
-  <link rel="stylesheet" href="/static/css/bulma.css?v={{ rand() }}" />
+  <link rel="stylesheet" href="/static/css/bulma.css?v={{ version() }}" />
 
 
   <!-- Font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <!-- Custom style -->
-  <link rel="stylesheet" href="/static/css/style.css?v={{ rand() }}">
+  <link rel="stylesheet" href="/static/css/style.css?v={{ version() }}">
 
   {% block header %}
   {% endblock %}
@@ -49,7 +49,7 @@
   {% include 'components/footer.html' %}
 
   <!-- Main JS script -->
-  <script src="/static/js/main.js?v={{ rand() }}" crossorigin="anonymous"></script>
+  <script src="/static/js/main.js?v={{ version() }}" crossorigin="anonymous"></script>
 
   <!-- Customisation -->
   {% block bottom %}{% endblock %}
