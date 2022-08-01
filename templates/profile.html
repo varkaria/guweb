@@ -140,10 +140,10 @@
 {% endmacro %}
 
 {% block header %}
-<script src="/static/js/assets/vue.js"></script>
-<script src="/static/js/assets/vue-axios.js"></script>
+<script src="/static/js/assets/vue.js?v={{ version() }}"></script>
+<script src="/static/js/assets/vue-axios.js?v={{ version() }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
-<link rel="stylesheet" href="/static/css/pages/profile.css?v=1.0">
+<link rel="stylesheet" href="/static/css/pages/profile.css?v={{ version() }}">
 
 <script>
     var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
@@ -374,7 +374,7 @@
 {% endblock %}
 
 {% block bottom %}
-<script src="/static/js/pages/profile.js"></script>
+<script src="/static/js/pages/profile.js?v={{ version() }}"></script>
 {% if user['customisation']['banner'] == True %}
     <style>
         .profile-bg {

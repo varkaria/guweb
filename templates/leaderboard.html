@@ -2,8 +2,8 @@
 {% block title %} {{ t('global.leaderboard') }} {% endblock %}
 
 {% block header %}
-<script src="/static/js/assets/vue.js"></script>
-<script src="/static/js/assets/vue-axios.js"></script>
+<script src="/static/js/assets/vue.js?v={{ version() }}"></script>
+<script src="/static/js/assets/vue-axios.js?v={{ version() }}"></script>
 
 <script>
     var mode = "{{ mode }}";
@@ -12,7 +12,7 @@
     var domain = "{{ domain() }}";
 </script>
 
-<link rel="stylesheet" href="/static/css/pages/leaderboard.css">
+<link rel="stylesheet" href="/static/css/pages/leaderboard.css?v={{ version() }}">
 {% endblock %}
 
 {% block content %}
@@ -123,6 +123,6 @@
     </div>
 </div>
 
-<script src="/static/js/assets/vue-flags.js"></script>
+<script src="/static/js/assets/vue-flags.js?v={{ version() }}"></script>
 <script src="/static/js/pages/leaderboard.js?v=1.0"></script>
 {% endblock %}
