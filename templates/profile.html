@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 {% block title %} {{ t('global.profile') }} {% endblock %}
 
+{% macro userpage(user) %}
+    {% if user['userpage_content'] != None and user['userpage_content'] != "" %}
+        <div class="log-block">
+            <div class="header">
+                <div class="title">
+                    <i class="fas fa-address-book"></i> About me
+                </div>
+            </div>
+            <div class="stats-block rank-block" style="padding: 12.5px;">
+                <article>
+                    {{ user['userpage_content']|safe }}
+                </article>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
 {% macro scores(title, id) %}
 <div class="log-block" v-bind:class="{ 'load' : data.scores.{{ id }}.load }">
     <div class="header">
@@ -210,6 +227,20 @@
     <div class="second-block">
         <div class="columns is-marginless two-sides">
             <div class="column is-one-third" v-cloak>
+                <div class="header">
+                    <div class="title">
+                        <i class="fas fa-user-friends"></i> Badge
+                    </div>
+                </div>
+                <div class="stats-block rank-block">
+                    <table class="is-striped">
+                        <tbody>
+                            <tr>
+                                <td>Not yet implement</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="header" v-if='data.stats.out[modegulag].rank != 0'>
                     <div class="title">
                         <i class="fas fa-user-friends"></i> Rank
@@ -330,18 +361,9 @@
                         </article>
                     </div>
                 </div>
-                <!--<div class="level-block">
-                    <div class="columns is-marginless is-2">
-                        <div class="column level-bar is-paddingless">
-                            <div class="progress-level"></div>
-                        </div>
-                        <div class="column level-num is-one-fifth is-textcen">
-                            <% data.stats[`level_${modegulag}`] %>
-                        </div>
-                    </div>
-                </div>-->
             </div>
             <div class="column">
+                {{ userpage(user) }}
                 {{ scores(t('profile.best-scores')  , 'best')}}
                 {{ scores(t('profile.recent-scores'), 'recent')}}
                 {{ maps(t('profile.most-played-beatmaps'), 'most')}}
