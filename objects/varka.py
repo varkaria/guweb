@@ -4,14 +4,33 @@ import json
 
 async def get_users(limit:int=100, search:str=None):
     """Returns the all of a users."""
-    query = ['SELECT * FROM users u']
+    query = """
+        select 
+            u.*,
+            l.ip,
+            l.osu_ver,
+            l.osu_stream,
+            l.datetime as last_login
+        from users u
+        left join (
+            select * from ingame_logins i1
+            inner join (
+                select max(id) as max_id
+                from ingame_logins
+                group by userid
+            ) as i2
+            ON i1.id = i2.max_id
+        ) as l
+        on u.id = l.userid
+    """.replace('  ', ' ').splitlines()
     args = []
-    query.append('left join (select userid, ANY_VALUE(ip) as ip, ANY_VALUE(osu_stream) as osu_stream, max(datetime) as last_login from ingame_logins group by userid) as l on u.id = l.userid')
 
     if search:
-        query.append("WHERE `name` LIKE %s")
+        query.append("WHERE u.`name` LIKE %s")
         args.append(f'{search}%')
-        query.append("OR `email` LIKE %s")
+        query.append("OR u.`email` LIKE %s")
+        args.append(f'{search}%')
+        query.append("OR CONVERT(u.`id`, char) LIKE %s")
         args.append(f'{search}%')
 
     query.append(f'ORDER BY u.id DESC LIMIT %s')

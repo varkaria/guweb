@@ -624,9 +624,12 @@ async def search_user():
     res = await glob.db.fetchall(
         'SELECT id, name '
         'FROM `users` '
-        'WHERE priv >= 3 AND `name` LIKE %s '
-        'LIMIT 5',
-        [q + '%%']
+        'WHERE priv >= 3 '
+        'AND ('
+        '   `name` LIKE %s '
+        '   OR CONVERT(`id`, char) LIKE %s '
+        ') LIMIT 5',
+        [q + '%%', q + '%%']
     )
 
     if (len(res) == 0):
