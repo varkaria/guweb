@@ -31,9 +31,9 @@ async def get_users(limit:int=100, search:str=None):
         query.append("OR u.`email` LIKE %s")
         args.append(f'{search}%')
         query.append("OR CONVERT(u.`id`, char) LIKE %s")
-        args.append(f'{search}%')
+        args.append(f'{search}%%')
 
-    query.append(f'ORDER BY u.id DESC LIMIT %s')
+    query.append(f'ORDER BY l.`datetime` DESC LIMIT %s')
     args.append(limit)
     
     
