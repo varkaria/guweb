@@ -355,7 +355,7 @@ function getScoreMods(m) {
 	if (r.length > 0) {
 		return r.slice();
 	} else {
-		return '';
+		return 'NM';
 	}
 }
 
