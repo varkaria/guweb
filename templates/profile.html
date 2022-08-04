@@ -180,7 +180,7 @@
                     </div>
                     <div class="subtitle" v-else-if='data.status.online == true' :style="{
                         display: 'flex',
-                        gap: 0.5em
+                        gap: '0.5em'
                     }">
                         <a class='circle green'>●</a> {{ t('global.online') }}
                         <transition name="click">
@@ -225,8 +225,7 @@
                         <span class="mods-shorttext">{{ t('global.mode.VN') }}</span></a>
                     <a class="simple-banner-switch"
                         :class=" { 'selected': mods === 'rx', 'disabled': mode === 'mania' }"
-                        @click="ChangeModeMods(mode,'rx')"><span class="mods-fulltext">{{ t('global.mode.relax')
-                            }}</span>
+                        @click="ChangeModeMods(mode,'rx')"><span class="mods-fulltext">{{ t('global.mode.relax') }}</span>
                         <span class="mods-shorttext">{{ t('global.mode.RX') }}</span></a>
                     <a class="simple-banner-switch"
                         :class=" { 'selected': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
