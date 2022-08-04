@@ -70,6 +70,7 @@
                     </div>
                 </div>
             </div>
+            {% if config().discord_invite_id %}
             <div class="bordertitle">
                 <div class="titlewithsub">
                     <h1 class="title is-left">{{ t('verify.oh-crap-i-am-stuck') }}</h1>
@@ -85,6 +86,7 @@
                     </div>
                 </a>
             </div>
+            {% endif %}
             <div class="box is-block is-paddingless is-marginless is-waiting">
                 <div class="columns flex is-paddingless is-marginless">
                     <div class="column flex flex-vcenter">

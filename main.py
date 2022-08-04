@@ -58,7 +58,7 @@ def appVersion() -> str:
 
 @app.template_global()
 def t(key, **kwargs) -> str:
-    kwargs['locale'] = session.get('lang', 'zh_CN')
+    kwargs['locale'] = session.get('lang', glob.config.default_locale)
     try:
         return i18n.t(key, **kwargs)
     except:
@@ -123,6 +123,10 @@ def handle_timestamp(timestamp):
 @app.template_global()
 def domain() -> str:
     return glob.config.domain
+
+@app.template_global()
+def config():
+    return glob.config
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)
