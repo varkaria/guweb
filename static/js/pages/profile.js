@@ -1,8 +1,7 @@
-// @ts-check
 _testGlobals(
     { exists: ['mode', 'mods', 'userid', 'domain'] }
 )
-// @ts-ignore
+
 new Vue({
     el: "#app",
     delimiters: ["<%", "%>"],
