@@ -359,7 +359,7 @@ async def profile_select(id):
         return (await render_template('404.html'), 404)
 
     is_staff = 'authenticated' in session and session['user_data']['is_staff']
-    if not user_data or not (user_data['priv'] & Privileges.Normal or is_staff):
+    if not user_data or not (user_data['priv'] & Privileges.Unrestricted or is_staff):
         return (await render_template('404.html'), 404)
 
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
