@@ -1,7 +1,7 @@
 Table of Contents
 ==================
 - [Table of Contents](#table-of-contents)
-  - [What is ppy-sb-guweb?](#what-is-ppy-sb-guweb)
+  - [What is guweb?](#what-is-guweb)
   - [Requirements](#requirements)
   - [Setup](#setup)
   - [Translation](#translation)
@@ -12,7 +12,7 @@ Table of Contents
   - [The team](#the-team)
   - [The End](#the-end)
 
-What is ppy-sb-guweb?
+What is guweb?
 ------
 
 guweb is the front-facing appearance of the osu! server protocol, [gulag](https://github.com/cmyui/gulag)!
@@ -121,6 +121,7 @@ The team
 ------
 - [Yoru](https://github.com/Yo-ru) | Backend, Grammar Checking [Deprecated]
 - [Varkaria](https://github.com/Varkaria) | Frontend, Backend?
+- [ppysb-Team](https://github.com/ppy-sb) | i18n, Maintainer
 
 The End
 ------
