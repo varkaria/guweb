@@ -1,16 +1,16 @@
 Table of Contents
 ==================
 - [Table of Contents](#table-of-contents)
-  - [What is guweb?](#what-is-guweb)
-  - [Requirements](#requirements)
-  - [Setup](#setup)
-  - [Translation](#translation)
-    - [requirements](#requirements-1)
-    - [prepare](#prepare)
-    - [how to](#how-to)
-  - [Directory Structure](#directory-structure)
-  - [The team](#the-team)
-  - [The End](#the-end)
+    - [What is guweb?](#what-is-guweb)
+    - [Requirements](#requirements)
+    - [Setup](#setup)
+    - [Translation](#translation)
+        - [requirements](#requirements-1)
+        - [prepare](#prepare)
+        - [how to](#how-to)
+    - [Directory Structure](#directory-structure)
+    - [The team](#the-team)
+    - [The End](#the-end)
 
 What is guweb?
 ------

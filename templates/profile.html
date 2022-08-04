@@ -10,8 +10,8 @@
         </div>
     </div>
     <div class="stats-block rank-block" style="padding: 12.5px;">
-        <article>
-            {{ user['userpage_content']|safe }}
+        <article class="reset-bulma-style">
+            {{ render_markdown(user['userpage_content']) | safe }}
         </article>
     </div>
 </div>
@@ -159,6 +159,26 @@
 <style>
     .rounded-sm {
         border-radius: 0.5em;
+    }
+    .reset-bulma-style {
+
+    }
+
+    .reset-bulma-style h1,
+    .reset-bulma-style h2,
+    .reset-bulma-style h3,
+    .reset-bulma-style h4,
+    .reset-bulma-style h5,
+    .reset-bulma-style h6 {
+        font-size: initial;
+        font-weight: initial;
+    }
+    .reset-bulma-style ul,
+    .reset-bulma-style li {
+        list-style: initial;
+        padding: initial;
+        margin: initial;
+        margin-left: 1em
     }
 </style>
 {% endblock %}

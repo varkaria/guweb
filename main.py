@@ -7,6 +7,8 @@ import os
 import time
 from objects.privileges import Privileges
 
+import markdown2
+
 import aiohttp
 import i18n
 import orjson
@@ -124,6 +126,10 @@ def domain() -> str:
 @app.template_global()
 def config():
     return glob.config
+
+@app.template_global()
+def render_markdown(md: str) -> str:
+    return markdown2.markdown(md)
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)
