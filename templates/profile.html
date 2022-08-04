@@ -11,7 +11,7 @@
     </div>
     <div class="stats-block rank-block" style="padding: 12.5px;">
         <article class="reset-bulma-style">
-            {{ render_markdown(user['userpage_content']) | safe }}
+            <div>{{ render_markdown(user['userpage_content']) | safe }}</div>
         </article>
     </div>
 </div>
@@ -160,25 +160,168 @@
     .rounded-sm {
         border-radius: 0.5em;
     }
-    .reset-bulma-style {
 
-    }
-
+    .reset-bulma-style div,
+    .reset-bulma-style span,
+    .reset-bulma-style applet,
+    .reset-bulma-style object,
+    .reset-bulma-style iframe,
     .reset-bulma-style h1,
     .reset-bulma-style h2,
     .reset-bulma-style h3,
     .reset-bulma-style h4,
     .reset-bulma-style h5,
-    .reset-bulma-style h6 {
+    .reset-bulma-style h6,
+    .reset-bulma-style p,
+    .reset-bulma-style blockquote,
+    .reset-bulma-style pre,
+    .reset-bulma-style a,
+    .reset-bulma-style abbr,
+    .reset-bulma-style acronym,
+    .reset-bulma-style address,
+    .reset-bulma-style big,
+    .reset-bulma-style cite,
+    .reset-bulma-style code,
+    .reset-bulma-style del,
+    .reset-bulma-style dfn,
+    .reset-bulma-style em,
+    .reset-bulma-style img,
+    .reset-bulma-style ins,
+    .reset-bulma-style kbd,
+    .reset-bulma-style q,
+    .reset-bulma-style s,
+    .reset-bulma-style samp,
+    .reset-bulma-style small,
+    .reset-bulma-style strike,
+    .reset-bulma-style strong,
+    .reset-bulma-style sub,
+    .reset-bulma-style sup,
+    .reset-bulma-style tt,
+    .reset-bulma-style var,
+    .reset-bulma-style b,
+    .reset-bulma-style u,
+    .reset-bulma-style i,
+    .reset-bulma-style center,
+    .reset-bulma-style dl,
+    .reset-bulma-style dt,
+    .reset-bulma-style dd,
+    .reset-bulma-style ol,
+    .reset-bulma-style ul,
+    .reset-bulma-style li,
+    .reset-bulma-style fieldset,
+    .reset-bulma-style form,
+    .reset-bulma-style label,
+    .reset-bulma-style legend,
+    .reset-bulma-style table,
+    .reset-bulma-style caption,
+    .reset-bulma-style tbody,
+    .reset-bulma-style tfoot,
+    .reset-bulma-style thead,
+    .reset-bulma-style tr,
+    .reset-bulma-style th,
+    .reset-bulma-style td,
+    .reset-bulma-style article,
+    .reset-bulma-style aside,
+    .reset-bulma-style canvas,
+    .reset-bulma-style details,
+    .reset-bulma-style embed,
+    .reset-bulma-style figure,
+    .reset-bulma-style figcaption,
+    .reset-bulma-style footer,
+    .reset-bulma-style header,
+    .reset-bulma-style hgroup,
+    .reset-bulma-style menu,
+    .reset-bulma-style nav,
+    .reset-bulma-style output,
+    .reset-bulma-style ruby,
+    .reset-bulma-style section,
+    .reset-bulma-style summary,
+    .reset-bulma-style time,
+    .reset-bulma-style mark,
+    .reset-bulma-style audio,
+    .reset-bulma-style video {
+        margin: 0;
+        padding: 0;
+        border: 0;
         font-size: initial;
-        font-weight: initial;
+        font: inherit;
+        vertical-align: baseline;
     }
+
+
+    /* HTML5 display-role reset for older browsers */
+
+    article,
+    .reset-bulma-style aside,
+    .reset-bulma-style details,
+    .reset-bulma-style figcaption,
+    .reset-bulma-style figure,
+    .reset-bulma-style footer,
+    .reset-bulma-style header,
+    .reset-bulma-style hgroup,
+    .reset-bulma-style menu,
+    .reset-bulma-style nav,
+    .reset-bulma-style section {
+        display: block;
+    }
+
+    .reset-bulma-style body {
+        line-height: 1;
+    }
+
+    .reset-bulma-style ol,
+    .reset-bulma-style ul {
+        list-style: none;
+    }
+
+    .reset-bulma-style blockquote,
+    .reset-bulma-style q {
+        quotes: none;
+    }
+
+    .reset-bulma-style blockquote:before,
+    .reset-bulma-style blockquote:after,
+    .reset-bulma-style q:before,
+    .reset-bulma-style q:after {
+        content: '';
+        content: none;
+    }
+
+    .reset-bulma-style table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
     .reset-bulma-style ul,
     .reset-bulma-style li {
         list-style: initial;
         padding: initial;
         margin: initial;
-        margin-left: 1em
+        margin-left: 1em;
+    }
+
+    .reset-bulma-style h1 {
+        font-size: 2.5em;
+    }
+
+    .reset-bulma-style h2 {
+        font-size: 2em;
+    }
+
+    .reset-bulma-style h3 {
+        font-size: 1.67em;
+    }
+
+    .reset-bulma-style h4 {
+        font-size: 1.33em;
+    }
+
+    .reset-bulma-style h5 {
+        font-size: 1em;
+    }
+
+    .reset-bulma-style h6 {
+        font-size: 0.5em;
     }
 </style>
 {% endblock %}
@@ -245,7 +388,8 @@
                         <span class="mods-shorttext">{{ t('global.mode.VN') }}</span></a>
                     <a class="simple-banner-switch"
                         :class=" { 'selected': mods === 'rx', 'disabled': mode === 'mania' }"
-                        @click="ChangeModeMods(mode,'rx')"><span class="mods-fulltext">{{ t('global.mode.relax') }}</span>
+                        @click="ChangeModeMods(mode,'rx')"><span class="mods-fulltext">{{ t('global.mode.relax')
+                            }}</span>
                         <span class="mods-shorttext">{{ t('global.mode.RX') }}</span></a>
                     <a class="simple-banner-switch"
                         :class=" { 'selected': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
