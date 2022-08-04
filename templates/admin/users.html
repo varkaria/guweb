@@ -27,30 +27,30 @@
             onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
     </div>
     <div class="column is-paddingless flex-vcenter">
-        <h2 class="section-title">Users</h2>
-        <p class="section-lead">Welcome to users panel</p>
+        <h2 class="section-title">{{ t("admin.base.users") }}</h2>
+        <p class="section-lead">{{ t("admin.users.welcome-to-users-panel") }}</p>
     </div>
 </div>
 <div class="card" style="margin-top: 20px">
     <div class="columns">
         <div class="column px-3 pb-2 pt-4 d-flex gap-2">
-            <input id="search-bar" class="input" v-model.trim="search" placeholder="Search by username or email"
+            <input id="search-bar" class="input" v-model.trim="search" placeholder='{{t("admin.users.search-by-username-or-email")}}'
                 value="{{ search_value }}">
-            <a class="button is-primary" onclick="admin_search()">Search</a>
+            <a class="button is-primary" onclick="admin_search()">{{t("admin.users.search")}}</a>
         </div>
     </div>
     <div class="table-responsive">
         <table class="table card-table table-vcenter text-nowrap datatable rounded">
             <thead>
                 <tr>
-                    <th class="has-text-right">ID</th>
-                    <th>Flag | Username</th>
-                    <th class="has-text-centered">Privilege</th>
-                    <th class="has-text-centered">Last login</th>
-                    <th class="has-text-centered">Joined at</th>
-                    <th class="has-text-centered">Client channel</th>
-                    <th class="has-text-centered">Email</th>
-                    <th class="has-text-centered">IP</th>
+                    <th class="has-text-right">{{t("admin.users.id")}}</th>
+                    <th>{{t("admin.users.flag-or-username")}}</th>
+                    <th class="has-text-centered">{{t("admin.users.privilege")}}</th>
+                    <th class="has-text-centered">{{t("admin.users.last-login")}}</th>
+                    <th class="has-text-centered">{{t("admin.users.joined-at")}}</th>
+                    <th class="has-text-centered">{{t("admin.users.client-channel")}}</th>
+                    <th class="has-text-centered">{{t("admin.users.email")}}</th>
+                    <th class="has-text-centered">{{t("admin.users.ip")}}</th>
                     <th class="has-text-centered"></th>
                 </tr>
             </thead>
@@ -97,7 +97,7 @@
                     </td>
                     <td class="has-text-centered">
                         <a class="btn text-nowrap" href="/admin/users/edit/{{ i.id }}">
-                            <i class="far fa-edit" aria-hidden="true"></i> Edit
+                            <i class="far fa-edit" aria-hidden="true"></i> {{t("admin.users.edit")}}
                         </a>
                     </td>
                 </tr>

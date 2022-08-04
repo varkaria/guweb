@@ -24,8 +24,8 @@
         onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
     </div>
     <div class="column is-paddingless flex-vcenter">
-      <h2 class="section-title">Restrictions</h2>
-      <p class="section-lead">Welcome to restrictions panel</p>
+      <h2 class="section-title">{{t("admin.base.restrictions")}}</h2>
+      <p class="section-lead">{{t("admin.restrictions.welcome-to-restrictions-panel")}}</p>
     </div>
 </div>
 <div class="row row-deck row-cards" style="margin-top: 20px">
@@ -35,11 +35,11 @@
                 <table class="table table-vcenter text-nowrap datatable rounded">
                     <thead>
                         <tr>
-                            <th class="has-text-right">ID</th>
-                            <th>Flag | Username</th>
-                            <th class="has-text-centered">Details</th>
-                            <th class="has-text-centered">Date</th>
-                            <th class="has-text-centered">Action</th>
+                            <th class="has-text-right">{{t("admin.users.id")}}</th>
+                            <th>{{t("admin.users.flag-or-username")}}</th>
+                            <th class="has-text-centered">{{t("admin.restrictions.details")}}</th>
+                            <th class="has-text-centered">{{t("admin.restrictions.date")}}</th>
+                            <th class="has-text-centered">{{t("admin.restrictions.action")}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,7 +62,7 @@
                             </td>
                             <td>
                                 <a class="btn text-nowrap" href="/admin/users/edit/{{ i.id }}">
-                                    <i class="far fa-edit" aria-hidden="true"></i> Edit
+                                    <i class="far fa-edit" aria-hidden="true"></i> {{t("admin.users.edit")}}
                                 </a>
                             </td>
                         </tr>

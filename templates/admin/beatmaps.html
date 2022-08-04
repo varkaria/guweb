@@ -54,68 +54,68 @@
             onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
     </div>
     <div class="column is-paddingless flex-vcenter">
-        <h2 class="section-title">Beatmaps</h2>
-        <p class="section-lead">Welcome to beatmaps panel</p>
+        <h2 class="section-title">{{t("admin.base.beatmaps")}}</h2>
+        <p class="section-lead">{{t("admin.beatmaps.welcome-to-beatmaps-panel")}}</p>
     </div>
 </div>
 <div class="row row-deck row-cards" style="margin-top: 20px">
     <div class="columns is-marginless is-paddingless">
         <div class="column is-paddingless pr-3 py-3">
-            <a href="/admin/beatmaps/osu" class="button" style="width: 100%; margin-bottom: 10px">osu!</a>
+            <a href="/admin/beatmaps/osu" class="button" style="width: 100%; margin-bottom: 10px">{{t("global.mode.osu")}}</a>
             <div class="card has-text-right">
                 <i class="fa fa-plus"></i>
-                <div class="title">Total beatmaps</div>
+                <div class="title">{{t("admin.beatmaps.total-beatmaps")}}</div>
                 <div class="value">{{ counts['total'] }}</div>
-                <div class="stat has-text-left">That's a lot of maps</div>
+                <div class="stat has-text-left">{{t("admin.beatmaps.thats-a-lot-of-maps")}}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
-            <a href="/admin/beatmaps/taiko" class="button" style="width: 100%; margin-bottom: 10px">osu!taiko</a>
+            <a href="/admin/beatmaps/taiko" class="button" style="width: 100%; margin-bottom: 10px">{{t("global.mode.taiko")}}</a>
             <div class="card has-text-right">
                 <i class="fa fa-bolt"></i>
-                <div class="title">Ranked</div>
+                <div class="title">{{t("admin.beatmaps.ranked")}}</div>
                 <div class="value">{{ counts['ranked'] }}</div>
-                <div class="stat has-text-left">These maps can gain many pp</div>
+                <div class="stat has-text-left">{{t("admin.beatmaps.these-maps-can-gain-many-pp")}}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
-            <a href="/admin/beatmaps/catch" class="button" style="width: 100%; margin-bottom: 10px">osu!catch</a>
+            <a href="/admin/beatmaps/catch" class="button" style="width: 100%; margin-bottom: 10px">{{t("global.mode.catch")}}</a>
             <div class="card has-text-right">
                 <i class="fa fa-heart"></i>
-                <div class="title">Loved</div>
-                <div class="value">{{ counts['loved'] }}</div>
-                <div class="stat has-text-left">We loved them so much</div>
+                <div class="title">{{t("admin.beatmaps.loved")}}</div>
+                <div class="value"> {{counts['loved'] }}</div>
+                <div class="stat has-text-left">{{t("admin.beatmaps.we-loved-them-so-much")}}</div>
             </div>
         </div>
         <div class="column is-paddingless pl-3 py-3">
-            <a href="/admin/beatmaps/mania" class="button" style="width: 100%; margin-bottom: 10px">osu!mania</a>
+            <a href="/admin/beatmaps/mania" class="button" style="width: 100%; margin-bottom: 10px">{{t("global.mode.mania")}}</a>
             <div class="card has-text-right">
                 <i class="fa fa-arrows-rotate"></i>
-                <div class="title">Pending</div>
+                <div class="title">{{t("admin.beatmaps.pending")}}</div>
                 <div class="value">{{ counts['pending'] }}</div>
-                <div class="stat has-text-left">They are also good maps</div>
+                <div class="stat has-text-left">{{t("admin.beatmaps.they-are-also-good-maps")}}</div>
             </div>
         </div>
     </div>
     <div class="p-0 d-flex gap-2 py-3">
         <input id="search-bar" class="input" value="{{ search_word }}">
-        <button onclick="map_admin_search('bid')" class="button" style="width: 200px">Search by BID</button>
-        <button onclick="map_admin_search('sid')" class="button" style="width: 200px">Search by SID</button>
-        <button onclick="map_admin_search('name')" class="button" style="width: 200px">Search by Name</button>
+        <button onclick="map_admin_search('bid')" class="button" style="width: 200px">{{t("admin.beatmaps.search-by-bid")}}</button>
+        <button onclick="map_admin_search('sid')" class="button" style="width: 200px">{{t("admin.beatmaps.search-by-sid")}}</button>
+        <button onclick="map_admin_search('name')" class="button" style="width: 200px">{{t("admin.beatmaps.search-by-name")}}</button>
     </div>
     <div class="table-responsive py-3">
         <table class="table rounded">
             <thead>
                 <tr class="i-text-no-wrap">
-                    <th class="has-text-centered" style="width: 400px">Beatmap</th>
-                    <th class="has-text-right">CS / Keys</th>
-                    <th class="has-text-right">AR</th>
-                    <th class="has-text-right">HP</th>
-                    <th class="has-text-right">OD</th>
-                    <th class="has-text-right">BPM</th>
-                    <th class="has-text-right">Stars</th>
-                    <th class="has-text-centered">Status</th>
-                    <th class="has-text-centered">Actions</th>
+                    <th class="has-text-centered" style="width: 400px">{{t("admin.beatmaps.beatmap")}}</th>
+                    <th class="has-text-right">{{t("admin.beatmaps.cs-keys")}}</th>
+                    <th class="has-text-right">{{t("admin.beatmaps.ar")}}</th>
+                    <th class="has-text-right">{{t("admin.beatmaps.hp")}}</th>
+                    <th class="has-text-right">{{t("admin.beatmaps.od")}}</th>
+                    <th class="has-text-right">{{t("admin.beatmaps.bpm")}}</th>
+                    <th class="has-text-right">{{t("admin.beatmaps.stars")}}</th>
+                    <th class="has-text-centered">{{t("admin.beatmaps.status")}}</th>
+                    <th class="has-text-centered">{{t("admin.restrictions.action")}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -166,7 +166,7 @@
                         <div class="dropdown is-right" id="i-dropdown-{{ i.map_id }}">
                             <div class="dropdown-trigger">
                                 <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" onclick="document.getElementById('i-dropdown-{{ i.map_id }}').classList.toggle('is-active')">
-                                    <span>Edit status</span>
+                                    <span>{{t("admin.beatmaps.edit-status")}}</span>
                                     <span class="icon is-small">
                                         <i class="fas fa-angle-down" aria-hidden="true"></i>
                                     </span>
