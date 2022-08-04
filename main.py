@@ -132,7 +132,10 @@ def config():
 def render_markdown(md: str) -> str:
     return markdown2.markdown(html.unescape(md), extras=[
         'tables',
-        'nl2br'
+        'break-on-newline',
+        'fenced-code-blocks',
+        'spoiler',
+        'strike'
     ])
 
 from blueprints.frontend import frontend
