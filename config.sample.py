@@ -16,6 +16,7 @@ _secret_key = os.environ.get("GUWEB_SECRET_KEY")
 _domain = os.environ.get("GUWEB_DOMAIN")
 _path_to_bancho_py = os.environ.get("GUWEB_PATH_TO_BANCHO_PY")
 _discord_invite_id = os.environ.get("DISCORD_INVITE_ID")
+_default_locale = os.environ.get("GUWEB_default_locale")
 
 _registration_allowed = os.environ.get("GUWEB_REGISTRATION_ALLOWED")
 # end env
@@ -42,7 +43,8 @@ mysql = {
     'password': _db_password if _db_password is not None else '',
 }
 
-# path to gulag root (must have leading and following slash)
+# path to gulag root (must have leading and following slash),
+# you don't need to change this assume you put /guweb and /bancho.py in the same folder.
 path_to_gulag = _path_to_bancho_py if _path_to_bancho_py is not None else os.path.join(os.getcwd(), '../bancho.py') + '/'
 
 # enable debug (disable when in production to improve performance)
@@ -61,6 +63,8 @@ disallowed_passwords = {
 
 # enable registration
 registration = _registration_allowed if _registration_allowed is not None else True
+
+default_locale = _default_locale if _default_locale is not None else 'en_GB'
 
 # social links (used throughout guweb)
 github = 'https://github.com/ppy-sb/guweb'
