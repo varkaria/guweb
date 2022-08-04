@@ -3,7 +3,8 @@
 #不能放入main.py当中,会产生循环导入
 #(待翻译成en)
 
-from quart import Blueprint, Quart, session
+from quart import Quart, session
+from objects import glob
 
 import i18n
 
