@@ -2,6 +2,7 @@
 
 __all__ = ()
 
+from curses.ascii import isdigit
 from functools import wraps
 from quart import Blueprint
 from quart import render_template
@@ -152,13 +153,14 @@ async def beatmaps_search(q: str):
         "pending": query['p'], 
         "total": query['t']
     }
+    numq = int(q) if q.isdigit() else 0
     beatmaps = await glob.db.fetchall(
         'SELECT set_id, id AS `map_id`, status, '
         'artist, title, version AS `diff_name`, '
         'total_length AS length, creator, mode, '
         'cs, od, ar, hp, bpm, ROUND(diff, 2) AS `stars` '
         'FROM maps WHERE id=%s OR set_id=%s OR title like %s ORDER BY id DESC '
-        'LIMIT 50 OFFSET 0', [q, q, q + '%']
+        'LIMIT 50 OFFSET 0', [numq, numq, q + '%']
     )
     return await render_template('admin/beatmaps.html', counts=counts, bmap_query=beatmaps, search_word=q)
 
