@@ -233,11 +233,11 @@ async def settings_aboutme():
 async def settings_aboutme_post():
     form = await request.form
     userpage_content = form.get('userpage_content', type=str)
-    old_content = (await glob.db.fetch('SELECT userpage_content FROM users WHERE id = %s', [session['user_data']['id']]))['userpage_content']
-    if '<iframe' in userpage_content or '<script' in userpage_content:
-        return await render_template('settings/aboutme.html', flash='Not allowed method', status='error', userpage_content=old_content)
+    safe_content = userpage_content.lower()
+    if '<iframe' in safe_content or '<script' in safe_content:
+        return await render_template('settings/aboutme.html', flash='Not allowed method', status='error', userpage_content=userpage_content)
     if (len(userpage_content) > 2048):
-        return await render_template('settings/aboutme.html', flash='Too long text', status='error', userpage_content=old_content)
+        return await render_template('settings/aboutme.html', flash='Too long text', status='error', userpage_content=userpage_content)
     await glob.db.execute(
             'UPDATE users '
             'SET userpage_content = %s '
