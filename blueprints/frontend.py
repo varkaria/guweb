@@ -439,7 +439,7 @@ async def login_post():
         return await render_template('verify.html')
 
     # user banned; deny post
-    if not user_info['priv'] & Privileges.Normal:
+    if not user_info['priv'] & Privileges.Unrestricted:
         if glob.config.debug:
             log(f"{username}'s login failed - banned.", Ansi.RED)
         return await flash('error', t('login.restricted-not-allowed-to-login'), 'login')
