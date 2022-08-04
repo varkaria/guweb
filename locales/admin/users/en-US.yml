@@ -1,0 +1,19 @@
+welcome-to-users-panel: Welcome to users panel
+search: Search
+id: ID
+flag-or-username: Flag | Username
+privilege: Privilege
+last-login: Last Login
+joined-at: Joined at
+client-channel: Client channel
+email: Email
+ip: IP
+edit: Edit
+edit-info-of: Edit Info of
+username: Username
+country: Country
+legality: Legality
+unrestricted: Unrestricted
+restricted: Restricted
+update: Update
+search-by-username-or-email: Search by username or email
