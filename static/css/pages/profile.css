@@ -722,10 +722,10 @@ span.beatmap-mapper {
 }
 
 .online-infomation {
-  position: absolute;
-  top: 18px;
-  left: 42px;
-  padding: 0.5em 15px;
+  /* position: absolute;
+  bottom: 18px;
+  right: 42px; */
+  padding: 0.3em 1em;
   background: #00000040;
   border-radius: 6px;
 }
