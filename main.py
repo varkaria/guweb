@@ -8,6 +8,7 @@ import time
 from objects.privileges import Privileges
 
 import markdown2
+import html
 
 import aiohttp
 import i18n
@@ -129,7 +130,10 @@ def config():
 
 @app.template_global()
 def render_markdown(md: str) -> str:
-    return markdown2.markdown(md)
+    return markdown2.markdown(html.unescape(md), extras=[
+        'tables',
+        'nl2br'
+    ])
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)
