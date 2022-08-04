@@ -344,7 +344,8 @@
                     </div>
                     <div class="subtitle" v-else-if='data.status.online == true' :style="{
                         display: 'flex',
-                        gap: '0.5em'
+                        gap: '0.5em',
+                        alignItems: 'center'
                     }">
                         <a class='circle green'>●</a> {{ t('global.online') }}
                         <transition name="click">
