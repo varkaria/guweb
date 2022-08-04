@@ -5,6 +5,9 @@ __all__ = ()
 
 import os
 import random
+import time
+from datetime import datetime
+from constants.privileges import Privileges
 
 import aiohttp
 import i18n
@@ -22,7 +25,7 @@ from objects import glob
 
 app = Quart(__name__)
 
-version = Version(1, 3, 0)
+version = Version(1, 3, 3)
 
 # used to secure session data.
 # we recommend using a long randomly generated ascii string.
@@ -69,12 +72,53 @@ def appName() -> str:
     return glob.config.app_name
 
 @app.template_global()
-def rand() -> str:
-    return str(random.randint(0,100000))
+def decode_priv(target_priv: int) -> str:
+    priv_list = [
+                    priv.name for priv in Privileges if target_priv & priv and bin(priv).count("1") == 1
+                ][::-1]
+    if 'legit' in priv_list:
+        priv_list.remove('legit')
+    else:
+        priv_list.append('banned')
+    if 'active' not in priv_list:
+        priv_list.append('inactive')
+    return ', '.join(priv_list)
+
+@app.template_global()
+def decode_map_status(status: int) -> str:
+    if status == -1:
+        return 'NotSubmitted'
+    if status == 0:
+        return 'Pending'
+    if status == 1:
+        return 'UpdateAvailable'
+    if status == 2:
+        return 'Ranked'
+    if status == 3:
+        return 'Approved'
+    if status == 4:
+        return 'Qualified'
+    if status == 5:
+        return 'Loved'
+
+    priv_list = [
+                    priv.name for priv in Privileges if target_priv & priv and bin(priv).count("1") == 1
+                ][::-1]
+    if 'legit' in priv_list:
+        priv_list.remove('legit')
+    else:
+        priv_list.append('banned')
+    if 'active' not in priv_list:
+        priv_list.append('inactive')
+    return ', '.join(priv_list)
 
 @app.template_global()
 def captchaKey() -> str:
     return glob.config.hCaptcha_sitekey
+
+@app.template_global()
+def handle_timestamp(timestamp):
+    return time.strftime("%Y-%m-%d %H:%M", time.localtime(int(timestamp)))
 
 @app.template_global()
 def domain() -> str:
@@ -93,4 +137,4 @@ async def page_not_found(e):
 
 if __name__ == '__main__':
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    app.run(port=10000, debug=glob.config.debug)  # blocking call
+    app.run(host='0.0.0.0', port=10000, debug=glob.config.debug)  # blocking call

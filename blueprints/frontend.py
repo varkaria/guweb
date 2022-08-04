@@ -6,6 +6,7 @@ import bcrypt
 import hashlib
 import os
 import time
+import uuid
 
 
 from cmyui.logging import Ansi
@@ -19,6 +20,7 @@ from quart import render_template
 from quart import request
 from quart import session
 from quart import send_file
+from quart import jsonify
 
 from constants import regexes
 from objects import glob
@@ -80,9 +82,6 @@ async def settings_profile_post():
         return await flash('error', t('settings.profile.no-changes-have-been-made'), 'settings/profile')
 
     if new_name != old_name:
-        if not session['user_data']['is_donator']:
-            return await flash('error', t('settings.profile.username-changes-supporter-only'), 'settings/profile')
-
         # Usernames must:
         # - be within 2-15 characters in length
         # - not contain both ' ' and '_', one is fine
@@ -220,11 +219,42 @@ async def settings_custom_post():
 
     return await flash_with_customizations('success', t('settings.change-succeed', something = t('settings.customization').lower()), 'settings/custom')
 
+@frontend.route('/settings/aboutme')
+@login_required
+async def settings_aboutme():
+    user = await glob.db.fetch(
+        'SELECT userpage_content FROM users WHERE id = %s',
+        [session['user_data']['id']]
+    )
+    return await render_template('settings/aboutme.html', userpage_content=user['userpage_content'])
+
+@frontend.route('/settings/aboutme', methods=['POST'])
+@login_required
+async def settings_aboutme_post():
+    form = await request.form
+    userpage_content = form.get('userpage_content', type=str)
+    old_content = (await glob.db.fetch('SELECT userpage_content FROM users WHERE id = %s', [session['user_data']['id']]))['userpage_content']
+    if '<iframe' in userpage_content or '<script' in userpage_content:
+        return await render_template('settings/aboutme.html', flash='Not allowed method', status='error', userpage_content=old_content)
+    if (len(userpage_content) > 2048):
+        return await render_template('settings/aboutme.html', flash='Too long text', status='error', userpage_content=old_content)
+    await glob.db.execute(
+            'UPDATE users '
+            'SET userpage_content = %s '
+            'WHERE id = %s',
+            [userpage_content, session['user_data']['id']]
+        )
+    session['user_data']['userpage_content'] = userpage_content
+    return await render_template('settings/aboutme.html', userpage_content=userpage_content)
 
 @frontend.route('/settings/password')
 @login_required
 async def settings_password():
     return await render_template('settings/password.html')
+
+@frontend.route('/forgot')
+async def reset_password():
+    return await render_template('forgot.html')
 
 @frontend.route('/settings/password', methods=["POST"])
 @login_required
@@ -308,14 +338,14 @@ async def profile_select(id):
     mode = request.args.get('mode', 'std', type=str) # 1. key 2. default value
     mods = request.args.get('mods', 'vn', type=str)
     user_data = await glob.db.fetch(
-        'SELECT name, safe_name, id, priv, country '
+        'SELECT name, safe_name, id, priv, country, userpage_content '
         'FROM users '
         'WHERE safe_name = %s OR id = %s LIMIT 1',
         [utils.get_safe_name(id), id]
     )
 
-    # no user
-    if not user_data:
+    # no user and no bot page
+    if not user_data or user_data["id"] == 1:
         return (await render_template('404.html'), 404)
 
     # make sure mode & mods are valid args
@@ -365,7 +395,7 @@ async def login_post():
     # check if account exists
     user_info = await glob.db.fetch(
         'SELECT id, name, email, priv, '
-        'pw_bcrypt, silence_end '
+        'pw_bcrypt, silence_end, api_key, userpage_content '
         'FROM users '
         'WHERE safe_name = %s',
         [utils.get_safe_name(username)]
@@ -411,6 +441,15 @@ async def login_post():
             log(f"{username}'s login failed - banned.", Ansi.RED)
         return await flash('error', t('login.restricted-not-allowed-to-login'), 'login')
 
+    api_key = user_info['api_key']
+
+    if api_key is None:
+        api_key = str(uuid.uuid4())
+        await glob.db.execute(
+        "UPDATE users SET api_key = %s WHERE id = %s",
+        [api_key, user_info['id']]
+    )
+
     # login successful; store session data
     if glob.config.debug:
         log(f"{username}'s login succeeded.", Ansi.LGREEN)
@@ -421,8 +460,11 @@ async def login_post():
         'name': user_info['name'],
         'email': user_info['email'],
         'priv': user_info['priv'],
+        'api_key': api_key,
         'silence_end': user_info['silence_end'],
+        'userpage_content': user_info['userpage_content'],
         'is_staff': user_info['priv'] & Privileges.Staff != 0,
+        'is_bn': user_info['priv'] & Privileges.Nominator != 0,
         'is_donator': user_info['priv'] & Privileges.Donator != 0
     }
 
@@ -573,6 +615,28 @@ async def logout():
     # render login
     return await flash('success', t('logout.succeed'), 'login')
 
+@frontend.route('/search')
+async def search_user():
+    q = request.args.get('q', type=str)
+    if not q:
+        return b'{}'
+
+    res = await glob.db.fetchall(
+        'SELECT id, name '
+        'FROM `users` '
+        'WHERE priv >= 3 '
+        'AND ('
+        '   `name` LIKE %s '
+        '   OR CONVERT(`id`, char) LIKE %s '
+        ') LIMIT 5',
+        [q + '%%', q + '%%']
+    )
+
+    if (len(res) == 0):
+        return b'{}'
+    else:
+        return jsonify(res) 
+
 # social media redirections
 
 @frontend.route('/github')
@@ -611,10 +675,11 @@ async def get_profile_banner(user_id: int):
 
     return b'{"status":404}'
 
-@frontend.route('/language/<lang>')
-async def set_language(lang: str):
+@frontend.route('/language/<lang>/<path:path>')
+@frontend.route('/language/<lang>', defaults = {'path' : 'home'})
+async def set_language(lang: str, path: str):
     session['lang'] = lang
-    return redirect('/home')
+    return redirect('/' + path)
 
 
 @frontend.route('/backgrounds/<user_id>')

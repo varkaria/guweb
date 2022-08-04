@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %} {{ t('global.password') }} {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/pages/settings/style.css?v={{ appVersion() }} ">
+
+<div class="main-block">
+  {% include "settings/sidebar.html" %}
+  <div class="block-content right" id="settings-content">
+    <div id="general" class="single-right-block">
+      <div class="right-block-header">
+          About Me
+      </div>
+      <form style=" margin-left: 20px; margin-right: 20px;" action="/settings/aboutme" method="post" class="right-block-content">
+        <textarea name="userpage_content" class="input" style="max-width: 800px; min-height: 300px;">{{ userpage_content }}</textarea>
+        <button style="margin-top: 10px" class='button is-primary' type='submit'><span>{{ t('settings.save') }}</span><span class='icon is-small'><i class='fas fa-check'></i></span></button>
+      </form>
+    </div>
+  </div>
+</div>
+{% if flash %}
+<div class='noti-banner noti-banner-warning'>
+  <div class="container">
+    <div class="noti-column">
+      <div class='noti-col noti-col-icon'></div>
+      <div class='noti-col noti-col-label'>
+        <div class='noti-bannertype'>
+          {% if status=='error' %}
+            {{ t('global.warning') }}
+          {% elif status=='success' %}
+            {{ t('global.notice') }}
+          {% endif %}
+        </div>
+        <div class='noti-bannertext'>
+          {% if status=='error' %}
+            {{ t('global.error') }}
+          {% elif status=='success' %}
+            {{ t('global.success') }}
+          {% endif %}
+        </div>
+      </div>
+      <div class='noti-banner-text'>
+        {{ flash }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

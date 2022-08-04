@@ -1,0 +1,118 @@
+{% extends 'admin/base.html' %}
+{% block header %}
+<style>
+    .text-nowrap {
+        white-space: nowrap;
+    }
+
+    .rounded {
+        border-radius: 0.5rem;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .gap-2 {
+        grid-gap: 1em 1em;
+    }
+</style>
+{% endblock %}
+{% block title %} Users {% endblock %}
+
+{% block content %}
+<div class="columns is-marginless">
+    <div class="column is-paddingless is-avatar">
+        <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
+            onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
+    </div>
+    <div class="column is-paddingless flex-vcenter">
+        <h2 class="section-title">Users</h2>
+        <p class="section-lead">Welcome to users panel</p>
+    </div>
+</div>
+<div class="card" style="margin-top: 20px">
+    <div class="columns">
+        <div class="column px-3 pb-2 pt-4 d-flex gap-2">
+            <input id="search-bar" class="input" v-model.trim="search" placeholder="Search by username or email"
+                value="{{ search_value }}">
+            <a class="button is-primary" onclick="admin_search()">Search</a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table card-table table-vcenter text-nowrap datatable rounded">
+            <thead>
+                <tr>
+                    <th class="has-text-right">ID</th>
+                    <th>Flag | Username</th>
+                    <th class="has-text-centered">Privilege</th>
+                    <th class="has-text-centered">Last login</th>
+                    <th class="has-text-centered">Joined at</th>
+                    <th class="has-text-centered">Client channel</th>
+                    <th class="has-text-centered">Email</th>
+                    <th class="has-text-centered">IP</th>
+                    <th class="has-text-centered"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in query_data %}
+                <tr>
+                    <td class="has-text-right">{{ i.id }}</td>
+                    <td class="td-truncate text-nowrap">
+                        <img src="/static/images/flags/{{ i.country|upper }}.png" class="profile-flag"
+                            style="width: 25px; height: 17px; -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.63); box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);">
+                        <a class='ml-2' href="/u/{{ i.id }}">{{ i.name }}</a>
+                    </td>
+                    <td class="has-text-centered">{{ decode_priv(i.priv) }}</td>
+                    <td class="has-text-centered">
+                    {% if i.last_login %}{{ i.last_login }}
+                    {% else %} -
+                    {% endif %}
+                    </td>
+                    <td class="has-text-centered">{{ handle_timestamp(i.creation_time) }}</td>
+                    <td class="has-text-centered">
+                    {% if i.osu_stream %}
+                        <div class="tag
+                        {% if i.osu_stream == 'stable' %} is-primary
+                        {% elif i.osu_stream == 'beta' %} is-info
+                        {% elif i.osu_stream == 'cuttingedge' %} is-light
+                        {% elif i.osu_stream == 'tourney' %} is-dark
+                        {% elif i.osu_stream == 'fallback' %} is-warning
+                        {% else %} is-danger
+                        {% endif %}
+                        ">{{ i.osu_stream }}
+                        </div>
+                    {% else %} -
+                    {% endif %}
+                    </td>
+                    <td class="has-text-centered"><a href="mailto:{{ i.email }}">{{ i.email }}</a></td>
+                    <td class="has-text-centered">
+                        {% if i.ip != None %}
+                        <a target="_blank" href="https://whatismyipaddress.com/ip/{{ i.ip }}">
+                            {{ i.ip }}
+                        </a>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                    <td class="has-text-centered">
+                        <a class="btn text-nowrap" href="/admin/users/edit/{{ i.id }}">
+                            <i class="far fa-edit" aria-hidden="true"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $("#search-bar").keydown(function (e) {
+        if (e.keyCode == 13) {
+            admin_search()
+        }
+    });  
+</script>
+
+{% endblock content %}

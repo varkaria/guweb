@@ -58,7 +58,7 @@
 
 .sidebar .nav li>a+div .nav li>a {
     margin-top: 0;
-    padding: 8px 8px
+    padding: 0.5em 0.5em
 }
 
 .sidebar .nav li>a {
@@ -179,10 +179,6 @@
     flex-grow: 1
 }
 
-.columns {
-    margin-top: 53px
-}
-
 li {
     list-style-type: none;
     margin: 0;
@@ -227,7 +223,7 @@ li {
 }
 
 .card {
-    border-radius: 8px;
+    border-radius: 0.5em;
     color: #fff;
     padding: 10px;
     position: relative;
@@ -237,7 +233,7 @@ li {
 
 .card .stat {
     border-top: 1px solid rgba(255, 255, 255, .3);
-    font-size: 8px;
+    font-size: 0.5em;
     margin-top: 6px;
     padding: 10px 10px 0;
     text-transform: uppercase
@@ -245,7 +241,7 @@ li {
 
 .card .title {
     display: inline-block;
-    font-size: 8px;
+    font-size: 0.5em;
     padding: 10px 10px 0;
     text-transform: uppercase
 }
@@ -273,14 +269,14 @@ li {
 
 .user-block {
     display: flex;
-    border-radius: 8px;
+    border-radius: 0.5em;
     padding: 12px;
     font-weight: 700;
     line-height: 1.3;
     align-items: center;
     overflow: hidden;
     height: 76px;
-    margin-top: 8px
+    margin-top: 0.5em
 }
 
 .user-block {
@@ -289,7 +285,7 @@ li {
 }
 
 .user-block:hover {
-    box-shadow: 0 0 1px rgba(0, 0, 0, .04), 0 4px 8px rgba(0, 0, 0, .04), 0 16px 24px rgba(0, 0, 0, .04), 0 24px 32px rgba(0, 0, 0, .04);
+    box-shadow: 0 0 1px rgba(0, 0, 0, .04), 0 4px 0.5em rgba(0, 0, 0, .04), 0 16px 24px rgba(0, 0, 0, .04), 0 24px 32px rgba(0, 0, 0, .04);
     color: #fff;
     transform: translateY(-5px)
 }
@@ -297,7 +293,7 @@ li {
 .avatar-picture {
     width: 58px;
     border-radius: 6px;
-    margin-right: 8px
+    margin-right: 0.5em
 }
 
 .profile-flag {
@@ -328,7 +324,7 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-top: 8px;
+    margin-top: 0.5em;
     font-size: 16px;
     font-weight: 600;
     color: #fff;
@@ -358,7 +354,7 @@ li {
 }
 
 span.user-mapper {
-    padding-right: 8px
+    padding-right: 0.5em
 }
 
 .d-flex.align-items-baseline {
@@ -378,9 +374,9 @@ span.user-mapper {
     flex-direction: row;
     align-items: center;
     padding-right: 0;
-    margin: 8px 0 0 0;
-    padding: 8px;
-    border-radius: 8px;
+    margin: 0.5em 0 0 0;
+    padding: 0.5em;
+    border-radius: 0.5em;
     overflow: hidden;
     background: #413030;
     transition: .2s ease;
@@ -388,9 +384,9 @@ span.user-mapper {
 }
 
 .map-single:hover {
-    border-radius: 8px;
+    border-radius: 0.5em;
     transform: translateY(-5px);
-    box-shadow: 0 0 1px rgba(0, 0, 0, .04), 0 4px 8px rgba(0, 0, 0, .04), 0 16px 24px rgba(0, 0, 0, .04), 0 24px 32px rgba(0, 0, 0, .04)
+    box-shadow: 0 0 1px rgba(0, 0, 0, .04), 0 4px 0.5em rgba(0, 0, 0, .04), 0 16px 24px rgba(0, 0, 0, .04), 0 24px 32px rgba(0, 0, 0, .04)
 }
 
 .map-content1 {

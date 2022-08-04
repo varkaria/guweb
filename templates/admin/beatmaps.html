@@ -1,0 +1,224 @@
+{% extends 'admin/base.html' %}
+{% block header %}
+<style>
+    .rounded-sm {
+        border-radius: 7px !important;
+    }
+
+    .rounded {
+        border-radius: 0.5em
+    }
+
+    .h-100 {
+        height: 100%
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .gap-2 {
+        grid-gap: 1em 1em;
+    }
+
+    .i-text-no-wrap * {
+        white-space: nowrap;
+    }
+    .my-auto {
+        vertical-align: middle !important;
+    }
+    .progress {
+        position: fixed;
+        margin-top: -30px;
+        width: 85%;
+        z-index: 1;
+    }
+    .shadow {
+        filter: drop-shadow(0 0 0.5rem rgba(0,0,0,0.2));
+    }
+    .card .title, .card .stat {
+        font-size: 12px
+    }
+</style>
+{% endblock %}
+{% block title %} Beatmaps {% endblock %}
+
+{% block content %}
+<script>
+    window.api_key = '{{ session.user_data['api_key'] }}'
+</script>
+<progress id="progress_bar" class="progress is-small is-primary" max="100" style="display: none;"></progress>
+<div class="columns is-marginless">
+    <div class="column is-paddingless is-avatar">
+        <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
+            onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
+    </div>
+    <div class="column is-paddingless flex-vcenter">
+        <h2 class="section-title">Beatmaps</h2>
+        <p class="section-lead">Welcome to beatmaps panel</p>
+    </div>
+</div>
+<div class="row row-deck row-cards" style="margin-top: 20px">
+    <div class="columns is-marginless is-paddingless">
+        <div class="column is-paddingless pr-3 py-3">
+            <a href="/admin/beatmaps/osu" class="button" style="width: 100%; margin-bottom: 10px">osu!</a>
+            <div class="card has-text-right">
+                <i class="fa fa-plus"></i>
+                <div class="title">Total beatmaps</div>
+                <div class="value">{{ counts['total'] }}</div>
+                <div class="stat has-text-left">That's a lot of maps</div>
+            </div>
+        </div>
+        <div class="column is-paddingless p-3">
+            <a href="/admin/beatmaps/taiko" class="button" style="width: 100%; margin-bottom: 10px">osu!taiko</a>
+            <div class="card has-text-right">
+                <i class="fa fa-bolt"></i>
+                <div class="title">Ranked</div>
+                <div class="value">{{ counts['ranked'] }}</div>
+                <div class="stat has-text-left">These maps can gain many pp</div>
+            </div>
+        </div>
+        <div class="column is-paddingless p-3">
+            <a href="/admin/beatmaps/catch" class="button" style="width: 100%; margin-bottom: 10px">osu!catch</a>
+            <div class="card has-text-right">
+                <i class="fa fa-heart"></i>
+                <div class="title">Loved</div>
+                <div class="value">{{ counts['loved'] }}</div>
+                <div class="stat has-text-left">We loved them so much</div>
+            </div>
+        </div>
+        <div class="column is-paddingless pl-3 py-3">
+            <a href="/admin/beatmaps/mania" class="button" style="width: 100%; margin-bottom: 10px">osu!mania</a>
+            <div class="card has-text-right">
+                <i class="fa fa-arrows-rotate"></i>
+                <div class="title">Pending</div>
+                <div class="value">{{ counts['pending'] }}</div>
+                <div class="stat has-text-left">They are also good maps</div>
+            </div>
+        </div>
+    </div>
+    <div class="p-0 d-flex gap-2 py-3">
+        <input id="search-bar" class="input" value="{{ search_word }}">
+        <button onclick="map_admin_search('bid')" class="button" style="width: 200px">Search by BID</button>
+        <button onclick="map_admin_search('sid')" class="button" style="width: 200px">Search by SID</button>
+        <button onclick="map_admin_search('name')" class="button" style="width: 200px">Search by Name</button>
+    </div>
+    <div class="table-responsive py-3">
+        <table class="table rounded">
+            <thead>
+                <tr class="i-text-no-wrap">
+                    <th class="has-text-centered" style="width: 400px">Beatmap</th>
+                    <th class="has-text-right">CS / Keys</th>
+                    <th class="has-text-right">AR</th>
+                    <th class="has-text-right">HP</th>
+                    <th class="has-text-right">OD</th>
+                    <th class="has-text-right">BPM</th>
+                    <th class="has-text-right">Stars</th>
+                    <th class="has-text-centered">Status</th>
+                    <th class="has-text-centered">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in bmap_query %}
+                <tr>
+                    <td style="width: 400px">
+                        <div class="card p-0 m-0 shadow"
+                            style="background-image: url(https://assets.ppy.sh/beatmaps/{{ i.set_id }}/covers/cover.jpg); background-size: cover; height: 100px; width: 400px;">
+                            <div class="card-body rounded-sm h-100 p-4" style="background-color: rgba(0, 0, 0, 0.8);cursor:pointer; " onclick="window.open('https://osu.ppy.sh/beatmapsets/{{ i.set_id }}')">
+                                <a class="play-detail__title">{{ i.title }}
+                                    <small style="display: inline;">by {{ i.creator }}</small>
+                                </a>
+                                <span style="color: #ea0; font-size: 14px; display: block;">{{ i.diff_name }}</span>
+                                <div style="font-size: 14px; position: absolute;bottom: 1em; right: 1em; opacity: 0.7;">
+                                    bid: <span style="color: #ea0;">{{ i.map_id }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="!bigger_td my-auto has-text-right">
+                        {{ i.cs }}
+                    </td>
+                    <td class="!bigger_td my-auto has-text-right">
+                        {{ i.ar }}
+                    </td>
+                    <td class="!bigger_td my-auto has-text-right">
+                        {{ i.hp }}
+                    </td>
+                    <td class="!bigger_td my-auto has-text-right">
+                        {{ i.od }}
+                    </td>
+                    <td class="!bigger_td my-auto has-text-right">
+                        {{ i.bpm }}
+                    </td>
+                    <td class="!bigger_td my-auto has-text-right">
+                        {{ i.stars }}
+                    </td>
+                    <td class="!bigger_td my-auto has-text-centered">
+                        <div class="tag
+                        {% if i.status == 2 %} is-primary
+                        {% elif i.status == 3 %} is-warning
+                        {% elif i.status == 4 %} is-success 
+                        {% elif i.status == 5 %} is-danger 
+                        {% endif %}
+                        ">{{ decode_map_status(i.status) }}</div>
+                    </td>
+                    <td class="!bigger_td my-auto has-text-centered">
+                        <div class="dropdown is-right" id="i-dropdown-{{ i.map_id }}">
+                            <div class="dropdown-trigger">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" onclick="document.getElementById('i-dropdown-{{ i.map_id }}').classList.toggle('is-active')">
+                                    <span>Edit status</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu-{{ i.map_id }}" role="menu">
+                                <div class="dropdown-content has-background-primary">
+                                    <a class="dropdown-item {% if i.status == 2 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=2&set=0">To Ranked</a>
+                                    <a class="dropdown-item {#{% if i.status == 5 %} is-disabled {% endif %}#}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=5&set=0">To Loved</a>
+                                    <a class="dropdown-item {% if i.status == 3 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=3&set=0">To Approved</a>
+                                    <a class="dropdown-item {% if i.status == 1 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=0&set=0">To Pending</a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=2&set=1">Rank BeatmapSet</a>
+                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=5&set=1">Love BeatmapSet</a>
+                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=3&set=1">Approve BeatmapSet</a>
+                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=0&set=1">Pending BeatmapSet</a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item operate-button" href="javascript:void(0);" onclick="map_admin_force_update({{ i.set_id }})">
+                                        Sync Beatmapsets with Bancho
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<style>
+    .bigger_td {
+        line-height: 7;
+        font-size: 20;
+    }
+
+    .play-detail__title {
+        color: #fff;
+        font-size: 20px;
+        display: block;
+        align-self: flex-start;
+        max-width: 100%;
+    }
+</style>
+<script>$(document).ready(function () {
+        $(".dropdown .buttond").click(function () {
+            var dropdown = $(this).parents('.dropdown');
+            dropdown.toggleClass('is-active');
+            dropdown.focusout(function () {
+                $(this).removeClass('is-active');
+            });
+        });
+    });
+</script>
+{% endblock %}

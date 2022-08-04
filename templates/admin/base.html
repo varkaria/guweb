@@ -1,6 +1,8 @@
 <html>
 
 <head>
+  <!-- injection check -->
+  <script src="/static/js/_runtime-check.js"></script>
   <!-- title -->
   <title>{{ appName() }} - {{ t('admin.base.admin') }} - {% block title %}{% endblock %}</title>
 
@@ -19,19 +21,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- jquery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
-    integrity="sha512-/DXTXr6nQodMUiq+IUJYCt2PPOUjrHJ9wFrqpJ3XkgPNOZVfMok7cRw6CSxyCQxXn6ozlESsSh1/sMCTF1rL/g=="
-    crossorigin="anonymous"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>=
 
   <!-- bulma -->
-  <link rel="stylesheet" href="/static/css/bulma.css?v={{ rand() }}" />
+  <link rel="stylesheet" href="/static/css/bulma.css?v={{ appVersion() }} " />
 
   <!-- font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <!-- custom style -->
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/pages/admin/style.css">
+  <link rel="stylesheet" href="/static/css/style.css?v={{ appVersion() }} ">
+  <link rel="stylesheet" href="/static/css/pages/admin/style.css?v={{ appVersion() }} ">
 
   {% block header %}
   {% endblock %}
@@ -47,31 +47,26 @@
       <div class="colmun">
         <div class="sidebar">
           <div id="style-3" class="sidebar-wrapper">
-            <div class="logo"><a class="simple-text logo-normal">{{ t('admin.base.admin-panel', appName = appName()) }}</a></div>
+            <div class="logo"><a class="simple-text logo-normal">{{ t('admin.base.admin-panel', appName = appName())
+                }}</a></div>
             <ul class="nav">
-              <li class="nav-item"><a class="nav-link"><span class="icon"><i class="fa fa-home"></i></span> <span
-                    class="name">{{ t('admin.base.dashboard') }}</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/dashboard"><span class="icon"><i
+                      class="fa fa-home"></i></span> <span class="name">{{ t('admin.base.dashboard') }}</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/users"><span class="icon"><i
+                      class="fa fa-user"></i></span> <span class="name">Users</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/restrictions"><span class="icon"><i
+                      class="fa fa-ban"></i></span> <span class="name">Restrictions</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/beatmaps"><span class="icon"><i
+                      class="fa fa-map"></i></span> <span class="name">Beatmaps</span></a></li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="column content">
-        <div class="main-content">
-          <div class="columns is-marginless">
-            <div class="column is-paddingless is-avatar">
-              <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
-                onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
-            </div>
-            <div class="column is-paddingless flex-vcenter">
-              <h2 class="section-title">{{ t('admin.base.dashboard') }}</h2>
-              <p class="section-lead">{{ t('admin.base.welcome-to-admin-panel', appName = appName()) }}</p>
-            </div>
-          </div>
-          <section class="section">
-            {% block content %}
-            {% endblock %}
-          </section>
-        </div>
+      <div class="column content" style="min-height: 1000px;">
+        <section class="section">
+          {% block content %}
+          {% endblock %}
+        </section>
       </div>
     </div>
   </div>
@@ -80,16 +75,11 @@
   <footer class="footer">
     <div class="content">
       <span>{{ appName() }} <strong>v{{ appVersion() }}</strong></span>
-      <a class="foot-link" href="/github"><i class="fa fa-github"></i> {{ t('admin.base.github') }}</a>
-      <a class="foot-link" href="/discord"><i class="fab fa-discord"></i> {{ t('admin.base.discord') }}</a>
-      <a class="foot-link" href="/youtube"><i class="fab fa-youtube"></i> {{ t('admin.base.youtube') }}</a>
-      <a class="foot-link" href="/twitter"><i class="fab fa-twitter"></i> {{ t('admin.base.twitter') }}</a>
-      <a class="foot-link" href="/instagram"><i class="fab fa-instagram"></i> {{ t('admin.base.instagram') }}</a>
     </div>
   </footer>
 
   <!-- main js script -->
-  <script src="/static/js/main.js" crossorigin="anonymous"></script>
+  <script src="/static/js/main.js?v={{ appVersion() }} " crossorigin="anonymous"></script>
 </body>
 
 </html>

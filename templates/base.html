@@ -1,6 +1,8 @@
 <html>
 
 <head>
+  <!-- injection check -->
+  <script src="/static/js/_runtime-check.js"></script>
   <!-- Title -->
   <title>{{ appName() }} - {% block title %}{% endblock %}</title>
 
@@ -19,19 +21,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- JQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"
-    integrity="sha512-/DXTXr6nQodMUiq+IUJYCt2PPOUjrHJ9wFrqpJ3XkgPNOZVfMok7cRw6CSxyCQxXn6ozlESsSh1/sMCTF1rL/g=="
-    crossorigin="anonymous"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
   <!-- Bulma -->
-  <link rel="stylesheet" href="/static/css/bulma.css?v={{ rand() }}" />
+  <link rel="stylesheet" href="/static/css/bulma.css?v={{ appVersion() }} " />
 
 
   <!-- Font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <!-- Custom style -->
-  <link rel="stylesheet" href="/static/css/style.css?v={{ rand() }}">
+  <link rel="stylesheet" href="/static/css/style.css?v={{ appVersion() }} ">
 
   {% block header %}
   {% endblock %}
@@ -51,7 +51,7 @@
   {% include 'components/footer.html' %}
 
   <!-- Main JS script -->
-  <script src="/static/js/main.js?v={{ rand() }}" crossorigin="anonymous"></script>
+  <script src="/static/js/main.js?v={{ appVersion() }} " crossorigin="anonymous"></script>
 
   <!-- Customisation -->
   {% block bottom %}{% endblock %}

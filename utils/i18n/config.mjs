@@ -1,5 +1,6 @@
-import { join } from 'path'
-import { dirname } from 'path';
+// @ts-check
+// @ts-ignore
+import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { merge } from 'lodash-es'
 
@@ -25,13 +26,16 @@ export function contextFromFileName(fileName) {
         extension
     }
 }
-export function onConflictingKey(newVal, oldVal, key) {
+export const createConfilitKeyHandler = (mergeMode) => function onConflictingKey(oldVal, newVal, key) {
     if (typeof newVal[key] !== 'object' && typeof oldVal[key]  !== 'object') {
-        // console.log(typeof newVal[key], oldVal[key], newVal[key])
-        return newVal
+        console.log(typeof newVal[key], oldVal[key], newVal[key])
+        return {
+            ...oldVal,
+            ...newVal
+        }
     }
     if (typeof newVal[key] === 'object' && typeof oldVal[key] === 'object') {
-        console.info('merged object', oldVal, newVal)
+        if (!mergeMode) console.info('merged object', oldVal, newVal)
         return merge(oldVal, newVal)
     }
     if (typeof newVal[key] === 'string') {

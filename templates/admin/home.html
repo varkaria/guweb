@@ -1,19 +1,34 @@
 {% extends 'admin/base.html' %}
 {% block title %} Dashboard {% endblock %}
 {% block header %}
-<script src="/static/js/asserts/vue.js"></script>
-<script src="/static/js/asserts/vue-axios.js"></script>
+<script src="/static/js/assets/vue.js?v={{ appVersion() }} "></script>
+<script src="/static/js/assets/vue-axios.js?v={{ appVersion() }} "></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
 <script>
-    var domain = "{{ domain() }}";
+    window.domain = "{{ domain() }}";
 </script>
+<style>
+    .card .title, .card .stat {
+        font-size: 12px
+    }
+</style>
 {% endblock%}
 
 {% block content %}
 
+<div class="columns is-marginless">
+    <div class="column is-paddingless is-avatar">
+      <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
+        onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
+    </div>
+    <div class="column is-paddingless flex-vcenter">
+      <h2 class="section-title">{{ t('admin.base.dashboard') }}</h2>
+      <p class="section-lead">{{ t('admin.base.welcome-to-admin-panel', appName = appName()) }}</p>
+    </div>
+</div>
 <div class="dashboard" id="dashboard">
     <div class="columns is-marginless is-paddingless">
-        <div class="column is-paddingless p-3">
+        <div class="column is-paddingless pr-3 py-3">
             <div class="card">
                 <div class="title">{{ t('admin.home.total-users') }}</div>
                 <i class="fa fa-users"></i>
@@ -39,7 +54,7 @@
                 <div class="stat">{{ t('admin.home.latest-and-greatest-welcome') }}</div>
             </div>
         </div>
-        <div class="column is-paddingless p-3">
+        <div class="column is-paddingless pl-3 py-3">
             <div class="card">
                 <div class="title">{{ t('admin.home.total-banned') }}</div>
                 <i class="fa fa-calendar"></i>
@@ -50,7 +65,7 @@
     </div>
 <div class="columns is-marginless is-paddingless">
     {% if recentusers %}
-    <div class="column is-paddingless m-2 is-3">
+    <div class="column is-paddingless mr-1 is-3">
         <div class="recent-beat">
             <div class="columns is-marginless">
                 <div class="column is-paddingless flex-vcenter">
@@ -89,7 +104,7 @@
     </div>
     {% endif %}
     {% if recentscores %}
-    <div class="column is-paddingless m-2">
+    <div class="column is-paddingless ml-1">
         <div class="recent-beat">
             <div class="columns is-marginless">
                 <div class="column is-paddingless flex-vcenter">
@@ -142,6 +157,6 @@
     {% endif %}
 </div>
 
-<script src="/static/js/pages/admin/dashboard.js"></script>
+<script src="/static/js/pages/admin/dashboard.js?v={{ appVersion() }} "></script>
 
 {% endblock %}

@@ -13,5 +13,5 @@ password:
   must-between-8-32-characters-in-length: 密码的长度只能是8到32个字符之内
 username-cannot-contains-both-dash-and-space: 用户名不能同时存在"_"和" "(空格)符号
 username-already-taken-by-others: 该用户名已经被其他用户使用了
-username-disallowed: 该用户名不允许被使用,请选择别的
+username-disallowed: 该用户名不允许被使用, 请选择别的
 username-syntax-is-invalid: 无效的用户名格式

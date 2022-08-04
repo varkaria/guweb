@@ -1,0 +1,77 @@
+{% extends 'admin/base.html' %}
+{% block header %}
+<style>
+    .text-nowrap {
+        white-space: nowrap;
+    }
+    .rounded {
+        border-radius: 0.5rem;
+    }
+    .d-flex {
+        display: flex;
+    }
+    .gap-2 {
+        grid-gap: 1em 1em;
+    }
+</style>
+{% endblock %}
+{% block title %} Restrictions {% endblock %}
+
+{% block content %}
+<div class="columns is-marginless">
+    <div class="column is-paddingless is-avatar">
+      <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
+        onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
+    </div>
+    <div class="column is-paddingless flex-vcenter">
+      <h2 class="section-title">Restrictions</h2>
+      <p class="section-lead">Welcome to restrictions panel</p>
+    </div>
+</div>
+<div class="row row-deck row-cards" style="margin-top: 20px">
+    <div class="col-12">
+        <!-- <div class="card"> -->
+            <div class="table-responsive">
+                <table class="table table-vcenter text-nowrap datatable rounded">
+                    <thead>
+                        <tr>
+                            <th class="has-text-right">ID</th>
+                            <th>Flag | Username</th>
+                            <th class="has-text-centered">Details</th>
+                            <th class="has-text-centered">Date</th>
+                            <th class="has-text-centered">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in query_data %}
+                        <tr>
+                            <td class="has-text-right">{{ i.id }}</td>
+                            <td class="td-truncate text-nowrap">
+                                <img src="/static/images/flags/{{ i.country|upper }}.png" class="profile-flag" style="width: 25px; height: 17px; -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.63); box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);">
+                                <a class='ml-2' href="/u/{{ i.id }}">{{ i.name }}</a>
+                            </td>
+                            <td>
+                                {% if i.msg %}{{ i.msg }}
+                                {% else %} -
+                                {% endif %}
+                            </td>
+                            <td class="has-text-centered">
+                                {% if i.time %}{{ i.time }}
+                                {% else %} -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a class="btn text-nowrap" href="/admin/users/edit/{{ i.id }}">
+                                    <i class="far fa-edit" aria-hidden="true"></i> Edit
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        <!-- </div> -->
+    </div>
+</div>
+
+{% endblock %}

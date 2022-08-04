@@ -16,5 +16,6 @@ http: 'ClientSession'
 version: 'Version'
 
 cache = {
-    'bcrypt': {}
+    'bcrypt': {},
+    'search_data': {}
 }

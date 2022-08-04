@@ -54,6 +54,6 @@
     ]
   },
   "files.associations": {
-    "*.html": "jinja-html"
+    "*.html": "html"
   }
 }
