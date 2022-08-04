@@ -15,7 +15,7 @@ function updateMaps(sid) {
     Array.prototype.forEach.call(elements, function (element) {
         element.classList.add('is-disabled')
     });
-    $.get('//api.' + window.domain + '/update_maps?api_key=' + window.api_key + '&id=' + sid, function (data, status) {
+    $.get('//api.' + window.domain + '/update_maps?api_key=' + window.api_key + '&sid=' + sid, function (data, status) {
         bar && setStyle(bar, {
             display: 'none'
         })
