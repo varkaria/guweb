@@ -216,5 +216,12 @@
         });
     });
 </script>
+<script>
+    $("#search-bar").keydown(function (e) {
+        if (e.keyCode == 13) {
+            searchMaps()
+        }
+    });  
+</script>
 <script src="/static/js/pages/admin/beatmaps.js?v={{ appVersion() }} " crossorigin="anonymous"></script>
 {% endblock %}
