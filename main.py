@@ -124,6 +124,10 @@ def handle_timestamp(timestamp):
 def domain() -> str:
     return glob.config.domain
 
+@app.template_global()
+def config():
+    return glob.config
+
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)
 
