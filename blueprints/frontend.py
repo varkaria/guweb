@@ -20,7 +20,6 @@ from quart import render_template
 from quart import request
 from quart import session
 from quart import send_file
-from quart import jsonify
 
 from constants import regexes
 from objects import glob
@@ -30,6 +29,7 @@ from objects.utils import flash
 from objects.utils import flash_with_customizations
 
 from blueprints.i18npy import t
+from objects.varka import search_user
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
@@ -619,7 +619,7 @@ async def logout():
     return await flash('success', t('logout.succeed'), 'login')
 
 @frontend.route('/search')
-async def search_user():
+async def user_search():
     q = request.args.get('q', type=str)
     return await search_user(q)
 

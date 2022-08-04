@@ -10,7 +10,8 @@ class Privileges(IntFlag):
     """Server side user privileges."""
 
     # privileges intended for all normal players.
-    Normal      = 1 << 0 # is an unbanned player.
+    
+    Unrestricted = 1 << 0 # is an unbanned player.
     Verified    = 1 << 1 # has logged in to the server in-game.
 
     # has bypass to low-ceiling anticheat measures (trusted).

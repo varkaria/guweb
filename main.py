@@ -71,8 +71,25 @@ def appName() -> str:
 @app.template_global()
 def decode_priv(target_priv: int) -> str:
     priv_list = [priv.name for priv in Privileges if target_priv & priv and bin(priv).count("1") == 1][::-1]
-    if 'Normal' not in priv_list:
-        priv_list.append('Banned')
+    if 'Unrestricted' not in priv_list:
+        return 'Restricted'
+    if 'Verified' not in priv_list:
+        return 'Disclaimed'
+    if set(['Verified', 'Unrestricted']).issubset(priv_list):
+        priv_list.remove('Verified')
+        priv_list.remove('Unrestricted')
+        priv_list.append('Normal')
+    if set(['Dangerous', 'Admin', 'Mod']).issubset(priv_list):
+        priv_list.remove('Dangerous')
+        priv_list.remove('Admin')
+        priv_list.remove('Mod')
+        priv_list.append('Stuff')
+    if set(['Supporter', 'Premium']).issubset(priv_list):
+        priv_list.remove('Supporter')
+        priv_list.remove('Premium')
+        priv_list.append('Donator')
+    if 'Normal' in priv_list and len(priv_list) != 1:
+        priv_list.remove('Normal')
     return ', '.join(priv_list)
 
 @app.template_global()
