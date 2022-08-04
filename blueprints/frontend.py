@@ -87,6 +87,9 @@ async def settings_profile_post():
         # - not contain both ' ' and '_', one is fine
         # - not be in the config's `disallowed_names` list
         # - not already be taken by another player
+        if not session['user_data']['priv'] & Privileges.Supporter and glob.config.name_change_only_for_supporter:
+            return await flash('error', t('username-changes-supporter-only'), 'settings/profile')
+
         if not regexes.username.match(new_name):
             return await flash('error', t('settings.profile.new-username-is-invalid'), 'settings/profile')
 
@@ -443,7 +446,7 @@ async def login_post():
 
     api_key = user_info['api_key']
 
-    if api_key is None:
+    if api_key is None and glob.config.create_api_key_if_not_exist:
         api_key = str(uuid.uuid4())
         await glob.db.execute(
         "UPDATE users SET api_key = %s WHERE id = %s",
@@ -618,24 +621,7 @@ async def logout():
 @frontend.route('/search')
 async def search_user():
     q = request.args.get('q', type=str)
-    if not q:
-        return b'{}'
-
-    res = await glob.db.fetchall(
-        'SELECT id, name '
-        'FROM `users` '
-        'WHERE priv >= 3 '
-        'AND ('
-        '   `name` LIKE %s '
-        '   OR CONVERT(`id`, char) LIKE %s '
-        ') LIMIT 5',
-        [q + '%%', q + '%%']
-    )
-
-    if (len(res) == 0):
-        return b'{}'
-    else:
-        return jsonify(res) 
+    return await search_user(q)
 
 # social media redirections
 

@@ -31,7 +31,6 @@ async def get(table_name: str, id: str):
 @admin.route('/home')
 @admin.route('/dashboard')
 async def home():
-    """Render the homepage of guweb's admin panel."""
     if not 'authenticated' in session:
         return await flash('error', t('admin.please-login-in-first'), 'login')
 
@@ -62,7 +61,6 @@ async def home():
 
 @admin.route('/users', methods=['GET'])
 async def users():
-    """Render the homepage of guweb's admin panel."""
     if not 'authenticated' in session:
         return await flash('error', t('admin.please-login-in-first'), 'login')
 
@@ -78,7 +76,6 @@ async def users():
 
 @admin.route('/users/edit/<id>')
 async def users_edit(id:int):
-    """Render the homepage of guweb's admin panel."""
     if not 'authenticated' in session:
         return await flash('error', t('admin.please-login-in-first'), 'login')
 
@@ -135,7 +132,6 @@ async def beatmaps_edit(bid:int):
 
 @admin.route('/users/update/<id>', methods=['POST']) # POST
 async def users_update(id:int):
-    """Render the homepage of guweb's admin panel."""
     if not 'authenticated' in session:
         return await flash('error', t('admin.please-login-in-first'), 'login')
 

@@ -1,6 +1,5 @@
-from objects import glob, privileges
 from quart import jsonify
-import json
+from objects import glob
 
 async def get_users(limit:int=100, search:str=None):
     """Returns the all of a users."""
@@ -92,3 +91,20 @@ async def update(table, id, **kargs):
             params.append(f"{k}=NULL")
     await glob.db.execute("UPDATE `%s` SET %s WHERE %s = '%s'" % (table, ', '.join(params), *id))
     return 'ok'
+
+async def search_user(keyword: str):
+    if not keyword:
+        return b'{}'
+    result = await glob.db.fetchall(
+        'SELECT id, name '
+        'FROM `users` '
+        'WHERE priv >= 3 '
+        'AND ('
+        '   `name` LIKE %s '
+        '   OR CONVERT(`id`, char) LIKE %s '
+        ') LIMIT 5',
+        [keyword + '%%', keyword + '%%']
+    )
+    if (len(result) == 0):
+        return b'{}'
+    return jsonify(result) 

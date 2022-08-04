@@ -19,6 +19,8 @@ _discord_invite_id = os.environ.get("DISCORD_INVITE_ID")
 _default_locale = os.environ.get("GUWEB_default_locale")
 
 _registration_allowed = os.environ.get("GUWEB_REGISTRATION_ALLOWED")
+_create_api_key_if_not_exist = os.environ.get("GUWEB_CREATE_API_KEY_IF_NOT_EXIST")
+_name_change_only_for_supporter = os.environ.get("GUWEB_NAME_CHANGE_ONLY_FOR_SUPPORTER")
 # end env
 
 # app name
@@ -63,6 +65,12 @@ disallowed_passwords = {
 
 # enable registration
 registration = _registration_allowed if _registration_allowed is not None else True
+
+# create api_key if not exist (admin panel update maps requires the api key)
+create_api_key_if_not_exist = _create_api_key_if_not_exist if _create_api_key_if_not_exist is not None else False
+
+# only supporters can change their username through user edit page
+name_change_only_for_supporter = _name_change_only_for_supporter if _name_change_only_for_supporter is not None else True
 
 default_locale = _default_locale if _default_locale is not None else 'en_GB'
 

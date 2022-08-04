@@ -4,22 +4,19 @@
 __all__ = ()
 
 import os
-import random
 import time
-from datetime import datetime
-from constants.privileges import Privileges
+from objects.privileges import Privileges
 
 import aiohttp
 import i18n
 import orjson
-from quart import Blueprint, Quart, session
+from quart import Quart, session
 from quart import render_template
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
 from cmyui.mysql import AsyncSQLPool
 from cmyui.version import Version
-from requests import cookies
 
 from objects import glob
 
@@ -73,15 +70,9 @@ def appName() -> str:
 
 @app.template_global()
 def decode_priv(target_priv: int) -> str:
-    priv_list = [
-                    priv.name for priv in Privileges if target_priv & priv and bin(priv).count("1") == 1
-                ][::-1]
-    if 'legit' in priv_list:
-        priv_list.remove('legit')
-    else:
-        priv_list.append('banned')
-    if 'active' not in priv_list:
-        priv_list.append('inactive')
+    priv_list = [priv.name for priv in Privileges if target_priv & priv and bin(priv).count("1") == 1][::-1]
+    if 'Normal' not in priv_list:
+        priv_list.append('Banned')
     return ', '.join(priv_list)
 
 @app.template_global()
@@ -100,17 +91,6 @@ def decode_map_status(status: int) -> str:
         return 'Qualified'
     if status == 5:
         return 'Loved'
-
-    priv_list = [
-                    priv.name for priv in Privileges if target_priv & priv and bin(priv).count("1") == 1
-                ][::-1]
-    if 'legit' in priv_list:
-        priv_list.remove('legit')
-    else:
-        priv_list.append('banned')
-    if 'active' not in priv_list:
-        priv_list.append('inactive')
-    return ', '.join(priv_list)
 
 @app.template_global()
 def captchaKey() -> str:
