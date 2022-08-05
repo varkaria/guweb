@@ -1,7 +1,9 @@
+// @ts-check
+// @ts-ignore window._testGlobals
 _testGlobals(
     { exists: ['mode', 'mods', 'userid', 'domain'] }
 )
-
+// @ts-ignore window.Vue
 new Vue({
     el: "#app",
     delimiters: ["<%", "%>"],
@@ -46,7 +48,137 @@ new Vue({
             mode: window.mode,
             mods: window.mods,
             modegulag: 0,
-            userid: window.userid
+            userid: window.userid,
+            getScoreMods: (() => {
+                const None = 0;
+                const NoFail = 1;
+                const Easy = 2;
+                const NoVideo = 4;
+                const Hidden = 8;
+                const HardRock = 16;
+                const SuddenDeath = 32;
+                const DoubleTime = 64;
+                const Relax = 128;
+                const HalfTime = 256;
+                const Nightcore = 512;
+                const Flashlight = 1024;
+                const Autoplay = 2048;
+                const SpunOut = 4096;
+                const Relax2 = 8192;
+                const Perfect = 16384;
+                const Key4 = 32768;
+                const Key5 = 65536;
+                const Key6 = 131072;
+                const Key7 = 262144;
+                const Key8 = 524288;
+                const keyMod = 1015808;
+                const FadeIn = 1048576;
+                const Random = 2097152;
+                const LastMod = 4194304;
+                const Key9 = 16777216;
+                const Key10 = 33554432;
+                const Key1 = 67108864;
+                const Key3 = 134217728;
+                const Key2 = 268435456;
+            
+                return function getScoreMods(m) {
+                    let r = '';
+                    let hasNightcore = false;
+                    if (m & NoFail) {
+                        r += 'NF';
+                    }
+                    if (m & Easy) {
+                        r += 'EZ';
+                    }
+                    if (m & NoVideo) {
+                        r += 'NV';
+                    }
+                    if (m & Hidden) {
+                        r += 'HD';
+                    }
+                    if (m & HardRock) {
+                        r += 'HR';
+                    }
+                    if (m & SuddenDeath) {
+                        r += 'SD';
+                    }
+                    if (m & Nightcore) {
+                        r += 'NC';
+                        hasNightcore = true;
+                    }
+                    if (!hasNightcore && (m & DoubleTime)) {
+                        r += 'DT';
+                    }
+                    if (m & Relax) {
+                        r += 'RX';
+                    }
+                    if (m & HalfTime) {
+                        r += 'HT';
+                    }
+                    if (m & Flashlight) {
+                        r += 'FL';
+                    }
+                    if (m & Autoplay) {
+                        r += 'AP';
+                    }
+                    if (m & SpunOut) {
+                        r += 'SO';
+                    }
+                    if (m & Relax2) {
+                        r += 'AP';
+                    }
+                    if (m & Perfect) {
+                        r += 'PF';
+                    }
+                    if (m & Key4) {
+                        r += '4K';
+                    }
+                    if (m & Key5) {
+                        r += '5K';
+                    }
+                    if (m & Key6) {
+                        r += '6K';
+                    }
+                    if (m & Key7) {
+                        r += '7K';
+                    }
+                    if (m & Key8) {
+                        r += '8K';
+                    }
+                    if (m & keyMod) {
+                        r += '';
+                    }
+                    if (m & FadeIn) {
+                        r += 'FD';
+                    }
+                    if (m & Random) {
+                        r += 'RD';
+                    }
+                    if (m & LastMod) {
+                        r += 'CN';
+                    }
+                    if (m & Key9) {
+                        r += '9K';
+                    }
+                    if (m & Key10) {
+                        r += '10K';
+                    }
+                    if (m & Key1) {
+                        r += '1K';
+                    }
+                    if (m & Key3) {
+                        r += '3K';
+                    }
+                    if (m & Key2) {
+                        r += '2K';
+                    }
+                    if (r.length > 0) {
+                        return r.slice();
+                    } else {
+                        return 'NM';
+                    }
+                }
+            })()
         };
     },
     created() {
@@ -207,10 +339,10 @@ new Vue({
         },
         addCommas(nStr) {
             nStr += '';
-            var x = nStr.split('.');
-            var x1 = x[0];
-            var x2 = x.length > 1 ? '.' + x[1] : '';
-            var rgx = /(\d+)(\d{3})/;
+            const x = nStr.split('.');
+            let x1 = x[0];
+            const x2 = x.length > 1 ? '.' + x[1] : '';
+            const rgx = /(\d+)(\d{3})/;
             while (rgx.test(x1)) {
                 x1 = x1.replace(rgx, '$1' + ',' + '$2');
             }
@@ -218,9 +350,9 @@ new Vue({
         },
         secondsToDhm(seconds) {
             seconds = Number(seconds);
-            var dDisplay = `${Math.floor(seconds / (3600 * 24))}d `;
-            var hDisplay = `${Math.floor(seconds % (3600 * 24) / 3600)}h `;
-            var mDisplay = `${Math.floor(seconds % 3600 / 60)}m `;
+            const dDisplay = `${Math.floor(seconds / (3600 * 24))}d `;
+            const hDisplay = `${Math.floor(seconds % (3600 * 24) / 3600)}h `;
+            const mDisplay = `${Math.floor(seconds % 3600 / 60)}m `;
             return dDisplay + hDisplay + mDisplay;
         },
         StrtoGulagInt() {
@@ -260,132 +392,3 @@ new Vue({
     },
     computed: {}
 });
-
-function getScoreMods(m) {
-	var r = '';
-	var hasNightcore = false;
-	if (m & NoFail) {
-		r += 'NF';
-	}
-	if (m & Easy) {
-		r += 'EZ';
-	}
-	if (m & NoVideo) {
-		r += 'NV';
-	}
-	if (m & Hidden) {
-		r += 'HD';
-	}
-	if (m & HardRock) {
-		r += 'HR';
-	}
-	if (m & SuddenDeath) {
-		r += 'SD';
-	}
-	if (m & Nightcore) {
-		r += 'NC';
-		hasNightcore = true;
-	}
-	if (!hasNightcore && (m & DoubleTime)) {
-		r += 'DT';
-	}
-	if (m & Relax) {
-		r += 'RX';
-	}
-	if (m & HalfTime) {
-		r += 'HT';
-	}
-	if (m & Flashlight) {
-		r += 'FL';
-	}
-	if (m & Autoplay) {
-		r += 'AP';
-	}
-	if (m & SpunOut) {
-		r += 'SO';
-	}
-	if (m & Relax2) {
-		r += 'AP';
-	}
-	if (m & Perfect) {
-		r += 'PF';
-	}
-	if (m & Key4) {
-		r += '4K';
-	}
-	if (m & Key5) {
-		r += '5K';
-	}
-	if (m & Key6) {
-		r += '6K';
-	}
-	if (m & Key7) {
-		r += '7K';
-	}
-	if (m & Key8) {
-		r += '8K';
-	}
-	if (m & keyMod) {
-		r += '';
-	}
-	if (m & FadeIn) {
-		r += 'FD';
-	}
-	if (m & Random) {
-		r += 'RD';
-	}
-	if (m & LastMod) {
-		r += 'CN';
-	}
-	if (m & Key9) {
-		r += '9K';
-	}
-	if (m & Key10) {
-		r += '10K';
-	}
-	if (m & Key1) {
-		r += '1K';
-	}
-	if (m & Key3) {
-		r += '3K';
-	}
-	if (m & Key2) {
-		r += '2K';
-	}
-	if (r.length > 0) {
-		return r.slice();
-	} else {
-		return 'NM';
-	}
-}
-
-var None = 0;
-var NoFail = 1;
-var Easy = 2;
-var NoVideo = 4;
-var Hidden = 8;
-var HardRock = 16;
-var SuddenDeath = 32;
-var DoubleTime = 64;
-var Relax = 128;
-var HalfTime = 256;
-var Nightcore = 512;
-var Flashlight = 1024;
-var Autoplay = 2048;
-var SpunOut = 4096;
-var Relax2 = 8192;
-var Perfect = 16384;
-var Key4 = 32768;
-var Key5 = 65536;
-var Key6 = 131072;
-var Key7 = 262144;
-var Key8 = 524288;
-var keyMod = 1015808;
-var FadeIn = 1048576;
-var Random = 2097152;
-var LastMod = 4194304;
-var Key9 = 16777216;
-var Key10 = 33554432;
-var Key1 = 67108864;
-var Key3 = 134217728;
-var Key2 = 268435456;
