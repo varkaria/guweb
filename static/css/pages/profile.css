@@ -626,6 +626,15 @@ span.beatmap-mapper {
   display: none;
 }
 
+@media screen and (min-width: 1255px) {
+  .two-sides .column.is-one-third {
+    padding-right: 0.5em;
+  }
+  .two-sides .column.is-two-third {
+    padding-left: 0.5em;
+  }
+}
+
 @media screen and (max-width: 1255px) {
   .two-sides {
     display: contents !important;
@@ -635,6 +644,12 @@ span.beatmap-mapper {
   .column.is-one-third-tablet {
     flex: none;
     width: 100%;
+  }
+  .two-sides .column.is-one-third {
+    padding-bottom: 0;
+  }
+  .two-sides .column.is-one-third .stats-block:last-of-type {
+    margin-bottom: 0 !important;
   }
   .columns.is-marginless.is-2 {
     display: none;

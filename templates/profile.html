@@ -206,6 +206,8 @@
         border-spacing: 0;
     }
 
+    /* custom css */
+
     .reset-bulma-style ul,
     .reset-bulma-style li {
         list-style: initial;
@@ -236,6 +238,10 @@
 
     .reset-bulma-style h6 {
         font-size: 0.5em;
+    }
+
+    .reset-bulma-style pre {
+        border-radius: 0.5em;
     }
 </style>
 {% endif %}
@@ -454,7 +460,7 @@
                     </div>
                 </div>
             </div>
-            <div class="column">
+            <div class="column is-two-third">
                 {{ userpage(user) }}
                 {{ scores(t('profile.best-scores') , 'best')}}
                 {{ scores(t('profile.recent-scores'), 'recent')}}
