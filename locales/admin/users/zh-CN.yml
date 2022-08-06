@@ -13,7 +13,7 @@ edit-info-of: '修改该用户的信息:'
 username: 用户名
 country: 地区
 legality: 封禁状态
-unrestricted: Unrestricted
-restricted: Restricted
+unrestricted: 未封禁
+restricted: 封禁
 update: 更新
-search-by-username-or-email: 使用 用户名 或 邮箱 进行搜索
+search-by-username-or-email: 根据 用户名 或 邮箱 进行搜索
