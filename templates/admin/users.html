@@ -36,7 +36,7 @@
         <div class="column px-3 pb-2 pt-4 d-flex gap-2">
             <input id="search-bar" class="input" v-model.trim="search" placeholder='{{t("admin.users.search-by-username-or-email")}}'
                 value="{{ search_value }}">
-            <a class="button is-primary" onclick="admin_search()">{{t("admin.users.search")}}</a>
+            <a class="button is-primary" onclick="searchUsers()">{{t("admin.users.search")}}</a>
         </div>
     </div>
     <div class="table-responsive">
@@ -110,9 +110,10 @@
 <script>
     $("#search-bar").keydown(function (e) {
         if (e.keyCode == 13) {
-            admin_search()
+            searchUsers()
         }
     });  
 </script>
+<script src="/static/js/pages/admin/users.js?v={{ appVersion() }} " crossorigin="anonymous"></script>
 
 {% endblock content %}

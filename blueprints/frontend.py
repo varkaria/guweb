@@ -20,7 +20,6 @@ from quart import render_template
 from quart import request
 from quart import session
 from quart import send_file
-from quart import jsonify
 
 from constants import regexes
 from objects import glob
@@ -30,6 +29,7 @@ from objects.utils import flash
 from objects.utils import flash_with_customizations
 
 from blueprints.i18npy import t
+from objects.varka import search_user
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
@@ -87,6 +87,9 @@ async def settings_profile_post():
         # - not contain both ' ' and '_', one is fine
         # - not be in the config's `disallowed_names` list
         # - not already be taken by another player
+        if not session['user_data']['priv'] & Privileges.Supporter and glob.config.name_change_only_for_supporter:
+            return await flash('error', t('username-changes-supporter-only'), 'settings/profile')
+
         if not regexes.username.match(new_name):
             return await flash('error', t('settings.profile.new-username-is-invalid'), 'settings/profile')
 
@@ -233,11 +236,11 @@ async def settings_aboutme():
 async def settings_aboutme_post():
     form = await request.form
     userpage_content = form.get('userpage_content', type=str)
-    old_content = (await glob.db.fetch('SELECT userpage_content FROM users WHERE id = %s', [session['user_data']['id']]))['userpage_content']
-    if '<iframe' in userpage_content or '<script' in userpage_content:
-        return await render_template('settings/aboutme.html', flash='Not allowed method', status='error', userpage_content=old_content)
+    safe_content = userpage_content.lower()
+    if '<iframe' in safe_content or '<script' in safe_content:
+        return await render_template('settings/aboutme.html', flash='Not allowed method', status='error', userpage_content=userpage_content)
     if (len(userpage_content) > 2048):
-        return await render_template('settings/aboutme.html', flash='Too long text', status='error', userpage_content=old_content)
+        return await render_template('settings/aboutme.html', flash='Too long text', status='error', userpage_content=userpage_content)
     await glob.db.execute(
             'UPDATE users '
             'SET userpage_content = %s '
@@ -356,7 +359,7 @@ async def profile_select(id):
         return (await render_template('404.html'), 404)
 
     is_staff = 'authenticated' in session and session['user_data']['is_staff']
-    if not user_data or not (user_data['priv'] & Privileges.Normal or is_staff):
+    if not user_data or not (user_data['priv'] & Privileges.Unrestricted or is_staff):
         return (await render_template('404.html'), 404)
 
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
@@ -436,14 +439,14 @@ async def login_post():
         return await render_template('verify.html')
 
     # user banned; deny post
-    if not user_info['priv'] & Privileges.Normal:
+    if not user_info['priv'] & Privileges.Unrestricted:
         if glob.config.debug:
             log(f"{username}'s login failed - banned.", Ansi.RED)
         return await flash('error', t('login.restricted-not-allowed-to-login'), 'login')
 
     api_key = user_info['api_key']
 
-    if api_key is None:
+    if api_key is None and glob.config.create_api_key_if_not_exist:
         api_key = str(uuid.uuid4())
         await glob.db.execute(
         "UPDATE users SET api_key = %s WHERE id = %s",
@@ -616,26 +619,9 @@ async def logout():
     return await flash('success', t('logout.succeed'), 'login')
 
 @frontend.route('/search')
-async def search_user():
+async def user_search():
     q = request.args.get('q', type=str)
-    if not q:
-        return b'{}'
-
-    res = await glob.db.fetchall(
-        'SELECT id, name '
-        'FROM `users` '
-        'WHERE priv >= 3 '
-        'AND ('
-        '   `name` LIKE %s '
-        '   OR CONVERT(`id`, char) LIKE %s '
-        ') LIMIT 5',
-        [q + '%%', q + '%%']
-    )
-
-    if (len(res) == 0):
-        return b'{}'
-    else:
-        return jsonify(res) 
+    return await search_user(q)
 
 # social media redirections
 

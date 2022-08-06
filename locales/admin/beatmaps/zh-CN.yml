@@ -1,5 +1,5 @@
-welcome-to-beatmaps-panel: 欢迎来到铺面管理面板
-total-beatmaps: 铺面总数量
+welcome-to-beatmaps-panel: 欢迎来到谱面管理面板
+total-beatmaps: 谱面总数量
 thats-a-lot-of-maps: 那可真是不少图呀!
 ranked: Ranked
 these-maps-can-gain-many-pp: 这些图能刷到许多pp
@@ -7,10 +7,8 @@ loved: Loved
 we-loved-them-so-much: 我们都"爱"它们
 pending: Pending
 they-are-also-good-maps: 它们仍然是张好图
-search-by-bid: Search by BID
-search-by-sid: Search by SID
-search-by-name: Search by Name
-beatmap: 铺面
+search: 搜索
+beatmap: 谱面
 cs-keys: CS / Keys
 ar: AR
 hp: HP

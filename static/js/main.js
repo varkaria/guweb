@@ -1,4 +1,3 @@
-// @ts-check
 // sticky header
 $(window).scroll(() => {
     var header = document.getElementById("navbar");
@@ -71,41 +70,6 @@ function searchUser() {
             content && setStyle(content, {
                 display: 'none'
             })
-        }
-    })
-}
-
-function admin_search() {
-    const search = document.getElementById('search-bar')
-    if (!search) return
-    window.location.href = '/admin/users?search=' + search.value
-}
-
-function map_admin_search(name) {
-    const search = document.getElementById('search-bar')
-    if (!search) return
-    window.location.href = '/admin/beatmaps/search?' + name + '=' + search.value
-}
-
-function map_admin_force_update(sid) {
-    _testGlobals(
-        { exists: ['domain', 'api_key'] }
-    )
-    var bar = document.getElementById('progress_bar')
-    var elements = document.getElementsByClassName('operate-button');
-    bar && bar.removeAttribute('style')
-    Array.prototype.forEach.call(elements, function (element) {
-        element.classList.add('is-disabled')
-    });
-    $.get('//api.' + window.domain + '/update_beatmapsets?api_key=' + window.api_key + '&sid=' + sid, function (data, status) {
-        bar && setStyle(bar, {
-            display: 'none'
-        })
-        Array.prototype.forEach.call(elements, function (element) {
-            element.classList.remove('is-disabled')
-        });
-        if (status == 'success') {
-            window.location.href = '/admin/beatmaps/search?sid=' + data['sid']
         }
     })
 }

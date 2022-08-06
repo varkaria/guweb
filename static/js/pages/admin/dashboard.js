@@ -1,8 +1,7 @@
-// @ts-check
 _testGlobals(
     { exists: ['domain'] }
 )
-// @ts-ignore
+
 new Vue({
     el: "#dashboard",
     delimiters: ["<%", "%>"],
