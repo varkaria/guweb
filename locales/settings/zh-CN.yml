@@ -20,3 +20,4 @@ settings: 设置
 bad-image-extension: 你选择的%{something}必须是 .jpg .jpeg .png 这三种文件之一
 change-succeed: 你的 %{something}已经修改成功!
 no-image-was-selected: 请选择一张图片
+about-me: 个人介绍
