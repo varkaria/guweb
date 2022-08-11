@@ -1,13 +1,19 @@
 // @ts-check
 import glob from 'glob'
-import path from 'path'
+import path, { resolve } from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
-import { mergeWith, merge } from 'lodash-es'
+import { mergeWith, merge, reject } from 'lodash-es'
 
-import { compiledFileSchema, path as translationPath, contextFromFileName, createConfilitKeyHandler } from './config.mjs'
+import { compiledFileSchema, paths as translationPaths, contextFromFileName, createConfilitKeyHandler } from './config.mjs'
 
-
+// context
+// {
+//     namespace: namespaces.join('.'),
+//     namespaces,
+//     locale: locale.replace('_', '-'),
+//     extension
+// }
 const parseLocale = (file, context) => {
     const locale = yaml.load(fs.readFileSync(file, 'utf8'))
     const _parse = (locale) => {
@@ -43,6 +49,60 @@ const parseLocale = (file, context) => {
         return _parse(locale)
     }
 }
+
+// file
+// {
+//     namespace: namespaces.join('.'),
+//     namespaces,
+//     locale: locale.replace('_', '-'),
+//     extension
+// }
+const mixinLocale = ({ merging, joinedLocales, mixingWith: { parsedLocale, context } }) => {
+    if (!joinedLocales[context.locale]) joinedLocales[context.locale] = {}
+    joinedLocales[context.locale] = mergeWith(
+        joinedLocales[context.locale],
+        parsedLocale[context.locale],
+        (objValue, srcValue, key, object, source, stack) => {
+            if (!objValue) {
+                return srcValue
+            }
+            for (const k in srcValue) {
+                if (objValue[k] && objValue[k] !== srcValue[k]) {
+                    if (!merging) console.warn(`[Warning] Merging into initilazed value:
+${key}.${k}:
+[${typeof srcValue[k]}${typeof srcValue[k] === 'string' && ' `' + srcValue[k] + '`' || ''}] merging into [${typeof objValue[k]}${typeof objValue[k] === 'string' && ' `' + objValue[k] + '`' || ''}].`)
+                    objValue = createConfilitKeyHandler(merging)(objValue, srcValue, k)
+                    if (!merging) console.log('')
+                } else {
+                    objValue[k] = srcValue[k]
+                }
+            }
+            return objValue
+            // return merge(objValue, srcValue)
+        }
+    )
+}
+
+const createReducer = ({ translationPath, merging }) => async (acc, match) => {
+    console.log('parsing', match, '...\n')
+    try {
+        acc = await acc
+        const relative = path.relative(translationPath, match)
+        const context = contextFromFileName(relative)
+        const data = await parseLocale(match, context)
+        mixinLocale({
+            merging,
+            joinedLocales: acc,
+            mixingWith: {
+                parsedLocale: data,
+                context
+            }
+        })
+        return acc
+    } catch (error) {
+        console.error(error)
+    }
+}
 /* ----------------------------------------------------------------
 ** return format: {
   [locale]: {
@@ -53,57 +113,19 @@ const parseLocale = (file, context) => {
 }
 * allow customization if {lang}.custom.(yml|yaml) is provided.
 */
-export const readLocales = () => new Promise((resolve, reject) => {
-    glob(path.join(translationPath, '**/*.yml'), async (err, matches) => {
-        if (err) throw err
-        const { normal, custom } = matches.reduce((acc, cur) => {
-            if (!cur.includes('.custom')) {
-                acc.normal.push(cur)
-            }
-            else {
-                acc.custom.push(cur)
-            }
-            return acc
-        }, { normal: [], custom: [] })
-        const reducer = (customMerge) => async (acc, match) => {
-            console.log('parsing', match, '...\n')
-            try {
-                acc = await acc
-                const relative = path.relative(translationPath, match)
-                const removeOverwrite = relative.replace('.custom', '')
-                const context = contextFromFileName(removeOverwrite)
-                const data = await parseLocale(match, context)
-                if (!acc[context.locale]) acc[context.locale] = {}
-                acc[context.locale] = mergeWith(
-                    acc[context.locale],
-                    data[context.locale],
-                    (objValue, srcValue, key, object, source, stack) => {
-                        if (!objValue) {
-                            return srcValue
-                        }
-                        for (const k in srcValue) {
-                            if (objValue[k] && objValue[k] !== srcValue[k]) {
-                                if (!customMerge) console.warn(`[Warning] Merging into initilazed value:
-  ${key}.${k}:
-    [${typeof srcValue[k]}${typeof srcValue[k] === 'string' && ' `' + srcValue[k] + '`' || ''}] merging into [${typeof objValue[k]}${typeof objValue[k] === 'string' && ' `' + objValue[k] + '`' || ''}].`)
-                                objValue = createConfilitKeyHandler(customMerge)(objValue, srcValue, k)
-                                if (!customMerge) console.log('')
-                            } else {
-                                objValue[k] = srcValue[k]
-                            }
-                        }
-                        return objValue
-                        // return merge(objValue, srcValue)
-                    }
-                )
-                return acc
-            } catch (error) {
-                reject(error)
-            }
-        }
-        let locales = await normal.reduce(reducer(false), {})
-        locales = await custom.reduce(reducer(true), locales)
-        // console.log(locales)
-        resolve(locales)
+const asyncGlob = (path) => new Promise((resolve, reject) => {
+    glob(path, (err, matches) => {
+        if (err) reject(err)
+        else resolve(matches)
     })
 })
+export const readLocales = async () => {
+    let locales = {}
+    for (const [index, translationPath] of translationPaths.entries()) {
+        const matches = await asyncGlob(path.join(translationPath, '**/*.yml'))
+        const reducer = createReducer({ translationPath, merging: index > 0 })
+        locales = await matches.reduce(reducer, locales)
+    }
+
+    return locales
+}

@@ -2,7 +2,7 @@
   "nuxt.isNuxtApp": false,
   "i18n-ally.namespace": true,
   "i18n-ally.pathMatcher": "{namespaces}/{locale}.{ext}",
-  "i18n-ally.localesPaths": "locales",
+  "i18n-ally.localesPaths": ["locales/default", "locales/ppy.sb"],
   "i18n-ally.extract.keygenStyle": "kebab-case",
   "i18n-ally.translate.engines": ["google"],
   "i18n-ally.extract.keyMaxLength": 50,

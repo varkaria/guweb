@@ -1,5 +1,5 @@
 
-import { readLocales } from '../original-reader.mjs'
+import { readLocales } from '../built-reader.mjs'
 import { writeToDisk } from '../writer.mjs'
 
 readLocales().then(locales => writeToDisk(locales))

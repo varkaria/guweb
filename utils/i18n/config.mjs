@@ -4,12 +4,14 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { merge } from 'lodash-es'
 
+import { using } from '../../config.mjs'
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const compiledFileNameSchema = ['namespace', 'locale', 'extension']
 export const compiledFileSchema = ['locale', 'entries']
 export const compiled = join(__dirname, '../../.locales')
-export const path = join(__dirname, '../../locales')
+export const paths = using.map(p => join(__dirname, '../../', p))
 export const divider = '.'
 
 export function contextToFileName (context) {
