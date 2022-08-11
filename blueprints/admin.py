@@ -2,8 +2,11 @@
 
 __all__ = ()
 
+import bcrypt
+import hashlib
 from curses.ascii import isdigit
 from functools import wraps
+import hashlib
 from quart import Blueprint
 from quart import render_template
 from quart import session
@@ -107,10 +110,19 @@ async def users_update(id:int):
             data['priv'] = 2
         elif datadef['priv'] == 2 and form['legality'] == 'unrestricted':
             data['priv'] = 3 
+        if form['password'] != "":
+            pw_md5 = hashlib.md5(form['password'].encode()).hexdigest().encode()
+            pw_bcrypt = bcrypt.hashpw(pw_md5, bcrypt.gensalt())
+            await glob.db.execute(
+                'UPDATE users '
+                'SET pw_bcrypt = %s '
+                'WHERE id = %s',
+                [pw_bcrypt, id]
+            )
         await varka.update('users', ('id', id), **dict_cmp(data, datadef))
         return redirect(f'/admin/users/search/{id}')
     except: 
-        return redirect('/admin/users.html')
+        return redirect('/admin/users')
 
 @admin.route('/beatmaps')
 @priv_check(priv=Privileges.Nominator)
