@@ -16,6 +16,7 @@ from constants.privileges import Privileges
 from objects.utils import flash
 from objects import varka
 from objects.glob import t
+from osrparse import Replay
 import datetime
 import timeago
 
@@ -184,3 +185,34 @@ async def beatmaps_edit(id:int):
     else:
         await glob.db.execute("UPDATE maps SET frozen=1, status=%s WHERE id=%s", [str(status), str(id)])
     return redirect ('/admin/beatmaps/search/' + id)
+
+@admin.route('/replays/parse', methods=['POST'])
+async def replays_parse(): 
+    file = (await request.files)['replay_file']
+    if file is None:
+        return {'status': 300, 'msg': 'Replay is not exists in multipart.'}
+    try:
+        replay = Replay.from_file(file)
+        timestamp = replay.timestamp.timestamp()
+    except:
+        return {'status': 400, 'msg': 'Failed to parse the replay file.'}
+    return {
+        'status': 200,
+        'replay': {
+            'map_md5': replay.beatmap_hash,
+            'score': replay.score,
+            'max_combo': replay.max_combo,
+            'mods': replay.mods.value,
+            'n300': replay.count_300,
+            'n100': replay.count_100,
+            'n50': replay.count_50,
+            'nmiss': replay.count_miss,
+            'ngeki': replay.count_geki,
+            'nkatu': replay.count_katu,
+            'mode': replay.mode.value,
+            'playtime': int(timestamp),
+            'replay_id': replay.replay_id,
+            'perfect': replay.perfect,
+            'username': replay.username
+        }
+    }

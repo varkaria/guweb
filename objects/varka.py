@@ -92,6 +92,15 @@ async def update(table, id, **kargs):
     await glob.db.execute("UPDATE `%s` SET %s WHERE %s = '%s'" % (table, ', '.join(params), *id))
     return 'ok'
 
+async def insert(table, **kargs):
+    params = []
+    for k, v in kargs.items():
+        if v is not None:
+            params.append(f"{k}='{v}'")
+        else:
+            params.append(f"{k}=NULL")
+    return glob.db.execute("INSERT INTO `%s` SET %s" % (table, ', '.join(params)))
+
 async def search_user(keyword: str):
     if not keyword:
         return b'{}'

@@ -12,3 +12,4 @@ Pillow
 python-i18n[YAML]
 requires
 uuid
+osrparse
