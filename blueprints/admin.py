@@ -4,7 +4,6 @@ __all__ = ()
 
 import bcrypt
 import hashlib
-from curses.ascii import isdigit
 from functools import wraps
 import hashlib
 from quart import Blueprint
@@ -12,15 +11,14 @@ from quart import render_template
 from quart import session
 from quart import request
 from quart import redirect
-
 from objects import glob
-from objects.privileges import Privileges
+from constants.privileges import Privileges
 from objects.utils import flash
 from objects import varka
-
+from objects.glob import t
 import datetime
 import timeago
-from blueprints.i18npy import t
+
 
 admin = Blueprint('admin', __name__)
 
