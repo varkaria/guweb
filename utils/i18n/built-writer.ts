@@ -39,7 +39,7 @@ export function generateFileName (context: FileContext): string {
 }
 
 export async function writeToDisk (locales: LocaleRoot): Promise<unknown> {
-  const works = []
+  const works: Array<Promise<void>> = []
   for (const locale in locales) {
     const namespaces = locales[locale]
     for (const namespace in namespaces) {

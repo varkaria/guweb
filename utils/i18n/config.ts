@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { join } from 'path'
-// import { fileURLToPath } from 'url'
 import { merge } from 'lodash'
 
 import { using } from '../../config'
@@ -82,7 +81,6 @@ export interface FileContext {
 
 export const createConfilitKeyHandler = (mergeMode: boolean) => function onConflictingKey (oldVal: any, newVal: any, key: string) {
   if (typeof newVal[key] !== 'object' && typeof oldVal[key] !== 'object') {
-    console.log(typeof newVal[key], oldVal[key], newVal[key])
     return {
       ...oldVal,
       ...newVal

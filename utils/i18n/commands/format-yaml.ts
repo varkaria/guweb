@@ -46,24 +46,3 @@ void (async () => {
     console.log('formatting locales...  done')
   }
 })()
-
-// glob(path.join(translationPath, '**/*.yml'), async (err, matches) => {
-//   if (err != null) throw err
-//   const work = new Spinner('formatting locales...')
-//   work.start()
-//   if (parallel) {
-//     await Promise.all(matches.map(async (match) => {
-//       const work = new Spinner(`formatting locale: ${match}`)
-//       work.start()
-//       await doWork(match)
-//       work.stop()
-//     }))
-//   } else {
-//     for (const match of matches) {
-//       work.message(`formatting locale: ${match}`)
-//       await doWork(match)
-//     }
-//   }
-//   work.stop()
-//   console.log('formatting locales...  done')
-// })
