@@ -1,8 +1,8 @@
-import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import { mergeWith } from 'lodash'
+import { asyncGlob } from './lib'
 
 import { paths as translationPaths, contextFromFileName, createConfilitKeyHandler, FileContext } from './config'
 
@@ -102,13 +102,6 @@ const createReducer = ({ translationPath, merging }: {translationPath: string, m
     console.error(error)
   }
 }
-
-const asyncGlob = async (path: string): Promise<string[]> => await new Promise((resolve, reject) => {
-  glob(path, (err, matches) => {
-    if (err != null) reject(err)
-    else resolve(matches)
-  })
-})
 
 export const readLocales = async (): Promise<LocaleRoot> => {
   let locales = {}
