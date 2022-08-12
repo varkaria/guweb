@@ -17,3 +17,5 @@ unrestricted: 未封禁
 restricted: 封禁
 update: 更新
 search-by-username-or-email: 根据 用户名 或 邮箱 进行搜索
+password: 密码
+new-password: 请输入新密码
