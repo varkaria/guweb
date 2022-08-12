@@ -1,4 +1,4 @@
-import { compiledFileNameSchema, compiledFileSchema, compiled as translationPath, divider } from './config.mjs'
+import { compiledFileNameSchema, compiledFileSchema, compiled as translationPath, divider } from './config.js'
 import yaml from 'js-yaml'
 import { join, dirname } from 'path'
 import fs from 'fs/promises'

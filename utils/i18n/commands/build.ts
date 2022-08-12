@@ -1,6 +1,6 @@
 
-import { readLocales } from '../reader.mjs'
-import { writeToDisk } from '../built-writer.mjs'
+import { readLocales } from '../reader'
+import { writeToDisk } from '../built-writer.ts/index.js'
 import clui from 'clui'
 const { Spinner } = clui
 

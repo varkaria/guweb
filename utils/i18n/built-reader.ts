@@ -3,7 +3,7 @@ import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
 
-import { compiledFileNameSchema, compiledFileSchema, compiled as translationPath, divider } from './config.mjs'
+import { compiledFileNameSchema, compiledFileSchema, compiled as translationPath, divider } from './config.js'
 
 const parseFileName = (file) => {
     const fileName = path.relative(translationPath, file)
