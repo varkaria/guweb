@@ -1,5 +1,5 @@
 
-import { readLocales } from '../built-reader.ts/index.js'
-import { writeToDisk } from '../writer'
+// import { readLocales } from '../built-reader'
+// import { writeToDisk } from '../writer'
 
-readLocales().then(locales => writeToDisk(locales))
+// void readLocales().then(locales => writeToDisk(locales))
