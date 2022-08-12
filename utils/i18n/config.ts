@@ -3,7 +3,7 @@
 import { join } from 'path'
 import { merge } from 'lodash'
 
-import { using } from '../../config'
+import { using } from '../../config.js'
 
 export const compiledFileNameSchema = ['namespace', 'locale', 'extension'] as Array<'namespace' | 'locale' | 'extension'>
 export const compiledFileSchema = ['locale', 'entries']
