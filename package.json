@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build: "
     "i18n:build": "node utils/i18n/commands/build.mjs",
     "i18n:compile": "node utils/i18n/commands/build.mjs echo 'use i18n:build from now on.'",
     "i18n:format:templates": "node utils/i18n/commands/format-html.mjs",
@@ -35,7 +36,15 @@
     "js-yaml": "^4.1.0",
     "lodash-es": "^4.17.21",
     "nodemon": "^2.0.16",
+    "typescript": "^4.7.4",
     "yaml": "^2.1.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^22.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0"
+  }
 }
