@@ -43,10 +43,10 @@
   "i18n-ally.keystyle": "nested",
   "emeraldwalk.runonsave": {
     "commands": [
-      {
-        "match": ".(yml|yaml)$",
-        "cmd": "npm run i18n:compile"
-      },
+      // {
+      //   "match": ".(yml|yaml)$",
+      //   "cmd": "npm run i18n:compile"
+      // },
       {
         "match": ".html",
         "cmd": "npm run i18n:format:templates"
