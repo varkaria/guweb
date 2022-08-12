@@ -2,8 +2,8 @@
 
 __all__ = ('db', 'http', 'version', 'cache')
 
-from datetime import time
 import os
+import time
 from quart import Quart, session
 import i18n
 import markdown2
