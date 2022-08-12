@@ -2,7 +2,7 @@ import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
-import { mergeWith } from 'lodash-es'
+import { mergeWith } from 'lodash'
 
 import { paths as translationPaths, contextFromFileName, createConfilitKeyHandler, FileContext } from './config'
 
@@ -64,7 +64,7 @@ const mixinLocale = (
         return srcValue
       }
       for (const k in srcValue) {
-        if (objValue?.[k] !== srcValue[k]) {
+        if ((Boolean(objValue[k])) && objValue[k] !== srcValue[k]) {
           if (!merging) {
             console.warn(`[Warning] Merging into initilazed value:
 ${key}.${k}:

@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
-import { merge } from 'lodash-es'
+import { join } from 'path'
+// import { fileURLToPath } from 'url'
+import { merge } from 'lodash'
 
-import { using } from '../../config.mjs'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
+import { using } from '../../config'
 
 export const compiledFileNameSchema = ['namespace', 'locale', 'extension'] as Array<'namespace' | 'locale' | 'extension'>
 export const compiledFileSchema = ['locale', 'entries']
