@@ -2,14 +2,11 @@
 
 __all__ = ()
 
-import imghdr
 import bcrypt
 import hashlib
 import os
 import time
 import uuid
-
-
 from cmyui.logging import Ansi
 from cmyui.logging import log
 from functools import wraps
@@ -21,15 +18,13 @@ from quart import render_template
 from quart import request
 from quart import session
 from quart import send_file
-
 from constants import regexes
 from objects import glob
 from objects import utils
-from objects.privileges import Privileges
+from constants.privileges import Privileges
 from objects.utils import flash
 from objects.utils import flash_with_customizations
-
-from blueprints.i18npy import t
+from objects.glob import t
 from objects.varka import search_user
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
