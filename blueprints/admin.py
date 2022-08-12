@@ -79,21 +79,27 @@ async def restrictions():
 @priv_check(priv=Privileges.Staff)
 async def users():
     query_data = await varka.get_users()
-    return await render_template('/admin/users.html', query_data=query_data)
+    return await render_template('/admin/users/index.html', query_data=query_data)
 
 @admin.route('/users/search/<q>', methods=['GET'])
 @priv_check(priv=Privileges.Staff)
 async def users_search(q: str):
     query_data = await varka.get_users(search=q)
-    return await render_template('/admin/users.html', query_data=query_data, search_value=q)
+    return await render_template('/admin/users/index.html', query_data=query_data, search_value=q)
 
-@admin.route('/users/edit/<id>')
+@admin.route('/user/<id>/edit')
 @priv_check(priv=Privileges.Staff)
 async def users_edit(id:int):
     query = await varka.get_user(id)
-    return await render_template('admin/users_edit.html', search_data=query)
+    return await render_template('admin/users/edit.html', search_data=query)
 
-@admin.route('/users/update/<id>', methods=['POST']) # POST
+@admin.route('/user/<id>/upload-scores')
+@priv_check(priv=Privileges.Staff)
+async def users_upload_score(id:int):
+    query = await varka.get_user(id)
+    return await render_template('admin/users/upload-scores.html', search_data=query)
+
+@admin.route('/user/<id>/update', methods=['POST']) # POST
 @priv_check(priv=Privileges.Staff)
 async def users_update(id:int):
     try:

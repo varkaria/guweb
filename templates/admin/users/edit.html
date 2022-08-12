@@ -18,9 +18,9 @@
 {% block title %} Users {% endblock %} 
 
 {% block content %} 
-<form action="/admin/users/update/{{ search_data['id'] }}" method="POST" id="edit-user">
-    <div style="display: flex; align-items: center; flex-direction: column;">
-        <article style="width: 40%;" class="panel is-primary">
+<form action="/admin/user/{{ search_data['id'] }}/update" method="POST" id="edit-user">
+    <div class="is-flex is-align-items-center is-flex-direction-column">
+        <article style="min-width: fit-content; width: 40vw;" class="panel is-primary">
             <p class="panel-heading">
             {{t("admin.users.edit-info-of")}} {{ search_data['name'] }}
             </p>
@@ -47,8 +47,13 @@
                     <i class="fas fa-globe-americas" aria-hidden="true"></i>
                     {{t("admin.users.country")}}
                 </div>
-                <div class="column">
-                    <input name="edit-country" type="text" class="input" value="{{ search_data.country }}">
+                <div class="column is-flex gap-2 is-align-items-center">
+                    <img id="country-preview" src="/static/images/flags/JP.png" class="profile-flag" style="width: 25px; height: 17px; -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.63); box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);">
+                    <input name="edit-country" type="text" class="input" value="{{ search_data.country }}" oninput="
+                        if (this.value.length === 2) {
+                            document.getElementById('country-preview').src = '/static/images/flags/' + this.value.toUpperCase() + '.png'
+                        }
+                    ">
                 </div>
             </div>
             <div class="panel-block columns" style="height: 50px;">
@@ -80,7 +85,9 @@
                 </div>
             </div>
             <div class="panel-block pb-4">
-                <button type="submit" form="edit-user" style="margin-left: auto; margin-right: 1em; width: 100px;" class="button is-primary">{{t("admin.users.update")}}</button>
+                <a href="./upload-scores" style="margin-right: 1em;" class="button is-info">{{t("admin.users.upload-new-score")}}</a>
+                <div style="margin-left: auto;"></div>
+                <button type="submit" form="edit-user" style="margin-right: 1em; width: 100px;" class="button is-primary">{{t("admin.users.update")}}</button>
             </div>
         </article>
     </div>

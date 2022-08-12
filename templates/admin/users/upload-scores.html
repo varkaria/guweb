@@ -1,0 +1,292 @@
+{% extends 'admin/base.html' %}
+{% block header %}
+<style>
+    .text-nowrap {
+        white-space: nowrap;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .ml-auto {
+        margin-left: auto;
+    }
+
+    .gap-2 {
+        gap: 0.5em;
+    }
+
+    .is-right {
+        text-align: right;
+    }
+</style>
+<script src="/static/js/pages/admin/users/upload-scores.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block title %} Users {% endblock %}
+
+{% block content %}
+<template id="record">
+    <div class="panel-block columns" style="height: 50px;">
+        <div id="key" class="column is-one-quarter text-nowrap is-right"></div>
+        <div class="column">
+            <input id="value" class="input" disabled>
+        </div>
+    </div>
+</template>
+<template id="record-selectable">
+    <div class="panel-block columns" style="height: 50px;">
+        <div class="column is-one-quarter text-nowrap is-right"></div>
+        <div class="column">
+            <div class="select w-100">
+                <select name="legality" class="w-100">
+                </select>
+            </div>
+        </div>
+    </div>
+</template>
+<div class="is-flex is-align-items-center is-flex-direction-column">
+    <article style="min-width: fit-content; width: 60vw;" class="panel is-primary">
+        <form id="osr-reader" onsubmit="event.preventDefault(); uploadOsr()">
+            <p class="panel-heading">
+                {{t("osr-reader.name")}}
+            </p>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-id-card" aria-hidden="true"></i>
+                    {{t("osr-reader.file")}}
+                </div>
+                <div class="column">
+                    <div class="file">
+                        <label class="file-label">
+                            <input class="file-input" type="file" name="replay_file">
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                    {{t("osr-reader.upload-osr")}}
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-block pb-4">
+                <div style="margin-left: auto;"></div>
+                <button type="submit" class="button is-primary">{{t("osr-reader.read")}}</button>
+                <div style="margin-right: 1em;"></div>
+            </div>
+        </form>
+
+        <div id="copy-to-form" class="is-hidden">
+            <hr>
+            <div id="replay-data"></div>
+            <hr class="mb-2">
+            <div class="panel-block">
+                <div style="margin-left: auto;"></div>
+                <button class="button is-primary"
+                    onclick="copyReplayToForm()">{{t("admin.upload-replay.replay-copy-to-form")}}</button>
+                <div style="margin-right: 1em;"></div>
+            </div>
+        </div>
+    </article>
+</div>
+<!-- action="/admin/user/{{ search_data['id'] }}/upload-score" method="POST" -->
+<div class="is-flex is-align-items-center is-flex-direction-column pt-4">
+    <form id="submit-replay" onsubmit="event.preventDefault(); submitReplay()">
+        <article style="min-width: fit-content; width: 60vw;" class="panel is-primary">
+            <p class="panel-heading">
+                {{t("admin.upload-replay.upload-score-for", name = search_data['name'])}}
+            </p>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-id-card" aria-hidden="true"></i>
+                    {{t("admin.users.id")}}
+                </div>
+                <div class="column">
+                    <input name="userid" type="text" class="input" value="{{ search_data.id }}">
+                </div>
+            </div>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fab fa-octopus-deploy"></i>
+                    {{t("grade.grade")}}
+                </div>
+                <div class="column">
+                    <div class="select w-100">
+                        <select name="grade" class="w-100">
+                            <option value="N">{{t("grade.N")}}</option>
+                            <option value="F">{{t("grade.F")}}</option>
+                            <option value="D">{{t("grade.D")}}</option>
+                            <option value="C">{{t("grade.C")}}</option>
+                            <option value="B">{{t("grade.B")}}</option>
+                            <option value="A">{{t("grade.A")}}</option>
+                            <option value="S">{{t("grade.S")}}</option>
+                            <option value="SH">{{t("grade.SH")}}</option>
+                            <option value="X">{{t("grade.X")}}</option>
+                            <option value="XH">{{t("grade.XH")}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fa-solid fa-server"></i>
+                    {{t("servers.server")}}
+                </div>
+                <div class="column">
+                    <div class="select w-100">
+                        <select name="server" class="w-100">
+                            <option value="bancho">{{t("servers.bancho")}}</option>
+                            <option value="ppysb">{{t("servers.ppy-sb")}}</option>
+                            <option value="akatsuki">{{t("servers.akatsuki")}}</option>
+                            <option value="offline">{{t("servers.offline")}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-user-check"></i>
+                    {{t("admin.upload-replay.identifier-type")}}
+                </div>
+                <div class="column">
+                    <div class="select w-100">
+                        <select name="identifier_type" class="w-100">
+                            <option value="replay_username">
+                                {{t("admin.upload-replay.identifier-types.replay_username")}}</option>
+                            <option value="server_userid">{{t("admin.upload-replay.identifier-types.server_userid")}}
+                            </option>
+                            <option value="replay_id">{{t("admin.upload-replay.identifier-types.replay_id")}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">
+                    <i class="fas fa-address-card"></i>
+                    {{t("admin.outer-identifier")}}
+                </div>
+                <div class="column">
+                    <input type="text" class="input" name="outer_identifier">
+                </div>
+            </div>
+            <hr>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">map_md5</div>
+                <div class="column">
+                    <input type="text" class="input" name="map_md5">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">max_combo</div>
+                <div class="column">
+                    <input type="number" class="input" name="max_combo">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">mode</div>
+                <div class="column">
+                    <input type="number" class="input" name="mode">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">mods</div>
+                <div class="column">
+                    <input type="number" class="input" name="mods">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">n100</div>
+                <div class="column">
+                    <input type="number" class="input" name="n100">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">n300</div>
+                <div class="column">
+                    <input type="number" class="input" name="n300">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">n50</div>
+                <div class="column">
+                    <input type="number" class="input" name="n50">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">ngeki</div>
+                <div class="column">
+                    <input type="number" class="input" name="ngeki">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">nkatu</div>
+                <div class="column">
+                    <input type="number" class="input" name="nkatu">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">nmiss</div>
+                <div class="column">
+                    <input type="number" class="input" name="nmiss">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">perfect</div>
+                <div class="column">
+                    <input type="checkbox" class="checkbox" name="perfect">
+                </div>
+            </div>
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">playtime</div>
+                <div class="column">
+                    <input type="number" class="input" name="playtime">
+                </div>
+            </div>
+
+            <!-- <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">replay_id</div>
+                <div class="column">
+                    <input type="number" class="input" name="replay_id">
+                </div>
+            </div> -->
+
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">score</div>
+                <div class="column">
+                    <input type="number" class="input" name="score">
+                </div>
+            </div>
+
+            <!-- <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-right">username</div>
+                <div class="column">
+                    <input type="text" class="input" name="username">
+                </div>
+            </div> -->
+            <hr>
+            <div class="panel-block pb-4">
+                <div style="margin-left: auto;"></div>
+                <button type="submit" form="submit-replay"
+                    class="button is-primary">{{t("admin.upload-replay.upload")}}</button>
+                <div style="margin-right: 1em;"></div>
+            </div>
+        </article>
+    </form>
+</div>
+
+{% endblock content %}
