@@ -178,10 +178,6 @@
                                     <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=5&set=1">{{t("admin.beatmaps.loved-set")}}</a>
                                     <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=3&set=1">{{t("admin.beatmaps.approved-set")}}</a>
                                     <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=0&set=1">{{t("admin.beatmaps.pending-set")}}</a>
-                                    <hr class="dropdown-divider">
-                                    <a class="dropdown-item operate-button" href="javascript:void(0);" onclick="updateMaps({{ i.set_id }})">
-                                        {{t("admin.beatmaps.sync-beatmapsets-with-bancho")}}
-                                    </a>
                                 </div>
                             </div>
                         </div>
