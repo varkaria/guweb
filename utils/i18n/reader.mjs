@@ -121,8 +121,10 @@ const asyncGlob = (path) => new Promise((resolve, reject) => {
 })
 export const readLocales = async () => {
     let locales = {}
-    for (const [index, translationPath] of translationPaths.entries()) {
-        const matches = await asyncGlob(path.join(translationPath, '**/*.yml'))
+    for (const [index, conf] of translationPaths.entries()) {
+        const { path: translationPath, filter } = conf
+        const matches = (await asyncGlob(path.join(translationPath, '**/*.yml')))
+        .filter(filter)
         const reducer = createReducer({ translationPath, merging: index > 0 })
         locales = await matches.reduce(reducer, locales)
     }

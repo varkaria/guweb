@@ -25,5 +25,4 @@ ranked-set: 将整个谱面设置为 Ranked 状态
 loved-set: 将整个谱面设置为 Loved 状态
 approved-set: 将整个谱面设置为 Approved 状态
 pending-set: 将整个谱面设置为 Pending 状态
-sync-beatmapsets-with-bancho: 将整个谱面的状态与 Bancho 进行同步
 search-by-bid-sid-or-title: 根据 bid, sid 或者是 谱面名字 进行搜索
