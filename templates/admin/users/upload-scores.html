@@ -46,7 +46,7 @@
             {{t("admin.upload-replay.upload-score-for", name = search_data['name'])}}
         </p>
         <form id="osr-reader" onsubmit="event.preventDefault()">
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-id-card" aria-hidden="true"></i>
                     {{t("admin.upload-replay.osu-replay-file")}}
@@ -80,7 +80,7 @@
                     <input name="userid" type="text" class="input" value="{{ search_data.id }}" required>
                 </div>
             </div> -->
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fab fa-octopus-deploy"></i>
                     {{t("global.grade")}}
@@ -102,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fa-solid fa-server"></i>
                     {{t("global.server")}}
@@ -118,7 +118,15 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.foreign-score-id") }}
+                </div>
+                <div class="column py-0">
+                    <input type="number" class="input" name="foreign_score_id" required>
+                </div>
+            </div>
+
+            <!-- <div class="panel-block columns" >
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-user-check"></i>
                     {{t("admin.upload-replay.identifier-type")}}
@@ -144,86 +152,86 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <hr>
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.map-md5") }}</div>
                 <div class="column py-0">
                     <input type="text" class="input" name="map_md5" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.max-combo") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="max_combo" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.mode") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="mode" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.mods") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="mods" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.n100") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="n100" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.n300") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="n300" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.n50") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="n50" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.ngeki") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="ngeki" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.nkatu") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="nkatu" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.nmiss") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="nmiss" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.perfect") }}</div>
                 <div class="column py-0">
                     <input type="checkbox" class="checkbox" name="perfect">
                 </div>
             </div>
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.playtime") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="playtime" required>
@@ -237,7 +245,7 @@
                 </div>
             </div> -->
 
-            <div class="panel-block columns" >
+            <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.score") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="score" required>

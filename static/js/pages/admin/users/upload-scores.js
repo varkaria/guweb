@@ -1,70 +1,5 @@
 /* eslint-disable no-unused-vars */
 
-function createState (initial) {
-  const isProxy = Symbol('isProxy')
-  const hooks = []
-  const recursiveReactive = (bubbleUp = false) => ({
-    get (target, key) {
-      if (key === isProxy) { return true }
-      return target[key]
-    },
-    set (target, key, value, proxy) {
-      if (
-        value instanceof File ||
-        value instanceof Blob
-      ) {
-        target[key] = value
-      } else if (typeof value === 'object') {
-        target[key] = new Proxy(value, recursiveReactive(true))
-      } else if (Array.isArray(value)) {
-        target[key] = new Proxy(value, recursiveReactive(true))
-      } else target[key] = value
-      if (bubbleUp) {
-        updateState({ bubble: true })
-      }
-    }
-  })
-  const state = new Proxy({}, recursiveReactive())
-  for (const [k, v] of Object.entries(initial)) {
-    state[k] = v
-  }
-  const reactive = new Proxy(state, {
-    get (target, key) {
-      const returnValue = target[key]
-      // if (returnValue && returnValue[isProxy]) {
-      //   setTimeout(updateState, 0)
-      // }
-      return returnValue
-    },
-    set (target, key, value) {
-      target[key] = value
-      updateState()
-    }
-  })
-  function useHook (cb) {
-    hooks.push(cb)
-  }
-  async function updateState ({ bubble = false } = {}) {
-    console.log('update state:', state)
-    for (const hook of hooks) {
-      await hook(reactive)
-    }
-  }
-  function transaction (cb, immediate = true) {
-    cb(state)
-    if (immediate) updateState()
-    else return () => updateState()
-  }
-
-  return {
-    useHook,
-    forceUpdate: updateState,
-    nonReactive: state,
-    reactive,
-    transaction
-  }
-}
-
 const { nonReactive, reactive: s, useHook, forceUpdate, transaction } = createState({
   userId: -1,
   apiKey: undefined,
@@ -122,6 +57,7 @@ useHook(state => {
     if (!form[key]) return
     form[key].value = value
   })
+  form.foreign_score_id.value = state.parsed.replay_id || 0
 })
 
 useHook(state => {

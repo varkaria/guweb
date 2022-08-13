@@ -54,6 +54,6 @@ grades-X: SS
 grades-XH: SSH
 server: 服务器
 bancho: Bancho
-ppy-sb: ppy-sb
-akatsuki: akatsuki
-server-offline: 离线客户端
+ppy-sb: ppy.sb
+akatsuki: Akatsuki
+server-offline: 离线
