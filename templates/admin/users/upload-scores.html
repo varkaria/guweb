@@ -43,13 +43,13 @@
 <div class="is-flex is-align-items-center is-flex-direction-column pt-4">
     <article style="min-width: fit-content; width: 60vw;" class="panel is-primary">
         <p class="panel-heading">
-            {{t("admin.upload-replay.upload-score-for", name = search_data['name'])}}
+            {{ t("admin.upload-replay.upload-score-for", name = search_data['name']) }}
         </p>
         <form id="osr-reader" onsubmit="event.preventDefault()">
             <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-id-card" aria-hidden="true"></i>
-                    {{t("admin.upload-replay.osu-replay-file")}}
+                    {{ t("admin.upload-replay.osu-replay-file") }}
                 </div>
                 <div class="column py-0 is-flex is-align-items-center gap-2">
                     <div class="file" id="form-replay-file-label">
@@ -60,7 +60,7 @@
                                     <i class="fas fa-upload"></i>
                                 </span>
                                 <span class="file-label">
-                                    {{t("admin.upload-replay.upload-osr-file")}}
+                                    {{ t("admin.upload-replay.upload-osr-file") }}
                                 </span>
                             </span>
                         </label>
@@ -74,7 +74,7 @@
             <!-- <div class="panel-block columns is-hidden" >
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-id-card" aria-hidden="true"></i>
-                    {{t("admin.users.id")}}
+                    {{ t("admin.users.id") }}
                 </div>
                 <div class="column py-0">
                     <input name="userid" type="text" class="input" value="{{ search_data.id }}" required>
@@ -83,21 +83,21 @@
             <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fab fa-octopus-deploy"></i>
-                    {{t("global.grade")}}
+                    {{ t("global.grade") }}
                 </div>
                 <div class="column py-0">
                     <div class="select w-100">
                         <select name="grade" class="w-100" required>
-                            <option value="N">{{t("global.grades-N")}}</option>
-                            <option value="F">{{t("global.grades-F")}}</option>
-                            <option value="D">{{t("global.grades-D")}}</option>
-                            <option value="C">{{t("global.grades-C")}}</option>
-                            <option value="B">{{t("global.grades-B")}}</option>
-                            <option value="A">{{t("global.grades-A")}}</option>
-                            <option value="S">{{t("global.grades-S")}}</option>
-                            <option value="SH">{{t("global.grades-SH")}}</option>
-                            <option value="X">{{t("global.grades-X")}}</option>
-                            <option value="XH">{{t("global.grades-XH")}}</option>
+                            <option value="N">{{ t("global.grades-N") }}</option>
+                            <option value="F">{{ t("global.grades-F") }}</option>
+                            <option value="D">{{ t("global.grades-D") }}</option>
+                            <option value="C">{{ t("global.grades-C") }}</option>
+                            <option value="B">{{ t("global.grades-B") }}</option>
+                            <option value="A">{{ t("global.grades-A") }}</option>
+                            <option value="S">{{ t("global.grades-S") }}</option>
+                            <option value="SH">{{ t("global.grades-SH") }}</option>
+                            <option value="X">{{ t("global.grades-X") }}</option>
+                            <option value="XH">{{ t("global.grades-XH") }}</option>
                         </select>
                     </div>
                 </div>
@@ -105,15 +105,15 @@
             <div class="panel-block columns">
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fa-solid fa-server"></i>
-                    {{t("global.server")}}
+                    {{ t("global.server") }}
                 </div>
                 <div class="column py-0">
                     <div class="select w-100">
                         <select name="server" class="w-100" required>
-                            <option value="bancho">{{t("global.bancho")}}</option>
-                            <option value="ppysb">{{t("global.ppy-sb")}}</option>
-                            <option value="akatsuki">{{t("global.akatsuki")}}</option>
-                            <option value="offline">{{t("global.server-offline")}}</option>
+                            <option value="bancho">{{ t("global.bancho") }}</option>
+                            <option value="ppysb">{{ t("global.ppy-sb") }}</option>
+                            <option value="akatsuki">{{ t("global.akatsuki") }}</option>
+                            <option value="offline">{{ t("global.server-offline") }}</option>
                         </select>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
             <!-- <div class="panel-block columns" >
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-user-check"></i>
-                    {{t("admin.upload-replay.identifier-type")}}
+                    {{ t("admin.upload-replay.identifier-type") }}
                 </div>
                 <div class="column py-0">
                     <div class="field has-addons w-100 pt-3">
@@ -137,11 +137,11 @@
                             <span class="select">
                                 <select name="identifier_type" required>
                                     <option value="replay_username">
-                                        {{t("admin.upload-replay.identifier-types.replay_username")}}</option>
+                                        {{ t("admin.upload-replay.identifier-types.replay_username") }}</option>
                                     <option value="server_userid">
-                                        {{t("admin.upload-replay.identifier-types.server_userid")}}
+                                        {{ t("admin.upload-replay.identifier-types.server_userid") }}
                                     </option>
-                                    <option value="replay_id">{{t("admin.upload-replay.identifier-types.replay_id")}}
+                                    <option value="replay_id">{{ t("admin.upload-replay.identifier-types.replay_id") }}
                                     </option>
                                 </select>
                             </span>
@@ -262,7 +262,7 @@
             <div class="panel-block pb-4">
                 <div style="margin-left: auto;"></div>
                 <button type="submit" form="submit-replay"
-                    class="button is-primary">{{t("admin.upload-replay.upload")}}</button>
+                    class="button is-primary">{{ t("admin.upload-replay.upload") }}</button>
                 <div style="margin-right: 1em;"></div>
             </div>
         </form>

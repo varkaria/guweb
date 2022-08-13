@@ -11,9 +11,10 @@ const { Spinner } = clui
 
 const doWork = async (match: string): Promise<void> => {
   try {
-    const template = await fs.readFile(match, { encoding: 'utf8' })
-    const wb = template.replace(/\{\{\s?t\('(.*)'\s?(,\s?(.+)\s?)?\)\s?\}\}/gmu, '{{ t(\'$1\'$2) }}')
-    await fs.writeFile(match, wb, 'utf8')
+    let template = await fs.readFile(match, { encoding: 'utf8' })
+    template = template.replace(/\{\{\s?t\('(.*)'\s?(,\s?(.+)\s?)?\)\s?\}\}/gmu, '{{ t(\'$1\'$2) }}')
+    template = template.replace(/\{\{\s?t\("(.*)"\s?(,\s?(.+)\s?)?\)\s?\}\}/gmu, '{{ t("$1"$2) }}')
+    await fs.writeFile(match, template, 'utf8')
   } catch (error) {
     console.error(error)
   }

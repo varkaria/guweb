@@ -47,10 +47,10 @@
         "match": ".(yml|yaml)$",
         "cmd": "yarn i18n:build"
       },
-      // {
-      //   "match": ".html$",
-      //   "cmd": "yarn i18n:format:templates"
-      // }
+      {
+        "match": ".html$",
+        "cmd": "yarn i18n:format:templates"
+      }
     ]
   },
   "files.associations": {
