@@ -78,16 +78,20 @@ const { nonReactive, reactive: s, useHook, forceUpdate, transaction } = createSt
 useHook((state) => {
   // const result = document.getElementById('osr-result')
   const file = document.getElementById('form-replay-file-label')
-  if (state.parseSucceed) {
-    // result.classList.remove('is-hidden')
-    file.classList.add('is-success')
-  } else {
-    // result.classList.add('is-hidden')
-    file.classList.add('is-danger')
-  }
+
   if (!state.replayFile) {
     const form = document.getElementById('osr-reader')
     delete form.replay_file.value
+  } else {
+    if (state.parseSucceed) {
+      // result.classList.remove('is-hidden')
+      file.classList.add('is-success')
+      file.classList.remove('is-danger')
+    } else {
+      // result.classList.add('is-hidden')
+      file.classList.add('is-danger')
+      file.classList.remove('is-success')
+    }
   }
 })
 
