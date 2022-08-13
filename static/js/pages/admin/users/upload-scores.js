@@ -168,9 +168,9 @@ async function submitReplay () {
   const endpoint = `//api.${window.domain}/submit_score`
   await fetch(endpoint, {
     method: 'post',
-    body: formData
-    // headers: {
-    //   Authorization:
-    // }
+    body: formData,
+    headers: {
+      Authorization: api_key
+    }
   }).then(res => res.json())
 }
