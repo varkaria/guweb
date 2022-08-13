@@ -18,3 +18,4 @@ upload: 上传
 perfect: 是否为perfect
 osu-replay-file: osu回放文件
 upload-osr-file: 上传osr文件
+foreign-score-id: 外部来源的成绩id
