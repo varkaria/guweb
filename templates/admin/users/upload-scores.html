@@ -49,7 +49,7 @@
             <div class="panel-block columns" >
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-id-card" aria-hidden="true"></i>
-                    {{t("osr-reader.file")}}
+                    {{t("admin.upload-replay.osu-replay-file")}}
                 </div>
                 <div class="column py-0 is-flex is-align-items-center gap-2">
                     <div class="file" id="form-replay-file-label">
@@ -60,7 +60,7 @@
                                     <i class="fas fa-upload"></i>
                                 </span>
                                 <span class="file-label">
-                                    {{t("osr-reader.upload-osr")}}
+                                    {{t("admin.upload-replay.upload-osr-file")}}
                                 </span>
                             </span>
                         </label>
@@ -83,21 +83,21 @@
             <div class="panel-block columns" >
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fab fa-octopus-deploy"></i>
-                    {{t("grades.grade")}}
+                    {{t("global.grade")}}
                 </div>
                 <div class="column py-0">
                     <div class="select w-100">
                         <select name="grade" class="w-100" required>
-                            <option value="N">{{t("grades.N")}}</option>
-                            <option value="F">{{t("grades.F")}}</option>
-                            <option value="D">{{t("grades.D")}}</option>
-                            <option value="C">{{t("grades.C")}}</option>
-                            <option value="B">{{t("grades.B")}}</option>
-                            <option value="A">{{t("grades.A")}}</option>
-                            <option value="S">{{t("grades.S")}}</option>
-                            <option value="SH">{{t("grades.SH")}}</option>
-                            <option value="X">{{t("grades.X")}}</option>
-                            <option value="XH">{{t("grades.XH")}}</option>
+                            <option value="N">{{t("global.grades-N")}}</option>
+                            <option value="F">{{t("global.grades-F")}}</option>
+                            <option value="D">{{t("global.grades-D")}}</option>
+                            <option value="C">{{t("global.grades-C")}}</option>
+                            <option value="B">{{t("global.grades-B")}}</option>
+                            <option value="A">{{t("global.grades-A")}}</option>
+                            <option value="S">{{t("global.grades-S")}}</option>
+                            <option value="SH">{{t("global.grades-SH")}}</option>
+                            <option value="X">{{t("global.grades-X")}}</option>
+                            <option value="XH">{{t("global.grades-XH")}}</option>
                         </select>
                     </div>
                 </div>
@@ -105,15 +105,15 @@
             <div class="panel-block columns" >
                 <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fa-solid fa-server"></i>
-                    {{t("servers.server")}}
+                    {{t("global.server")}}
                 </div>
                 <div class="column py-0">
                     <div class="select w-100">
                         <select name="server" class="w-100" required>
-                            <option value="bancho">{{t("servers.bancho")}}</option>
-                            <option value="ppysb">{{t("servers.ppy-sb")}}</option>
-                            <option value="akatsuki">{{t("servers.akatsuki")}}</option>
-                            <option value="offline">{{t("servers.offline")}}</option>
+                            <option value="bancho">{{t("global.bancho")}}</option>
+                            <option value="ppysb">{{t("global.ppy-sb")}}</option>
+                            <option value="akatsuki">{{t("global.akatsuki")}}</option>
+                            <option value="offline">{{t("global.server-offline")}}</option>
                         </select>
                     </div>
                 </div>
@@ -140,91 +140,91 @@
                         </p>
                         <p class="control w-100">
                             <input class="input w-100" name="outer_identifier" required type="text"
-                                placeholder="{{ t('admin.outer-identifier') }}">
+                                placeholder="{{ t('admin.upload-replay.outer_identifier') }}">
                         </p>
                     </div>
                 </div>
             </div>
             <hr>
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.map_md5") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.map-md5") }}</div>
                 <div class="column py-0">
                     <input type="text" class="input" name="map_md5" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.max_combo") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.max-combo") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="max_combo" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.mode") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.mode") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="mode" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.mods") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.mods") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="mods" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.n100") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.n100") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="n100" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.n300") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.n300") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="n300" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.n50") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.n50") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="n50" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.ngeki") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.ngeki") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="ngeki" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.nkatu") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.nkatu") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="nkatu" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.nmiss") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.nmiss") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="nmiss" required>
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.perfect") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.perfect") }}</div>
                 <div class="column py-0">
                     <input type="checkbox" class="checkbox" name="perfect">
                 </div>
             </div>
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.playtime") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.playtime") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="playtime" required>
                 </div>
@@ -238,7 +238,7 @@
             </div> -->
 
             <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.score") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("admin.upload-replay.score") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="score" required>
                 </div>

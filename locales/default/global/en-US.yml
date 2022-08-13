@@ -38,8 +38,22 @@ rank:
   s: S
   sh: S
   a: A
-# server literals
 invalid-parameters: Invalid parameters.
 you-are-already-logged-in: You're already logged in!
 you-must-be-logged-in-to-access-this-page: You must be logged in to access this page.
-
+grade: Grade
+grades-N: 'N'
+grades-F: F
+grades-D: D
+grades-C: C
+grades-B: B
+grades-A: A
+grades-S: S
+grades-SH: SH
+grades-X: SS
+grades-XH: SSH
+server: Server
+bancho: Bancho
+ppy-sb: ppy-sb
+akatsuki: akatsuki
+server-offline: offline
