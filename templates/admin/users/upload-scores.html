@@ -21,48 +21,38 @@
         text-align: right;
     }
 </style>
-<script src="/static/js/pages/admin/users/upload-scores.js" crossorigin="anonymous"></script>
+<script src="/static/js/pages/admin/users/upload-scores.js"></script>
 <script>
-    api_key = "{{ session['user_data']['api_key'] }}"
+    transaction(state => {
+        state.apiKey = "{{ session['user_data']['api_key'] }}"
+    }, false)
 </script>
 {% endblock %}
 {% block title %} Users {% endblock %}
 
 {% block content %}
-<template id="record">
-    <div class="panel-block columns" style="height: 50px;">
-        <div id="key" class="column is-one-quarter text-nowrap is-right"></div>
-        <div class="column">
-            <input id="value" class="input" disabled>
-        </div>
+<template id="template-replay-row">
+    <div class="tags has-addons m-0">
+      <span class="tag mb-0" id="key"></span>
+      <span class="tag mb-0 is-primary" id="value"></span>
     </div>
 </template>
-<template id="record-selectable">
-    <div class="panel-block columns" style="height: 50px;">
-        <div class="column is-one-quarter text-nowrap is-right"></div>
-        <div class="column">
-            <div class="select w-100">
-                <select name="legality" class="w-100">
-                </select>
-            </div>
-        </div>
-    </div>
-</template>
-<div class="is-flex is-align-items-center is-flex-direction-column">
+<!-- action="/admin/user/{{ search_data['id'] }}/upload-score" method="POST" -->
+<div class="is-flex is-align-items-center is-flex-direction-column pt-4">
     <article style="min-width: fit-content; width: 60vw;" class="panel is-primary">
-        <form id="osr-reader" onsubmit="event.preventDefault(); uploadOsr()">
-            <p class="panel-heading">
-                {{t("osr-reader.name")}}
-            </p>
+        <p class="panel-heading">
+            {{t("admin.upload-replay.upload-score-for", name = search_data['name'])}}
+        </p>
+        <form id="osr-reader" onsubmit="event.preventDefault()">
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-id-card" aria-hidden="true"></i>
                     {{t("osr-reader.file")}}
                 </div>
-                <div class="column">
-                    <div class="file">
+                <div class="column is-flex is-align-items-center gap-2">
+                    <div class="file" id="form-replay-file-label">
                         <label class="file-label">
-                            <input class="file-input" type="file" name="replay_file">
+                            <input class="file-input" type="file" name="replay_file" onchange="uploadOsr()">
                             <span class="file-cta">
                                 <span class="file-icon">
                                     <i class="fas fa-upload"></i>
@@ -73,63 +63,43 @@
                             </span>
                         </label>
                     </div>
+                    <div id="replay-result" class="is-flex is-align-items-center gap-2"></div>
                 </div>
-            </div>
-
-            <div class="panel-block pb-4">
-                <div style="margin-left: auto;"></div>
-                <button type="submit" class="button is-primary">{{t("osr-reader.read")}}</button>
-                <div style="margin-right: 1em;"></div>
             </div>
         </form>
 
-        <div id="copy-to-form" class="is-hidden">
-            <hr>
+        <!-- <div id="osr-result" class="is-hidden">
             <div id="replay-data"></div>
-            <hr class="mb-2">
-            <div class="panel-block">
-                <div style="margin-left: auto;"></div>
-                <button class="button is-primary"
-                    onclick="copyReplayToForm()">{{t("admin.upload-replay.replay-copy-to-form")}}</button>
-                <div style="margin-right: 1em;"></div>
-            </div>
-        </div>
-    </article>
-</div>
-<!-- action="/admin/user/{{ search_data['id'] }}/upload-score" method="POST" -->
-<div class="is-flex is-align-items-center is-flex-direction-column pt-4">
-    <form id="submit-replay" onsubmit="event.preventDefault(); submitReplay()">
-        <article style="min-width: fit-content; width: 60vw;" class="panel is-primary">
-            <p class="panel-heading">
-                {{t("admin.upload-replay.upload-score-for", name = search_data['name'])}}
-            </p>
+        </div> -->
+        <hr>
+        <form id="submit-replay" onsubmit="event.preventDefault(); submitReplay()">
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-id-card" aria-hidden="true"></i>
                     {{t("admin.users.id")}}
                 </div>
                 <div class="column">
-                    <input name="userid" type="text" class="input" value="{{ search_data.id }}">
+                    <input name="userid" type="text" class="input" value="{{ search_data.id }}" required>
                 </div>
             </div>
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fab fa-octopus-deploy"></i>
-                    {{t("grade.grade")}}
+                    {{t("grades.grade")}}
                 </div>
                 <div class="column">
                     <div class="select w-100">
-                        <select name="grade" class="w-100">
-                            <option value="N">{{t("grade.N")}}</option>
-                            <option value="F">{{t("grade.F")}}</option>
-                            <option value="D">{{t("grade.D")}}</option>
-                            <option value="C">{{t("grade.C")}}</option>
-                            <option value="B">{{t("grade.B")}}</option>
-                            <option value="A">{{t("grade.A")}}</option>
-                            <option value="S">{{t("grade.S")}}</option>
-                            <option value="SH">{{t("grade.SH")}}</option>
-                            <option value="X">{{t("grade.X")}}</option>
-                            <option value="XH">{{t("grade.XH")}}</option>
+                        <select name="grade" class="w-100" required>
+                            <option value="N">{{t("grades.N")}}</option>
+                            <option value="F">{{t("grades.F")}}</option>
+                            <option value="D">{{t("grades.D")}}</option>
+                            <option value="C">{{t("grades.C")}}</option>
+                            <option value="B">{{t("grades.B")}}</option>
+                            <option value="A">{{t("grades.A")}}</option>
+                            <option value="S">{{t("grades.S")}}</option>
+                            <option value="SH">{{t("grades.SH")}}</option>
+                            <option value="X">{{t("grades.X")}}</option>
+                            <option value="XH">{{t("grades.XH")}}</option>
                         </select>
                     </div>
                 </div>
@@ -141,7 +111,7 @@
                 </div>
                 <div class="column">
                     <div class="select w-100">
-                        <select name="server" class="w-100">
+                        <select name="server" class="w-100" required>
                             <option value="bancho">{{t("servers.bancho")}}</option>
                             <option value="ppysb">{{t("servers.ppy-sb")}}</option>
                             <option value="akatsuki">{{t("servers.akatsuki")}}</option>
@@ -156,8 +126,51 @@
                     {{t("admin.upload-replay.identifier-type")}}
                 </div>
                 <div class="column">
+                    <div class="field has-addons w-100 pt-3">
+                        <p class="control w-100">
+                            <span class="select">
+                                <select name="identifier_type" required>
+                                    <option value="replay_username">
+                                        {{t("admin.upload-replay.identifier-types.replay_username")}}</option>
+                                    <option value="server_userid">
+                                        {{t("admin.upload-replay.identifier-types.server_userid")}}
+                                    </option>
+                                    <option value="replay_id">{{t("admin.upload-replay.identifier-types.replay_id")}}
+                                    </option>
+                                </select>
+                            </span>
+                        </p>
+                        <p class="control w-100">
+                            <input class="input" name="outer_identifier" required type="text"
+                                placeholder="{{ t('admin.outer-identifier') }}">
+                        </p>
+                    </div>
+                </div>
+
+                <!-- <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-user-check"></i>
+                    {{t("admin.upload-replay.identifier-type")}}
+                </div>
+                <div class="column">
                     <div class="select w-100">
-                        <select name="identifier_type" class="w-100">
+                        <select name="identifier_type" class="w-100" required>
+                            <option value="replay_username">
+                                {{t("admin.upload-replay.identifier-types.replay_username")}}</option>
+                            <option value="server_userid">{{t("admin.upload-replay.identifier-types.server_userid")}}
+                            </option>
+                            <option value="replay_id">{{t("admin.upload-replay.identifier-types.replay_id")}}</option>
+                        </select>
+                    </div>
+                </div> -->
+            </div>
+            <!-- <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-user-check"></i>
+                    {{t("admin.upload-replay.identifier-type")}}
+                </div>
+                <div class="column">
+                    <div class="select w-100">
+                        <select name="identifier_type" class="w-100" required>
                             <option value="replay_username">
                                 {{t("admin.upload-replay.identifier-types.replay_username")}}</option>
                             <option value="server_userid">{{t("admin.upload-replay.identifier-types.server_userid")}}
@@ -173,77 +186,77 @@
                     {{t("admin.outer-identifier")}}
                 </div>
                 <div class="column">
-                    <input type="text" class="input" name="outer_identifier">
+                    <input type="text" class="input" name="outer_identifier" required>
                 </div>
-            </div>
+            </div> -->
             <hr>
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">map_md5</div>
                 <div class="column">
-                    <input type="text" class="input" name="map_md5">
+                    <input type="text" class="input" name="map_md5" required>
                 </div>
             </div>
 
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">max_combo</div>
                 <div class="column">
-                    <input type="number" class="input" name="max_combo">
+                    <input type="number" class="input" name="max_combo" required>
                 </div>
             </div>
 
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">mode</div>
                 <div class="column">
-                    <input type="number" class="input" name="mode">
+                    <input type="number" class="input" name="mode" required>
                 </div>
             </div>
 
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">mods</div>
                 <div class="column">
-                    <input type="number" class="input" name="mods">
+                    <input type="number" class="input" name="mods" required>
                 </div>
             </div>
 
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">n100</div>
                 <div class="column">
-                    <input type="number" class="input" name="n100">
+                    <input type="number" class="input" name="n100" required>
                 </div>
             </div>
 
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">n300</div>
                 <div class="column">
-                    <input type="number" class="input" name="n300">
+                    <input type="number" class="input" name="n300" required>
                 </div>
             </div>
 
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">n50</div>
                 <div class="column">
-                    <input type="number" class="input" name="n50">
+                    <input type="number" class="input" name="n50" required>
                 </div>
             </div>
 
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">ngeki</div>
                 <div class="column">
-                    <input type="number" class="input" name="ngeki">
+                    <input type="number" class="input" name="ngeki" required>
                 </div>
             </div>
 
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">nkatu</div>
                 <div class="column">
-                    <input type="number" class="input" name="nkatu">
+                    <input type="number" class="input" name="nkatu" required>
                 </div>
             </div>
 
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">nmiss</div>
                 <div class="column">
-                    <input type="number" class="input" name="nmiss">
+                    <input type="number" class="input" name="nmiss" required>
                 </div>
             </div>
 
@@ -257,7 +270,7 @@
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">playtime</div>
                 <div class="column">
-                    <input type="number" class="input" name="playtime">
+                    <input type="number" class="input" name="playtime" required>
                 </div>
             </div>
 
@@ -271,7 +284,7 @@
             <div class="panel-block columns" style="height: 50px;">
                 <div class="column is-one-quarter text-nowrap is-right">score</div>
                 <div class="column">
-                    <input type="number" class="input" name="score">
+                    <input type="number" class="input" name="score" required>
                 </div>
             </div>
 
@@ -288,8 +301,8 @@
                     class="button is-primary">{{t("admin.upload-replay.upload")}}</button>
                 <div style="margin-right: 1em;"></div>
             </div>
-        </article>
-    </form>
+        </form>
+    </article>
 </div>
 
 {% endblock content %}

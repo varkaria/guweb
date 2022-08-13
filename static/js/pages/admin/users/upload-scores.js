@@ -62,61 +62,85 @@ function createState (initial) {
 const { state, reactive: s, useHook, forceUpdate, transaction } = createState({
   parseSucceed: false,
   parsed: {},
-  replayFile: undefined,
-  submitting: {}
+  replayFile: undefined
 })
 
 useHook((state) => {
-  const classes = document.getElementById('copy-to-form').classList
+  // const result = document.getElementById('osr-result')
+  const file = document.getElementById('form-replay-file-label')
   if (state.parseSucceed) {
-    classes.remove('is-hidden')
+    // result.classList.remove('is-hidden')
+    file.classList.add('is-success')
   } else {
-    classes.add('is-hidden')
+    // result.classList.add('is-hidden')
+    file.classList.add('is-danger')
   }
   if (!state.replayFile) {
     const form = document.getElementById('osr-reader')
-    form.replay_file.value = undefined
+    delete form.replay_file.value
   }
 })
 
-useHook((state) => {
-  const display = document.getElementById('replay-data')
-  const dReplayMd5 = document.getElementById('display-map_md5')
-  const dReplayScore = document.getElementById('display-score')
-  if (
-    dReplayMd5?.value == state.parsed.map_md5 &&
-    dReplayScore?.value == state.parsed.score
-  ) return
-  console.log('re-render osr-reader result')
-  const template = document.getElementById('record')
-  const elements = Object.entries(state.parsed).map(([key, value]) => {
-    const copy = template.content.cloneNode(true)
-    const _key = copy.querySelector('#key')
-    _key.innerText = key
-    const _value = copy.querySelector('#value')
-    _value.value = value
-    _value.id = `display-${key}`
-
-    if (typeof value === 'string') {
-      _value.type = 'text'
-    } else if (typeof value === 'number') {
-      _value.type = 'number'
-    } else if (typeof value === 'boolean') {
-      _value.type = 'checkbox'
-      _value.classList.remove('input')
-      _value.classList.add('checkbox')
-    }
-
-    return copy
-  })
+useHook(state => {
+  const display = document.getElementById('replay-result')
+  const template = document.getElementById('template-replay-row')
+  const elements = Object.entries(state.parsed)
+    .filter(([key, value]) =>
+      ['username', 'replay_id'].includes(key) &&
+      value
+    )
+    .map(([key, value]) => {
+      const copy = template.content.cloneNode(true)
+      const _key = copy.querySelector('#key')
+      _key.innerText = key
+      const _value = copy.querySelector('#value')
+      _value.innerText = value
+      _value.id = `display-${key}`
+      return copy
+    })
   display.replaceChildren(...elements)
 })
 
+// useHook((state) => {
+//   const display = document.getElementById('replay-data')
+//   const dReplayMd5 = document.getElementById('display-map_md5')
+//   const dReplayScore = document.getElementById('display-score')
+//   if (
+//     dReplayMd5?.value == state.parsed.map_md5 &&
+//     dReplayScore?.value == state.parsed.score
+//   ) return
+//   console.log('re-render osr-reader result')
+//   const template = document.getElementById('record')
+//   const elements = Object.entries(state.parsed)
+//     .filter(([key]) => ['username', 'replay_id'].includes(key))
+//     .map(([key, value]) => {
+//       const copy = template.content.cloneNode(true)
+//       const _key = copy.querySelector('#key')
+//       _key.innerText = key
+//       const _value = copy.querySelector('#value')
+//       _value.value = value
+//       _value.id = `display-${key}`
+
+//       if (typeof value === 'string') {
+//         _value.type = 'text'
+//       } else if (typeof value === 'number') {
+//         _value.type = 'number'
+//       } else if (typeof value === 'boolean') {
+//         _value.type = 'checkbox'
+//         _value.classList.remove('input')
+//         _value.classList.add('checkbox')
+//       }
+
+//       return copy
+//     })
+//   display.replaceChildren(...elements)
+// })
+
 useHook(state => {
   const form = document.getElementById('submit-replay')
-  // if (form.replay_id.value == state.submitting.replay_id) return
+  // if (form.replay_id.value == state.parsed.replay_id) return
   console.log('re-populate submitting values')
-  Object.entries(state.submitting).forEach(([key, value]) => {
+  Object.entries(state.parsed).forEach(([key, value]) => {
     if (!form[key]) return
     form[key].value = value
   })
@@ -148,13 +172,13 @@ async function uploadOsr () {
     update()
   }
 }
-function copyReplayToForm () {
-  transaction(s => {
-    s.submitting = {
-      ...s.parsed
-    }
-  })
-}
+// function copyReplayToForm () {
+//   transaction(s => {
+//     s.parsed = {
+//       ...s.parsed
+//     }
+//   })
+// }
 
 async function submitReplay () {
   const form = document.getElementById('submit-replay')
@@ -164,13 +188,17 @@ async function submitReplay () {
   const userId = formData.get('userid')
 
   if (!userId) return
+  if (!s.parseSucceed) {
+    window.alert('osr parse failed.')
+    return
+  }
   // console.log([...formData.entries()])
   const endpoint = `//api.${window.domain}/submit_score`
   await fetch(endpoint, {
     method: 'post',
     body: formData,
     headers: {
-      Authorization: api_key
+      Authorization: s.api_key
     }
   }).then(res => res.json())
 }
