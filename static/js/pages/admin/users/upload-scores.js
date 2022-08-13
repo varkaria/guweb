@@ -3,7 +3,7 @@
 function createState (initial) {
   const isProxy = Symbol('isProxy')
   const hooks = []
-  const recursiveReactive = {
+  const recursiveReactive = (bubbleUp = false) => ({
     get (target, key) {
       if (key === isProxy) { return true }
       return target[key]
@@ -15,13 +15,19 @@ function createState (initial) {
       ) {
         target[key] = value
       } else if (typeof value === 'object') {
-        target[key] = new Proxy(value, recursiveReactive)
+        target[key] = new Proxy(value, recursiveReactive(true))
       } else if (Array.isArray(value)) {
-        target[key] = new Proxy(value, recursiveReactive)
+        target[key] = new Proxy(value, recursiveReactive(true))
       } else target[key] = value
+      if (bubbleUp) {
+        updateState({ bubble: true })
+      }
     }
+  })
+  const state = new Proxy({}, recursiveReactive())
+  for (const [k, v] of Object.entries(initial)) {
+    state[k] = v
   }
-  const state = new Proxy(initial, recursiveReactive)
   const reactive = new Proxy(state, {
     get (target, key) {
       const returnValue = target[key]
@@ -38,7 +44,7 @@ function createState (initial) {
   function useHook (cb) {
     hooks.push(cb)
   }
-  async function updateState () {
+  async function updateState ({ bubble = false } = {}) {
     console.log('update state:', state)
     for (const hook of hooks) {
       await hook(reactive)
@@ -53,16 +59,20 @@ function createState (initial) {
   return {
     useHook,
     forceUpdate: updateState,
-    state,
+    nonReactive: state,
     reactive,
     transaction
   }
 }
 
-const { state, reactive: s, useHook, forceUpdate, transaction } = createState({
+const { nonReactive, reactive: s, useHook, forceUpdate, transaction } = createState({
+  userId: -1,
+  apiKey: undefined,
+
   parseSucceed: false,
   parsed: {},
-  replayFile: undefined
+  replayFile: undefined,
+  validationErrors: {}
 })
 
 useHook((state) => {
@@ -101,48 +111,33 @@ useHook(state => {
   display.replaceChildren(...elements)
 })
 
-// useHook((state) => {
-//   const display = document.getElementById('replay-data')
-//   const dReplayMd5 = document.getElementById('display-map_md5')
-//   const dReplayScore = document.getElementById('display-score')
-//   if (
-//     dReplayMd5?.value == state.parsed.map_md5 &&
-//     dReplayScore?.value == state.parsed.score
-//   ) return
-//   console.log('re-render osr-reader result')
-//   const template = document.getElementById('record')
-//   const elements = Object.entries(state.parsed)
-//     .filter(([key]) => ['username', 'replay_id'].includes(key))
-//     .map(([key, value]) => {
-//       const copy = template.content.cloneNode(true)
-//       const _key = copy.querySelector('#key')
-//       _key.innerText = key
-//       const _value = copy.querySelector('#value')
-//       _value.value = value
-//       _value.id = `display-${key}`
-
-//       if (typeof value === 'string') {
-//         _value.type = 'text'
-//       } else if (typeof value === 'number') {
-//         _value.type = 'number'
-//       } else if (typeof value === 'boolean') {
-//         _value.type = 'checkbox'
-//         _value.classList.remove('input')
-//         _value.classList.add('checkbox')
-//       }
-
-//       return copy
-//     })
-//   display.replaceChildren(...elements)
-// })
-
 useHook(state => {
   const form = document.getElementById('submit-replay')
-  // if (form.replay_id.value == state.parsed.replay_id) return
   console.log('re-populate submitting values')
   Object.entries(state.parsed).forEach(([key, value]) => {
     if (!form[key]) return
     form[key].value = value
+  })
+})
+
+useHook(state => {
+  const inputs = submittingForm.querySelectorAll('input, select')
+  inputs.forEach(el => {
+    const id = `error-${el.name}`
+    let error = document.getElementById(id)
+    if (state.validationErrors[el.name]) {
+      if (!error) {
+        error = document.createElement('p')
+        error.classList.add('has-text-danger', 'm-0')
+        error.setAttribute('id', id)
+        el.parentNode.appendChild(error)
+      }
+      error.innerText = state.validationErrors[el.name]
+    } else {
+      if (error) {
+        error.remove()
+      }
+    }
   })
 })
 
@@ -172,33 +167,66 @@ async function uploadOsr () {
     update()
   }
 }
-// function copyReplayToForm () {
-//   transaction(s => {
-//     s.parsed = {
-//       ...s.parsed
-//     }
-//   })
-// }
 
 async function submitReplay () {
-  const form = document.getElementById('submit-replay')
-  const formData = new FormData(form)
-  const replayFile = state.replayFile
-  formData.append('replay_file', replayFile)
-  const userId = formData.get('userid')
-
-  if (!userId) return
+  s.validationErrors = {}
+  if (!nonReactive.userId) {
+    window.alert('need userid but unset.')
+    return
+  }
   if (!s.parseSucceed) {
     window.alert('osr parse failed.')
     return
   }
+  const form = document.getElementById('submit-replay')
+  const formData = new FormData(form)
+  const replayFile = nonReactive.replayFile
+  formData.append('replay_file', replayFile)
+  formData.append('userid', nonReactive.userId)
+  formData.append('perfect', nonReactive.parsed.perfect)
+
   // console.log([...formData.entries()])
   const endpoint = `//api.${window.domain}/submit_score`
-  await fetch(endpoint, {
+  const { detail, status, score_id: scoreId } = await fetch(endpoint, {
     method: 'post',
     body: formData,
     headers: {
-      Authorization: s.api_key
+      Authorization: s.apiKey
     }
   }).then(res => res.json())
+  if (detail) {
+    detail.forEach(setError(form))
+    forceUpdate()
+  }
+  if (status === 200) {
+    window.alert('submitted!\n score id: ' + scoreId)
+    transaction((state) => {
+      state.parseSucceed = false
+      state.parsed = {}
+      state.replayFile = undefined
+      state.validationErrors = {}
+    })
+  }
 }
+
+function setError (el) {
+  return (error) => {
+    const occured = error.loc[1]
+    const message = error.msg
+    nonReactive.validationErrors[occured] = message
+  }
+}
+const submittingForm = document.getElementById('submit-replay')
+
+submittingForm.querySelectorAll('input, select').forEach((el) => {
+  // console.log(el)
+  el.addEventListener('change', (value) => {
+    if (el.type === 'checkbox') {
+      s.parsed[el.name] = el.checked
+    } else if (el.type === 'number') {
+      s.parsed[el.name] = el.valueAsNumber
+    } else {
+      s.parsed[el.name] = el.value
+    }
+  })
+})

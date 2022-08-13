@@ -21,11 +21,14 @@
         text-align: right;
     }
 </style>
-<script src="/static/js/pages/admin/users/upload-scores.js"></script>
+<script src="/static/js/pages/admin/users/upload-scores.js" defer></script>
 <script>
-    transaction(state => {
-        state.apiKey = "{{ session['user_data']['api_key'] }}"
-    }, false)
+    document.addEventListener('DOMContentLoaded', () => {
+        transaction(state => {
+            state.apiKey = "{{ session['user_data']['api_key'] }}"
+            state.userId = parseInt('{{ search_data.id }}')
+        }, false)
+    })
 </script>
 {% endblock %}
 {% block title %} Users {% endblock %}
@@ -33,23 +36,22 @@
 {% block content %}
 <template id="template-replay-row">
     <div class="tags has-addons m-0">
-      <span class="tag mb-0" id="key"></span>
-      <span class="tag mb-0 is-primary" id="value"></span>
+        <span class="tag mb-0" id="key"></span>
+        <span class="tag mb-0 is-primary" id="value"></span>
     </div>
 </template>
-<!-- action="/admin/user/{{ search_data['id'] }}/upload-score" method="POST" -->
 <div class="is-flex is-align-items-center is-flex-direction-column pt-4">
     <article style="min-width: fit-content; width: 60vw;" class="panel is-primary">
         <p class="panel-heading">
             {{t("admin.upload-replay.upload-score-for", name = search_data['name'])}}
         </p>
         <form id="osr-reader" onsubmit="event.preventDefault()">
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-id-card" aria-hidden="true"></i>
                     {{t("osr-reader.file")}}
                 </div>
-                <div class="column is-flex is-align-items-center gap-2">
+                <div class="column py-0 is-flex is-align-items-center gap-2">
                     <div class="file" id="form-replay-file-label">
                         <label class="file-label">
                             <input class="file-input" type="file" name="replay_file" onchange="uploadOsr()">
@@ -67,27 +69,23 @@
                 </div>
             </div>
         </form>
-
-        <!-- <div id="osr-result" class="is-hidden">
-            <div id="replay-data"></div>
-        </div> -->
         <hr>
         <form id="submit-replay" onsubmit="event.preventDefault(); submitReplay()">
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+            <!-- <div class="panel-block columns is-hidden" >
+                <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-id-card" aria-hidden="true"></i>
                     {{t("admin.users.id")}}
                 </div>
-                <div class="column">
+                <div class="column py-0">
                     <input name="userid" type="text" class="input" value="{{ search_data.id }}" required>
                 </div>
-            </div>
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+            </div> -->
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fab fa-octopus-deploy"></i>
                     {{t("grades.grade")}}
                 </div>
-                <div class="column">
+                <div class="column py-0">
                     <div class="select w-100">
                         <select name="grade" class="w-100" required>
                             <option value="N">{{t("grades.N")}}</option>
@@ -104,12 +102,12 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fa-solid fa-server"></i>
                     {{t("servers.server")}}
                 </div>
-                <div class="column">
+                <div class="column py-0">
                     <div class="select w-100">
                         <select name="server" class="w-100" required>
                             <option value="bancho">{{t("servers.bancho")}}</option>
@@ -120,12 +118,12 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
                     <i class="fas fa-user-check"></i>
                     {{t("admin.upload-replay.identifier-type")}}
                 </div>
-                <div class="column">
+                <div class="column py-0">
                     <div class="field has-addons w-100 pt-3">
                         <p class="control w-100">
                             <span class="select">
@@ -146,151 +144,109 @@
                         </p>
                     </div>
                 </div>
-
-                <!-- <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
-                    <i class="fas fa-user-check"></i>
-                    {{t("admin.upload-replay.identifier-type")}}
-                </div>
-                <div class="column">
-                    <div class="select w-100">
-                        <select name="identifier_type" class="w-100" required>
-                            <option value="replay_username">
-                                {{t("admin.upload-replay.identifier-types.replay_username")}}</option>
-                            <option value="server_userid">{{t("admin.upload-replay.identifier-types.server_userid")}}
-                            </option>
-                            <option value="replay_id">{{t("admin.upload-replay.identifier-types.replay_id")}}</option>
-                        </select>
-                    </div>
-                </div> -->
             </div>
-            <!-- <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
-                    <i class="fas fa-user-check"></i>
-                    {{t("admin.upload-replay.identifier-type")}}
-                </div>
-                <div class="column">
-                    <div class="select w-100">
-                        <select name="identifier_type" class="w-100" required>
-                            <option value="replay_username">
-                                {{t("admin.upload-replay.identifier-types.replay_username")}}</option>
-                            <option value="server_userid">{{t("admin.upload-replay.identifier-types.server_userid")}}
-                            </option>
-                            <option value="replay_id">{{t("admin.upload-replay.identifier-types.replay_id")}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">
-                    <i class="fas fa-address-card"></i>
-                    {{t("admin.outer-identifier")}}
-                </div>
-                <div class="column">
-                    <input type="text" class="input" name="outer_identifier" required>
-                </div>
-            </div> -->
             <hr>
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.map_md5") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.map_md5") }}</div>
+                <div class="column py-0">
                     <input type="text" class="input" name="map_md5" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.max_combo") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.max_combo") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="max_combo" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.mode") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.mode") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="mode" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.mods") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.mods") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="mods" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.n100") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.n100") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="n100" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.n300") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.n300") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="n300" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.n50") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.n50") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="n50" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.ngeki") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.ngeki") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="ngeki" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.nkatu") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.nkatu") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="nkatu" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.nmiss") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.nmiss") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="nmiss" required>
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.perfect") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.perfect") }}</div>
+                <div class="column py-0">
                     <input type="checkbox" class="checkbox" name="perfect">
                 </div>
             </div>
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.playtime") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.playtime") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="playtime" required>
                 </div>
             </div>
 
-            <!-- <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.replay_id") }}</div>
-                <div class="column">
+            <!-- <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.replay_id") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="replay_id">
                 </div>
             </div> -->
 
-            <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.score") }}</div>
-                <div class="column">
+            <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.score") }}</div>
+                <div class="column py-0">
                     <input type="number" class="input" name="score" required>
                 </div>
             </div>
 
-            <!-- <div class="panel-block columns" style="height: 50px;">
-                <div class="column is-one-quarter text-nowrap">{{ t("osr-reader.username") }}</div>
-                <div class="column">
+            <!-- <div class="panel-block columns" >
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.username") }}</div>
+                <div class="column py-0">
                     <input type="text" class="input" name="username">
                 </div>
             </div> -->
