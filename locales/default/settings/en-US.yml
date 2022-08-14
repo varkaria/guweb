@@ -23,3 +23,6 @@ change-succeed: Your %{something} has been successfully changed!
 no-image-was-selected: No image was selected!
 customization: Customization
 about-me: About Me
+about-me-title: About Me
+avatar-title: Upload avatar
+api-key: API Key

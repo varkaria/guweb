@@ -22,3 +22,6 @@ bad-image-extension: The %{something} you select must be either a .JPG, .JPEG, o
 change-succeed: Your %{something} has been successfully changed!
 no-image-was-selected: No image was selected!
 about-me: About Me
+about-me-title: About Me
+avatar-title: Upload avatar
+api-key: API Key

@@ -6,7 +6,7 @@
 <div class="log-block">
     <div class="header">
         <div class="title">
-            <i class="fas fa-address-book"></i> About me
+            <i class="fas fa-address-book"></i> {{ t("profile.about-me-title") }}
         </div>
     </div>
     <div class="stats-block rank-block" style="padding: 12.5px;">
@@ -341,7 +341,7 @@
                 </div> -->
                 <div class="header" v-if='data.stats.out[modegulag].rank != 0'>
                     <div class="title">
-                        <i class="fas fa-user-friends"></i> Rank
+                        <i class="fas fa-user-friends"></i> {{ t("profile.rank-title") }}
                     </div>
                 </div>
                 <div class="stats-block rank-block" v-if='data.stats.out[modegulag].rank != 0'>

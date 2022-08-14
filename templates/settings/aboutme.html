@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} {{ t('global.password') }} {% endblock %}
+{% block title %} {{ t('settings.about-me') }} {% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="/static/css/pages/settings/style.css?v={{ appVersion() }} ">
@@ -9,7 +9,7 @@
   <div class="block-content right" id="settings-content">
     <div id="general" class="single-right-block">
       <div class="right-block-header">
-          About Me
+          {{ t("settings.about-me-title") }}
       </div>
       <form style=" margin-left: 20px; margin-right: 20px;" action="/settings/aboutme" method="post" class="right-block-content">
         <textarea name="userpage_content" class="input" style="max-width: 800px; min-height: 300px;">{{ userpage_content }}</textarea>
@@ -26,16 +26,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-            {{ t('global.warning') }}
+            {{ t('global.bannertype-error') }}
           {% elif status=='success' %}
-            {{ t('global.notice') }}
+            {{ t('global.bannertype-success') }}
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-            {{ t('global.error') }}
+            {{ t('global.bannertext-error') }}
           {% elif status=='success' %}
-            {{ t('global.success') }}
+            {{ t('global.bannertext-success') }}
           {% endif %}
         </div>
       </div>
