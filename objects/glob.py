@@ -20,7 +20,7 @@ db: 'AsyncSQLPool'
 http: 'ClientSession'
 version: 'Version'
 app = Quart(__name__, template_folder=f'{os.getcwd()}/templates', static_folder=f'{os.getcwd()}/static')
-version = Version(1, 3, 7)
+version = Version(1, 4, 0)
 
 cache = {
     'bcrypt': {},
