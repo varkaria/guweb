@@ -6,10 +6,10 @@ leaderboard: 排行榜
 login: 登录
 profile: 用户信息
 register: 注册
-notice: Notice
-warning: 注意
-error: uh oh! Be careful!
-success: Hey! Listen!
+bannertype-success: 操作成功
+bannertype-error: 出错了
+bannertext-error: 下次注意点
+bannertext-success: 暂时没什么问题
 verify: 验证
 acc: Acc
 accuracy: 准确度

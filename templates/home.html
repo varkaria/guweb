@@ -15,16 +15,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-          {{ t('global.warning') }}
+          {{ t('global.bannertype-error') }}
           {% elif status=='success' %}
-          {{ t('global.notice') }}
+          {{ t('global.bannertype-success') }}
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          {{ t('global.error') }}
+          {{ t('global.bannertext-error') }}
           {% elif status=='success' %}
-          {{ t('global.success') }}
+          {{ t('global.bannertext-success') }}
           {% endif %}
         </div>
       </div>
