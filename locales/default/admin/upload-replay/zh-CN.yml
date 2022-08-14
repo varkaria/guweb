@@ -1,0 +1,21 @@
+upload-score-for: 上传 %{name} 的成绩
+identifier-type: 身份标识类型
+replay-username: 回放者的用户名
+outer_identifier: 外部成绩的来源身份标识
+map-md5: 谱面的md5
+max-combo: 最大连击数
+mode: 模式
+mods: mods
+n100: 100的个数
+n300: 300的个数
+n50: 50的个数
+ngeki: 激的个数
+nkatu: 喝的个数
+nmiss: miss的个数
+playtime: 回放时长
+score: 分数
+upload: 上传
+perfect: 是否为perfect
+osu-replay-file: osu回放文件
+upload-osr-file: 上传osr文件
+foreign-score-id: 外部来源的成绩id

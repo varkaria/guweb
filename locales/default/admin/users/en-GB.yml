@@ -9,7 +9,7 @@ client-channel: Client channel
 email: Email
 ip: IP
 edit: Edit
-edit-info-of: Edit Info of
+edit-info-of: Edit Info of %{name}
 username: Username
 country: Country
 legality: Legality
@@ -19,3 +19,4 @@ update: Update
 search-by-username-or-email: Search by username or email
 password: Password
 new-password: New Password
+upload-new-score: Upload new socre

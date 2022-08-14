@@ -45,11 +45,11 @@
     "commands": [
       {
         "match": ".(yml|yaml)$",
-        "cmd": "npm run i18n:compile"
+        "cmd": "yarn i18n:build"
       },
       {
-        "match": ".html",
-        "cmd": "npm run i18n:format:templates"
+        "match": ".html$",
+        "cmd": "yarn i18n:format:templates"
       }
     ]
   },

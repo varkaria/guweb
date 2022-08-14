@@ -38,7 +38,22 @@ score: 分数
 total-score: 总分
 ranked-score: 记分总分
 password: 密码
-# server literals
 invalid-parameters: 请输入用户名密码以及邮箱
 you-are-already-logged-in: 你已经登录啦!
 you-must-be-logged-in-to-access-this-page: 你必须登录了才能访问该页面
+grade: 评分
+grades-N: 'N'
+grades-F: F
+grades-D: D
+grades-C: C
+grades-B: B
+grades-A: A
+grades-S: S
+grades-SH: SH
+grades-X: SS
+grades-XH: SSH
+server: 服务器
+bancho: Bancho
+ppy-sb: ppy.sb
+akatsuki: Akatsuki
+server-offline: 离线

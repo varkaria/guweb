@@ -16,6 +16,7 @@ from constants.privileges import Privileges
 from objects.utils import flash
 from objects import varka
 from objects.glob import t
+from osrparse import Replay
 import datetime
 import timeago
 
@@ -78,21 +79,27 @@ async def restrictions():
 @priv_check(priv=Privileges.Staff)
 async def users():
     query_data = await varka.get_users()
-    return await render_template('/admin/users.html', query_data=query_data)
+    return await render_template('/admin/users/index.html', query_data=query_data)
 
 @admin.route('/users/search/<q>', methods=['GET'])
 @priv_check(priv=Privileges.Staff)
 async def users_search(q: str):
     query_data = await varka.get_users(search=q)
-    return await render_template('/admin/users.html', query_data=query_data, search_value=q)
+    return await render_template('/admin/users/index.html', query_data=query_data, search_value=q)
 
-@admin.route('/users/edit/<id>')
+@admin.route('/user/<id>/edit')
 @priv_check(priv=Privileges.Staff)
 async def users_edit(id:int):
     query = await varka.get_user(id)
-    return await render_template('admin/users_edit.html', search_data=query)
+    return await render_template('admin/users/edit.html', search_data=query)
 
-@admin.route('/users/update/<id>', methods=['POST']) # POST
+@admin.route('/user/<id>/upload-scores')
+@priv_check(priv=Privileges.Staff)
+async def users_upload_score(id:int):
+    query = await varka.get_user(id)
+    return await render_template('admin/users/upload-scores.html', search_data=query)
+
+@admin.route('/user/<id>/update', methods=['POST']) # POST
 @priv_check(priv=Privileges.Staff)
 async def users_update(id:int):
     try:
@@ -184,3 +191,34 @@ async def beatmaps_edit(id:int):
     else:
         await glob.db.execute("UPDATE maps SET frozen=1, status=%s WHERE id=%s", [str(status), str(id)])
     return redirect ('/admin/beatmaps/search/' + id)
+
+@admin.route('/replays/parse', methods=['POST'])
+async def replays_parse(): 
+    file = (await request.files)['replay_file']
+    if file is None:
+        return {'status': 300, 'msg': 'Replay is not exists in multipart.'}
+    try:
+        replay = Replay.from_file(file)
+        timestamp = replay.timestamp.timestamp()
+    except:
+        return {'status': 400, 'msg': 'Failed to parse the replay file.'}
+    return {
+        'status': 200,
+        'replay': {
+            'map_md5': replay.beatmap_hash,
+            'score': replay.score,
+            'max_combo': replay.max_combo,
+            'mods': replay.mods.value,
+            'n300': replay.count_300,
+            'n100': replay.count_100,
+            'n50': replay.count_50,
+            'nmiss': replay.count_miss,
+            'ngeki': replay.count_geki,
+            'nkatu': replay.count_katu,
+            'mode': replay.mode.value,
+            'playtime': int(timestamp),
+            'replay_id': replay.replay_id,
+            'perfect': replay.perfect,
+            'username': replay.username
+        }
+    }

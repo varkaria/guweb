@@ -1,0 +1,21 @@
+upload-score-for: Upload score for %{name}
+identifier-type: Identifier type
+replay-username: Replay username
+outer_identifier: Outer identifier
+map-md5: map md5
+max-combo: Max combo
+mode: mode
+mods: mods
+n100: number of 100
+n300: number of 100
+n50: number of 50
+ngeki: number of Geki
+nkatu: number of Katu
+nmiss: number of miss
+playtime: replay time
+score: Score
+upload: Upload
+perfect: Is perfect
+osu-replay-file: Osu replay file
+upload-osr-file: Upload osr file
+foreign-score-id: Foreign score id

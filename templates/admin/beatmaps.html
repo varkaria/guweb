@@ -54,8 +54,8 @@
             onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
     </div>
     <div class="column is-paddingless flex-vcenter">
-        <h2 class="section-title">{{t("admin.base.beatmaps")}}</h2>
-        <p class="section-lead">{{t("admin.beatmaps.welcome-to-beatmaps-panel")}}</p>
+        <h2 class="section-title">{{ t("admin.base.beatmaps") }}</h2>
+        <p class="section-lead">{{ t("admin.beatmaps.welcome-to-beatmaps-panel") }}</p>
     </div>
 </div>
 <div class="row row-deck row-cards" style="margin-top: 20px">
@@ -63,53 +63,53 @@
         <div class="column is-paddingless pr-3 py-3">
             <div class="card has-text-right">
                 <i class="fa fa-plus"></i>
-                <div class="title">{{t("admin.beatmaps.total-beatmaps")}}</div>
+                <div class="title">{{ t("admin.beatmaps.total-beatmaps") }}</div>
                 <div class="value">{{ counts['total'] }}</div>
-                <div class="stat has-text-left">{{t("admin.beatmaps.thats-a-lot-of-maps")}}</div>
+                <div class="stat has-text-left">{{ t("admin.beatmaps.thats-a-lot-of-maps") }}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card has-text-right">
                 <i class="fa fa-bolt"></i>
-                <div class="title">{{t("admin.beatmaps.ranked")}}</div>
+                <div class="title">{{ t("admin.beatmaps.ranked") }}</div>
                 <div class="value">{{ counts['ranked'] }}</div>
-                <div class="stat has-text-left">{{t("admin.beatmaps.these-maps-can-gain-many-pp")}}</div>
+                <div class="stat has-text-left">{{ t("admin.beatmaps.these-maps-can-gain-many-pp") }}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card has-text-right">
                 <i class="fa fa-heart"></i>
-                <div class="title">{{t("admin.beatmaps.loved")}}</div>
+                <div class="title">{{ t("admin.beatmaps.loved") }}</div>
                 <div class="value"> {{counts['loved'] }}</div>
-                <div class="stat has-text-left">{{t("admin.beatmaps.we-loved-them-so-much")}}</div>
+                <div class="stat has-text-left">{{ t("admin.beatmaps.we-loved-them-so-much") }}</div>
             </div>
         </div>
         <div class="column is-paddingless pl-3 py-3">
             <div class="card has-text-right">
                 <i class="fa fa-arrows-rotate"></i>
-                <div class="title">{{t("admin.beatmaps.pending")}}</div>
+                <div class="title">{{ t("admin.beatmaps.pending") }}</div>
                 <div class="value">{{ counts['pending'] }}</div>
-                <div class="stat has-text-left">{{t("admin.beatmaps.they-are-also-good-maps")}}</div>
+                <div class="stat has-text-left">{{ t("admin.beatmaps.they-are-also-good-maps") }}</div>
             </div>
         </div>
     </div>
     <div class="p-0 d-flex gap-2 py-3">
-        <input placeholder='{{t("admin.beatmaps.search-by-bid-sid-or-title")}}' id="search-bar" class="input" value="{{ search_word }}">
-        <button onclick="searchMaps()" class="button" style="width: 200px">{{t("admin.beatmaps.search")}}</button>
+        <input placeholder='{{ t("admin.beatmaps.search-by-bid-sid-or-title") }}' id="search-bar" class="input" value="{{ search_word }}">
+        <button onclick="searchMaps()" class="button" style="width: 200px">{{ t("admin.beatmaps.search") }}</button>
     </div>
     <div class="table-responsive py-3">
         <table class="table rounded">
             <thead>
                 <tr class="i-text-no-wrap">
-                    <th class="has-text-centered" style="width: 400px">{{t("admin.beatmaps.beatmap")}}</th>
-                    <th class="has-text-right">{{t("admin.beatmaps.cs-keys")}}</th>
-                    <th class="has-text-right">{{t("admin.beatmaps.ar")}}</th>
-                    <th class="has-text-right">{{t("admin.beatmaps.hp")}}</th>
-                    <th class="has-text-right">{{t("admin.beatmaps.od")}}</th>
-                    <th class="has-text-right">{{t("admin.beatmaps.bpm")}}</th>
-                    <th class="has-text-right">{{t("admin.beatmaps.stars")}}</th>
-                    <th class="has-text-centered">{{t("admin.beatmaps.status")}}</th>
-                    <th class="has-text-centered">{{t("admin.restrictions.action")}}</th>
+                    <th class="has-text-centered" style="width: 400px">{{ t("admin.beatmaps.beatmap") }}</th>
+                    <th class="has-text-right">{{ t("admin.beatmaps.cs-keys") }}</th>
+                    <th class="has-text-right">{{ t("admin.beatmaps.ar") }}</th>
+                    <th class="has-text-right">{{ t("admin.beatmaps.hp") }}</th>
+                    <th class="has-text-right">{{ t("admin.beatmaps.od") }}</th>
+                    <th class="has-text-right">{{ t("admin.beatmaps.bpm") }}</th>
+                    <th class="has-text-right">{{ t("admin.beatmaps.stars") }}</th>
+                    <th class="has-text-centered">{{ t("admin.beatmaps.status") }}</th>
+                    <th class="has-text-centered">{{ t("admin.restrictions.action") }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -161,7 +161,7 @@
                         <div class="dropdown is-right" id="i-dropdown-{{ i.map_id }}">
                             <div class="dropdown-trigger">
                                 <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" onclick="document.getElementById('i-dropdown-{{ i.map_id }}').classList.toggle('is-active')">
-                                    <span>{{t("admin.beatmaps.edit-status")}}</span>
+                                    <span>{{ t("admin.beatmaps.edit-status") }}</span>
                                     <span class="icon is-small">
                                         <i class="fas fa-angle-down" aria-hidden="true"></i>
                                     </span>
@@ -169,15 +169,15 @@
                             </div>
                             <div class="dropdown-menu" id="dropdown-menu-{{ i.map_id }}" role="menu">
                                 <div class="dropdown-content has-background-primary">
-                                    <a class="dropdown-item {% if i.status == 2 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=2&set=0">{{t("admin.beatmaps.ranked-diff")}}</a>
-                                    <a class="dropdown-item {% if i.status == 5 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=5&set=0">{{t("admin.beatmaps.loved-diff")}}</a>
-                                    <a class="dropdown-item {% if i.status == 3 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=3&set=0">{{t("admin.beatmaps.approved-diff")}}</a>
-                                    <a class="dropdown-item {% if i.status == 0 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=0&set=0">{{t("admin.beatmaps.pending-diff")}}</a>
+                                    <a class="dropdown-item {% if i.status == 2 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=2&set=0">{{ t("admin.beatmaps.ranked-diff") }}</a>
+                                    <a class="dropdown-item {% if i.status == 5 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=5&set=0">{{ t("admin.beatmaps.loved-diff") }}</a>
+                                    <a class="dropdown-item {% if i.status == 3 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=3&set=0">{{ t("admin.beatmaps.approved-diff") }}</a>
+                                    <a class="dropdown-item {% if i.status == 0 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=0&set=0">{{ t("admin.beatmaps.pending-diff") }}</a>
                                     <hr class="dropdown-divider">
-                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=2&set=1">{{t("admin.beatmaps.ranked-set")}}</a>
-                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=5&set=1">{{t("admin.beatmaps.loved-set")}}</a>
-                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=3&set=1">{{t("admin.beatmaps.approved-set")}}</a>
-                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=0&set=1">{{t("admin.beatmaps.pending-set")}}</a>
+                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=2&set=1">{{ t("admin.beatmaps.ranked-set") }}</a>
+                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=5&set=1">{{ t("admin.beatmaps.loved-set") }}</a>
+                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=3&set=1">{{ t("admin.beatmaps.approved-set") }}</a>
+                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=0&set=1">{{ t("admin.beatmaps.pending-set") }}</a>
                                 </div>
                             </div>
                         </div>
