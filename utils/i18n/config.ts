@@ -3,7 +3,7 @@
 import { join } from 'path'
 import { merge } from 'lodash'
 
-import { using } from '../../config.js'
+import { useLocales } from '../../config.js'
 
 export const compiledFileNameSchema = ['namespace', 'locale', 'extension'] as Array<'namespace' | 'locale' | 'extension'>
 export const compiledFileSchema = ['locale', 'entries']
@@ -19,7 +19,7 @@ export type LocalePathConfig =
     }>]
 
 // eslint-disable-next-line array-callback-return
-export const paths = (using as LocalePathConfig[]).map((p) => {
+export const paths = (useLocales as LocalePathConfig[]).map((p) => {
   if (typeof p === 'string') {
     return {
       path: join(__dirname, '../../', p),
