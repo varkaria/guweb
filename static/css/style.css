@@ -275,6 +275,7 @@ a.foot-link {
   width: 100%;
   transition: 0.2s ease;
   min-height: 0rem;
+  backdrop-filter: blur(5px);
 }
 
 .navbar-logo {
