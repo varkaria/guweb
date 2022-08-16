@@ -3,8 +3,17 @@
 import { join } from 'path'
 import { merge } from 'lodash'
 
-import { useLocales } from '../../config.js'
+// import { useLocales } from '../../config.js'
+let useLocales
 
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { useLocales: _useLocales } = require('../../config.js')
+  useLocales = _useLocales
+} catch (error) {
+  console.error('check if you created config.js')
+  process.exit(1)
+}
 export const compiledFileNameSchema = ['namespace', 'locale', 'extension'] as Array<'namespace' | 'locale' | 'extension'>
 export const compiledFileSchema = ['locale', 'entries']
 export const compiled = join(__dirname, '../../.locales')
