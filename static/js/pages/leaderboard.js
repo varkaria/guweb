@@ -17,6 +17,7 @@ new Vue({
       no_player: false // soon ^TM
     }
   },
+  computed: {},
   created () {
     this.LoadData(window.mode, window.mods, window.sort)
     this.LoadLeaderboard(this.sort, this.mode, this.mods)
@@ -84,6 +85,5 @@ new Vue({
         default: return -1
       }
     }
-  },
-  computed: {}
+  }
 })

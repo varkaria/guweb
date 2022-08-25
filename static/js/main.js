@@ -28,7 +28,7 @@ function setStyle (el, obj) {
   })
 }
 
-function searchUser () {
+async function searchUser () {
   // eslint-disable-next-line no-undef
   _testGlobals(
     { exists: ['domain'] }
@@ -38,44 +38,45 @@ function searchUser () {
   const value = search.value
   const content = document.getElementById('u-search-content')
   content && (content.innerHTML = '')
-  $.get('//osu.' + window.domain + '/search?q=' + value, function (data, status) {
-    if (data != '{}') {
-      content && content.removeAttribute('style')
-      $.each(data, function (e, n) {
-        const result = ({
-          title: n.name,
-          url: '/u/' + n.id,
-          image: '//a.' + window.domain + '/' + n.id
-        })
-        const root = document.createElement('a')
-        root.href = result.url
-        root.className = 'navbar-item'
-        const image = document.createElement('img')
-        image.src = result.image
-        setStyle(image, {
-          width: '3rem',
-          maxHeight: '3rem',
-          backgroundSize: 'cover',
-          borderRadius: '0.5em'
-        })
-        root.appendChild(image)
-        const textSpan = document.createElement('span')
-        setStyle(textSpan, {
-          marginLeft: '5px',
-          fontWeight: 700,
-          fontSize: '1.2em',
-          color: 'rgba(255,255,255,0.9)'
-        })
-        textSpan.innerText = result.title
-        root.appendChild(textSpan)
-        content && content.appendChild(root)
+  const data = await fetch(`//osu.${window.domain}/search?q=${value}`).then(res => res.json())
+  // TODO it's.... too much for me to handle..
+  // eslint-disable-next-line eqeqeq
+  if (data != '{}') {
+    content && content.removeAttribute('style')
+    data.forEach(n => {
+      const result = ({
+        title: n.name,
+        url: '/u/' + n.id,
+        image: '//a.' + window.domain + '/' + n.id
       })
-    } else {
-      content && setStyle(content, {
-        display: 'none'
+      const root = document.createElement('a')
+      root.href = result.url
+      root.className = 'navbar-item'
+      const image = document.createElement('img')
+      image.src = result.image
+      setStyle(image, {
+        width: '3rem',
+        maxHeight: '3rem',
+        backgroundSize: 'cover',
+        borderRadius: '0.5em'
       })
-    }
-  })
+      root.appendChild(image)
+      const textSpan = document.createElement('span')
+      setStyle(textSpan, {
+        marginLeft: '5px',
+        fontWeight: 700,
+        fontSize: '1.2em',
+        color: 'rgba(255,255,255,0.9)'
+      })
+      textSpan.innerText = result.title
+      root.appendChild(textSpan)
+      content && content.appendChild(root)
+    })
+  } else {
+    content && setStyle(content, {
+      display: 'none'
+    })
+  }
 }
 
 function createState (initial) {
