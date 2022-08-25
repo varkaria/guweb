@@ -25,7 +25,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         transaction(state => {
-            state.apiKey = "{{ session['user_data']['api_key'] }}"
+            state.apiKey = "{{ session.user_data['api_key'] }}"
             state.userId = parseInt('{{ search_data.id }}')
         }, false)
     })
