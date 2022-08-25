@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-env jquery, browser */
+
 // sticky header
 $(window).scroll(() => {
   const header = document.getElementById('navbar')
@@ -26,6 +29,7 @@ function setStyle (el, obj) {
 }
 
 function searchUser () {
+  // eslint-disable-next-line no-undef
   _testGlobals(
     { exists: ['domain'] }
   )

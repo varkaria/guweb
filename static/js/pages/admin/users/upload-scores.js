@@ -1,3 +1,4 @@
+/* globals createState */
 /* eslint-disable no-unused-vars */
 
 const { nonReactive, reactive: s, useHook, forceUpdate, transaction } = createState({
