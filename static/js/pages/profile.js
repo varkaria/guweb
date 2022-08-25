@@ -1,7 +1,16 @@
 /* eslint-env browser */
 
 window.addEventListener('load', () => {
-  const s = window._state.reactive
+  const s = window._state?.reactive
+  if (!s) {
+    throw new Error('unable to locate states')
+  }
+
+  // eslint-disable-next-line no-undef
+  _testGlobals(
+    { exists: ['mode', 'mods', 'userid', 'domain'] },
+    s
+  )
   // eslint-disable-next-line no-new, no-undef
   new Vue({
     el: '#app',
