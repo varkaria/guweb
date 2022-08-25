@@ -24,19 +24,24 @@
     .i-text-no-wrap * {
         white-space: nowrap;
     }
+
     .my-auto {
         vertical-align: middle !important;
     }
+
     .progress {
         position: fixed;
         margin-top: -30px;
         width: 85%;
         z-index: 1;
     }
+
     .shadow {
-        filter: drop-shadow(0 0 0.5rem rgba(0,0,0,0.2));
+        filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.2));
     }
-    .card .title, .card .stat {
+
+    .card .title,
+    .card .stat {
         font-size: 12px
     }
 </style>
@@ -44,9 +49,13 @@
 {% block title %} Beatmaps {% endblock %}
 
 {% block content %}
-<script>
-    window.api_key = '{{ session.user_data['api_key'] }}'
-</script>
+{# <script>
+    window.addEventListener('load', () => {
+        window._state = createState({
+            api_key: "{{ session.user_data['api_key'] }}"
+        })
+    })
+</script> #}
 <progress id="progress_bar" class="progress is-small is-primary" max="100" style="display: none;"></progress>
 <div class="columns is-marginless">
     <div class="column is-paddingless is-avatar">
@@ -94,7 +103,8 @@
         </div>
     </div>
     <div class="p-0 d-flex gap-2 py-3">
-        <input placeholder='{{ t("admin.beatmaps.search-by-bid-sid-or-title") }}' id="search-bar" class="input" value="{{ search_word }}">
+        <input placeholder='{{ t("admin.beatmaps.search-by-bid-sid-or-title") }}' id="search-bar" class="input"
+            value="{{ search_word }}">
         <button onclick="searchMaps()" class="button" style="width: 200px">{{ t("admin.beatmaps.search") }}</button>
     </div>
     <div class="table-responsive py-3">
@@ -118,7 +128,9 @@
                     <td style="width: 400px">
                         <div class="card p-0 m-0 shadow"
                             style="background-image: url(https://assets.ppy.sh/beatmaps/{{ i.set_id }}/covers/cover.jpg); background-size: cover; height: 100px; width: 400px;">
-                            <div class="card-body rounded-sm h-100 p-4" style="background-color: rgba(0, 0, 0, 0.8);cursor:pointer; " onclick="window.open('https://osu.ppy.sh/beatmapsets/{{ i.set_id }}')">
+                            <div class="card-body rounded-sm h-100 p-4"
+                                style="background-color: rgba(0, 0, 0, 0.8);cursor:pointer; "
+                                onclick="window.open('https://osu.ppy.sh/beatmapsets/{{ i.set_id }}')">
                                 <a class="play-detail__title">{{ i.title }}
                                     <small style="display: inline;">by {{ i.creator }}</small>
                                 </a>
@@ -160,7 +172,8 @@
                     <td class="!bigger_td my-auto has-text-centered">
                         <div class="dropdown is-right" id="i-dropdown-{{ i.map_id }}">
                             <div class="dropdown-trigger">
-                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" onclick="document.getElementById('i-dropdown-{{ i.map_id }}').classList.toggle('is-active')">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu"
+                                    onclick="document.getElementById('i-dropdown-{{ i.map_id }}').classList.toggle('is-active')">
                                     <span>{{ t("admin.beatmaps.edit-status") }}</span>
                                     <span class="icon is-small">
                                         <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -169,15 +182,31 @@
                             </div>
                             <div class="dropdown-menu" id="dropdown-menu-{{ i.map_id }}" role="menu">
                                 <div class="dropdown-content has-background-primary">
-                                    <a class="dropdown-item {% if i.status == 2 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=2&set=0">{{ t("admin.beatmaps.ranked-diff") }}</a>
-                                    <a class="dropdown-item {% if i.status == 5 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=5&set=0">{{ t("admin.beatmaps.loved-diff") }}</a>
-                                    <a class="dropdown-item {% if i.status == 3 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=3&set=0">{{ t("admin.beatmaps.approved-diff") }}</a>
-                                    <a class="dropdown-item {% if i.status == 0 %} is-disabled {% endif %}" href="/admin/beatmaps/edit/{{ i.map_id }}?status=0&set=0">{{ t("admin.beatmaps.pending-diff") }}</a>
+                                    <a class="dropdown-item {% if i.status == 2 %} is-disabled {% endif %}"
+                                        href="/admin/beatmaps/edit/{{ i.map_id }}?status=2&set=0">{{
+                                        t("admin.beatmaps.ranked-diff") }}</a>
+                                    <a class="dropdown-item {% if i.status == 5 %} is-disabled {% endif %}"
+                                        href="/admin/beatmaps/edit/{{ i.map_id }}?status=5&set=0">{{
+                                        t("admin.beatmaps.loved-diff") }}</a>
+                                    <a class="dropdown-item {% if i.status == 3 %} is-disabled {% endif %}"
+                                        href="/admin/beatmaps/edit/{{ i.map_id }}?status=3&set=0">{{
+                                        t("admin.beatmaps.approved-diff") }}</a>
+                                    <a class="dropdown-item {% if i.status == 0 %} is-disabled {% endif %}"
+                                        href="/admin/beatmaps/edit/{{ i.map_id }}?status=0&set=0">{{
+                                        t("admin.beatmaps.pending-diff") }}</a>
                                     <hr class="dropdown-divider">
-                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=2&set=1">{{ t("admin.beatmaps.ranked-set") }}</a>
-                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=5&set=1">{{ t("admin.beatmaps.loved-set") }}</a>
-                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=3&set=1">{{ t("admin.beatmaps.approved-set") }}</a>
-                                    <a class="dropdown-item" href="/admin/beatmaps/edit/{{ i.set_id }}?status=0&set=1">{{ t("admin.beatmaps.pending-set") }}</a>
+                                    <a class="dropdown-item"
+                                        href="/admin/beatmaps/edit/{{ i.set_id }}?status=2&set=1">{{
+                                        t("admin.beatmaps.ranked-set") }}</a>
+                                    <a class="dropdown-item"
+                                        href="/admin/beatmaps/edit/{{ i.set_id }}?status=5&set=1">{{
+                                        t("admin.beatmaps.loved-set") }}</a>
+                                    <a class="dropdown-item"
+                                        href="/admin/beatmaps/edit/{{ i.set_id }}?status=3&set=1">{{
+                                        t("admin.beatmaps.approved-set") }}</a>
+                                    <a class="dropdown-item"
+                                        href="/admin/beatmaps/edit/{{ i.set_id }}?status=0&set=1">{{
+                                        t("admin.beatmaps.pending-set") }}</a>
                                 </div>
                             </div>
                         </div>
