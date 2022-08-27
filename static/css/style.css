@@ -428,7 +428,8 @@ a.foot-link {
   flex-direction: column;
   text-align: center;
   position: relative;
-  border-radius: 10px;
+  border-radius: 0;
+  /* border-radius: 10px; */
 }
 
 .noti-banner {
