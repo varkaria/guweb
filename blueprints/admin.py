@@ -130,7 +130,7 @@ async def users_update(id:int):
         return redirect('/admin/users')
 
 @admin.route('/beatmaps')
-@priv_check(priv=Privileges.Nominator)
+@priv_check(priv = Privileges.Nominator | Privileges.Dangerous)
 async def beatmaps():
     query = await glob.db.fetch(
         'SELECT (SELECT COUNT(id) as `r` FROM maps WHERE `status`= 2) AS `r`, '
@@ -156,7 +156,7 @@ async def beatmaps():
     return await render_template('admin/beatmaps.html', counts=counts, bmap_query=beatmaps)
 
 @admin.route('/beatmaps/search/<q>')
-@priv_check(priv=Privileges.Nominator)
+@priv_check(priv = Privileges.Nominator | Privileges.Dangerous)
 async def beatmaps_search(q: str):
     query = await glob.db.fetch(
         'SELECT (SELECT COUNT(id) as `r` FROM maps WHERE `status`= 2) AS `r`, '
@@ -182,7 +182,7 @@ async def beatmaps_search(q: str):
     return await render_template('admin/beatmaps.html', counts=counts, bmap_query=beatmaps, search_word=q)
 
 @admin.route('/beatmaps/edit/<id>')
-@priv_check(priv=Privileges.Nominator)
+@priv_check(priv = Privileges.Nominator | Privileges.Dangerous)
 async def beatmaps_edit(id:int): 
     status = request.args.get('status', type=int)
     is_set = request.args.get('set', type=int) == 1
