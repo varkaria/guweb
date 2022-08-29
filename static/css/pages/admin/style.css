@@ -1,7 +1,3 @@
-.admin-con {
-    margin-top: 30px!important
-}
-
 .sidebar {
     background: hsl(var(--main), 10%, 15%);
     width: 230px;
@@ -176,7 +172,8 @@
 }
 
 .admin-con {
-    flex-grow: 1
+    flex-grow: 1;
+    margin-top: 50px !important;
 }
 
 li {
