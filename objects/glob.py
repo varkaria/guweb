@@ -52,12 +52,12 @@ def appVersion() -> str:
 # Not Verified -> Disclaimed
 # Not Unrestricted -> Restricted
 @app.template_global()
-def decode_priv(target_priv: int) -> str:
+def format_priv(target_priv: int) -> set:
     priv_list = [priv.name for priv in Privileges if target_priv & priv and bin(priv).count("1") == 1][::-1]
     if 'Unrestricted' not in priv_list:
-        return 'Restricted'
+        return ['Restricted']
     if 'Verified' not in priv_list:
-        return 'Disclaimed'
+        return ['Disclaimed']
     if set(['Verified', 'Unrestricted']).issubset(priv_list):
         priv_list.remove('Verified')
         priv_list.remove('Unrestricted')
@@ -73,7 +73,8 @@ def decode_priv(target_priv: int) -> str:
         priv_list.append('Donator')
     if 'Normal' in priv_list and len(priv_list) != 1:
         priv_list.remove('Normal')
-    return ', '.join(priv_list)
+    # return ', '.join(priv_list)
+    return priv_list
 
 @app.template_global()
 def captchaKey() -> str:

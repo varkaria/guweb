@@ -63,7 +63,18 @@
                             style="width: 25px; height: 17px; -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.63); box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);">
                         <a class='ml-2' href="/u/{{ i.id }}">{{ i.name }}</a>
                     </td>
-                    <td class="has-text-centered">{{ decode_priv(i.priv) }}</td>
+                    <td class="has-text-centered">
+                        {% for priv in (format_priv(i.priv)) %}
+                        <div class="tag
+                        {% if priv == 'Normal' %} is-disabled
+                        {% elif priv == 'Restricted' %} is-danger
+                        {% elif priv == 'Disclaimed' %} is-warning
+                        {% elif priv == 'Stuff' %} is-info
+                        {% elif priv == 'Nominator' %} is-success
+                        {% else %} is-primary
+                        {% endif %}
+                        ">{{ priv }}</div>
+                        {% endfor %}</td>
                     <td class="has-text-centered">
                     {% if i.last_login %}{{ i.last_login }}
                     {% else %} -
@@ -73,9 +84,9 @@
                     <td class="has-text-centered">
                     {% if i.osu_stream %}
                         <div class="tag
-                        {% if i.osu_stream == 'stable' %} is-primary
+                        {% if i.osu_stream == 'stable' %} is-disabled
                         {% elif i.osu_stream == 'beta' %} is-info
-                        {% elif i.osu_stream == 'cuttingedge' %} is-light
+                        {% elif i.osu_stream == 'cuttingedge' %} is-primary
                         {% elif i.osu_stream == 'tourney' %} is-dark
                         {% elif i.osu_stream == 'fallback' %} is-warning
                         {% else %} is-danger
