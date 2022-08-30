@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Home {% endblock %}
+{% block title %} Início {% endblock %}
 
 {% block header %}
 <link rel="stylesheet" href="/static/css/pages/home.css">
@@ -15,16 +15,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-          Warning
+          Atenção
           {% elif status=='success' %}
-          Notice
+          Aviso
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          Uh oh! Be careful!
+          Opa! Tenha cuidado!
           {% elif status=='success' %}
-          Hey! Listen!
+          E aí? Saca só!
           {% endif %}
         </div>
       </div>
@@ -42,19 +42,19 @@
       <div class="column flex-vcenter flex-lcenter is-size-2-desktop is-size-1-fullhd" id="title">
         <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">{{ appName() }}</h1>
         <h2 class="subtitle">
-          We are an osu! private server built from the ground up with many
-          unique features not seen elsewhere - for more information, check
-          out <a href="http://github.com/cmyui/gulag">gulag</a>
-          and <a href="https://github.com/Varkaria/guweb">guweb</a>
-          on GitHub - we're fully open source!
+          Nós somos um servidor privado de osu! construído do zero com muitas
+          funcionalidades únicas não vistas em outro lugar - para mais informações, 
+          dê uma olhada <a href="https://github.com/nekoraw/bancho.py">bancho.py</a>
+          and <a href="https://github.com/nekoraw/guweb">guweb</a>
+          no GitHub - somos 100% código-aberto!
         </h2>
         {% if not session.authenticated %}
         <div class="buttons">
           <a class="button is-primary" href="/register">
-            <strong>Sign up</strong>
+            <strong>Cadastrar-se</strong>
           </a>
           <a class="button is-light" href="/login">
-            Log in
+            Fazer Login
           </a>
         </div>
         {% endif %}
@@ -68,7 +68,7 @@
 
 <section class="section">
   <div class="container has-text-centered py-4">
-    <h2 class="title mb-6">Some of our coolest features</h2>
+    <h2 class="title mb-6">Alguns de nossos recursos mais legais</h2>
     <div class="columns has-text-left mb-6">
       <div class="column is-4">
         <div class="columns">
@@ -76,10 +76,9 @@
             <i class="image is-32x32 fas fa-address-card"></i>
           </div>
           <div class="column is-10">
-            <h4 class="title is-spaced is-4">PP for Relax and Autopilot</h4>
-            <p class="subtitle is-6">Our server has unique pp formula for relax and autopilot.
-              Good at waving your cursor or just smashing your keyboard? Join {{ appName() }} and get a fair reward for
-              your skills!
+            <h4 class="title is-spaced is-4">PP para Relax e Autopilot</h4>
+            <p class="subtitle is-6">Nosso servidor possui uma fórmula única de pp para Relax e Autopilot. 
+              Você é bom em balançar o seu cursor ou só clicar no seu teclado? Junte-se a {{ appName() }} e consiga uma recompensa justa para suas habilidades.
             </p>
           </div>
         </div>
@@ -90,12 +89,10 @@
             <i class="image is-32x32 fas fa-ambulance"></i>
           </div>
           <div class="column is-10">
-            <h4 class="title is-spaced is-4">Free osu!direct</h4>
-            <p class="subtitle is-6">You won't have to pay for osu!supporter to have a convenient gameplay experience in
-              the
-              client - osu!direct is available for everyone! Keep in mind supporting us still grants a huge set of cool
-              perks but
-              absence of it doesn't affect your game sessions!</p>
+            <h4 class="title is-spaced is-4">osu!direct gratuito</h4>
+            <p class="subtitle is-6">Você não tem que pagar osu!supporter para ter uma experiência de jogo conveniente 
+              - osu!direct está disponível para todo mundo! Tenha em mente que nos dar suporte te dá uma série de vantagens legais, 
+              mas caso não puder, isso não afetará sua experiência de jogo!</p>
           </div>
         </div>
       </div>
@@ -105,9 +102,9 @@
             <i class="image is-32x32 fas fa-archive"></i>
           </div>
           <div class="column is-10">
-            <h4 class="title is-spaced is-4">Flexible library</h4>
-            <p class="subtitle is-6">We're written on top of cmyui's multipurpose library allowing for a fully
-              asynchronous environment, both improving performance and the user's experience in the long term!</p>
+            <h4 class="title is-spaced is-4">Biblioteca flexível</h4>
+            <p class="subtitle is-6">Nós fomos desenvolvidos por cima da biblioteca multiuso do cmyui, o que nos permite um ambiente completamente assíncrono, 
+              o que melhora a performance e a experiência do usuário a longo prazo!</p>
           </div>
         </div>
       </div>
@@ -119,12 +116,10 @@
 <section class="hero splash">
   <div class="hero-body">
     <div class="container has-text-centered">
-      <h1 class="title is-spaced">What are you waiting for?</h1>
-      <h2 class="subtitle">Join {{ appName() }}! It's risk-free! You won't get your account banned on official servers
-        if
-        you play here with us! And don't worry, as you can always switch between the official servers and us at any time!</h2>
-      <div class="buttons is-centered"><a class="control button is-primary" href="/register">Sign up for free</a><a
-          class="control button is-light" href="/login">Login</a></div>
+      <h1 class="title is-spaced">O que está esperando?</h1>
+      <h2 class="subtitle">Junte-se ao {{ appName() }}! Sua conta não vai ser banida dos servidores oficiais se você jogar conosco! E não se preocupe, já que você pode trocar entre o servidor oficial e o nosso para jogar em qualquer momento!</h2>
+      <div class="buttons is-centered"><a class="control button is-primary" href="/register">Cadastre-se de graça! </a><a
+          class="control button is-light" href="/login">Fazer login</a></div>
     </div>
   </div>
 </section>

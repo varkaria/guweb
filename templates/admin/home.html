@@ -1,5 +1,5 @@
 {% extends 'admin/base.html' %}
-{% block title %} Dashboard {% endblock %}
+{% block title %} Painel de Controle {% endblock %}
 {% block header %}
 <script src="/static/js/asserts/vue.js"></script>
 <script src="/static/js/asserts/vue-axios.js"></script>
@@ -15,36 +15,36 @@
     <div class="columns is-marginless is-paddingless">
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">total users</div>
+                <div class="title">total de usuários</div>
                 <i class="fa fa-users"></i>
                 <div class="value">{{ dashdata['count'] }}</div>
-                <div class="stat">that's a lot of people!</div>
+                <div class="stat">isso é bastante gente!</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">total online</div>
+                <div class="title">total de usuários conectados</div>
                 <i class="fa fa-circle"></i>
                 <div class="value">
                     <% online_users %>
                 </div>
-                <div class="stat">rising in popularity are we?</div>
+                <div class="stat">ficando popular, não é mesmo?</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">lastest user</div>
+                <div class="title">último cadastrado</div>
                 <i class="fa fa-book"></i>
                 <div class="value">{{ dashdata['lastest_user'] }}</div>
-                <div class="stat">latest and greatest! welcome!</div>
+                <div class="stat">os últimos serão os primeiros!</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">total banned</div>
+                <div class="title">total de banidos</div>
                 <i class="fa fa-calendar"></i>
                 <div class="value">{{ dashdata['banned'] }}</div>
-                <div class="stat">naughty naughty :(</div>
+                <div class="stat">amigos do proteu</div>
             </div>
         </div>
     </div>
@@ -54,13 +54,13 @@
         <div class="recent-beat">
             <div class="columns is-marginless">
                 <div class="column is-paddingless flex-vcenter">
-                    <h2 class="section-title">Recent Users</h2>
+                    <h2 class="section-title">Usuários Recentes</h2>
                 </div>
             </div>
             <div class="blockdata">
                 {% for user in recentusers %}
                 <a href="/u/{{ user.id }}" class="user-block{% if user.priv == 1 %} unverified{% endif %}">
-                    <img src="https://a.{{ domain() }}/{{ user.id }}" class="avatar-picture">
+                    <img src="https://a.{{ domain() }}/{{ user.id }}?{{ get_img_subn() }}" class="avatar-picture" onerror="this.src='/static/images/avatar_notwork.png';">
                     <div class="user-stats"><span class="user-title">
                         <img src="/static/images/flags/{{ user.country|upper }}.png" class="profile-flag"> {{ user.name }}
                         </span><span class="user-artist">
@@ -69,12 +69,12 @@
                         <div class="user-footer">
                             <span class="user-mapper">
                             {{ timeago.format((datetime.datetime.fromtimestamp(user.creation_time)),
-                                (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                                (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4)), "pt-BR") }}
                             </span>
                             <div class="d-flex align-items-baseline">
                                 <span>
                                 {{ timeago.format((datetime.datetime.fromtimestamp(user.latest_activity)),
-                                    (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                                    (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4)), "pt-BR") }}
                                 </span>
                                 <div class="target-button newmaps-color">
                                     <i class="fa fa-arrow-right"></i>
@@ -93,7 +93,7 @@
         <div class="recent-beat">
             <div class="columns is-marginless">
                 <div class="column is-paddingless flex-vcenter">
-                    <h2 class="section-title">Recent Score</h2>
+                    <h2 class="section-title">Pontuações recentes</h2>
                 </div>
             </div>
             <div class="blockdata">
@@ -110,7 +110,7 @@
                                 {{ maps.score }} / {{ maps.max_combo }}x
                             </div>
                             <div class="map-date"><time>
-                                {{ timeago.format((maps.play_time), (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
+                                {{ timeago.format((maps.play_time), (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4)), "pt-BR") }}
                                 </time></div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                                 <div class="score-details_pp-block">
                                     <div class="map-pp">
                                         {{ maps.pp }}<span class="map-pp-unit">pp</span></div>
-                                    <div class="map-acc">accuracy:&nbsp;<b>
+                                    <div class="map-acc">precisão:&nbsp;<b>
                                         {{ maps.acc }}%
                                         </b></div>
                                 </div>

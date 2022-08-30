@@ -9,13 +9,13 @@
   <div class="block-content right">
     <div id="general" class="single-right-block">
       <div class="right-block-header">
-        User Infomation
+        Informações do usuário
       </div>
       <form action="/settings/profile" method="post" class="setting-block-content">
         <div class="single-block-content">
           <div class="block-content--left">
             <div class="field-label is-normal">
-              <label class="label">Username</label>
+              <label class="label">Nome de usuário</label>
             </div>
           </div>
           <div class="block-content--right">
@@ -32,7 +32,7 @@
         <div class="single-block-content">
           <div class="block-content--left">
             <div class="field-label is-normal">
-              <label class="label">Email</label>
+              <label class="label">E-mail</label>
             </div>
           </div>
           <div class="block-content--right">
@@ -63,7 +63,7 @@
           </div>
         </div>
         -->
-        <button class='button is-primary' type='submit'><span>Save</span><span class='icon is-small'><i class='fas fa-check'></i></span></button>
+        <button class='button is-primary' type='submit'><span>Salvar</span><span class='icon is-small'><i class='fas fa-check'></i></span></button>
       </form>
     </div>
   </div>
@@ -77,16 +77,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-          Warning
+          Atenção
           {% elif status=='success' %}
-          Notice
+          Aviso
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          Uh oh! Be careful!
+          Opa! Tenha cuidado!
           {% elif status=='success' %}
-          Hey! Listen!
+          E aí? Saca só!
           {% endif %}
         </div>
       </div>
