@@ -457,8 +457,9 @@ async def register_post():
     username = form.get('username', type=str)
     email = form.get('email', type=str)
     passwd_txt = form.get('password', type=str)
+    country = form.get('state', type=str)
 
-    if username is None or email is None or passwd_txt is None:
+    if username is None or email is None or passwd_txt is None or country is None:
         return await flash('error', 'Parâmetros inválidos.', 'home')
 
     if glob.config.hCaptcha_sitekey != 'changeme':
@@ -518,13 +519,13 @@ async def register_post():
     safe_name = utils.get_safe_name(username)
 
     # fetch the users' country
-    if (
-        request.headers and
-        (ip := request.headers.get('X-Real-IP', type=str)) is not None
-    ):
-        country = await utils.fetch_geoloc(ip)
-    else:
-        country = 'xx'
+    # if (
+    #     request.headers and
+    #     (ip := request.headers.get('X-Real-IP', type=str)) is not None
+    # ):
+    #     country = await utils.fetch_geoloc(ip)
+    # else:
+    #     country = 'xx'
 
     async with glob.db.pool.acquire() as conn:
         async with conn.cursor() as db_cursor:

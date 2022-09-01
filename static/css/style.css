@@ -35,6 +35,14 @@ html {
   display: flex;
 }
 
+.input-select {
+  background-color: hsl(var(--main), 12%, 18%);
+  box-shadow: inset 0 .0625em .125em rgba(10,10,10,.05);
+  width: 100%;
+  height: 46px;
+}
+  
+
 .flex-vcenter {
   align-self: center;
 }
