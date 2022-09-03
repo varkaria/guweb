@@ -137,7 +137,7 @@
             </div>
         </div>
     </div>
-    <div v-if="data.maps.{{ id }}.more.full == false" class="extra-block">
+    <div v-show="data.maps.{{ id }}.more.full == false" class="extra-block">
         <a class="show-button rounded-sm" @click="AddLimit('mostplay')">{{ t('profile.show-more') }}</a>
     </div>
 </div>
@@ -152,7 +152,7 @@
 <script>
     window.addEventListener('load', () => {
         window._state = createState({
-            userid: {{ user['id'] | JSON }}
+            userid: {{ user['id'] | JSON }},
             mode: {{ mode | JSON }},
             mods: {{ mods | JSON }},
             domain: {{ domain() | JSON }}

@@ -7,10 +7,7 @@ window.addEventListener('load', () => {
   }
 
   // eslint-disable-next-line no-undef
-  _testGlobals(
-    { exists: ['mode', 'mods', 'userid', 'domain'] },
-    s
-  )
+  _testGlobals({ exists: ['mode', 'mods', 'userid', 'domain'] }, s)
   // eslint-disable-next-line no-new, no-undef
   new Vue({
     el: '#app',
@@ -18,6 +15,15 @@ window.addEventListener('load', () => {
     data () {
       return {
         loop: undefined,
+        fetchMoreIncremental: {
+          score: 20,
+          map: 20
+        },
+        cap: {
+          best: 100,
+          recent: 100,
+          most: 100
+        },
         data: {
           stats: {
             out: [{}],
@@ -47,7 +53,7 @@ window.addEventListener('load', () => {
               out: [],
               load: true,
               more: {
-                limit: 5,
+                limit: 10,
                 full: true
               }
             }
@@ -115,7 +121,7 @@ window.addEventListener('load', () => {
               r += 'NC'
               hasNightcore = true
             }
-            if (!hasNightcore && (m & DoubleTime)) {
+            if (!hasNightcore && m & DoubleTime) {
               r += 'DT'
             }
             if (m & Relax) {
@@ -192,7 +198,7 @@ window.addEventListener('load', () => {
     },
     computed: {},
     created () {
-    // starting a page
+      // starting a page
       this.modegulag = this.StrtoGulagInt()
       this.LoadProfileData()
       this.LoadAllofdata({ animation: false })
@@ -206,63 +212,76 @@ window.addEventListener('load', () => {
       },
       LoadProfileData () {
         this.$set(this.data.stats, 'load', true)
-        this.$axios.get(`//api.${s.domain}/get_player_info`, {
-          params: {
-            id: this.userid,
-            scope: 'all'
-          }
-        })
-          .then(res => {
+        this.$axios
+          .get(`//api.${s.domain}/get_player_info`, {
+            params: {
+              id: this.userid,
+              scope: 'all'
+            }
+          })
+          .then((res) => {
             this.$set(this.data.stats, 'out', res.data.player.stats)
             this.data.stats.load = false
           })
       },
       async LoadScores (sort, { animation = true } = {}) {
         this.$set(this.data.scores[`${sort}`], 'load', true)
-        await this.$axios.get(`//api.${s.domain}/get_player_scores`, {
-          params: {
-            id: this.userid,
-            mode: this.StrtoGulagInt(),
-            scope: sort,
-            limit: this.data.scores[`${sort}`].more.limit
-          }
-        })
-          .then(res => {
-            this.data.scores[`${sort}`].out = res.data.scores
-            // eslint-disable-next-line eqeqeq
-            this.data.scores[`${sort}`].more.full = this.data.scores[`${sort}`].out.length != this.data.scores[`${sort}`].more.limit
+        await this.$axios
+          .get(`//api.${s.domain}/get_player_scores`, {
+            params: {
+              id: this.userid,
+              mode: this.StrtoGulagInt(),
+              scope: sort,
+              limit: this.data.scores[`${sort}`].more.limit
+            }
           })
-        const toShow = (this.$refs.scores && this.$refs.scores.filter(el => !el.classList.contains('show'))) || []
+          .then((res) => {
+            this.data.scores[`${sort}`].out = res.data.scores
+            this.data.scores[`${sort}`].more.full =
+            (this.data.scores[`${sort}`].out.length !== this.data.scores[`${sort}`].more.limit ||
+              this.data.scores[`${sort}`].out.length >= this.cap[sort]
+            )
+          })
+        const toShow =
+          (this.$refs.scores &&
+            this.$refs.scores.filter((el) => !el.classList.contains('show'))) ||
+          []
         // animation
         if (!animation) {
-          toShow.forEach(el => el.classList.add('show'))
+          toShow.forEach((el) => el.classList.add('show'))
           this.data.scores[`${sort}`].load = false
         } else {
           this.data.scores[`${sort}`].load = false
           toShow.forEach((el, index) => {
             setTimeout(() => {
               el.classList.add('show')
-            }, index * 30)
+            }, index * 25)
           })
         }
       },
       async LoadMostBeatmaps ({ animation = true } = {}) {
         this.$set(this.data.maps.most, 'load', true)
-        await this.$axios.get(`//api.${s.domain}/get_player_most_played`, {
-          params: {
-            id: this.userid,
-            mode: this.StrtoGulagInt(),
-            limit: this.data.maps.most.more.limit
-          }
-        })
-          .then(res => {
+        await this.$axios
+          .get(`//api.${s.domain}/get_player_most_played`, {
+            params: {
+              id: this.userid,
+              mode: this.StrtoGulagInt(),
+              limit: this.data.maps.most.more.limit
+            }
+          })
+          .then((res) => {
             this.data.maps.most.out = res.data.maps
             this.data.maps.most.more.full = this.data.maps.most.out.length !== this.data.maps.most.more.limit
           })
-        const toShow = (this.$refs.mostPlayed && this.$refs.mostPlayed.filter(el => !el.classList.contains('show'))) || []
+        const toShow =
+          (this.$refs.mostPlayed &&
+            this.$refs.mostPlayed.filter(
+              (el) => !el.classList.contains('show')
+            )) ||
+          []
         // animation
         if (!animation) {
-          toShow.forEach(el => el.classList.add('show'))
+          toShow.forEach((el) => el.classList.add('show'))
           this.data.maps.most.load = false
         } else {
           this.data.maps.most.load = false
@@ -274,12 +293,13 @@ window.addEventListener('load', () => {
         }
       },
       LoadUserStatus () {
-        this.$axios.get(`//api.${s.domain}/get_player_status`, {
-          params: {
-            id: this.userid
-          }
-        })
-          .then(res => {
+        this.$axios
+          .get(`//api.${s.domain}/get_player_status`, {
+            params: {
+              id: this.userid
+            }
+          })
+          .then((res) => {
             this.$set(this.data, 'status', res.data.player_status)
           })
           .catch(function (error) {
@@ -289,7 +309,9 @@ window.addEventListener('load', () => {
         this.loop = setTimeout(this.LoadUserStatus, 5000)
       },
       ChangeModeMods (mode, mods) {
-        if (s.event) { s.event.preventDefault() }
+        if (s.event) {
+          s.event.preventDefault()
+        }
 
         this.mode = mode
         this.mods = mods
@@ -301,16 +323,21 @@ window.addEventListener('load', () => {
         this.LoadAllofdata()
       },
       AddLimit (which) {
-        if (s.event) { s.event.preventDefault() }
+        if (s.event) {
+          s.event.preventDefault()
+        }
 
         if (which === 'bestscore') {
-          this.data.scores.best.more.limit += 5
+          this.data.scores.best.more.limit += this.fetchMoreIncremental.score
+          if (this.data.scores.best.more.limit >= this.cap.best) { this.data.scores.best.more.limit = this.cap.best }
           this.LoadScores('best')
         } else if (which === 'recentscore') {
-          this.data.scores.recent.more.limit += 5
+          this.data.scores.recent.more.limit += this.fetchMoreIncremental.score
+          if (this.data.scores.recent.more.limit >= this.cap.best) { this.data.recent.best.more.limit = this.cap.best }
           this.LoadScores('recent')
         } else if (which === 'mostplay') {
-          this.data.maps.most.more.limit += 4
+          this.data.maps.most.more.limit += this.fetchMoreIncremental.map
+          if (this.data.maps.most.more.limit >= this.cap.best) { this.data.maps.most.more.limit = this.cap.best }
           this.LoadMostBeatmaps()
         }
       },
@@ -360,8 +387,8 @@ window.addEventListener('load', () => {
       secondsToDhm (seconds) {
         seconds = Number(seconds)
         const dDisplay = `${Math.floor(seconds / (3600 * 24))}d `
-        const hDisplay = `${Math.floor(seconds % (3600 * 24) / 3600)}h `
-        const mDisplay = `${Math.floor(seconds % 3600 / 60)}m `
+        const hDisplay = `${Math.floor((seconds % (3600 * 24)) / 3600)}h `
+        const mDisplay = `${Math.floor((seconds % 3600) / 60)}m `
         return dDisplay + hDisplay + mDisplay
       },
       StrtoGulagInt () {

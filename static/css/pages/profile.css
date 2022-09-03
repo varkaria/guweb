@@ -18,6 +18,8 @@
   transition: 0.2s ease;
   margin-bottom: 12px;
 }
+
+
 .extra-block {
   width: 100%;
   display: flex;
@@ -25,7 +27,8 @@
   background: hsl(var(--main), 20%, 20%);
 }
 
-.stats-block, .extra-block
+.stats-block,
+.log-block > *:last-child
 {
   border-radius: 0 0 0.5em 0.5em;
 }
@@ -766,4 +769,14 @@ span.beatmap-mapper {
 }
 .pop-enter, .pop-leave-to {
   transform: scale(0.8);
+}
+
+.beatmap-block,
+.map-single {
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.beatmap-block:hover,
+.map-single:hover {
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
