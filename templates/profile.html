@@ -152,10 +152,10 @@
 <script>
     window.addEventListener('load', () => {
         window._state = createState({
-            userid: Number("{{ user['id'] }}"), //For text editor doesn't dizzy lmao
-            mode: `{{ mode }}`,
-            mods: `{{ mods }}`,
-            domain: "{{ domain() }}"
+            userid: {{ user['id'] | JSON }}
+            mode: {{ mode | JSON }},
+            mods: {{ mods | JSON }},
+            domain: {{ domain() | JSON }}
         })
     })
 </script>

@@ -6,10 +6,10 @@
 <script src="/static/js/assets/vue-axios.js?v={{ appVersion() }} "></script>
 
 <script>
-    globalThis.mode = "{{ mode }}";
-    globalThis.mods = "{{ mods }}";
-    globalThis.sort = "{{ sort }}";
-    globalThis.domain = "{{ domain() }}";
+  globalThis.mode = {{ mode | JSON }};
+  globalThis.mods = {{ mods | JSON }};
+  globalThis.sort = {{ sort | JSON }};
+  globalThis.domain = {{ domain() | JSON }};
 </script>
 
 <link rel="stylesheet" href="/static/css/pages/leaderboard.css?v={{ appVersion() }} ">
@@ -17,110 +17,110 @@
 
 {% block content %}
 <div id="app" :class="(load ? 'load' : '')">
-    <div class="leaderboard-banner main-banner">
-        <div class="main-selector">
-            <a class="mode-select" :class="{ 'active': mode === 'std' }" @click="LoadLeaderboard(sort, 'std', mods)">
-                <i class="mode-icon mode-osu"></i><span class="modetext"> {{ t('global.mode.osu') }}</span>
-            </a>
-            <a class="mode-select" :class="{ 'active': mode === 'taiko', 'disabled': mods === 'ap' }"
-                @click="LoadLeaderboard(sort, 'taiko', mods)">
-                <i class="mode-icon mode-taiko"></i><span class="modetext"> {{ t('global.mode.taiko') }}</span>
-            </a>
-            <a class="mode-select" :class="{ 'active': mode === 'catch', 'disabled': mods === 'ap' }"
-                @click="LoadLeaderboard(sort, 'catch', mods)">
-                <i class="mode-icon mode-catch"></i><span class="modetext"> {{ t('global.mode.catch') }}</span>
-            </a>
-            <a class="mode-select" :class="{ 'active': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
-                @click="LoadLeaderboard(sort, 'mania', mods)">
-                <i class="mode-icon mode-mania"></i><span class="modetext"> {{ t('global.mode.mania') }}</span>
-            </a>
-        </div>
-        <div class="banner-text">{{ t('leaderboard.leaderboard') }}</div>
-        <div class="selector">
-            <div class="left">
-                <a class="simple-banner-switch" :class="{ 'active': sort === 'pp' }"
-                    @click="LoadLeaderboard('pp', mode, mods, '')">{{ t('global.pp').upper() }}</a>
-                <a class="simple-banner-switch" :class="{ 'active': sort === 'rscore' }"
-                    @click="LoadLeaderboard('rscore', mode, mods, '')">{{ t('global.score') }}</a>
-                <a class="simple-banner-switch" :class="{ 'active': sort === 'acc' }"
-                    @click="LoadLeaderboard('acc', mode, mods, '')">{{ t('global.acc') }}</a>
-                <a class="simple-banner-switch" :class="{ 'active': sort === 'plays' }"
-                    @click="LoadLeaderboard('plays', mode, mods, '')">{{ t('global.playcount') }}</a>
-                <a class="simple-banner-switch" :class="{ 'active': sort === 'playtime' }"
-                    @click="LoadLeaderboard('playtime', mode, mods, '')">{{ t('global.playtime') }}</a>
-            </div>
-            <div class="right">
-                <a class="simple-banner-switch" :class=" { 'active': mods === 'vn' }"
-                    @click="LoadLeaderboard(sort, mode, 'vn')">{{ t('global.mode.vanilla') }}</a>
-                <a class="simple-banner-switch" :class=" { 'active': mods === 'rx', 'disabled': mode === 'mania' }"
-                    @click="LoadLeaderboard(sort, mode, 'rx')">{{ t('global.mode.relax') }}</a>
-                <a class="simple-banner-switch"
-                    :class=" { 'active': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
-                    @click="LoadLeaderboard(sort, mode, 'ap')">{{ t('global.mode.autopilot') }}</a>
-            </div>
-        </div>
+  <div class="leaderboard-banner main-banner">
+    <div class="main-selector">
+      <a class="mode-select" :class="{ 'active': mode === 'std' }" @click="LoadLeaderboard(sort, 'std', mods)">
+        <i class="mode-icon mode-osu"></i><span class="modetext"> {{ t('global.mode.osu') }}</span>
+      </a>
+      <a class="mode-select" :class="{ 'active': mode === 'taiko', 'disabled': mods === 'ap' }"
+        @click="LoadLeaderboard(sort, 'taiko', mods)">
+        <i class="mode-icon mode-taiko"></i><span class="modetext"> {{ t('global.mode.taiko') }}</span>
+      </a>
+      <a class="mode-select" :class="{ 'active': mode === 'catch', 'disabled': mods === 'ap' }"
+        @click="LoadLeaderboard(sort, 'catch', mods)">
+        <i class="mode-icon mode-catch"></i><span class="modetext"> {{ t('global.mode.catch') }}</span>
+      </a>
+      <a class="mode-select" :class="{ 'active': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
+        @click="LoadLeaderboard(sort, 'mania', mods)">
+        <i class="mode-icon mode-mania"></i><span class="modetext"> {{ t('global.mode.mania') }}</span>
+      </a>
     </div>
-    <div class="main-block">
-        <div class="leaderboard-main-bg table-responsive">
-            <div v-if="boards.length != undefined && boards.length != 0">
-                <table class="leaderboard-table table-responsive">
-                    <thead>
-                        <tr>
-                            <th class="t-heading"> </th>
-                            <th class="t-heading t-heading--main"></th>
-                            <th v-if="sort == 'pp' || sort == 'rscore'" class="t-heading table--selected">
-                                <% (sort=='pp' ? "{{ t('global.pp').upper() }}" : "" ) %>
-                                    <% (sort=='rscore' ? "{{ t('global.score') }}" : "" ) %>
-                            </th>
-                            <th class="t-heading"> {{ t('global.accuracy') }} </th>
-                            <th class="t-heading"> {{ t('global.playcount') }} </th>
-                            <th class="t-heading"> {{ t('global.max-combo') }} </th>
-                            <th class="t-heading"> {{ t('global.playtime') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(user, index) in boards" class="leaderboard-column">
-                            <td class="column-player-rank">#<% index + 1 %>
-                            </td>
-                            <td class="column-player-name has-text-left">
-                                <a :title="flags[user.country.toUpperCase()]"
-                                    :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
-                                    class="player-flag">
-                                    <div class="flag-dropdown">
-                                        <% flags[user.country.toUpperCase()] %>
-                                    </div>
-                                </a>
-                                <a :href="'/u/'+user.player_id">
-                                    <% user.name %>
-                                </a>
-                            </td>
-                            <td v-if="sort == 'pp' || sort == 'rscore'" class="has-text-right pr-3">
-                                <% (sort=='pp' ? addCommas(user.pp) : "" ) %>
-                                    <% (sort=='rscore' ? scoreFormat(user.rscore) : "" ) %>
-                            </td>
-                            <td class="has-text-right pr-3">
-                                <% user.acc.toFixed(2) %>%
-                            </td>
-                            <td class="has-text-right pr-3">
-                                <% addCommas(user.plays) %>
-                            </td>
-                            <td class="has-text-right pr-3">
-                                <% addCommas(user.max_combo) %>
-                            </td>
-                            <td class="has-text-right pr-3">
-                                <% secondsToDhm(user.playtime) %>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div v-else>
-                <div class="text-center">
-                    {{ t('leaderboard.there-are-no-players-to-display') }}
-                </div>
-            </div>
-        </div>
+    <div class="banner-text">{{ t('leaderboard.leaderboard') }}</div>
+    <div class="selector">
+      <div class="left">
+        <a class="simple-banner-switch" :class="{ 'active': sort === 'pp' }"
+          @click="LoadLeaderboard('pp', mode, mods, '')">{{ t('global.pp').upper() }}</a>
+        <a class="simple-banner-switch" :class="{ 'active': sort === 'rscore' }"
+          @click="LoadLeaderboard('rscore', mode, mods, '')">{{ t('global.score') }}</a>
+        <a class="simple-banner-switch" :class="{ 'active': sort === 'acc' }"
+          @click="LoadLeaderboard('acc', mode, mods, '')">{{ t('global.acc') }}</a>
+        <a class="simple-banner-switch" :class="{ 'active': sort === 'plays' }"
+          @click="LoadLeaderboard('plays', mode, mods, '')">{{ t('global.playcount') }}</a>
+        <a class="simple-banner-switch" :class="{ 'active': sort === 'playtime' }"
+          @click="LoadLeaderboard('playtime', mode, mods, '')">{{ t('global.playtime') }}</a>
+      </div>
+      <div class="right">
+        <a class="simple-banner-switch" :class=" { 'active': mods === 'vn' }"
+          @click="LoadLeaderboard(sort, mode, 'vn')">{{ t('global.mode.vanilla') }}</a>
+        <a class="simple-banner-switch" :class=" { 'active': mods === 'rx', 'disabled': mode === 'mania' }"
+          @click="LoadLeaderboard(sort, mode, 'rx')">{{ t('global.mode.relax') }}</a>
+        <a class="simple-banner-switch"
+          :class=" { 'active': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
+          @click="LoadLeaderboard(sort, mode, 'ap')">{{ t('global.mode.autopilot') }}</a>
+      </div>
     </div>
+  </div>
+  <div class="main-block">
+    <div class="leaderboard-main-bg table-responsive">
+      <div v-if="boards.length != undefined && boards.length != 0">
+        <table class="leaderboard-table table-responsive">
+          <thead>
+            <tr>
+              <th class="t-heading"> </th>
+              <th class="t-heading t-heading--main"></th>
+              <th v-if="sort == 'pp' || sort == 'rscore'" class="t-heading table--selected">
+                <% (sort=='pp' ? {{ t('global.pp').upper() | JSON }} : "" ) %>
+                  <% (sort=='rscore' ? {{ t('global.score') | JSON }} : "" ) %>
+              </th>
+              <th class="t-heading"> {{ t('global.accuracy') }} </th>
+              <th class="t-heading"> {{ t('global.playcount') }} </th>
+              <th class="t-heading"> {{ t('global.max-combo') }} </th>
+              <th class="t-heading"> {{ t('global.playtime') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(user, index) in boards" class="leaderboard-column">
+              <td class="column-player-rank">#<% index + 1 %>
+              </td>
+              <td class="column-player-name has-text-left">
+                <a :title="flags[user.country.toUpperCase()]"
+                  :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
+                  class="player-flag">
+                  <div class="flag-dropdown">
+                    <% flags[user.country.toUpperCase()] %>
+                  </div>
+                </a>
+                <a :href="'/u/'+user.player_id">
+                  <% user.name %>
+                </a>
+              </td>
+              <td v-if="sort == 'pp' || sort == 'rscore'" class="has-text-right pr-3">
+                <% (sort=='pp' ? addCommas(user.pp) : "" ) %>
+                  <% (sort=='rscore' ? scoreFormat(user.rscore) : "" ) %>
+              </td>
+              <td class="has-text-right pr-3">
+                <% user.acc.toFixed(2) %>%
+              </td>
+              <td class="has-text-right pr-3">
+                <% addCommas(user.plays) %>
+              </td>
+              <td class="has-text-right pr-3">
+                <% addCommas(user.max_combo) %>
+              </td>
+              <td class="has-text-right pr-3">
+                <% secondsToDhm(user.playtime) %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div v-else>
+        <div class="text-center">
+          {{ t('leaderboard.there-are-no-players-to-display') }}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="/static/js/assets/vue-flags.js?v={{ appVersion() }} "></script>

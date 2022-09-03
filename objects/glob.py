@@ -8,6 +8,7 @@ from quart import Quart, session
 import i18n
 import markdown2
 import html
+import json
 from aiohttp import ClientSession
 from cmyui.mysql import AsyncSQLPool
 from cmyui.version import Version
@@ -101,3 +102,7 @@ def render_markdown(md: str) -> str:
 @app.template_global()
 def decode_map_status(status: int) -> str:
     return RankedStatus(status).name
+
+@app.template_filter('JSON')
+def JSON(anyting) -> str:
+    return app.jinja_env.filters['safe'](json.dumps(anyting))

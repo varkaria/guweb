@@ -57,12 +57,12 @@
   <script>
     $("#file")
       .change(function (e) {
-        var f = e.target.files;
+        const f = e.target.files;
         if (f.length < 1) {
           return;
         }
-        var u = window.URL.createObjectURL(f[0]);
-        var i = $("#avatar-img")[0];
+        const u = window.URL.createObjectURL(f[0]);
+        const i = $("#avatar-img")[0];
         i.src = u;
         $('#avatar-img').attr('src', i.src)
       });

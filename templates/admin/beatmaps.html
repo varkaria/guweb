@@ -52,7 +52,7 @@
 {# <script>
     window.addEventListener('load', () => {
         window._state = createState({
-            api_key: "{{ session.user_data['api_key'] }}"
+            api_key: {{ session.user_data['api_key'] | JSON }}
         })
     })
 </script> #}
@@ -233,7 +233,7 @@
 </style>
 <script>$(document).ready(function () {
         $(".dropdown .buttond").click(function () {
-            var dropdown = $(this).parents('.dropdown');
+            const dropdown = $(this).parents('.dropdown');
             dropdown.toggleClass('is-active');
             dropdown.focusout(function () {
                 $(this).removeClass('is-active');

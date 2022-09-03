@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    window.domain = '{{ domain() }}'
+    window.domain = {{ domain() | JSON }}
 </script>
 <nav id="navbar" class="navbar is-primary">
     <div class="navbar-brand">

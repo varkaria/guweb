@@ -5,7 +5,7 @@
 <script src="/static/js/assets/vue-axios.js?v={{ appVersion() }} "></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
 <script>
-    window.domain = "{{ domain() }}";
+    window.domain = {{ domain() | JSON }};
 </script>
 <style>
     .card .title, .card .stat {
