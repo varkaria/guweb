@@ -5,6 +5,10 @@
   src: url(/static/fonts/extra.ttf) format("truetype")
 }
 
+html {
+  overflow: auto;
+}
+
 body * {
   font-family: Quicksand, Noto Sans SC, -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Helvetica, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif
 }
@@ -861,4 +865,8 @@ body::-webkit-scrollbar-thumb {
   -webkit-transition: box-shadow 0.1s ease, border-color 0.1s ease;
   transition: box-shadow 0.1s ease, border-color 0.1s ease;
   box-shadow: none;
+}
+
+.table-responsive {
+  overflow-x: scroll;
 }
