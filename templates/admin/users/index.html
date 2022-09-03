@@ -22,10 +22,6 @@
 
 {% block content %}
 <div class="columns is-marginless">
-    <div class="column is-paddingless is-avatar">
-        <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
-            onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
-    </div>
     <div class="column is-paddingless flex-vcenter">
         <h2 class="section-title">{{ t("admin.base.users") }}</h2>
         <p class="section-lead">{{ t("admin.users.welcome-to-users-panel") }}</p>

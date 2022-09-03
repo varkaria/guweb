@@ -63,10 +63,6 @@ uncomment if it's needed in the future
 #}
 <progress id="progress_bar" class="progress is-small is-primary" max="100" style="display: none;"></progress>
 <div class="columns is-marginless">
-    <div class="column is-paddingless is-avatar">
-        <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
-            onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
-    </div>
     <div class="column is-paddingless flex-vcenter">
         <h2 class="section-title">{{ t("admin.base.beatmaps") }}</h2>
         <p class="section-lead">{{ t("admin.beatmaps.welcome-to-beatmaps-panel") }}</p>
@@ -74,7 +70,7 @@ uncomment if it's needed in the future
 </div>
 <div class="row row-deck row-cards" style="margin-top: 20px">
     <div class="columns is-marginless is-paddingless">
-        <div class="column is-paddingless pr-3 py-3">
+        <div class="column is-paddingless p-3">
             <div class="card has-text-right">
                 <i class="fa fa-plus"></i>
                 <div class="title">{{ t("admin.beatmaps.total-beatmaps") }}</div>
@@ -98,7 +94,7 @@ uncomment if it's needed in the future
                 <div class="stat has-text-left">{{ t("admin.beatmaps.we-loved-them-so-much") }}</div>
             </div>
         </div>
-        <div class="column is-paddingless pl-3 py-3">
+        <div class="column is-paddingless p-3">
             <div class="card has-text-right">
                 <i class="fa fa-arrows-rotate"></i>
                 <div class="title">{{ t("admin.beatmaps.pending") }}</div>
