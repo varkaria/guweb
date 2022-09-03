@@ -1,335 +1,374 @@
-{% extends 'base.html' %}
-{% block title %} {{ t('global.profile') }} {% endblock %}
-
-{% macro userpage(user) %}
-{% if user['userpage_content'] != None and user['userpage_content'] != "" %}
+{% extends 'base.html' %} {% block title %} {{ t('global.profile') }} {%
+endblock %} {% macro userpage(user) %} {% if user['userpage_content'] != None
+and user['userpage_content'] != "" %}
 <div class="log-block">
-    <div class="header">
-        <div class="title">
-            <i class="fas fa-address-book"></i> {{ t("profile.about-me-title") }}
-        </div>
+  <div class="header">
+    <div class="title">
+      <i class="fas fa-address-book"></i> {{ t("profile.about-me-title") }}
     </div>
-    <div class="stats-block rank-block" style="padding: 12.5px;">
-        <article class="reset-bulma-style">
-            {{ render_markdown(user['userpage_content']) | safe }}
-        </article>
-    </div>
+  </div>
+  <div class="stats-block rank-block" style="padding: 12.5px">
+    <article class="reset-bulma-style">
+      {{ render_markdown(user['userpage_content']) | safe }}
+    </article>
+  </div>
 </div>
-{% endif %}
-{% endmacro %}
-
-{% macro scores(title, id) %}
+{% endif %} {% endmacro %} {% macro scores(title, id) %}
 <div class="log-block" :class="{ load : data.scores.{{ id }}.load }">
-    <div class="header">
-        <div class="title">
-            <i class="fas fa-trophy"></i> {{ title }}
+  <div class="header">
+    <div class="title"><i class="fas fa-trophy"></i> {{ title }}</div>
+  </div>
+  <div v-if="data.scores.{{ id }}.out.length" class="scores">
+    <div
+      v-for="(map, index) in data.scores.{{ id }}.out"
+      class="map-single"
+      ref="scores"
+      :key="map.beatmap.map_id"
+      :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${map.beatmap.set_id}/covers/cover.jpg)`"
+    >
+      <div
+        class="map-data"
+        @click="window.open(`https://osu.ppy.sh/beatmaps/${map.beatmap.id}`) "
+      >
+        <div class="map-content1">
+          <div class="map-image">
+            <img
+              :src="`https://assets.ppy.sh/beatmaps/${map.beatmap.set_id}/covers/card.jpg`"
+              class="map-image-picture"
+            />
+          </div>
+          <div class="map-title-block">
+            <div class="map-title">
+              <a class="beatmap-link">
+                <% map.beatmap.artist %> - <% map.beatmap.title %> [<%
+                map.beatmap.version %>]
+              </a>
+            </div>
+            <div class="play-stats">
+              <% getScoreMods(map.mods) %> /
+              <b> <% addCommas(map.max_combo) %> </b>x
+            </div>
+            <div class="map-date">
+              <time> <% timeago.format(map.play_time) %> </time>
+            </div>
+          </div>
         </div>
-    </div>
-    <div v-if="data.scores.{{ id }}.out.length" class="scores">
-        <div v-for="(map, index) in data.scores.{{ id }}.out" class="map-single" ref="scores" :key="map.beatmap.map_id"
-            :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${map.beatmap.set_id}/covers/cover.jpg)`">
-            <div class="map-data" @click="window.open(`https://osu.ppy.sh/beatmaps/${map.beatmap.id}`) ">
-                <div class="map-content1">
-                    <div class="map-image">
-                        <img :src="`https://assets.ppy.sh/beatmaps/${map.beatmap.set_id}/covers/card.jpg`"
-                            class="map-image-picture">
-                    </div>
-                    <div class="map-title-block">
-                        <div class="map-title">
-                            <a class="beatmap-link">
-                                <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>]
-                            </a>
-                        </div>
-                        <div class="play-stats">
-                            <% getScoreMods(map.mods) %> / <b>
-                                    <% addCommas(map.max_combo) %>
-                                </b>x
-                        </div>
-                        <div class="map-date">
-                            <time>
-                                <% timeago.format(map.play_time) %>
-                            </time>
-                        </div>
-                    </div>
+        <div class="map-content2">
+          <div class="score-details d-flex">
+            <div class="score-details_right-block">
+              <div class="score-details_pp-block">
+                <div class="map-pp">
+                  <% addCommas(map.pp.toFixed()) %><span class="map-pp-unit"
+                    >{{ t('global.pp') }}</span
+                  >
                 </div>
-                <div class="map-content2">
-                    <div class="score-details d-flex">
-                        <div class="score-details_right-block">
-                            <div class="score-details_pp-block">
-                                <div class="map-pp">
-                                    <% addCommas(map.pp.toFixed()) %><span class="map-pp-unit">{{ t('global.pp')
-                                            }}</span>
-                                </div>
-                                <div class="map-acc">{{ t('global.accuracy') }}:&nbsp;<b>
-                                        <% map.acc.toFixed(2) %>%
-                                    </b></div>
-                            </div>
-                            <div class="score-details_grade-block">
-                                <div class="rank-single">
-                                    <div :class="`map-rank rank-${map.grade}`">
-                                        <% map.grade.replace("X", "SS" ).replace("H", "" ) %>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="map-acc">
+                  {{ t('global.accuracy') }}:&nbsp;<b>
+                    <% map.acc.toFixed(2) %>%
+                  </b>
                 </div>
+              </div>
+              <div class="score-details_grade-block">
+                <div class="rank-single">
+                  <div :class="`map-rank rank-${map.grade}`">
+                    <% map.grade.replace("X", "SS" ).replace("H", "" ) %>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div v-else-if="data.scores.{{ id }}.out.length == 0" class="stats-block">
-        <div class="columns is-marginless">
-            <div class="column is-1">
-                <h1 class="title">: (</h1>
-            </div>
-            <div class="column">
-                <h1 class="title is-6">{{ t('profile.no-scores-available') }}</h1>
-                <p class="subtitle is-7">{{ t('profile.try-playing-something') }}</p>
-            </div>
-        </div>
+  </div>
+  <div v-else-if="data.scores.{{ id }}.out.length == 0" class="stats-block">
+    <div class="columns is-marginless">
+      <div class="column is-1">
+        <h1 class="title">: (</h1>
+      </div>
+      <div class="column">
+        <h1 class="title is-6">{{ t('profile.no-scores-available') }}</h1>
+        <p class="subtitle is-7">{{ t('profile.try-playing-something') }}</p>
+      </div>
     </div>
-    <div v-if="data.scores.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button rounded-sm" @click="AddLimit('{{ id }}score')">{{ t('profile.show-more') }}</a>
-    </div>
+  </div>
+  <div v-if="data.scores.{{ id }}.more.full == false" class="extra-block">
+    <a class="show-button rounded-sm" @click="AddLimit('{{ id }}score')"
+      >{{ t('profile.show-more') }}</a
+    >
+  </div>
 </div>
-{% endmacro %}
-
-{% macro maps(title, id) %}
+{% endmacro %} {% macro maps(title, id) %}
 <div class="log-block" :class="{ load : data.maps.{{ id }}.load }">
-    <div class="header">
-        <div class="title">
-            <i class="fas fa-address-book"></i> {{ title }}
+  <div class="header">
+    <div class="title"><i class="fas fa-address-book"></i> {{ title }}</div>
+  </div>
+  <div v-if="data.maps.{{ id }}.out.length" class="beatmaps">
+    <a
+      v-for="(map, index) in data.maps.{{ id }}.out"
+      class="beatmap-block rounded-sm"
+      ref="mostPlayed"
+      :key="map.id"
+    >
+      <div
+        class="beatmap-preview"
+        :style="{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }"
+      ></div>
+      <div class="beatmap-stats">
+        <span class="beatmap-title"> <% map.title %> </span>
+        <span class="beatmap-artist"> <% map.artist %> </span>
+        <div class="beatmap-footer">
+          <span class="beatmap-mapper">
+            {{ t('profile.by') }}
+            <span class="newmaps-color"> <% map.creator %> </span></span
+          >
+          <div class="d-flex align-items-baseline">
+            <span> <% map.plays %> </span>
+            <div class="target-button newmaps-color">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
         </div>
+      </div>
+    </a>
+  </div>
+  <div v-else-if="data.maps.{{ id }}.out.length == 0" class="stats-block">
+    <div class="columns is-marginless">
+      <div class="column is-1">
+        <h1 class="title">: (</h1>
+      </div>
+      <div class="column">
+        <h1 class="title is-6">{{ t('profile.no-beatmaps-available') }}</h1>
+        <p class="subtitle is-7">{{ t('profile.try-playing-something') }}</p>
+      </div>
     </div>
-    <div v-if="data.maps.{{ id }}.out.length" class="beatmaps">
-        <a v-for="(map, index) in data.maps.{{ id }}.out" class="beatmap-block rounded-sm" ref="mostPlayed"
-            :key="map.id">
-            <div class="beatmap-preview"
-                :style='{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }'>
-            </div>
-            <div class="beatmap-stats"><span class="beatmap-title">
-                    <% map.title %>
-                </span> <span class="beatmap-artist">
-                    <% map.artist %>
-                </span>
-                <div class="beatmap-footer"><span class="beatmap-mapper"> {{ t('profile.by') }} <span
-                            class="newmaps-color">
-                            <% map.creator %>
-                        </span></span>
-                    <div class="d-flex align-items-baseline"><span>
-                            <% map.plays %>
-                        </span>
-                        <div class="target-button newmaps-color"><i class="fas fa-arrow-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div v-else-if="data.maps.{{ id }}.out.length == 0" class="stats-block">
-        <div class="columns is-marginless">
-            <div class="column is-1">
-                <h1 class="title">: (</h1>
-            </div>
-            <div class="column">
-                <h1 class="title is-6">{{ t('profile.no-beatmaps-available') }}</h1>
-                <p class="subtitle is-7">{{ t('profile.try-playing-something') }}</p>
-            </div>
-        </div>
-    </div>
-    <div v-show="data.maps.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button rounded-sm" @click="AddLimit('mostplay')">{{ t('profile.show-more') }}</a>
-    </div>
+  </div>
+  <div v-show="data.maps.{{ id }}.more.full == false" class="extra-block">
+    <a class="show-button rounded-sm" @click="AddLimit('mostplay')"
+      >{{ t('profile.show-more') }}</a
+    >
+  </div>
 </div>
-{% endmacro %}
-
-{% block header %}
+{% endmacro %} {% block header %}
 <script src="/static/js/assets/vue.js?v={{ appVersion() }} "></script>
 <script src="/static/js/assets/vue-axios.js?v={{ appVersion() }} "></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
-<link rel="stylesheet" href="/static/css/pages/profile.css?v={{ appVersion() }} ">
+<link
+  rel="stylesheet"
+  href="/static/css/pages/profile.css?v={{ appVersion() }} "
+/>
 
 <script>
-    window.addEventListener('load', () => {
-        window._state = createState({
-            userid: {{ user['id'] | JSON }},
-            mode: {{ mode | JSON }},
-            mods: {{ mods | JSON }},
-            domain: {{ domain() | JSON }}
-        })
-    })
+  window.addEventListener('load', () => {
+      window._state = createState({
+          userid: {{ user['id'] | JSON }},
+          mode: {{ mode | JSON }},
+          mods: {{ mods | JSON }},
+          domain: {{ domain() | JSON }}
+      })
+  })
 </script>
 <style>
-    .rounded-sm {
-        border-radius: 0.5em;
-    }
+  .rounded-sm {
+    border-radius: 0.5em;
+  }
 </style>
 
 {% if user['userpage_content'] != None and user['userpage_content'] != "" %}
 <style>
-    /* HTML5 display-role reset for older browsers */
+  /* HTML5 display-role reset for older browsers */
 
-    article,
-    .reset-bulma-style aside,
-    .reset-bulma-style details,
-    .reset-bulma-style figcaption,
-    .reset-bulma-style figure,
-    .reset-bulma-style footer,
-    .reset-bulma-style header,
-    .reset-bulma-style hgroup,
-    .reset-bulma-style menu,
-    .reset-bulma-style nav,
-    .reset-bulma-style section {
-        display: block;
-    }
+  article,
+  .reset-bulma-style aside,
+  .reset-bulma-style details,
+  .reset-bulma-style figcaption,
+  .reset-bulma-style figure,
+  .reset-bulma-style footer,
+  .reset-bulma-style header,
+  .reset-bulma-style hgroup,
+  .reset-bulma-style menu,
+  .reset-bulma-style nav,
+  .reset-bulma-style section {
+    display: block;
+  }
 
-    .reset-bulma-style body {
-        line-height: 1;
-    }
+  .reset-bulma-style body {
+    line-height: 1;
+  }
 
-    .reset-bulma-style ol,
-    .reset-bulma-style ul {
-        list-style: none;
-    }
+  .reset-bulma-style ol,
+  .reset-bulma-style ul {
+    list-style: none;
+  }
 
-    .reset-bulma-style blockquote,
-    .reset-bulma-style q {
-        quotes: none;
-    }
+  .reset-bulma-style blockquote,
+  .reset-bulma-style q {
+    quotes: none;
+  }
 
-    .reset-bulma-style blockquote:before,
-    .reset-bulma-style blockquote:after,
-    .reset-bulma-style q:before,
-    .reset-bulma-style q:after {
-        content: '';
-        content: none;
-    }
+  .reset-bulma-style blockquote:before,
+  .reset-bulma-style blockquote:after,
+  .reset-bulma-style q:before,
+  .reset-bulma-style q:after {
+    content: "";
+    content: none;
+  }
 
-    .reset-bulma-style table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
+  .reset-bulma-style table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
 
-    /* custom css */
+  /* custom css */
 
-    .reset-bulma-style ul,
-    .reset-bulma-style li {
-        list-style: initial;
-        padding: initial;
-        margin: initial;
-        margin-left: 1em;
-    }
+  .reset-bulma-style ul,
+  .reset-bulma-style li {
+    list-style: initial;
+    padding: initial;
+    margin: initial;
+    margin-left: 1em;
+  }
 
-    .reset-bulma-style h1 {
-        font-size: 2.5em;
-    }
+  .reset-bulma-style h1 {
+    font-size: 2.5em;
+  }
 
-    .reset-bulma-style h2 {
-        font-size: 2em;
-    }
+  .reset-bulma-style h2 {
+    font-size: 2em;
+  }
 
-    .reset-bulma-style h3 {
-        font-size: 1.67em;
-    }
+  .reset-bulma-style h3 {
+    font-size: 1.67em;
+  }
 
-    .reset-bulma-style h4 {
-        font-size: 1.33em;
-    }
+  .reset-bulma-style h4 {
+    font-size: 1.33em;
+  }
 
-    .reset-bulma-style h5 {
-        font-size: 1em;
-    }
+  .reset-bulma-style h5 {
+    font-size: 1em;
+  }
 
-    .reset-bulma-style h6 {
-        font-size: 0.5em;
-    }
+  .reset-bulma-style h6 {
+    font-size: 0.5em;
+  }
 
-    .reset-bulma-style pre {
-        border-radius: 0.5em;
-    }
+  .reset-bulma-style pre {
+    border-radius: 0.5em;
+  }
 </style>
-{% endif %}
-
-{% endblock %}
-
-{% block content %}
+{% endif %} {% endblock %} {% block content %}
 <div id="app">
-    <div class="main-block">
-        <div class="profile-bg">
-            <div class="info-block">
-                <h1 class="title">
-                    <p class="ranks">
-                        <img src="/static/images/flags/{{ user['country']|upper }}.png" class="profile-flag">
-                        <span class="bgf">{{ user['name'] }}</span>
-                    </p>
-                </h1>
-                <transition name="fade">
-                    <div class="subtitle" v-if='data.status.online == false'>
-                        <a class='circle'>●</a> {{ t('global.offline') }}
-                    </div>
-                    <div class="subtitle" v-else-if='data.status.online == true' :style="{
+  <div class="main-block">
+    <div class="profile-bg">
+      <div class="info-block">
+        <h1 class="title">
+          <p class="ranks">
+            <img
+              src="/static/images/flags/{{ user['country']|upper }}.png"
+              class="profile-flag"
+            />
+            <span class="bgf">{{ user['name'] }}</span>
+          </p>
+        </h1>
+        <transition name="fade">
+          <div class="subtitle" v-if="data.status.online == false">
+            <a class="circle">●</a> {{ t('global.offline') }}
+          </div>
+          <div
+            class="subtitle"
+            v-else-if="data.status.online == true"
+            :style="{
                         display: 'flex',
                         gap: '0.5em',
                         alignItems: 'center'
-                    }">
-                        <a class='circle green'>●</a> {{ t('global.online') }}
-                        <transition name="click">
-                            <div class="online-infomation" :key="`online-information`">
-                                <% actionIntToStr(data.status.status) %>
-                            </div>
-                        </transition>
-                    </div>
-                </transition>
-            </div>
-            <div class="anime-girl">
-                <!-- (if you want to add it)
+                    }"
+          >
+            <a class="circle green">●</a> {{ t('global.online') }}
+            <transition name="click">
+              <div class="online-infomation" :key="`online-information`">
+                <% actionIntToStr(data.status.status) %>
+              </div>
+            </transition>
+          </div>
+        </transition>
+      </div>
+      <div class="anime-girl">
+        <!-- (if you want to add it)
                     <img src="{your transparent img src}" alt="">
                 -->
-            </div>
-        </div>
-        <div class="profile-flex">
-            <div class="profile-avatar-area">
-                <img src="https://a.{{ domain() }}/{{ user['id'] }}" alt="avatar" class="rounded-avatar profile-avatar"
-                    onError="this.src='/static/images/avatar_notwork.png';">
-            </div>
-            <div class="bar-selection mode-selects">
-                <div class="select-left">
-                    <a class="simple-banner-switch" :class="{ 'selected': mode === 'std' }"
-                        @click="ChangeModeMods('std',mods)"><i class="mode-icon mode-osu"></i><span class="mode-text">{{
-                            t('global.mode.osu') }}</span></a>
-                    <a class="simple-banner-switch" :class="{ 'selected': mode === 'taiko', 'disabled': mods === 'ap' }"
-                        @click="ChangeModeMods('taiko',mods)"><i class="mode-icon mode-taiko"></i><span
-                            class="mode-text">{{ t('global.mode.taiko') }}</span></a>
-                    <a class="simple-banner-switch" :class="{ 'selected': mode === 'catch', 'disabled': mods === 'ap' }"
-                        @click="ChangeModeMods('catch',mods)"><i class="mode-icon mode-catch"></i><span
-                            class="mode-text">{{ t('global.mode.catch') }}</span></a>
-                    <a class="simple-banner-switch"
-                        :class="{ 'selected': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
-                        @click="ChangeModeMods('mania',mods)"><i class="mode-icon mode-mania"></i><span
-                            class="mode-text">{{ t('global.mode.mania') }}</span></a>
-                </div>
-                <div class="select-right">
-                    <a class="simple-banner-switch" :class=" { 'selected': mods === 'vn' }"
-                        @click="ChangeModeMods(mode,'vn')"><span class="mods-fulltext">{{ t('global.mode.vanilla')
-                            }}</span>
-                        <span class="mods-shorttext">{{ t('global.mode.VN') }}</span></a>
-                    <a class="simple-banner-switch"
-                        :class=" { 'selected': mods === 'rx', 'disabled': mode === 'mania' }"
-                        @click="ChangeModeMods(mode,'rx')"><span class="mods-fulltext">{{ t('global.mode.relax')
-                            }}</span>
-                        <span class="mods-shorttext">{{ t('global.mode.RX') }}</span></a>
-                    <a class="simple-banner-switch"
-                        :class=" { 'selected': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
-                        @click="ChangeModeMods(mode,'ap')"><span class="mods-fulltext">{{ t('global.mode.autopilot')
-                            }}</span><span class="mods-shorttext">{{ t('global.mode.AP') }}</span></a>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="second-block">
-        <div class="columns is-marginless two-sides">
-            <div class="column is-one-third" v-cloak>
-                <!-- <div class="header">
+    <div class="profile-flex">
+      <div class="profile-avatar-area">
+        <img
+          src="https://a.{{ domain() }}/{{ user['id'] }}"
+          alt="avatar"
+          class="rounded-avatar profile-avatar"
+          onError="this.src='/static/images/avatar_notwork.png';"
+        />
+      </div>
+      <div class="bar-selection mode-selects">
+        <div class="select-left">
+          <a
+            class="simple-banner-switch"
+            :class="{ 'selected': mode === 'std' }"
+            @click="ChangeModeMods('std',mods)"
+            ><i class="mode-icon mode-osu"></i
+            ><span class="mode-text">{{ t('global.mode.osu') }}</span></a
+          >
+          <a
+            class="simple-banner-switch"
+            :class="{ 'selected': mode === 'taiko', 'disabled': mods === 'ap' }"
+            @click="ChangeModeMods('taiko',mods)"
+            ><i class="mode-icon mode-taiko"></i
+            ><span class="mode-text">{{ t('global.mode.taiko') }}</span></a
+          >
+          <a
+            class="simple-banner-switch"
+            :class="{ 'selected': mode === 'catch', 'disabled': mods === 'ap' }"
+            @click="ChangeModeMods('catch',mods)"
+            ><i class="mode-icon mode-catch"></i
+            ><span class="mode-text">{{ t('global.mode.catch') }}</span></a
+          >
+          <a
+            class="simple-banner-switch"
+            :class="{ 'selected': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
+            @click="ChangeModeMods('mania',mods)"
+            ><i class="mode-icon mode-mania"></i
+            ><span class="mode-text">{{ t('global.mode.mania') }}</span></a
+          >
+        </div>
+        <div class="select-right">
+          <a
+            class="simple-banner-switch"
+            :class=" { 'selected': mods === 'vn' }"
+            @click="ChangeModeMods(mode,'vn')"
+            ><span class="mods-fulltext">{{ t('global.mode.vanilla') }}</span>
+            <span class="mods-shorttext">{{ t('global.mode.VN') }}</span></a
+          >
+          <a
+            class="simple-banner-switch"
+            :class=" { 'selected': mods === 'rx', 'disabled': mode === 'mania' }"
+            @click="ChangeModeMods(mode,'rx')"
+            ><span class="mods-fulltext">{{ t('global.mode.relax') }}</span>
+            <span class="mods-shorttext">{{ t('global.mode.RX') }}</span></a
+          >
+          <a
+            class="simple-banner-switch"
+            :class=" { 'selected': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
+            @click="ChangeModeMods(mode,'ap')"
+            ><span class="mods-fulltext">{{ t('global.mode.autopilot') }}</span
+            ><span class="mods-shorttext">{{ t('global.mode.AP') }}</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="second-block">
+    <div class="columns is-marginless two-sides">
+      <div class="column is-one-third" v-cloak>
+        <!-- <div class="header">
                     <div class="title">
                         <i class="fas fa-user-friends"></i> Badge
                     </div>
@@ -343,158 +382,175 @@
                         </tbody>
                     </table>
                 </div> -->
-                <div class="header" v-if='data.stats.out[modegulag].rank != 0'>
-                    <div class="title">
-                        <i class="fas fa-user-friends"></i> {{ t("profile.rank-title") }}
-                    </div>
-                </div>
-                <div class="stats-block rank-block" v-if='data.stats.out[modegulag].rank != 0'>
-                    <table class="is-striped">
-                        <tbody>
-                            <tr>
-                                <td>{{ t('profile.global-rank') }}</td>
-                                <td class="right-aligned">
-                                    <span id="global-rank">
-                                        <% '#' + data.stats.out[modegulag].rank %>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>{{ t('profile.country-rank') }}</td>
-                                <td class="right-aligned">
-                                    <span id="country-rank">
-                                        <% '#' + data.stats.out[modegulag].country_rank %>
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="header">
-                    <div class="title">
-                        <i class="fas fa-chart-pie"></i> {{ t('profile.statistics') }}
-                    </div>
-                </div>
-                <div class="stats-block">
-                    <table class="is-striped">
-                        <tbody>
-                            <tr>
-                                <td><b>{{ t('global.pp').upper() }}</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].pp) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>{{ t('global.ranked-score') }}</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].rscore) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>{{ t('global.total-score') }}</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].tscore) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>{{ t('global.max-combo') }}</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].max_combo) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>{{ t('global.playcount') }}</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].plays) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>{{ t('global.playtime') }}</b></td>
-                                <td class="right-aligned">
-                                    <% secondsToDhm(data.stats.out[modegulag].playtime) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>{{ t('global.accuracy') }}</b></td>
-                                <td class="right-aligned">
-                                    <% data.stats.out[modegulag].acc %>%
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="grade-block" v-if="data.grades">
-                        <article class="media">
-                            <div class="media-content">
-                                <div class="grade-line">
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-X">{{ t('global.rank.ss') }}</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].x_count %>
-                                        </div>
-                                    </div>
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-XH">{{ t('global.rank.ssh') }}</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].xh_count %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="grade-line">
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-S">{{ t('global.rank.s') }}</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].s_count %>
-                                        </div>
-                                    </div>
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-SH">{{ t('global.rank.sh') }}</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].sh_count %>
-                                        </div>
-                                    </div>
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-A">{{ t('global.rank.a') }}</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].a_count %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
+        <template v-if="data.stats.out[modegulag]">
+          <div class="header" v-if="data.stats.out[modegulag].rank != 0">
+            <div class="title">
+              <i class="fas fa-user-friends"></i> {{ t("profile.rank-title") }}
             </div>
-            <div class="column is-two-third">
-                {{ userpage(user) }}
-                {{ scores(t('profile.best-scores') , 'best')}}
-                {{ scores(t('profile.recent-scores'), 'recent')}}
-                {{ maps(t('profile.most-played-beatmaps'), 'most')}}
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
+          </div>
+          <div
+            class="stats-block rank-block"
+            v-if="data.stats.out[modegulag].rank != 0"
+          >
+            <table class="is-striped">
+              <tbody>
+                <tr>
+                  <td>{{ t('profile.global-rank') }}</td>
+                  <td class="right-aligned">
+                    <span id="global-rank">
+                      <% '#' + data.stats.out[modegulag].rank %>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ t('profile.country-rank') }}</td>
+                  <td class="right-aligned">
+                    <span id="country-rank">
+                      <% '#' + data.stats.out[modegulag].country_rank %>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-{% block bottom %}
+          <div class="header">
+            <div class="title">
+              <i class="fas fa-chart-pie"></i> {{ t('profile.statistics') }}
+            </div>
+          </div>
+          <div class="stats-block">
+            <table class="is-striped">
+              <tbody>
+                <tr>
+                  <td><b>{{ t('global.pp').upper() }}</b></td>
+                  <td class="right-aligned">
+                    <% addCommas(data.stats.out[modegulag].pp) %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>{{ t('global.ranked-score') }}</b></td>
+                  <td class="right-aligned">
+                    <% addCommas(data.stats.out[modegulag].rscore) %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>{{ t('global.total-score') }}</b></td>
+                  <td class="right-aligned">
+                    <% addCommas(data.stats.out[modegulag].tscore) %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>{{ t('global.max-combo') }}</b></td>
+                  <td class="right-aligned">
+                    <% addCommas(data.stats.out[modegulag].max_combo) %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>{{ t('global.playcount') }}</b></td>
+                  <td class="right-aligned">
+                    <% addCommas(data.stats.out[modegulag].plays) %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>{{ t('global.playtime') }}</b></td>
+                  <td class="right-aligned">
+                    <% secondsToDhm(data.stats.out[modegulag].playtime) %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>{{ t('global.accuracy') }}</b></td>
+                  <td class="right-aligned">
+                    <% data.stats.out[modegulag].acc %>%
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="grade-block" v-if="data.grades">
+              <article class="media">
+                <div class="media-content">
+                  <div class="grade-line">
+                    <div class="rank-single">
+                      <div class="map-rank rank-X">
+                        {{ t('global.rank.ss') }}
+                      </div>
+                      <div class="rank-amount">
+                        <% data.stats.out[modegulag].x_count %>
+                      </div>
+                    </div>
+                    <div class="rank-single">
+                      <div class="map-rank rank-XH">
+                        {{ t('global.rank.ssh') }}
+                      </div>
+                      <div class="rank-amount">
+                        <% data.stats.out[modegulag].xh_count %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grade-line">
+                    <div class="rank-single">
+                      <div class="map-rank rank-S">
+                        {{ t('global.rank.s') }}
+                      </div>
+                      <div class="rank-amount">
+                        <% data.stats.out[modegulag].s_count %>
+                      </div>
+                    </div>
+                    <div class="rank-single">
+                      <div class="map-rank rank-SH">
+                        {{ t('global.rank.sh') }}
+                      </div>
+                      <div class="rank-amount">
+                        <% data.stats.out[modegulag].sh_count %>
+                      </div>
+                    </div>
+                    <div class="rank-single">
+                      <div class="map-rank rank-A">
+                        {{ t('global.rank.a') }}
+                      </div>
+                      <div class="rank-amount">
+                        <% data.stats.out[modegulag].a_count %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </template>
+      </div>
+      <div class="column is-two-third">
+        {{ userpage(user) }} {{ scores(t('profile.best-scores') , 'best')}} {{
+        scores(t('profile.recent-scores'), 'recent')}} {{
+        maps(t('profile.most-played-beatmaps'), 'most')}}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block bottom %}
 <script src="/static/js/pages/profile.js?v={{ appVersion() }} "></script>
 {% if user['customisation']['banner'] == True %}
 <style>
-    .profile-bg {
-        min-height: 262px;
-        background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)),
-        url("/banners/{{ user['id'] }}");
-        background-size: cover;
-    }
+  .profile-bg {
+    min-height: 262px;
+    background: linear-gradient(
+        hsl(var(--main), 25%, 25%, 20%),
+        hsl(var(--main), 25%, 25%, 60%)
+      ),
+      url("/banners/{{ user['id'] }}");
+    background-size: cover;
+  }
 </style>
-{% endif %}
-{% if user['customisation']['background'] == True %}
+{% endif %} {% if user['customisation']['background'] == True %}
 <style>
-    body {
-        background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)),
-        url("/backgrounds/{{ user['id'] }}");
-        background-size: cover;
-        background-clip: content-box;
-    }
+  body {
+    background: linear-gradient(
+        hsl(var(--main), 25%, 25%, 20%),
+        hsl(var(--main), 10%, 10%)
+      ),
+      url("/backgrounds/{{ user['id'] }}");
+    background-size: cover;
+    background-clip: content-box;
+  }
 </style>
-{% endif %}
-{% endblock bottom %}
+{% endif %} {% endblock bottom %}

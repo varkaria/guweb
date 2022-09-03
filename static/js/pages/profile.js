@@ -26,7 +26,7 @@ window.addEventListener('load', () => {
         },
         data: {
           stats: {
-            out: [{}],
+            out: [],
             load: true
           },
           grades: {},
