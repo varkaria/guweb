@@ -49,13 +49,18 @@
 {% block title %} Beatmaps {% endblock %}
 
 {% block content %}
-{# <script>
+{# TODO I found api_key not used in this page so I commented out this injection
+uncomment if it's needed in the future
+#}
+{#
+<script>
     window.addEventListener('load', () => {
         window._state = createState({
             api_key: {{ session.user_data['api_key'] | JSON }}
         })
     })
-</script> #}
+</script>
+#}
 <progress id="progress_bar" class="progress is-small is-primary" max="100" style="display: none;"></progress>
 <div class="columns is-marginless">
     <div class="column is-paddingless is-avatar">
@@ -128,17 +133,21 @@
                     <td style="width: 400px">
                         <div class="card p-0 m-0 shadow"
                             style="background-image: url(https://assets.ppy.sh/beatmaps/{{ i.set_id }}/covers/cover.jpg); background-size: cover; height: 100px; width: 400px;">
-                            <div class="card-body rounded-sm h-100 p-4"
-                                style="background-color: rgba(0, 0, 0, 0.8);cursor:pointer; "
-                                onclick="window.open('https://osu.ppy.sh/beatmapsets/{{ i.set_id }}')">
-                                <a class="play-detail__title">{{ i.title }}
-                                    <small style="display: inline;">by {{ i.creator }}</small>
-                                </a>
-                                <span style="color: #ea0; font-size: 14px; display: block;">{{ i.diff_name }}</span>
-                                <div style="font-size: 14px; position: absolute;bottom: 1em; right: 1em; opacity: 0.7;">
-                                    bid: <span style="color: #ea0;">{{ i.map_id }}</span>
+                            <a href="https://osu.ppy.sh/beatmapsets/{{ i.set_id }}">
+                                <div 
+                                    class="card-body rounded-sm h-100 p-4"
+                                    style="background-color: rgba(0, 0, 0, 0.8);cursor:pointer;"
+                                >
+                                    <div class="play-detail__title">{{ i.title }}
+                                        <small style="display: inline;">by {{ i.creator }}</small>
+                                    </div>
+                                    <span style="color: #ea0; font-size: 14px; display: block;">{{ i.diff_name }}</span>
+                                    <div
+                                        style="font-size: 14px; position: absolute;bottom: 1em; right: 1em; opacity: 0.7;">
+                                        bid: <span style="color: #ea0;">{{ i.map_id }}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </td>
                     <td class="!bigger_td my-auto has-text-right">
@@ -230,8 +239,13 @@
         align-self: flex-start;
         max-width: 100%;
     }
+    /* mimic <a> tag behavior */
+    .play-detail__title:hover {
+        color: hsl(var(--main), 90%, 90%);
+    }
 </style>
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $(".dropdown .buttond").click(function () {
             const dropdown = $(this).parents('.dropdown');
             dropdown.toggleClass('is-active');
@@ -240,13 +254,11 @@
             });
         });
     });
-</script>
-<script>
     $("#search-bar").keydown(function (e) {
         if (e.keyCode == 13) {
             searchMaps()
         }
     });  
 </script>
-<script src="/static/js/pages/admin/beatmaps.js?v={{ appVersion() }} " crossorigin="anonymous"></script>
+<script src="/static/js/pages/admin/beatmaps.js?v={{ appVersion() }} "></script>
 {% endblock %}
