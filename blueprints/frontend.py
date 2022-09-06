@@ -546,7 +546,8 @@ async def register_post():
             user_id = db_cursor.lastrowid
             
             await db_cursor.execute(
-                f'UPDATE register_keys SET used = 1, user_id_used = {user_id} WHERE reg_key = {key}'
+                'UPDATE register_keys SET used = 1, user_id_used = %s WHERE reg_key = %s',
+                [user_id, key]
             )
 
             # add to `stats` table.
