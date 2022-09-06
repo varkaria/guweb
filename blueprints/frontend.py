@@ -461,13 +461,13 @@ async def register_post():
     key = form.get('key', type=str)
 
     if username is None or email is None or passwd_txt is None or country is None or key is None:
-        return await flash('error', 'Parâmetros inválidos.', 'home')
+        return await flash('error', 'Parâmetros inválidos.', 'register')
     
     if not regexes.key.match(key):
-        return await flash('error', 'Chave de registro inválida.', 'home')
+        return await flash('error', 'Chave de registro inválida.', 'register')
     
     if not await glob.db.fetch('SELECT 1 FROM register_keys WHERE reg_key = %s AND used = 0', key):
-        return await flash('error', 'Chave de registro inválida.', 'home')
+        return await flash('error', 'Chave de registro inválida.', 'register')
     
     if glob.config.hCaptcha_sitekey != 'changeme':
         captcha_data = form.get('h-captcha-response', type=str)
