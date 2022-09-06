@@ -41,6 +41,9 @@ disallowed_passwords = {
 # enable registration
 registration = True
 
+# enable key validation
+key_validation = False
+
 # social links (used throughout guweb)
 github = 'https://github.com/varkaria/guweb'
 discord_server = 'https://discord.com/invite/Y5uPvcNpD9'

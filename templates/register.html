@@ -81,6 +81,7 @@
               <i class="fa fa-map"></i>
             </span>
           </div>
+          {% if keyVerification() %}
           <div class="field">
             <label for="key" class="label">Chave de registro</label>
             <div class="control has-icons-left">
@@ -90,6 +91,7 @@
               </span>
             </div>
           </div>
+          {% endif %}
         </div>
         <div class="mt-5"></div>
         <div class="dialog">

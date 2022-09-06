@@ -458,16 +458,22 @@ async def register_post():
     email = form.get('email', type=str)
     passwd_txt = form.get('password', type=str)
     country = form.get('state', type=str)
-    key = form.get('key', type=str)
 
-    if username is None or email is None or passwd_txt is None or country is None or key is None:
+    if username is None or email is None or passwd_txt is None or country is None:
         return await flash('error', 'Parâmetros inválidos.', 'register')
     
-    if not regexes.key.match(key):
-        return await flash('error', 'Chave de registro inválida.', 'register')
-    
-    if not await glob.db.fetch('SELECT 1 FROM register_keys WHERE reg_key = %s AND used = 0', key):
-        return await flash('error', 'Chave de registro inválida.', 'register')
+    key = "7c52a930-f9fe-4346-9b34-69aa431cd72c"
+    if glob.config.key_validation:
+        key = form.get('key', type=str)
+        
+        if key is None:
+            return await flash('error', 'Parâmetros inválidos.', 'register')
+        
+        if not regexes.key.match(key):
+            return await flash('error', 'Chave de registro inválida.', 'register')
+        
+        if not await glob.db.fetch('SELECT 1 FROM register_keys WHERE reg_key = %s AND used = 0', key):
+            return await flash('error', 'Chave de registro inválida.', 'register')
     
     if glob.config.hCaptcha_sitekey != 'changeme':
         captcha_data = form.get('h-captcha-response', type=str)
@@ -545,10 +551,11 @@ async def register_post():
             )
             user_id = db_cursor.lastrowid
             
-            await db_cursor.execute(
-                'UPDATE register_keys SET used = 1, user_id_used = %s WHERE reg_key = %s',
-                [user_id, key]
-            )
+            if glob.config.key_validation:
+                await db_cursor.execute(
+                    'UPDATE register_keys SET used = 1, user_id_used = %s WHERE reg_key = %s',
+                    [user_id, key]
+                )
 
             # add to `stats` table.
             await db_cursor.executemany(
