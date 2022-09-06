@@ -466,7 +466,7 @@ async def register_post():
     if not regexes.key.match(key):
         return await flash('error', 'Chave de registro inválida.', 'home')
     
-    if await glob.db.fetch('SELECT 1 FROM register_keys WHERE reg_key = %s', key):
+    if await glob.db.fetch('SELECT 1 FROM register_keys WHERE reg_key = %s AND used = 0', key):
         return await flash('error', 'Chave de registro inválida.', 'home')
     
     if glob.config.hCaptcha_sitekey != 'changeme':
