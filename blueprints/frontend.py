@@ -468,7 +468,7 @@ async def register_post():
     
     if await glob.db.fetch('SELECT 1 FROM register_keys WHERE reg_key = %s', key):
         return await flash('error', 'Chave de registro inválida.', 'home')
-
+    
     if glob.config.hCaptcha_sitekey != 'changeme':
         captcha_data = form.get('h-captcha-response', type=str)
         if (
@@ -539,11 +539,15 @@ async def register_post():
             # add to `users` table.
             await db_cursor.execute(
                 'INSERT INTO users '
-                '(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity) '
-                'VALUES (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())',
-                [username, safe_name, email, pw_bcrypt, country]
+                '(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity, registered_with_key) '
+                'VALUES (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %s)',
+                [username, safe_name, email, pw_bcrypt, country, key]
             )
             user_id = db_cursor.lastrowid
+            
+            await db_cursor.execute(
+                f'UPDATE register_keys SET used = 1, user_id_used = {user_id} WHERE reg_key = {key}'
+            )
 
             # add to `stats` table.
             await db_cursor.executemany(
