@@ -340,8 +340,10 @@ async def profile_select(id):
 @frontend.route('/lb')
 @frontend.route('/leaderboard/<mode>/<sort>/<mods>')
 @frontend.route('/lb/<mode>/<sort>/<mods>')
-async def leaderboard(mode='std', sort='pp', mods='vn'):
-    return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods)
+@frontend.route('/leaderboard/<mode>/<sort>/<mods>/<state>')
+@frontend.route('/lb/<mode>/<sort>/<mods>/<state>')
+async def leaderboard(mode='std', sort='pp', mods='vn', state='global'):
+    return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods, state=state)
 
 @frontend.route('/login')
 async def login():

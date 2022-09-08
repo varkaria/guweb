@@ -277,5 +277,6 @@ window.flags = {
     'S1' : 'Santa Catarina',
     'S2' : 'São Paulo',
     'S3' : 'Sergipe',
-    'T1' : 'Tocantins'
+    'T1' : 'Tocantins',
+	"ZZ" : 'Estrangeiro'
 }
