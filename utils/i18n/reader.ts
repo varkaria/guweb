@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
@@ -68,7 +70,7 @@ const mixinLocale = (
           if (!merging) {
             console.warn(`[Warning] Merging into initilazed value:
 ${key}.${k}:
-[${typeof srcValue[k]}${(typeof srcValue[k] === 'string' && `\`${srcValue[k] as string}\``) || ''}] merging into [${typeof objValue[k]}${(typeof objValue[k] === 'string' && `\`${objValue[k] as string}\``) || ''}].`)
+[${typeof srcValue[k]}${(typeof srcValue[k] === 'string' && `\`${srcValue[k]}\``) || ''}] merging into [${typeof objValue[k]}${(typeof objValue[k] === 'string' && `\`${objValue[k]}\``) || ''}].`)
           }
           objValue = createConfilitKeyHandler(merging)(objValue, srcValue, k)
           if (!merging) console.log('')

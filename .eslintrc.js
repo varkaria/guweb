@@ -20,5 +20,9 @@ module.exports = {
   plugins: [
     'jquery'
   ],
+  rules: {
+    // disable the rule for all files
+    '@typescript-eslint/explicit-function-return-type': 'off'
+  },
   globals
 }

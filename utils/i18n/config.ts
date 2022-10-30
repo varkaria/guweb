@@ -69,7 +69,7 @@ export const divider = '.'
 export function contextToFileName (context: FileContext): string {
   return `${context.namespace}/${context.locale}.${context.extension || 'yml'}`
 }
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+
 export function contextFromFileName (fileName: string) {
   const split = fileName.split('/').join(divider).split(divider)
   const namespaces = split.slice(0, split.length - 2)
