@@ -627,3 +627,12 @@ async def get_profile_background(user_id: int):
             return await send_file(path)
 
     return b'{"status":404}'
+
+@frontend.route('/beatmaps/<beatmap_id>')
+@frontend.route('/beatmapsets')
+@frontend.route('/beatmapsets/<beatmapset_id>')
+@frontend.route('/beatmapsets/<beatmapset_id>/<mode>')
+@frontend.route('/beatmapsets/<beatmapset_id>/<mode>/<beatmap_id>')
+@frontend.route('/beatmapsets/<beatmapset_id>/<mode>/<beatmap_id>/<extra_mode>')
+async def beatmapsets(beatmapset_id: int = None, mode: str = None, beatmap_id: int = None, extra_mode:str = "vn"):
+    return await render_template('beatmapset.html', bmsId=beatmapset_id, mode=mode, bmId=beatmap_id, extraMode = extra_mode)

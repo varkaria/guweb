@@ -10,6 +10,10 @@ secret_key = 'changeme'
 hCaptcha_sitekey = 'changeme'
 hCaptcha_secret = 'changeme'
 
+# beatmap download mirror (must be pointing to a direct download)
+# Example: api.chimu.moe/v1/download    <- (note: dont end it with a "/")
+beatmap_download_mirror = ""
+
 # domain (used for api, avatar, etc)
 domain = 'gulag.ca'
 
