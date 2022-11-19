@@ -527,6 +527,8 @@ html {
 }
 
 .beatmap-footer .target-button {
+  border:none;
+  cursor:pointer;
   background-color: hsl(var(--main), 25%, 30%);
   border-radius: 6px;
   padding: 4.5px 7px;

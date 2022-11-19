@@ -23,10 +23,10 @@
                                 :href="`https://${domain}/beatmapsets/${map.beatmap.set_id}/${ModeIntToStr(map.beatmap.mode)}/${map.beatmap.id}`">
                                 <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>]
                             </a>
-                            <span>+ <% modsStr(map.mods) %></span>
+                            
                         </div>
                         <div class="play-stats">
-                            <% addCommas(map.score) %> / <% map.max_combo %><b>x</b>
+                            <% addCommas(map.score) %> / <% map.max_combo %><b>x</b> <span>+<% modsStr(map.mods) %></span>
                         </div>
                         <div class="map-date">
                             <time>
@@ -100,8 +100,9 @@
                     <div class="d-flex align-items-baseline"><span>
                             <% map.plays %>
                         </span>
-                        <div class="target-button newmaps-color"><i class="fas fa-arrow-right"></i>
-                        </div>
+                        <button class="target-button newmaps-color" @click="window.open(`https://${domain}/beatmaps/${map?.id}`)"><i class="fas fa-arrow-right"></i>
+                        </button>
+                        
                     </div>
                 </div>
             </div>
