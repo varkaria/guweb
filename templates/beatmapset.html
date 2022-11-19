@@ -119,25 +119,25 @@
           <div class="modes-container">
             <div class="modes-button" v-if="modes.includes(0)">
               <i
-                :class="`mode-icon mode-osu ${(currentMap?.mode === 0 ? 'selected' : '')}`"
+                :class="`mode-icon mode-osu ${(mode === 0 ? 'selected' : '')}`"
                 @click="ChangeMode(0)"
               ></i>
             </div>
             <div class="modes-button" v-if="modes.includes(1)">
               <i
-                :class="`mode-icon mode-taiko ${(currentMap?.mode === 1 ? 'selected' : '')}`"
+                :class="`mode-icon mode-taiko ${(mode === 1 ? 'selected' : '')}`"
                 @click="ChangeMode(1)"
               ></i>
             </div>
             <div class="modes-button" v-if="modes.includes(2)">
               <i
-                :class="`mode-icon mode-catch ${(currentMap?.mode === 2 ? 'selected' : '')}`"
+                :class="`mode-icon mode-catch ${(mode === 2 ? 'selected' : '')}`"
                 @click="ChangeMode(2)"
               ></i>
             </div>
             <div class="modes-button" v-if="modes.includes(3)">
               <i
-                :class="`mode-icon mode-mania ${(currentMap?.mode === 3 ? 'selected' : '')}`"
+                :class="`mode-icon mode-mania ${(mode === 3 ? 'selected' : '')}`"
                 @click="ChangeMode(3)"
               ></i>
             </div>
@@ -192,6 +192,7 @@
             <div class="score-index">Posição</div>
             <div class="score-player">Jogador(a)</div>
             <div class="score-grade">Nota</div>
+            <div class="score-mods">Mods</div>
             <div
               @click="ChangeSort('max_combo')"
               :class="`score-combo sortable-down ${(sort === 'max_combo' ? 'selected' : '')}`"
@@ -245,6 +246,10 @@
               <div :class="`score-grade map-rank rank-${score.grade}`">
                 <% score.grade.replace("SH", "S").replace("XH", "SS").replace("X",
                 "SS") %>
+              </div>
+
+              <div class="score-mods`">
+                +<% modsStr(score.mods) %>
               </div>
   
               <div

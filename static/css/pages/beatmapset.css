@@ -224,7 +224,7 @@ body {
 
 .scores-container {
   display: grid;
-  grid-template-columns: 5rem 1fr 4rem 6rem 7rem 7rem 1fr 10rem;
+  grid-template-columns: 5rem 1fr 4rem 8rem 6rem 7rem 7rem 1fr 10rem;
   background-color: rgb(10, 10, 10);
 
   font-size: 0.5em;
