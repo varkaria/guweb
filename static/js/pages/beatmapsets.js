@@ -190,9 +190,14 @@
       },
       ChangeMode(mode) {
         if (mode === this.mode) return;
+
+        if (this.currentMap.mode !== 0) {
+          // Only set to undefined if current map isn't from standard, because std maps will show on any modes, so it'll still be there select, no need to reselect another one
+          this.$set(this, "bmId", undefined);
+        }
+
         this.$set(this, "mode", mode);
         this.$set(this, "extraMode", 0);
-        this.$set(this, "bmId", undefined);
         this.LoadBeatmapInfo();
       },
       ChangeExtraMode(extraMode) {
