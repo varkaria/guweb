@@ -65,7 +65,7 @@
         if (!isNaN(mod)) {
             mod_num = mod
             let bit = mod.toString(2)
-            let fullbit = "0000000000000000000000000000000".substr(bit.length) + bit
+            let fullbit = "0000000000000000000000000000000".substring(bit.length) + bit
             for (let i = 30; i >= 0; i--) {
                 if (fullbit[i] == 1)  {
                     mod_text += numbermods[i].mod_text
@@ -75,7 +75,7 @@
             mod = mod.toUpperCase()
             if (mod !== 'NM') {
                 for (let i = 0; i < mod.length / 2; i++) {
-                    let find_mod = numbermods.find(m => m.mod_text == mod.substr(i*2, 2))
+                    let find_mod = numbermods.find(m => m.mod_text == mod.substring(i*2, 2))
                     mod_text += find_mod.mod_text
                     mod_num |= find_mod.mod_bit
                 }
