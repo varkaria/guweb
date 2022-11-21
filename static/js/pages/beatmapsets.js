@@ -83,7 +83,7 @@
         }
         if (mod_text.includes('NC') && mod_text.includes('DT')) mod_text = mod_text.replace('DT', '');
         if (mod_text.includes('PF') && mod_text.includes('SD')) mod_text = mod_text.replace('SD', '');
-        if (mod_num == 0) mod_text += 'NM';
+        if (mod_num == 0) mod_text += '';
         return mod_text;
     },
       LoadData(bmsId, mode, bmId) {

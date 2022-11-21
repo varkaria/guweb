@@ -41,7 +41,7 @@
               <% currentMap?.title %>
             </span>
             <span class="map-diff">
-              [<% currentMap?.version %>]
+              [<% currentMap?.version %>] <% (currentMap?.mode === 0 && mode !== 0 ? "(convertido)" : "") %>
             </span>
             <span class="music-author"><% currentMap?.artist %></span>
 
@@ -114,8 +114,8 @@
                 :class="'diff-button' + (currentMap?.id === item.id ? ' selected' : '')"
                 :disabled="(currentMap?.id === item.id)"
               >
-                <span class="star-rating"><% item.diff %></span>
-                <span> <% item.version %> <% (item.mode !== mode && item.mode === 0 ? '(convert)' : '') %></span>
+                <span class="star-rating"><% (item.mode !== mode && item.mode === 0 ? '???' : item.diff) %></span>
+                <span> <i v-if="(item.mode !== mode && item.mode === 0)" class="mode-icon mode-osu" style="color:inherit !important"></i> <% item.version %> 
               </div>
             </div>
           </div>
@@ -191,83 +191,127 @@
           Nenhuma pontuação encontrada.
         </template>
         <template v-else>
+          <div v-if="(currentScores[0])" class="best-score-container">
+            <div class="best-score-position">#1</div>
+            <% console.log(currentScores[0]) %>
+            <div >
+              <img class="best-score-pfp" :src="`https://a.${domain}/${currentScores[0].userid}`" alt="">
+            </div>
+            <section class="best-score-information">
+              <div class="best-score-player"> <a
+                :href="`https://${domain}/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${currentScores[0].country}`"
+  
+                ><div
+                  class="player-flag "
+                  :style="`background-image:url('/static/images/flags/${currentScores[0].country.toUpperCase()}.png'); margin-right:auto; margin-left:0.25rem`"
+                >
+                  <div class="flag-dropdown">
+                    <% flags[currentScores[0].country.toUpperCase()] %>
+                  </div>
+                </div></a
+              > <% currentScores[0].player_name %></div>
+              <div class="best-score-score">Pontuação: <% new Intl.NumberFormat("pt-BR").format(currentScores[0].score) %> </div>
+              <div class="best-score-pp">PP: <% Math.round(currentScores[0].pp * 100) / 100 %></div>
+              <div class="best-score-combo">Combo: <% currentScores[0].max_combo %>x</div>
+              <div class="best-score-time"><% dayjs().to(dayjs.utc(currentScores[0].play_time)) %></div>
+              </section>
+              <section class="best-score-misc">
+                Outras estatisticas:
+                <div class="best-score-misc-grid">
+                  <div class="best-score-value">300: <% currentScores[0].n300 %>x</div>
+                  <div class="best-score-value">100: <% currentScores[0].n100 %>x</div>
+                  <div class="best-score-value">50: <% currentScores[0].n50 %>x</div>
+                  <div class="best-score-value">Erros: <% currentScores[0].nmiss %>x</div>
+                  <div class="best-score-value">Katu: <% currentScores[0].nkatu %>x</div>
+                  <div class="best-score-value">Geki: <% currentScores[0].ngeki %>x</div>
+                </div>
+                
+              </section>
+            <div :class="`best-score-grade  map-rank rank-${currentScores[0].grade}`" >
+              <% currentScores[0].grade.replace("SH", "S").replace("XH", "SS").replace("X",
+              "SS") %>
+            </div>
+          </div>
           <div class="scores-container">
-            <div class="score-index">Posição</div>
-            <div class="score-player">Jogador(a)</div>
-            <div class="score-grade">Nota</div>
-            <div class="score-mods">Mods</div>
+            <div class="leaderboard-title">Posição</div>
+            <!-- <div class="score-player-title leaderboard-title"></div> -->
+            <div class="score-player-title leaderboard-title">Jogador(a)</div>
+            <div class="leaderboard-title">Nota</div>
+            <div class="leaderboard-title">Mods</div>
             <div
               @click="ChangeSort('max_combo')"
-              :class="`score-combo sortable-down ${(sort === 'max_combo' ? 'selected' : '')}`"
+              :class="`leaderboard-title sortable-down ${(sort === 'max_combo' ? 'selected' : '')}`"
             >
               Combo
             </div>
             <div
               @click="ChangeSort('pp')"
-              :class="`score-pp sortable-down ${(sort === 'pp' ? 'selected' : '')}`"
+              :class="`sortable-down leaderboard-title ${(sort === 'pp' ? 'selected' : '')}`"
             >
               PP
             </div>
             <div
               @click="ChangeSort('acc')"
-              :class="`score-acc sortable-down ${(sort === 'acc' ? 'selected' : '')}`"
+              :class="`sortable-down leaderboard-title ${(sort === 'acc' ? 'selected' : '')}`"
             >
               Precisão
             </div>
             <div
               @click="ChangeSort('score')"
-              :class="`score-grade sortable-down ${(sort === 'score' ? 'selected' : '')}`"
+              :class="`sortable-down leaderboard-title ${(sort === 'score' ? 'selected' : '')}`"
             >
               Pontuação
             </div>
             <div @click="ChangeSort('play_time')"
-            :class="`score-grade sortable-down ${(sort === 'play_time' ? 'selected' : '')}`">Tempo</div>
+            :class="`sortable-down leaderboard-title ${(sort === 'play_time' ? 'selected' : '')}`">Tempo</div>
   
             <template class="score" v-for="(score, index) in currentScores">
               
-              <div class="score-index">#<% index + 1 %></div>
+              <div class="score-index default-formatting">#<% index + 1 %></div>
               
   
-              <div class="score-player" style="display: flex">
+              <div class="leaderboard-value default-formatting" style="display: flex">
                 <a
                   :href="`https://${domain}/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${score.country}`"
-                  style="margin-right: auto"
+    
                   ><div
-                    class="player-flag"
+                    class="player-flag "
                     :style="`background-image:url('/static/images/flags/${score.country.toUpperCase()}.png'); margin-right:auto; margin-left:0.25rem`"
                   >
                     <div class="flag-dropdown">
                       <% flags[score.country.toUpperCase()] %>
                     </div>
                   </div></a
-                ><a
-                  :href="`https://${domain}/u/${score.userid}`"
-                  style="margin-right: auto"
-                  ><% score.player_name %></a
                 >
               </div>
-              <div :class="`score-grade map-rank rank-${score.grade}`">
+              <div class="score-player default-formatting"> <a
+                :href="`https://${domain}/u/${score.userid}`"
+             
+                ><% score.player_name %></a
+              ></div>
+              <div :class="`score-grade leaderboard-value map-rank rank-${score.grade} default-formatting`">
                 <% score.grade.replace("SH", "S").replace("XH", "SS").replace("X",
                 "SS") %>
               </div>
 
-              <div class="score-mods`">
-                +<% modsStr(score.mods) %>
+              <div class="score-mods leaderboard-value">
+                <% modsStr(score.mods) %>
+                
               </div>
   
               <div
-                :class="'score-combo' + (score.perfect === 1 ? ' max-combo' : '')"
+                :class="'score-combo leaderboard-value default-formatting' + (score.perfect === 1 ? ' max-combo' : '') "
               >
                 <% score.max_combo %>x
               </div>
-              <div class="score-pp"><% Math.round(score.pp * 100) / 100 %>pp</div>
-              <div class="score-acc">
+              <div class="score-pp leaderboard-value default-formatting"><% Math.round(score.pp * 100) / 100 %>pp</div>
+              <div class="score-acc leaderboard-value default-formatting">
                 <% Math.round(score.acc * 100) / 100 %>%
               </div>
-              <div class="score-score">
+              <div class="score-score leaderboard-value default-formatting">
                 <% new Intl.NumberFormat("pt-BR").format(score.score) %>
               </div>
-              <div class="score-time-since"><% dayjs().to(dayjs.utc(score.play_time)) %></div>
+              <div class="score-time-since leaderboard-value default-formatting"><% dayjs().to(dayjs.utc(score.play_time)) %></div>
             </template>
           </div>
         </template>
