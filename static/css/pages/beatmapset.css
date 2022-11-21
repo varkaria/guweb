@@ -140,6 +140,16 @@ body {
   background-color: rgb(186 36 128);
 }
 
+.diff-select-section {
+  margin-left:auto;
+  text-align: center;
+  min-width: 30%;
+
+  display:flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 .diff-container {
   text-align: left;
   margin-left: auto;
