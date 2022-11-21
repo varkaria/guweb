@@ -204,6 +204,7 @@ body {
   margin-top: auto;
 
   justify-content: space-evenly;
+  width: 100%;
 }
 .modes-button > .mode-icon {
   font-size: 2em;
