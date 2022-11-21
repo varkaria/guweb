@@ -5,6 +5,7 @@
 <script src="/static/js/asserts/day-js/dayjs.min.js"></script>
 <script src="/static/js/asserts/day-js/locale/pt-br.js"></script>
 <script src="/static/js/asserts/day-js/plugin/relativeTime.js"></script>
+<script src="/static/js/asserts/day-js/plugin/utc.js"></script>
 
 <!-- <meta http-equiv="refresh" content="1"> -->
 <script>
@@ -15,6 +16,7 @@
   let domain = "{{ domain() }}";
   let beatmapDownloadMirror = "{{ beatmap_download_mirror() }}"
   dayjs.extend(window.dayjs_plugin_relativeTime)
+  dayjs.extend(window.dayjs_plugin_utc)
   dayjs.locale("pt-br")
 </script>
 
@@ -22,6 +24,7 @@
 <link rel="stylesheet" href="/static/css/pages/beatmapset.css" />
 
 {% endblock %} {% block content %}
+
 <div id="app" :class="">
   <div class="main-banner">
     <div v-if="(error === true)" class="not-exist">
@@ -264,7 +267,7 @@
               <div class="score-score">
                 <% new Intl.NumberFormat("pt-BR").format(score.score) %>
               </div>
-              <div class="score-time-since"><% dayjs().to(dayjs(score.play_time)) %></div>
+              <div class="score-time-since"><% dayjs().to(dayjs.utc(score.play_time)) %></div>
             </template>
           </div>
         </template>
