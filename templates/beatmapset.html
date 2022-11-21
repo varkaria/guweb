@@ -112,7 +112,7 @@
                 :disabled="(currentMap?.id === item.id)"
               >
                 <span class="star-rating"><% item.diff %></span>
-                <span> <% item.version %></span>
+                <span> <% item.version %> <% (item.mode !== mode && item.mode === 0 ? '(convert)' : '') %></span>
               </div>
             </div>
           </div>
