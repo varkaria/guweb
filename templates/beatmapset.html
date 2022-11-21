@@ -209,7 +209,9 @@
                     <% flags[currentScores[0].country.toUpperCase()] %>
                   </div>
                 </div></a
-              > <% currentScores[0].player_name %></div>
+              > <a :href="`https://${domain}/u/${currentScores[0].userid}`"><% currentScores[0].player_name %></a></div>
+              <div class="best-score-acc">Acc: <% Math.round(currentScores[0].acc * 100) / 100 %>%</div>
+
               <div class="best-score-score">Pontuação: <% new Intl.NumberFormat("pt-BR").format(currentScores[0].score) %> </div>
               <div class="best-score-pp">PP: <% Math.round(currentScores[0].pp * 100) / 100 %></div>
               <div class="best-score-combo">Combo: <% currentScores[0].max_combo %>x</div>
@@ -227,10 +229,16 @@
                 </div>
                 
               </section>
-            <div :class="`best-score-grade  map-rank rank-${currentScores[0].grade}`" >
-              <% currentScores[0].grade.replace("SH", "S").replace("XH", "SS").replace("X",
-              "SS") %>
-            </div>
+              <section class="best-score-grade">
+                <div :class="`  map-rank rank-${currentScores[0].grade}`" >
+                  <% currentScores[0].grade.replace("SH", "S").replace("XH", "SS").replace("X",
+                  "SS") %>
+                </div>
+      
+                <div class="best-score-mods"><% (currentScores[0].mods !== 0 ? `+${modsStr(currentScores[0].mods)}` : "") %></div>
+                
+              </section>
+            
           </div>
           <div class="scores-container">
             <div class="leaderboard-title">Posição</div>
