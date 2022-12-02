@@ -4,7 +4,7 @@ offline: 离线
 online: 在线
 leaderboard: 排行榜
 login: 登录
-profile: 用户信息
+unused_profile__literal: 用户信息
 register: 注册
 bannertype-success: 操作成功
 bannertype-error: 出错了
@@ -42,7 +42,7 @@ invalid-parameters: 请输入用户名密码以及邮箱
 you-are-already-logged-in: 你已经登录啦!
 you-must-be-logged-in-to-access-this-page: 你必须登录了才能访问该页面
 grade: 评分
-grades-N: 'N'
+grades-N: "N"
 grades-F: F
 grades-D: D
 grades-C: C

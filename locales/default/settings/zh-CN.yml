@@ -13,7 +13,7 @@ password-change: 更改密码
 old-password: 旧密码
 new-password: 新密码
 repeat-password: 确认新密码
-profile: 玩家资料
+unused_profile__literal: 玩家资料
 user-information: 用户信息
 username: 你的用户名
 settings: 设置

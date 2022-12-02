@@ -56,5 +56,6 @@
   "files.associations": {
     "*.html": "jinja-html"
   },
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "githubPullRequests.ignoredPullRequestBranches": ["main"]
 }
