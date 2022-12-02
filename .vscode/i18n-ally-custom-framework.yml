@@ -6,7 +6,6 @@ languageIds:
   - html
   - jinja-html
   - python
-  
 
 # An array of RegExes to find the key usage. **The key should be captured in the first match group**.
 # You should unescape RegEx strings in order to fit in the YAML file
@@ -17,14 +16,12 @@ usageMatchRegex:
   # you can ignore it and use your own matching rules as well
   - "[^\\w\\d]t\\(['\"`]({key})['\"`]"
 
-
 # An array of strings containing refactor templates.
 # The "$1" will be replaced by the keypath specified.
 # Optional: uncomment the following two lines to use
 
 refactorTemplates:
- - t("$1")
-
+  - t("$1")
 
 # If set to true, only enables this custom framework (will disable all built-in frameworks)
 monopoly: true

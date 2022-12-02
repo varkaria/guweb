@@ -4,7 +4,7 @@ offline: 离线
 online: 在线
 leaderboard: 排行榜
 login: 登录
-unused_profile__literal: 用户信息
+profile__literal: 用户信息
 register: 注册
 bannertype-success: 操作成功
 bannertype-error: 出错了

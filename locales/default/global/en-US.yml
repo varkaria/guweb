@@ -4,7 +4,7 @@ offline: Offline
 online: Online
 leaderboard: Leaderboard
 login: Login
-unused_profile__literal: Profile
+profile__literal: Profile
 register: Register
 password: Password
 bannertype-error: Warning

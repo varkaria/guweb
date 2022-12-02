@@ -14,7 +14,7 @@ password-change: Password Change
 old-password: Old Password
 new-password: New Password
 repeat-password: Repeat Password
-unused_profile__literal: Profile
+profile__literal: Profile
 user-information: User Infomation
 username: Username
 settings: Settings
