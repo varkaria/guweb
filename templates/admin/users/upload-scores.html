@@ -25,7 +25,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         transaction(state => {
-            state.apiKey = {{ session.user_data['api_key'] | JSON }}
+            state.apiKey = {{ session.user_data['api_key'] | JSON }
+        }
             state.userId = {{ search_data.id | JSON }}
         }, false)
     })
@@ -137,11 +138,11 @@
                             <span class="select">
                                 <select name="identifier_type" required>
                                     <option value="replay_username">
-                                        {{ t("admin.upload-replay.identifier-types.replay_username") }}</option>
+                                        {{ t("admin.upload-replay.identifier-types.replay-username") }}</option>
                                     <option value="server_userid">
-                                        {{ t("admin.upload-replay.identifier-types.server_userid") }}
+                                        {{ t("admin.upload-replay.identifier-types.server-user-id") }}
                                     </option>
-                                    <option value="replay_id">{{ t("admin.upload-replay.identifier-types.replay_id") }}
+                                    <option value="replay_id">{{ t("admin.upload-replay.identifier-types.replay-id") }}
                                     </option>
                                 </select>
                             </span>
@@ -239,7 +240,7 @@
             </div>
 
             <!-- <div class="panel-block columns" >
-                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.replay_id") }}</div>
+                <div class="column py-0 is-one-quarter text-nowrap">{{ t("osr-reader.replay-id") }}</div>
                 <div class="column py-0">
                     <input type="number" class="input" name="replay_id">
                 </div>
@@ -261,8 +262,8 @@
             <hr>
             <div class="panel-block pb-4">
                 <div style="margin-left: auto;"></div>
-                <button type="submit" form="submit-replay"
-                    class="button is-primary">{{ t("admin.upload-replay.upload") }}</button>
+                <button type="submit" form="submit-replay" class="button is-primary">{{ t("admin.upload-replay.upload")
+                    }}</button>
                 <div style="margin-right: 1em;"></div>
             </div>
         </form>

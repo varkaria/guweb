@@ -1,6 +1,9 @@
 upload-score-for: 上传 %{name} 的成绩
 identifier-type: 身份标识类型
-replay-username: 回放者的用户名
+identifier-types:
+  server-user-id: Server's User ID
+  replay-username: 回放者的用户名
+  replay-id: Replay ID
 outer_identifier: 外部成绩的来源身份标识
 map-md5: 谱面的md5
 max-combo: 最大连击数

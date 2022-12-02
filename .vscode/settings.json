@@ -1,5 +1,4 @@
 {
-  "nuxt.isNuxtApp": false,
   "i18n-ally.namespace": true,
   "i18n-ally.pathMatcher": "{namespaces}/{locale}.{ext}",
   "i18n-ally.localesPaths": ["locales/default", "locales/ppy.sb"],
@@ -34,9 +33,13 @@
       // affect scope (optional)
       // see https://github.com/lokalise/i18n-ally/blob/master/src/core/types.ts#L156-L156
       "source": "html-inline",
-      "templates": ["t('{key}'{args})", "t('{key}'{args})"],
+      "templates": ["t('{key}'{args})", "t(\"{key}\"{args})"],
       // accept globs, resolved to project root (optional)
       "include": ["templates/**/*.html"]
+    },
+    {
+      "templates": ["t('{key}'{args})", "t(\"{key}\"{args})"],
+      "include": ["blueprints/**/*.py", "objects/**/*.py", "constants/**/*.py"]
     }
     // ...
   ],

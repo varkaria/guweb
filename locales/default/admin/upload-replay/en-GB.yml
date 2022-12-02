@@ -1,6 +1,9 @@
 upload-score-for: Upload score for %{name}
 identifier-type: Identifier type
-replay-username: Replay username
+identifier-types:
+  server-user-id: Server's User ID
+  replay-username: Replay username
+  replay-id: Replay ID
 outer_identifier: Outer identifier
 map-md5: map md5
 max-combo: Max combo

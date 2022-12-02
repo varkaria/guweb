@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} {{ t('global.profile') }} {% endblock %}
+{% block title %} {{ t('global.profile__literal') }} {% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="/static/css/pages/settings/style.css?v={{ appVersion() }} ">
@@ -9,7 +9,7 @@
   <div class="block-content right">
     <div id="general" class="single-right-block">
       <div class="right-block-header">
-          {{ t('settings.user-information') }}
+        {{ t('settings.user-information') }}
       </div>
       <form action="/settings/profile" method="post" class="setting-block-content">
         <div class="single-block-content">
@@ -22,8 +22,7 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input" type="text" name="username"
-                  value="{{ session.user_data['name'] }}">
+                  <input class="input" type="text" name="username" value="{{ session.user_data['name'] }}">
                 </p>
               </div>
             </div>
@@ -61,7 +60,8 @@
             </div>
           </div>
         </div>
-        <button class='button is-primary' type='submit'><span>{{ t('settings.save') }}</span><span class='icon is-small'><i class='fas fa-check'></i></span></button>
+        <button class='button is-primary' type='submit'><span>{{ t('settings.save') }}</span><span
+            class='icon is-small'><i class='fas fa-check'></i></span></button>
       </form>
     </div>
   </div>
@@ -75,16 +75,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-            {{ t('global.bannertype-error') }}
+          {{ t('global.bannertype-error') }}
           {% elif status=='success' %}
-            {{ t('global.bannertype-success') }}
+          {{ t('global.bannertype-success') }}
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
           {{ t('global.bannertext-error') }}
           {% elif status=='success' %}
-            {{ t('global.bannertype-success') }}
+          {{ t('global.bannertype-success') }}
           {% endif %}
         </div>
       </div>
