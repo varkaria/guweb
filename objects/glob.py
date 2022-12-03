@@ -106,13 +106,16 @@ def domain() -> str:
 def render_markdown(md: str) -> str:
     return markdown2.markdown(
         html.unescape(md),
-        extras=[
-            "tables",
-            "break-on-newline",
-            "fenced-code-blocks",
-            "spoiler",
-            "strike",
-        ],
+        extras={
+            "tables": None,
+            "break-on-newline": None,
+            "fenced-code-blocks": None,
+            "spoiler": None,
+            "strike": None,
+            "html-classes": {
+                "table": "table"
+            }
+        },
     )
 
 
