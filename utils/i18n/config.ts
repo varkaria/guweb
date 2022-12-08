@@ -88,7 +88,7 @@ export interface FileContext {
   extension: string
 }
 
-export const createConfilitKeyHandler = (mergeMode: boolean) => function onConflictingKey (oldVal: any, newVal: any, key: string) {
+export const createConflictKeyHandler = (mergeMode: boolean) => function onConflictingKey (oldVal: any, newVal: any, key: string) {
   if (typeof newVal[key] !== 'object' && typeof oldVal[key] !== 'object') {
     return {
       ...oldVal,

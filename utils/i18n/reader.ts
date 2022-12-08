@@ -6,7 +6,7 @@ import fs from 'fs'
 import yaml from 'js-yaml'
 import { mergeWith } from 'lodash'
 
-import { paths as translationPaths, contextFromFileName, createConfilitKeyHandler as createConflictKeyHandler, FileContext } from './config'
+import { paths as translationPaths, contextFromFileName, createConflictKeyHandler, FileContext } from './config'
 
 const parseLocale = (file: string, context: FileContext): LocaleRoot => {
   const locale = yaml.load(fs.readFileSync(file, 'utf8')) as Locale
