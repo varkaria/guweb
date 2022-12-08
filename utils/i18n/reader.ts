@@ -1,12 +1,12 @@
+import { strict, asyncGlob, strict } from './lib'
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import path from 'path'
 import fs from 'fs'
 import yaml from 'js-yaml'
 import { mergeWith } from 'lodash'
-import { asyncGlob } from './lib'
 
-import { paths as translationPaths, contextFromFileName, createConfilitKeyHandler, FileContext } from './config'
+import { paths as translationPaths, contextFromFileName, createConfilitKeyHandler as createConflictKeyHandler, FileContext } from './config'
 
 const parseLocale = (file: string, context: FileContext): LocaleRoot => {
   const locale = yaml.load(fs.readFileSync(file, 'utf8')) as Locale
@@ -48,8 +48,10 @@ const parseLocale = (file: string, context: FileContext): LocaleRoot => {
 }
 
 const mixinLocale = (
-  { merging, joinedLocales, mixingWith: { parsedLocale, context } }:
-  { merging: boolean
+  { merging, joinedLocales, mixingWith: { parsedLocale, context }, strict }:
+  {
+    strict: boolean
+    merging: boolean
     joinedLocales: LocaleRoot
     mixingWith: {
       parsedLocale: LocaleRoot
@@ -68,11 +70,11 @@ const mixinLocale = (
       for (const k in srcValue) {
         if ((Boolean(objValue[k])) && objValue[k] !== srcValue[k]) {
           if (!merging) {
-            console.warn(`[Warning] Merging into initilazed value:
-${key}.${k}:
-[${typeof srcValue[k]}${(typeof srcValue[k] === 'string' && `\`${srcValue[k]}\``) || ''}] merging into [${typeof objValue[k]}${(typeof objValue[k] === 'string' && `\`${objValue[k]}\``) || ''}].`)
+            console.warn(`[Warning] Merging into initialized value:
+${key}.${k}: [${typeof srcValue[k]}${(typeof srcValue[k] === 'string' && `\`${srcValue[k]}\``) || ''}] merging into [${typeof objValue[k]}${(typeof objValue[k] === 'string' && `\`${objValue[k]}\``) || ''}].`)
           }
-          objValue = createConfilitKeyHandler(merging)(objValue, srcValue, k)
+          if (strict) process.exit(1)
+          objValue = createConflictKeyHandler(merging)(objValue, srcValue, k)
           if (!merging) console.log('')
         } else {
           objValue[k] = srcValue[k]
@@ -84,7 +86,7 @@ ${key}.${k}:
   )
 }
 
-const createReducer = ({ translationPath, merging }: {translationPath: string, merging: boolean}) => async (acc: LocaleRoot, match: string) => {
+const createReducer = ({ translationPath, merging, strict }: {translationPath: string, merging: boolean, strict: boolean}) => async (acc: LocaleRoot, match: string) => {
   console.log('parsing', match, '...\n')
   try {
     acc = await acc
@@ -97,14 +99,14 @@ const createReducer = ({ translationPath, merging }: {translationPath: string, m
       mixingWith: {
         parsedLocale: data,
         context
-      }
+      },
+      strict
     })
     return acc
   } catch (error) {
     console.error(error)
   }
 }
-
 export const readLocales = async (): Promise<LocaleRoot> => {
   let locales = {}
   for (const [index, conf] of translationPaths.entries()) {
@@ -112,7 +114,7 @@ export const readLocales = async (): Promise<LocaleRoot> => {
     const { path: translationPath, filter } = conf
     const matches = (await asyncGlob(path.join(translationPath, '**/*.yml')))
       .filter(filter)
-    const reducer = createReducer({ translationPath, merging: index > 0 })
+    const reducer = createReducer({ translationPath, merging: index > 0, strict })
     locales = await matches.reduce(reducer, locales)
   }
 

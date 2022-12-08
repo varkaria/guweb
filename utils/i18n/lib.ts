@@ -5,3 +5,5 @@ export const asyncGlob = async (path: string): Promise<string[]> => await new Pr
     else resolve(matches)
   })
 })
+const mode = process.argv[2]
+export const strict = mode?.includes('strict') || false
