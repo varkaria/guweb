@@ -1,4 +1,4 @@
-import { strict, asyncGlob, strict } from './lib'
+import { strict, asyncGlob } from './lib'
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import path from 'path'
