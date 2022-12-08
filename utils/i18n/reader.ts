@@ -72,8 +72,8 @@ const mixinLocale = (
           if (!merging) {
             console.warn(`[Warning] Merging into initialized value:
 ${key}.${k}: [${typeof srcValue[k]}${(typeof srcValue[k] === 'string' && `\`${srcValue[k]}\``) || ''}] merging into [${typeof objValue[k]}${(typeof objValue[k] === 'string' && `\`${objValue[k]}\``) || ''}].`)
+            if (strict) process.exit(1)
           }
-          if (strict) process.exit(1)
           objValue = createConflictKeyHandler(merging)(objValue, srcValue, k)
           if (!merging) console.log('')
         } else {

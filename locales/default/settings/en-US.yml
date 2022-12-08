@@ -9,7 +9,7 @@ banner: Banner
 banner-description: Recommend with 1440x262 pixels with GIF, PNG, JPG, JPEG
 profile-background: Profile Background
 profile-background-description: Recommend with 16:9 ratio with PNG, JPG, JPEG
-password: Password
+password__literal: Password
 password-change: Password Change
 old-password: Old Password
 new-password: New Password

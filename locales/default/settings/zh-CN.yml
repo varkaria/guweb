@@ -8,7 +8,7 @@ banner: 背景横幅
 banner-description: 建议上传分辨率为 1440x262 的 GIF, PNG, JPG, JPEG 等四种格式的图片
 profile-background: 资料背景
 profile-background-description: 建议上传长宽比为 16:9  的 PNG, JPG, JPEG 格式的图片
-password: 密码
+password__literal: 密码
 password-change: 更改密码
 old-password: 旧密码
 new-password: 新密码
