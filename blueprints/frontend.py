@@ -138,7 +138,7 @@ async def settings_avatar():
 @login_required
 async def settings_avatar_post():
     # constants
-    MAX_IMAGE_SIZE = 2 * 1024 * 1024  # 2mb, you would probably want to set this up in a .env file
+    MAX_IMAGE_SIZE = {glob.config.max_image_size} * 1024 * 1024
     AVATARS_PATH = f'{glob.config.path_to_gulag}.data/avatars'
     ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png']
 
@@ -154,7 +154,7 @@ async def settings_avatar_post():
     if not file_extension in ALLOWED_EXTENSIONS:
         return await flash('error', 'The image you select must be either a .JPG, .JPEG, or .PNG file!', 'settings/avatar')
     
-    # check file size
+    # check file size of avatar
     if avatar.content_length > MAX_IMAGE_SIZE:
         return await flash('error', 'The image you selected is too large!', 'settings/avatar')
 
