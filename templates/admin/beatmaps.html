@@ -49,18 +49,11 @@
 {% block title %} Beatmaps {% endblock %}
 
 {% block content %}
-{# TODO I found api_key not used in this page so I commented out this injection
-uncomment if it's needed in the future
-#}
-{#
+
 <script>
-    window.addEventListener('load', () => {
-        window._state = createState({
-            api_key: {{ session.user_data['api_key'] | JSON }}
-        })
-    })
+    window.api_key = {{ session.user_data['api_key'] | JSON }}
 </script>
-#}
+
 <progress id="progress_bar" class="progress is-small is-primary" max="100" style="display: none;"></progress>
 <div class="columns is-marginless">
     <div class="column is-paddingless flex-vcenter">
@@ -212,6 +205,10 @@ uncomment if it's needed in the future
                                     <a class="dropdown-item"
                                         href="/admin/beatmaps/edit/{{ i.set_id }}?status=0&set=1">{{
                                         t("admin.beatmaps.pending-set") }}</a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item"
+                                        href="javascript:void(0);" onclick="updateMaps({{ i.set_id }})">{{
+                                        t("admin.beatmaps.update-maps") }}</a>
                                 </div>
                             </div>
                         </div>
