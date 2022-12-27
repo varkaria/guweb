@@ -59,7 +59,7 @@
           <div class="column">
             <h4 class="mb-4">Preview</h4>
             <div class="preview-block" id="avatar">
-              <div class="top-block" {% if customizations['banner'] == True %}style="background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url(/profbanner/{{ session['user_data']['id'] }}); background-size: cover"{% endif %}></div>
+              <div class="top-block" {% if customizations['banner'] == True %}style="background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url(/banners/{{ session['user_data']['id'] }}); background-size: cover"{% endif %}></div>
               <div class="bottom-block">
                 <div class="profile-avatar-area">
                   <img id="avatar-img" src="https://a.{{ domain() }}/{{ session.user_data['id']}}" alt="avatar"
