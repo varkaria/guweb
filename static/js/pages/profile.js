@@ -199,6 +199,8 @@ new Vue({
             }
             if (Math.floor(seconds % 3600 / 60) > 0) {
                 display += `${Math.floor(seconds % 3600 / 60)} minute${Math.floor(seconds % 3600 / 60) > 1 ? "s" : ""}`;
+            } else {
+                display = "less than a minute";
             }
             return display;
         },
