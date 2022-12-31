@@ -190,10 +190,17 @@ new Vue({
         },
         secondsToDhm(seconds) {
             seconds = Number(seconds);
-            var dDisplay = `${Math.floor(seconds / (3600 * 24))}d `;
-            var hDisplay = `${Math.floor(seconds % (3600 * 24) / 3600)}h `;
-            var mDisplay = `${Math.floor(seconds % 3600 / 60)}m `;
-            return dDisplay + hDisplay + mDisplay;
+            let display = "";
+            if (Math.floor(seconds / (3600 * 24)) > 0) {
+                display += `${Math.floor(seconds / (3600 * 24))} day${Math.floor(seconds / (3600 * 24)) > 1 ? "s" : ""}, `;
+            }
+            if (Math.floor(seconds % (3600 * 24) / 3600) > 0) {
+                display += `${Math.floor(seconds % (3600 * 24) / 3600)} hour${Math.floor(seconds % (3600 * 24) / 3600) > 1 ? "s" : ""}, `;
+            }
+            if (Math.floor(seconds % 3600 / 60) > 0) {
+                display += `${Math.floor(seconds % 3600 / 60)} minute${Math.floor(seconds % 3600 / 60) > 1 ? "s" : ""}`;
+            }
+            return display;
         },
         StrtoGulagInt() {
             switch (this.mode + "|" + this.mods) {
