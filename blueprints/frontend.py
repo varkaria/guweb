@@ -169,8 +169,9 @@ async def settings_avatar():
 @login_required
 async def settings_avatar_post():
     # constants
-    AVATARS_PATH = f"{glob.config.path_to_gulag}/.data/avatars"
-    ALLOWED_EXTENSIONS = [".jpeg", ".jpg", ".png"]
+    MAX_IMAGE_SIZE = glob.config.max_image_size * 1024 * 1024
+    AVATARS_PATH = f'{glob.config.path_to_gulag}.data/avatars'
+    ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png']
 
     avatar = (await request.files).get("avatar")
 
@@ -189,6 +190,9 @@ async def settings_avatar_post():
             t("settings.bad-image-extension", something=t("settings.avatar").lower()),
             "settings/avatar",
         )
+        
+    if avatar.content_length > MAX_IMAGE_SIZE:
+        return await flash('error', 'The image you selected is too large!', 'settings/avatar')
 
     # remove old avatars
     for fx in ALLOWED_EXTENSIONS:

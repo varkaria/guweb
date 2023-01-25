@@ -43,7 +43,7 @@ new Vue({
       this.$set(this, 'mods', mods)
       this.$set(this, 'sort', sort)
       this.$set(this, 'load', true)
-      this.$axios.get(`//api.${window.domain}/get_leaderboard`, {
+      this.$axios.get(`//api.${window.domain}/v1/get_leaderboard`, {
         params: {
           mode: this.StrtoGulagInt(),
           sort: this.sort

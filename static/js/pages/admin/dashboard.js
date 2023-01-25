@@ -20,7 +20,7 @@ new Vue({
   methods: {
     GetOnlineUsers () {
       const vm = this
-      vm.$axios.get(`//api.${window.domain}/get_player_count`)
+      vm.$axios.get(`//api.${window.domain}/v1/get_player_count`)
         .then(function (response) {
           vm.online_users = response.data.counts.online
         })

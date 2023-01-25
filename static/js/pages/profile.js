@@ -213,7 +213,7 @@ window.addEventListener('load', () => {
       LoadProfileData () {
         this.$set(this.data.stats, 'load', true)
         this.$axios
-          .get(`//api.${s.domain}/get_player_info`, {
+          .get(`//api.${s.domain}/v1/get_player_info`, {
             params: {
               id: this.userid,
               scope: 'all'
@@ -227,7 +227,7 @@ window.addEventListener('load', () => {
       async LoadScores (sort, { animation = true } = {}) {
         this.$set(this.data.scores[`${sort}`], 'load', true)
         await this.$axios
-          .get(`//api.${s.domain}/get_player_scores`, {
+          .get(`//api.${s.domain}/v1/get_player_scores`, {
             params: {
               id: this.userid,
               mode: this.StrtoGulagInt(),
@@ -262,7 +262,7 @@ window.addEventListener('load', () => {
       async LoadMostBeatmaps ({ animation = true } = {}) {
         this.$set(this.data.maps.most, 'load', true)
         await this.$axios
-          .get(`//api.${s.domain}/get_player_most_played`, {
+          .get(`//api.${s.domain}/v1/get_player_most_played`, {
             params: {
               id: this.userid,
               mode: this.StrtoGulagInt(),
@@ -294,7 +294,7 @@ window.addEventListener('load', () => {
       },
       LoadUserStatus () {
         this.$axios
-          .get(`//api.${s.domain}/get_player_status`, {
+          .get(`//api.${s.domain}/v1/get_player_status`, {
             params: {
               id: this.userid
             }
