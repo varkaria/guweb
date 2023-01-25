@@ -25,7 +25,7 @@ app = Quart(
     template_folder=f"{os.getcwd()}/templates",
     static_folder=f"{os.getcwd()}/static",
 )
-version = Version(1, 4, 1)
+version = Version(1, 5, 0)
 
 cache = {"bcrypt": {}, "search_data": {}}
 
