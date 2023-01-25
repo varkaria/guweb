@@ -60,7 +60,8 @@
             <div class="blockdata">
                 {% for user in recentusers %}
                 <a href="/u/{{ user.id }}" class="user-block{% if user.priv == 1 %} unverified{% endif %}">
-                    <img src="https://a.{{ domain() }}/{{ user.id }}" class="avatar-picture">
+                    <img src="https://a.{{ domain() }}/{{ user.id }}" class="avatar-picture"
+                         onerror="this.src='/static/images/avatar_notwork.png';">
                     <div class="user-stats"><span class="user-title">
                         <img src="/static/images/flags/{{ user.country|upper }}.png" class="profile-flag"> {{ user.name }}
                         </span><span class="user-artist">
