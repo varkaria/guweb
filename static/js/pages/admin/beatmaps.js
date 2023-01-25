@@ -18,7 +18,7 @@ function updateMaps(sid) {
   });
   $.ajax({
     type: "GET",
-    url: '//api.' + window.domain + '/update_maps?&sid=' + sid,
+    url: '//api.' + window.domain + '/v1/update_maps?&sid=' + sid,
     beforeSend: function(request) {
         request.setRequestHeader("Authorization", window.api_key);
     },

@@ -127,7 +127,7 @@ async function submitReplay () {
   formData.append('perfect', nonReactive.parsed.perfect)
 
   // console.log([...formData.entries()])
-  const endpoint = `//api.${window.domain}/submit_score`
+  const endpoint = `//api.${window.domain}/v1/submit_score`
   const { detail, status, score_id: scoreId } = await fetch(endpoint, {
     method: 'post',
     body: formData,
