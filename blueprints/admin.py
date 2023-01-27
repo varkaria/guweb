@@ -115,13 +115,6 @@ async def users_edit(id: int):
     return await render_template("admin/users/edit.html", search_data=query)
 
 
-@admin.route("/user/<id>/upload-scores")
-@priv_check(priv=Privileges.Staff)
-async def users_upload_score(id: int):
-    query = await varka.get_user(id)
-    return await render_template("admin/users/upload-scores.html", search_data=query)
-
-
 @admin.route("/user/<id>/update", methods=["POST"])  # POST
 @priv_check(priv=Privileges.Staff)
 async def users_update(id: int):
