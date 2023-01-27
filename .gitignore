@@ -153,3 +153,5 @@ yarn.lock
 config.js
 # compiled locales
 .locales
+
+.DS_Store
