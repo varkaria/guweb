@@ -80,7 +80,7 @@ name_change_only_for_supporter = (
 default_locale = _default_locale if _default_locale is not None else "en_GB"
 
 # social links (used throughout guweb)
-github = "https://github.com/ppy-sb/guweb"
+github = "https://github.com/Varkaria/guweb"
 discord_invite_id = _discord_invite_id
 discord_server = (
     "https://discord.com/invite/" + discord_invite_id

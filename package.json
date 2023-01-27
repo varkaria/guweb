@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ppy-sb/guweb.git"
+    "url": "git+https://github.com/Varkaria/guweb.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ppy-sb/guweb/issues"
+    "url": "https://github.com/Varkaria/guweb/issues"
   },
-  "homepage": "https://github.com/ppy-sb/guweb#readme",
+  "homepage": "https://github.com/Varkaria/guweb#readme",
   "devDependencies": {
     "@types/clui": "^0.3.1",
     "@types/glob": "^7.2.0",
