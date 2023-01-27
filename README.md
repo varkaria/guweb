@@ -1,16 +1,17 @@
 Table of Contents
 ==================
+
 - [Table of Contents](#table-of-contents)
-    - [What is guweb?](#what-is-guweb)
-    - [Requirements](#requirements)
-    - [Setup](#setup)
-    - [Translation](#translation)
-        - [requirements](#requirements-1)
-        - [prepare](#prepare)
-        - [how to](#how-to)
-    - [Directory Structure](#directory-structure)
-    - [The team](#the-team)
-    - [The End](#the-end)
+  - [What is guweb?](#what-is-guweb)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [Translation](#translation)
+    - [requirements](#requirements-1)
+    - [prepare](#prepare)
+    - [how to](#how-to)
+  - [Directory Structure](#directory-structure)
+  - [The team](#the-team)
+  - [The End](#the-end)
 
 What is guweb?
 ------
@@ -70,8 +71,12 @@ sudo nginx -s reload
 
 
 # Configure guweb.
-cp ext/config.py config.py
+cp ext/config.sample.py config.py
 nano config.py
+
+# Configure locales
+cp config.sample.js config.js
+# edit the copied file to meet yor needs
 
 
 # build locales
@@ -88,18 +93,20 @@ Translation
 ------
 
 ### requirements
+
 - VSCode (recommend)
 - VSCode plugin: i18n-ally (recommend)
 - Node
   
 ### prepare
+
 `npm install -D`
 
 ### how to
+
 - open any html files with i18n-ally plugin enabled.
 - translate keys
 - run `npm run i18n:build` to generate files for python-i18n
-
 
 Directory Structure
 ------
@@ -116,9 +123,9 @@ Directory Structure
         ├── settings # Templated content for settings (/settings).
         └ ...         # Templated content for all of guweb (/).
 
-
 The team
 ------
+
 - [Yoru](https://github.com/Yo-ru) | Backend, Grammar Checking [Deprecated]
 - [Varkaria](https://github.com/Varkaria) | Frontend, Backend?
 - [ppysb-Team](https://github.com/ppy-sb) | i18n, Maintainer
