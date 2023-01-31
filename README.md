@@ -16,7 +16,7 @@ Table of Contents
 What is guweb?
 ------
 
-guweb is the front-facing appearance of the osu! server protocol, [gulag](https://github.com/cmyui/gulag)!
+guweb is the front-facing appearance of the osu! server protocol, [bancho.py](https://github.com/cmyui/bancho.py)!
 Using native async/await syntax written on top of [Quart](https://github.com/pgjones/quart) and
 [cmyui's multipurpose library](https://github.com/cmyui/cmyui_pkg), guweb achieves flexability, cleanliness,
 and efficiency not seen in other frontend implementations - all while maintaining the simplicity of Python.

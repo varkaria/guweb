@@ -45,7 +45,7 @@ mysql = {
     "password": _db_password if _db_password is not None else "",
 }
 
-# path to gulag root (must have leading and following slash),
+# path to bancho.py root (must have leading and following slash),
 # you don't need to change this assume you put /guweb and /bancho.py in the same folder.
 path_to_gulag = (
     _path_to_bancho_py
