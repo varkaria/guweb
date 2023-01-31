@@ -5,7 +5,7 @@ Table of Contents
   - [What is guweb?](#what-is-guweb)
   - [Requirements](#requirements)
   - [Setup](#setup)
-  - [Translation](#translation)
+  - [Prepare Locales](#prepare-locales)
     - [requirements](#requirements-1)
     - [prepare](#prepare)
     - [how to](#how-to)
@@ -27,6 +27,7 @@ Requirements
 - Some know-how with Linux (tested on Ubuntu 18.04), Python, and general-programming knowledge.
 - MySQL
 - NGINX
+- NodeJS
 
 Setup
 ------
@@ -89,7 +90,7 @@ python3.9 main.py # Run directly to access debug features for development!
 hypercorn main.py # Please run guweb with hypercorn when in production! It will improve performance drastically by disabling all of the debug features a developer would need!
 ```
 
-Translation
+Prepare Locales
 ------
 
 ### requirements
