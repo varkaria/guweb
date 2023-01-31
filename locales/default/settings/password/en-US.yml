@@ -1,0 +1,6 @@
+new-passoword-mismatch-repeated-password: Your new password doesn't match your repeated password!
+new-passoword-cannot-be-same-as-old-password: Your new password cannot be the same as your old password!
+must-between-8-32-characters-in-length: Your new password must be 8-32 characters in length.
+must-have-more-than-3-unique-characters: Your new password must have more than 3 unique characters.
+too-simple: Your new password was deemed too simple.
+old-password-incorrect: Your old password is incorrect.

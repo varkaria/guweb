@@ -1,9 +1,14 @@
 Table of Contents
 ==================
+
 - [Table of Contents](#table-of-contents)
   - [What is guweb?](#what-is-guweb)
   - [Requirements](#requirements)
   - [Setup](#setup)
+  - [Prepare Locales](#prepare-locales)
+    - [requirements](#requirements-1)
+    - [prepare](#prepare)
+    - [how to](#how-to)
   - [Directory Structure](#directory-structure)
   - [The team](#the-team)
   - [The End](#the-end)
@@ -11,7 +16,7 @@ Table of Contents
 What is guweb?
 ------
 
-guweb is the front-facing appearance of the osu! server protocol, [gulag](https://github.com/cmyui/gulag)!
+guweb is the front-facing appearance of the osu! server protocol, [bancho.py](https://github.com/cmyui/bancho.py)!
 Using native async/await syntax written on top of [Quart](https://github.com/pgjones/quart) and
 [cmyui's multipurpose library](https://github.com/cmyui/cmyui_pkg), guweb achieves flexability, cleanliness,
 and efficiency not seen in other frontend implementations - all while maintaining the simplicity of Python.
@@ -22,6 +27,7 @@ Requirements
 - Some know-how with Linux (tested on Ubuntu 18.04), Python, and general-programming knowledge.
 - MySQL
 - NGINX
+- NodeJS
 
 Setup
 ------
@@ -41,7 +47,12 @@ wget https://bootstrap.pypa.io/get-pip.py
 python3.9 get-pip.py && rm get-pip.py
 
 # Install MySQL and NGINX.
+
 sudo apt install mysql-server nginx
+
+
+# Install Nodejs and npm or yarn
+# see https://nodejs.org/en/download/ .
 
 # Clone guweb from GitHub.
 git clone https://github.com/varkaria/guweb.git
@@ -53,19 +64,50 @@ git submodule init && git submodule update
 # Install requirements from pip.
 python3.9 -m pip install -r ext/requirements.txt
 
+
 # Add and configure guweb's NGINX config to your nginx/sites-enabled.
 sudo ln -r -s ext/nginx.conf /etc/nginx/sites-enabled/guweb.conf
 sudo nano ext/nginx.conf
 sudo nginx -s reload
 
+
 # Configure guweb.
 cp ext/config.sample.py config.py
 nano config.py
+
+# Configure locales
+cp config.sample.js config.js
+# edit the copied file to meet yor needs
+
+
+# build locales
+npm run i18n:build 
+# or use yarn
+yarn i18n:c
 
 # Run guweb (on port 8000).
 python3.9 main.py # Run directly to access debug features for development!
 hypercorn main.py # Please run guweb with hypercorn when in production! It will improve performance drastically by disabling all of the debug features a developer would need!
 ```
+
+Prepare Locales
+------
+
+### requirements
+
+- VSCode (recommend)
+- VSCode plugin: i18n-ally (recommend)
+- Node
+  
+### prepare
+
+`npm install -D`
+
+### how to
+
+- open any html files with i18n-ally plugin enabled.
+- translate keys
+- run `npm run i18n:build` to generate files for python-i18n
 
 Directory Structure
 ------
@@ -76,16 +118,18 @@ Directory Structure
     ├── ext          # External files from guweb's primary operation.
     ├── objects      # Code for representing privileges, global objects, and more.
     ├── static       # Code or content that is not modified or processed by guweb itself.
+    ├── locales      # translations
     ├── templates    # HTML that contains content that is rendered after the page has loaded.
         ├── admin    # Templated content for the admin panel (/admin).
         ├── settings # Templated content for settings (/settings).
         └ ...         # Templated content for all of guweb (/).
 
-
 The team
 ------
+
 - [Yoru](https://github.com/Yo-ru) | Backend, Grammar Checking [Deprecated]
 - [Varkaria](https://github.com/Varkaria) | Frontend, Backend?
+- [ppysb-Team](https://github.com/ppy-sb) | i18n, Maintainer
 
 The End
 ------

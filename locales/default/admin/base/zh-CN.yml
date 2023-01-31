@@ -1,0 +1,12 @@
+admin: 管理员
+dashboard: 控制面板
+welcome-to-admin-panel: 欢迎来到 %{appName} 管理面板!
+discord: Discord
+admin-panel: '%{appName} 管理员面板'
+instagram: Instagram
+github: GitHub
+twitter: 推特
+youtube: YouTube
+users: 用户管理
+restrictions: 封禁管理
+beatmaps: 谱面管理

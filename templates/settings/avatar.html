@@ -1,31 +1,29 @@
 {% extends 'base.html' %}
-{% block title %} Avatar {% endblock %}
+{% block title %} {{ t('settings.avatar') }} {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="/static/css/pages/settings/style.css">
+<link rel="stylesheet" href="/static/css/pages/settings/style.css?v={{ appVersion() }} ">
 
 <div class="main-block">
   {% include "settings/sidebar.html" %}
   <div class="block-content right" id="settings-content">
     <div class="single-right-block">
       <div class="right-block-header">
-        Avatar
+          {{ t('settings.avatar') }}
       </div>
       <div class="right-block-content">
         <div class="flex avatar-flex">
           <div class="column">
             <div class="single-block-content avatar-block-content">
-              <h4 class="mb-4">Avatar</h4>
-              <div class="subtitle">We recommend an image of at least 512x512 (or 1:1 ratio).
-                You can upload a PNG, JPG under 5MB
-              </div>
+              <h4 class="mb-4">{{ t('settings.avatar-title') }}</h4>
+              <div class="subtitle">{{ t('settings.avatar-description') }}</div>
               <form id="upload-profile" action="/settings/avatar" method="post" enctype="multipart/form-data">
                 <div class="buttons margin-top" id="selection">
                   <label class="file-label">
                     <input class="file-input" id="file" type="file" accept="image/jpeg" name="avatar">
                     <span class="file-cta">
                       <span class="file-label">
-                        Choose file
+                        {{ t('settings.choose-file') }}
                       </span>
                       <span class="file-icon">
                         <i class="fa fa-upload"></i>
@@ -33,14 +31,14 @@
                     </span>
                   </label>
                   <button class="button is-primary" type="submit">
-                    <span class="icon is-small"><i class="fas fa-check"></i></span><span>Save</span>
+                    <span class="icon is-small"><i class="fas fa-check"></i></span><span>{{ t('settings.save') }}</span>
                   </button>
                 </div>
               </form>
             </div>
           </div>
           <div class="column">
-            <h4 class="mb-4">Preview</h4>
+            <h4 class="mb-4">{{ t('settings.preview') }}</h4>
             <div class="preview-block" id="avatar">
               <div class="top-block"></div>
               <div class="bottom-block">
@@ -59,12 +57,12 @@
   <script>
     $("#file")
       .change(function (e) {
-        var f = e.target.files;
+        const f = e.target.files;
         if (f.length < 1) {
           return;
         }
-        var u = window.URL.createObjectURL(f[0]);
-        var i = $("#avatar-img")[0];
+        const u = window.URL.createObjectURL(f[0]);
+        const i = $("#avatar-img")[0];
         i.src = u;
         $('#avatar-img').attr('src', i.src)
       });
@@ -79,16 +77,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-          Warning
+            {{ t('global.bannertype-error') }}
           {% elif status=='success' %}
-          Notice
+            {{ t('global.bannertype-success') }}
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          Uh oh! Be careful!
+            {{ t('global.bannertext-error') }}
           {% elif status=='success' %}
-          Hey! Listen!
+            {{ t('global.bannertype-success') }}
           {% endif %}
         </div>
       </div>

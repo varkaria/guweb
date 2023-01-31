@@ -1,0 +1,100 @@
+{% extends 'admin/base.html' %}
+{% block header %}
+<style>
+    .text-nowrap {
+        white-space: nowrap;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .ml-auto {
+        margin-left: auto;
+    }
+
+    .gap-2 {
+        gap: 0.5em;
+    }
+</style>
+{% endblock %}
+{% block title %} Users {% endblock %}
+
+{% block content %}
+<form action="/admin/user/{{ search_data['id'] }}/update" method="POST" id="edit-user">
+    <div class="is-flex is-align-items-center is-flex-direction-column">
+        <article style="min-width: fit-content; width: 40vw;" class="panel is-primary">
+            <p class="panel-heading">
+                {{ t("admin.users.edit-info-of", name = search_data['name']) }}
+            </p>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-id-card" aria-hidden="true"></i>
+                    {{ t("admin.users.username") }}
+                </div>
+                <div class="column">
+                    <input name="edit-username" type="text" class="input" value="{{ search_data.name }}">
+                </div>
+            </div>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    {{ t("admin.users.email") }}
+                </div>
+                <div class="column">
+                    <input name="edit-email" type="text" class="input" value="{{ search_data.email }}">
+                </div>
+            </div>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-globe-americas" aria-hidden="true"></i>
+                    {{ t("admin.users.country") }}
+                </div>
+                <div class="column is-flex gap-2 is-align-items-center">
+                    <img id="country-preview" src="/static/images/flags/{{ search_data.country | upper }}.png"
+                        class="profile-flag"
+                        style="width: 25px; height: 17px; -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.63); box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.2);">
+                    <input name="edit-country" type="text" class="input" value="{{ search_data.country }}" oninput="
+                        if (this.value.length === 2) {
+                            document.getElementById('country-preview').src = '/static/images/flags/' + this.value.toUpperCase() + '.png'
+                        }
+                    ">
+                </div>
+            </div>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-key" aria-hidden="true"></i>
+                    {{ t("admin.users.password") }}
+                </div>
+                <div class="column">
+                    <input name="password" type="text" class="input" placeholder='{{ t("admin.users.new-password") }}'>
+                </div>
+            </div>
+            <div class="panel-block columns" style="height: 50px;">
+                <div class="column is-one-quarter text-nowrap is-flex is-align-items-center gap-2">
+                    <i class="fas fa-ban" aria-hidden="true"></i>
+                    {{ t("admin.users.legality") }}
+                </div>
+                <div class="column">
+                    <div class="select w-100">
+                        <select name="legality" class="w-100">
+                            <option value="unrestricted">{{ t("admin.users.unrestricted") }}</option>
+                            {% if search_data.priv == 2 %}
+                            <option value="restricted" selected>{{ t("admin.users.restricted") }}</option>
+                            {% endif %}
+                            {% if search_data.priv != 2 %}
+                            <option value="restricted">{{ t("admin.users.restricted") }}</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-block pb-4">
+                <div style="margin-left: auto;"></div>
+                <button type="submit" form="edit-user" style="margin-right: 1em; width: 100px;"
+                    class="button is-primary">{{ t("admin.users.update") }}</button>
+            </div>
+        </article>
+    </div>
+</form>
+{% endblock content %}

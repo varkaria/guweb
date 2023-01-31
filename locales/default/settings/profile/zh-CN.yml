@@ -1,0 +1,8 @@
+no-changes-have-been-made: 没有任何改变
+username-changes-supporter-only: 用户名更改功能目前是支持者的福利
+new-username-is-invalid: 你的新用户名格式有误
+new-username-cannot-contains-both-dash-and-space: 你的新用户名不能同时存在"_"(下划线)和" "(空格)字符
+new-username-disallowed: 你的新用户名不允许被使用, 再想一个新名字吧
+new-username-already-taken-by-others: 你的新用户名已经被其它用户使用
+new-email-is-invalid: 你的新邮箱格式有误
+succeed-please-login-again: 你的用户名或者邮箱地址被修改了!请重新登录

@@ -1,29 +1,29 @@
 {% extends 'base.html' %}
-{% block title %} Avatar {% endblock %}
+{% block title %} {{ t('settings.avatar') }} {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="/static/css/pages/settings/style.css">
+<link rel="stylesheet" href="/static/css/pages/settings/style.css?v={{ appVersion() }} ">
 
 <div class="main-block">
   {% include "settings/sidebar.html" %}
   <div class="block-content right" id="settings-content">
     <div class="single-right-block">
       <div class="right-block-header">
-        Customisation
+          {{ t('settings.customization') }}
       </div>
       <div class="right-block-content">
         <div class="flex avatar-flex">
           <div class="column">
             <form id="upload-profile" action="/settings/custom" method="post" enctype="multipart/form-data">
               <div class="single-block-content avatar-block-content mb-6">
-                <h4 class="mb-4">Banner</h4>
-                <div class="subtitle">Recommend with 1440x262 pixels with GIF, PNG, JPG, JPEG</div>
+                <h4 class="mb-4">{{ t('settings.banner') }}</h4>
+                <div class="subtitle">{{ t('settings.banner-description') }}</div>
                 <div class="buttons margin-top" id="selection">
                   <label class="file-label">
                     <input class="file-input" id="file-bn" type="file" name="banner">
                     <span class="file-cta">
                       <span class="file-label">
-                        Choose file
+                        {{ t('settings.choose-file') }}
                       </span>
                       <span class="file-icon">
                         <i class="fa fa-upload"></i>
@@ -33,16 +33,16 @@
                 </div>
               </div>
               <div class="single-block-content avatar-block-content">
-                <h4 class="mb-4">Profile Background</h4>
+                <h4 class="mb-4">{{ t('settings.profile-background') }}</h4>
                 <div class="subtitle">
-                  Recommend with 16:9 ratio with PNG, JPG, JPEG
+                    {{ t('settings.profile-background-description') }}
                 </div>
                 <div class="buttons margin-top" id="selection">
                   <label class="file-label">
                     <input class="file-input" id="file-bg" type="file" name="background">
                     <span class="file-cta">
                       <span class="file-label">
-                        Choose file
+                        {{ t('settings.choose-file') }}
                       </span>
                       <span class="file-icon">
                         <i class="fa fa-upload"></i>
@@ -52,12 +52,12 @@
                 </div>
               </div>
               <div class="custom-button buttons mt-6">
-                <button class='button is-primary' type='submit'><span class='icon is-small'><i class='fas fa-check'></i></span><span>Save</span></button>
+                <button class='button is-primary' type='submit'><span class='icon is-small'><i class='fas fa-check'></i></span><span>{{ t('settings.save') }}</span></button>
               </div>
             </form>
           </div>
           <div class="column">
-            <h4 class="mb-4">Preview</h4>
+            <h4 class="mb-4">{{ t('settings.preview') }}</h4>
             <div class="preview-block" id="avatar">
               <div class="top-block" {% if customizations['banner'] == True %}style="background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url(/profbanner/{{ session['user_data']['id'] }}); background-size: cover"{% endif %}></div>
               <div class="bottom-block">
@@ -77,24 +77,24 @@
   <script>
     $("#file-bg")
       .change(function (e) {
-        var f = e.target.files;
+        const f = e.target.files;
         if (f.length < 1) {
           return;
         }
-        var u = window.URL.createObjectURL(f[0]);
-        var i = $("body")[0];
+        const u = window.URL.createObjectURL(f[0]);
+        const i = $("body")[0];
         i.src = u;
         $('body').css({'background': `linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url(${i.src})`, 'background-size': 'cover'})
       });
 
       $("#file-bn")
       .change(function (e) {
-        var f = e.target.files;
+        const f = e.target.files;
         if (f.length < 1) {
           return;
         }
-        var u = window.URL.createObjectURL(f[0]);
-        var i = $(".top-block")[0];
+        const u = window.URL.createObjectURL(f[0]);
+        const i = $(".top-block")[0];
         i.src = u;
         $('.top-block').css({'background': `linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url(${i.src})`, 'background-size': 'cover'})
       });
@@ -109,16 +109,16 @@
       <div class='noti-col noti-col-label'>
         <div class='noti-bannertype'>
           {% if status=='error' %}
-          Warning
+            {{ t('global.bannertype-error') }}
           {% elif status=='success' %}
-          Notice
+            {{ t('global.bannertype-success') }}
           {% endif %}
         </div>
         <div class='noti-bannertext'>
           {% if status=='error' %}
-          Uh oh! Be careful!
+          {{ t('global.bannertext-error') }}
           {% elif status=='success' %}
-          Hey! Listen!
+          {{ t('global.bannertype-success') }}
           {% endif %}
         </div>
       </div>

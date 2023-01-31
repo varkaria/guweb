@@ -1,0 +1,21 @@
+welcome-to-users-panel: 欢迎来到用户管理面板
+search: 搜索
+id: ID
+flag-or-username: 地区 | 用户名
+privilege: 权限组
+last-login: 最近登录
+joined-at: 加入于
+client-channel: 客户端频道
+email: 邮箱
+ip: IP
+edit: 修改
+edit-info-of: "修改 %{name} 的信息:"
+username: 用户名
+country: 地区
+legality: 封禁状态
+unrestricted: 未封禁
+restricted: 封禁
+update: 更新
+search-by-username-or-email: 根据 用户名 或 邮箱 进行搜索
+password: 密码
+new-password: 请输入新密码

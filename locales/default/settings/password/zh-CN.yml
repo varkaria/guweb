@@ -1,0 +1,6 @@
+new-passoword-mismatch-repeated-password: 你的新密码与确认密码不符
+new-passoword-cannot-be-same-as-old-password: 你的新密码不能是旧密码
+must-between-8-32-characters-in-length: 你的新密码只能在8到32个字符之间
+must-have-more-than-3-unique-characters: 你的新密码必须包含三个以上的特殊字符
+too-simple: 你的新密码看上去太简单了
+old-password-incorrect: 你的旧密码有误

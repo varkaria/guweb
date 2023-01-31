@@ -1,0 +1,26 @@
+avatar: 头像
+avatar-description: 我们建议至少上传分辨率为 512x512 (或者长宽比为 1:1)的PNG或JPG图片. 并且图片大小低于5MB
+choose-file: 选择一张图片
+save: 保存
+preview: 预览
+customization: 个性化
+banner: 背景横幅
+banner-description: 建议上传分辨率为 1440x262 的 GIF, PNG, JPG, JPEG 等四种格式的图片
+profile-background: 资料背景
+profile-background-description: 建议上传长宽比为 16:9  的 PNG, JPG, JPEG 格式的图片
+password__literal: 密码
+password-change: 更改密码
+old-password: 旧密码
+new-password: 新密码
+repeat-password: 确认新密码
+profile__literal: 玩家资料
+user-information: 用户信息
+username: 你的用户名
+settings: 设置
+bad-image-extension: 你选择的%{something}必须是 .jpg .jpeg .png 这三种文件之一
+change-succeed: 你的 %{something}已经修改成功!
+no-image-was-selected: 请选择一张图片
+about-me: 个人介绍
+about-me-title: 编辑个人介绍
+avatar-title: 上传头像
+api-key: API 秘钥

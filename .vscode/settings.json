@@ -1,0 +1,64 @@
+{
+  "i18n-ally.namespace": true,
+  "i18n-ally.pathMatcher": "{namespaces}/{locale}.{ext}",
+  "i18n-ally.localesPaths": ["locales/default", "locales/ppy.sb"],
+  "i18n-ally.extract.keygenStyle": "kebab-case",
+  "i18n-ally.translate.engines": ["google"],
+  "i18n-ally.extract.keyMaxLength": 50,
+  "i18n-ally.extract.parsers.html": {
+    "attributes": [
+      "text",
+      "title",
+      "alt",
+      "placeholder",
+      "label",
+      "aria-label",
+      "content",
+      "empty-text",
+      "prev-text",
+      "next-text",
+      "confirmText",
+      "range-separator",
+      "start-placeholder",
+      "end-placeholder"
+    ],
+    "ignoredTags": ["script", "style"],
+    "vBind": true,
+    "inlineText": true
+  },
+  "i18n-ally.extract.autoDetect": true,
+  // Make sure that particular refactoring templates would be picked up be the bulk extraction depending on the context
+  "i18n-ally.refactor.templates": [
+    {
+      // affect scope (optional)
+      // see https://github.com/lokalise/i18n-ally/blob/master/src/core/types.ts#L156-L156
+      "source": "html-inline",
+      "templates": ["t('{key}'{args})", "t(\"{key}\"{args})"],
+      // accept globs, resolved to project root (optional)
+      "include": ["templates/**/*.html"]
+    },
+    {
+      "templates": ["t('{key}'{args})", "t(\"{key}\"{args})"],
+      "include": ["blueprints/**/*.py", "objects/**/*.py", "constants/**/*.py"]
+    }
+    // ...
+  ],
+  "i18n-ally.keystyle": "nested",
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": ".(yml|yaml)$",
+        "cmd": "yarn i18n:build"
+      },
+      {
+        "match": ".html$",
+        "cmd": "yarn i18n:format:templates"
+      }
+    ]
+  },
+  "files.associations": {
+    "*.html": "jinja-html"
+  },
+  "python.formatting.provider": "black",
+  "githubPullRequests.ignoredPullRequestBranches": ["main"]
+}

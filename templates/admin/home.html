@@ -1,60 +1,71 @@
 {% extends 'admin/base.html' %}
 {% block title %} Dashboard {% endblock %}
 {% block header %}
-<script src="/static/js/asserts/vue.js"></script>
-<script src="/static/js/asserts/vue-axios.js"></script>
+<script src="/static/js/assets/vue.js?v={{ appVersion() }} "></script>
+<script src="/static/js/assets/vue-axios.js?v={{ appVersion() }} "></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
 <script>
-    var domain = "{{ domain() }}";
+    window.domain = {{ domain() | JSON }};
 </script>
+<style>
+    .card .title, .card .stat {
+        font-size: 12px
+    }
+</style>
 {% endblock%}
 
 {% block content %}
 
+<div class="columns is-marginless">
+    <div class="column is-paddingless flex-vcenter">
+      <h2 class="section-title">{{ t('admin.base.dashboard') }}</h2>
+      <p class="section-lead">{{ t('admin.base.welcome-to-admin-panel', appName = appName()) }}</p>
+    </div>
+</div>
 <div class="dashboard" id="dashboard">
     <div class="columns is-marginless is-paddingless">
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">total users</div>
+                <div class="title">{{ t('admin.home.total-users') }}</div>
                 <i class="fa fa-users"></i>
                 <div class="value">{{ dashdata['count'] }}</div>
-                <div class="stat">that's a lot of people!</div>
+                <div class="stat">{{ t('admin.home.that-s-a-lot-of-people') }}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">total online</div>
+                <div class="title">{{ t('admin.home.total-online') }}</div>
                 <i class="fa fa-circle"></i>
                 <div class="value">
                     <% online_users %>
                 </div>
-                <div class="stat">rising in popularity are we?</div>
+                <div class="stat">{{ t('admin.home.rising-in-popularity-aren-t-we') }}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">lastest user</div>
+                <div class="title">{{ t('admin.home.latest-user') }}</div>
                 <i class="fa fa-book"></i>
                 <div class="value">{{ dashdata['lastest_user'] }}</div>
-                <div class="stat">latest and greatest! welcome!</div>
+                <div class="stat">{{ t('admin.home.latest-and-greatest-welcome') }}</div>
             </div>
         </div>
         <div class="column is-paddingless p-3">
             <div class="card">
-                <div class="title">total banned</div>
+                <div class="title">{{ t('admin.home.total-banned') }}</div>
                 <i class="fa fa-calendar"></i>
                 <div class="value">{{ dashdata['banned'] }}</div>
-                <div class="stat">naughty naughty :(</div>
+                <div class="stat">{{ t('admin.home.naughty-sad-face') }}</div>
             </div>
         </div>
     </div>
 <div class="columns is-marginless is-paddingless">
     {% if recentusers %}
-    <div class="column is-paddingless m-2 is-3">
+    <div class="column is-paddingless m-1 is-3">
         <div class="recent-beat">
             <div class="columns is-marginless">
                 <div class="column is-paddingless flex-vcenter">
-                    <h2 class="section-title">Recent Users</h2>
+                    <h2 class="section-title">{{ t('admin.home.recent-users') }}</h2>
                 </div>
             </div>
             <div class="blockdata">
@@ -72,10 +83,6 @@
                                 (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
                             </span>
                             <div class="d-flex align-items-baseline">
-                                <span>
-                                {{ timeago.format((datetime.datetime.fromtimestamp(user.latest_activity)),
-                                    (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
-                                </span>
                                 <div class="target-button newmaps-color">
                                     <i class="fa fa-arrow-right"></i>
                                 </div>
@@ -89,11 +96,11 @@
     </div>
     {% endif %}
     {% if recentscores %}
-    <div class="column is-paddingless m-2">
+    <div class="column is-paddingless m-1">
         <div class="recent-beat">
             <div class="columns is-marginless">
                 <div class="column is-paddingless flex-vcenter">
-                    <h2 class="section-title">Recent Score</h2>
+                    <h2 class="section-title">{{ t('admin.home.recent-score') }}</h2>
                 </div>
             </div>
             <div class="blockdata">
@@ -119,8 +126,8 @@
                             <div class="score-details_right-block">
                                 <div class="score-details_pp-block">
                                     <div class="map-pp">
-                                        {{ maps.pp }}<span class="map-pp-unit">pp</span></div>
-                                    <div class="map-acc">accuracy:&nbsp;<b>
+                                        {{ maps.pp }}<span class="map-pp-unit">{{ t('global.pp').upper() }}</span></div>
+                                    <div class="map-acc">{{ t('global.accuracy') }}:&nbsp;<b>
                                         {{ maps.acc }}%
                                         </b></div>
                                 </div>
@@ -142,6 +149,6 @@
     {% endif %}
 </div>
 
-<script src="/static/js/pages/admin/dashboard.js"></script>
+<script src="/static/js/pages/admin/dashboard.js?v={{ appVersion() }} "></script>
 
 {% endblock %}

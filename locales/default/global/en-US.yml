@@ -1,0 +1,59 @@
+sign-up: Sign up
+log-in: Log in
+offline: Offline
+online: Online
+leaderboard: Leaderboard
+login: Login
+profile__literal: Profile
+register: Register
+password: Password
+bannertype-error: Warning
+bannertype-success: Notice
+bannertext-error: uh oh! Be careful!
+bannertext-success: Hey! Listen!
+verify: Verify
+pp: pp
+accuracy: Accuracy
+score: Score
+acc: Acc
+playcount: Play Count
+playtime: Play Time
+max-combo: Max Combo
+mode:
+  vanilla: Vanilla
+  relax: Relax
+  autopilot: Autopilot
+  taiko: osu!taiko
+  osu: osu!
+  catch: osu!catch
+  mania: osu!mania
+  VN: VN
+  RX: RX
+  AP: AP
+ranked-score: Ranked score
+total-score: Total Score
+rank:
+  ss: SS
+  ssh: SS
+  s: S
+  sh: S
+  a: A
+invalid-parameters: Invalid parameters.
+you-are-already-logged-in: You're already logged in!
+you-must-be-logged-in-to-access-this-page: You must be logged in to access this page.
+grade: Grade
+grades-N: "N"
+grades-F: F
+grades-D: D
+grades-C: C
+grades-B: B
+grades-A: A
+grades-S: S
+grades-SH: SH
+grades-X: SS
+grades-XH: SSH
+server: Server
+bancho: Bancho
+ppy-sb: ppy.sb
+akatsuki: Akatsuki
+server-offline: offline

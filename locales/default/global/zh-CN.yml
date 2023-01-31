@@ -1,0 +1,59 @@
+sign-up: 注册
+log-in: 登录
+offline: 离线
+online: 在线
+leaderboard: 排行榜
+login: 登录
+profile__literal: 用户信息
+register: 注册
+bannertype-success: 操作成功
+bannertype-error: 出错了
+bannertext-error: 下次注意点
+bannertext-success: 暂时没什么问题
+verify: 验证
+acc: Acc
+accuracy: 准确度
+max-combo: 最大连击
+mode:
+  AP: AP
+  RX: RX
+  VN: VN
+  autopilot: Autopilot
+  catch: osu!接水果
+  mania: osu!面条
+  osu: osu!
+  relax: Relax
+  taiko: osu!太鼓
+  vanilla: Vanilla
+playcount: 游玩次数
+playtime: 游玩时间
+pp: pp
+rank:
+  a: A
+  s: S
+  sh: S
+  ss: SS
+  ssh: SS
+score: 分数
+total-score: 总分
+ranked-score: 记分总分
+password: 密码
+invalid-parameters: 请输入用户名密码以及邮箱
+you-are-already-logged-in: 你已经登录啦!
+you-must-be-logged-in-to-access-this-page: 你必须登录了才能访问该页面
+grade: 评分
+grades-N: "N"
+grades-F: F
+grades-D: D
+grades-C: C
+grades-B: B
+grades-A: A
+grades-S: S
+grades-SH: SH
+grades-X: SS
+grades-XH: SSH
+server: 服务器
+bancho: Bancho
+ppy-sb: ppy.sb
+akatsuki: Akatsuki
+server-offline: 离线

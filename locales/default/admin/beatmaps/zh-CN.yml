@@ -1,0 +1,29 @@
+welcome-to-beatmaps-panel: 欢迎来到谱面管理面板
+total-beatmaps: 谱面总数量
+thats-a-lot-of-maps: 那可真是不少图呀!
+ranked: Ranked
+these-maps-can-gain-many-pp: 这些图能刷到许多pp
+loved: Loved
+we-loved-them-so-much: 我们都"爱"它
+pending: Pending
+they-are-also-good-maps: 它们仍然是张好图
+search: 搜索
+beatmap: 谱面
+cs-keys: CS / Keys
+ar: AR
+hp: HP
+od: OD
+bpm: BPM
+stars: Stars
+status: 状态
+edit-status: 修改状态
+ranked-diff: 将该难度设置为 Ranked 状态
+loved-diff: 将该难度设置为 Loved 状态
+approved-diff: 将该难度设置为 Approved 状态
+pending-diff: 将该难度设置为 Pending 状态
+ranked-set: 将整个谱面设置为 Ranked 状态
+loved-set: 将整个谱面设置为 Loved 状态
+approved-set: 将整个谱面设置为 Approved 状态
+pending-set: 将整个谱面设置为 Pending 状态
+update-maps: 强制更新谱面
+search-by-bid-sid-or-title: 根据 bid, sid 或者是 谱面名字 进行搜索

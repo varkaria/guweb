@@ -1,0 +1,69 @@
+{% extends 'admin/base.html' %} {% block header %}
+<style>
+  .text-nowrap {
+    white-space: nowrap;
+  }
+  .rounded {
+    border-radius: 0.5rem;
+  }
+  .d-flex {
+    display: flex;
+  }
+  .gap-2 {
+    grid-gap: 1em 1em;
+  }
+</style>
+{% endblock %} {% block title %} Restrictions {% endblock %} {% block content %}
+<div class="columns is-marginless">
+  <div class="column is-paddingless flex-vcenter">
+    <h2 class="section-title">{{ t("admin.base.restrictions") }}</h2>
+    <p class="section-lead">
+      {{ t("admin.restrictions.welcome-to-restrictions-panel") }}
+    </p>
+  </div>
+</div>
+<div class="table-responsive pt-4">
+  <table class="table table-vcenter text-nowrap datatable rounded">
+    <thead>
+      <tr>
+        <th class="has-text-right">{{ t("admin.users.id") }}</th>
+        <th>{{ t("admin.users.flag-or-username") }}</th>
+        <th class="has-text-centered">{{ t("admin.restrictions.details") }}</th>
+        <th class="has-text-centered">{{ t("admin.restrictions.date") }}</th>
+        <th class="has-text-centered">{{ t("admin.restrictions.action") }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in query_data %}
+      <tr>
+        <td class="has-text-right">{{ i.id }}</td>
+        <td class="td-truncate text-nowrap">
+          <img
+            src="/static/images/flags/{{ i.country|upper }}.png"
+            class="profile-flag"
+            style="
+              width: 25px;
+              height: 17px;
+              -webkit-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.63);
+              box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+            "
+          />
+          <a class="ml-2" href="/u/{{ i.id }}">{{ i.name }}</a>
+        </td>
+        <td>{% if i.msg %}{{ i.msg }} {% else %} - {% endif %}</td>
+        <td class="has-text-centered">
+          {% if i.time %}{{ i.time }} {% else %} - {% endif %}
+        </td>
+        <td>
+          <a class="btn text-nowrap" href="/admin/user/{{ i.id }}/edit">
+            <i class="far fa-edit" aria-hidden="true"></i> {{
+            t("admin.users.edit") }}
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

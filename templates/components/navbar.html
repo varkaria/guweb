@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    window.domain = {{ domain() | JSON }}
+</script>
 <nav id="navbar" class="navbar is-primary">
     <div class="navbar-brand">
         <a class="navbar-item navbar-logo" href="/home">
@@ -14,39 +17,64 @@
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="/home">
-                Home
+                {{ t('navbar.home') }}
             </a>
 
             <a class="navbar-item" href="/leaderboard">
-                Leaderboards
+                {{ t('navbar.leaderboards') }}
             </a>
 
-            <!--<div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    Information
-                </a>
-                <div class="navbar-dropdown">
-                    <a class="navbar-item" href="/doc/rules">
-                        Rules
-                    </a>
-                    <a class="navbar-item" href="/discord">
-                        Discord
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" href="https://github.com/varkaria/guweb/issues/new">
-                        Report an issue
-                    </a>
-                </div>
-            </div>-->
 
             {% if session.authenticated and session.user_data['is_staff'] %}
-            <a class="navbar-item" href="/admin">
-                Admin
-            </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="/admin">
+                    {{ t('navbar.admin') }}
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/admin/dashboard">
+                        {{ t('admin.base.dashboard') }}
+                    </a>
+                    <a class="navbar-item" href="/admin/users">
+                        {{ t("admin.base.users") }}
+                    </a>
+                    <a class="navbar-item" href="/admin/restrictions">
+                        {{ t("admin.base.restrictions") }}
+                    </a>
+                    <a class="navbar-item" href="/admin/beatmaps">
+                        {{ t("admin.base.beatmaps") }}
+                    </a>
+                </div>
+            </div>
             {% endif %}
         </div>
 
         <div class="navbar-end">
+            <div class="navbar-item has-dropdown is-hoverable" style="align-items: center;">
+                <div class="navbar-search">
+                    <input autocomplete="off" type="text" placeholder='{{ t("navbar.looking-for-someone") }}'
+                        id="u-search" oninput="searchUser()">
+                </div>
+                <div id="u-search-content" class="navbar-dropdown" style="display: none;">
+                </div>
+            </div>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <i style="display: flex;" class="fa fa-globe navbar-link"></i>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/language/zh_CN{{ request.path }}">
+                        <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/CN.png">
+                        简体中文
+                    </a>
+                    <a class="navbar-item" href="/language/en_US{{ request.path }}">
+                        <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/US.png">
+                        English - US
+                    </a>
+                    <a class="navbar-item" href="/language/en_GB{{ request.path }}">
+                        <img style="size: 20px; margin-right: 5px;" src="/static/images/flags/GB.png">
+                        English - Global
+                    </a>
+                </div>
+            </div>
+
             {% if session.authenticated %}
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
@@ -54,26 +82,26 @@
                 </a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" href="/u/{{ session.user_data['id'] }}">
-                        Profile
+                        {{ t('navbar.profile') }}
                     </a>
                     <a class="navbar-item" href="/settings">
-                        Settings
+                        {{ t('navbar.settings') }}
                     </a>
                 </div>
             </div>
             <div class="navbar-item">
                 <a class="button is-light" href="/logout">
-                    Logout
+                    {{ t('navbar.logout') }}
                 </a>
             </div>
             {% else %}
             <div class="navbar-item">
                 <div class="buttons">
                     <a class="button is-primary" href="/register">
-                        <strong>Sign up</strong>
+                        <strong>{{ t('global.sign-up') }}</strong>
                     </a>
                     <a class="button is-light" href="/login">
-                        Log in
+                        {{ t('global.log-in') }}
                     </a>
                 </div>
             </div>

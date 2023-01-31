@@ -1,0 +1,12 @@
+dashboard: Dashboard
+admin: Admin
+admin-panel: '%{appName} Admin Panel'
+welcome-to-admin-panel: Welcome to %{appName} admin panel!
+github: GitHub
+discord: Discord
+youtube: YouTube
+twitter: Twitter
+instagram: Instagram
+users: Users
+restrictions: Restrictions
+beatmaps: Beatmaps

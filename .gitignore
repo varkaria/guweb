@@ -139,7 +139,19 @@ cython_debug/
 
 # Project specific
 config.py
-.vscode/
 .data/*
 !.data/backgrounds/.gitkeep
 !.data/banners/.gitkeep
+
+node_modules/
+package-lock.json
+yarn.lock
+
+.vscode/launch.json
+
+# js utils config
+config.js
+# compiled locales
+.locales
+
+.DS_Store
