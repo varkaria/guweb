@@ -86,7 +86,7 @@ button:focus{
     padding: 2.25rem 1.75rem;
 }
 
-input.input {
+input.input, select.input {
     height: 46px;
 }
 

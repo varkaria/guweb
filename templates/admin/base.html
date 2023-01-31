@@ -2,7 +2,7 @@
 
 <head>
   <!-- title -->
-  <title>{{ appName() }} - Admin - {% block title %}{% endblock %}</title>
+  <title>{{ appName() }} - Administração - {% block title %}{% endblock %}</title>
 
   <!-- favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
@@ -47,10 +47,10 @@
       <div class="colmun">
         <div class="sidebar">
           <div id="style-3" class="sidebar-wrapper">
-            <div class="logo"><a class="simple-text logo-normal">{{ appName() }} Admin Panel</a></div>
+            <div class="logo"><a class="simple-text logo-normal">{{ appName() }} Painel de ADM</a></div>
             <ul class="nav">
               <li class="nav-item"><a class="nav-link"><span class="icon"><i class="fa fa-home"></i></span> <span
-                    class="name">Dashboard</span></a></li>
+                    class="name">Painel de Controle</span></a></li>
             </ul>
           </div>
         </div>
@@ -59,12 +59,12 @@
         <div class="main-content">
           <div class="columns is-marginless">
             <div class="column is-paddingless is-avatar">
-              <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
+              <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}?{{ get_img_subn() }}"
                 onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
             </div>
             <div class="column is-paddingless flex-vcenter">
-              <h2 class="section-title">Dashboard</h2>
-              <p class="section-lead">Welcome to {{ appName() }} admin panel!</p>
+              <h2 class="section-title">Painel de controle</h2>
+              <p class="section-lead">Bem vindo ao painel de controle do {{ appName() }}!</p>
             </div>
           </div>
           <section class="section">

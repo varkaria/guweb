@@ -55,6 +55,7 @@ python3.9 -m pip install -r ext/requirements.txt
 
 # Add and configure guweb's NGINX config to your nginx/sites-enabled.
 sudo ln -r -s ext/nginx.conf /etc/nginx/sites-enabled/guweb.conf
+sudo ln -r -s ext/cloudflare.conf /etc/nginx/sites-enabled/cloudflare.conf # if using cloudflare to fix country detection
 sudo nano ext/nginx.conf
 sudo nginx -s reload
 

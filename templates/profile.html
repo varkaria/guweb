@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Profile {% endblock %}
+{% block title %}{{ user['name'] }} · informações do jogador{% endblock %}
 
 {% macro scores(title, id) %}
 <div class="log-block" v-bind:class="{ 'load' : data.scores.{{ id }}.load }">
@@ -19,16 +19,18 @@
                     </div>
                     <div class="map-title-block">
                         <div class="map-title">
-                            <a class="beatmap-link">
-                                <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>] <!--<span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>-->
+                            <a class="beatmap-link"
+                                :href="`https://${domain}/beatmapsets/${map.beatmap.set_id}/${ModeIntToStr(map.beatmap.mode)}/${map.beatmap.id}`">
+                                <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>]
                             </a>
+                            <span>+ <% modsStr(map.mods) %></span>
                         </div>
                         <div class="play-stats">
                             <% addCommas(map.score) %> / <% map.max_combo %><b>x</b>
                         </div>
                         <div class="map-date">
                             <time>
-                                <% timeago.format(map.play_time) %>
+                                <% timeago.format(new Date(map.play_time) - ((new Date()).getTimezoneOffset()*60*1000)) %>
                             </time>
                         </div>
                     </div>
@@ -40,7 +42,7 @@
                                 <div class="map-pp">
                                     <% map.pp.toFixed() %><span class="map-pp-unit">pp</span>
                                 </div>
-                                <div class="map-acc">accuracy:&nbsp;<b>
+                                <div class="map-acc">precisão:&nbsp;<b>
                                         <% map.acc.toFixed(2) %>%
                                     </b></div>
                             </div>
@@ -63,13 +65,13 @@
                 <h1 class="title">: (</h1>
             </div>
             <div class="column">
-                <h1 class="title is-6">No scores available</h1>
-                <p class="subtitle is-7">Try playing something?</p>
+                <h1 class="title is-6">Sem pontuações disponíveis.</h1>
+                <p class="subtitle is-7">Vai jogar o jogo! </p>
             </div>
         </div>
     </div>
     <div v-if="data.scores.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button" @click="AddLimit('{{ id }}score')">Show more</a>
+        <a class="show-button" @click="AddLimit('{{ id }}score')">Ver mais</a>
     </div>
 </div>
 {% endmacro %}
@@ -78,7 +80,7 @@
 <div class="log-block" v-bind:class="{ 'load' : data.maps.{{ id }}.load }">
     <div class="header">
         <div class="title">
-            <i class="fas fa-address-book"></i> Most Played Beatmaps
+            <i class="fas fa-address-book"></i> Beatmaps Mais Jogados
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.out.length != 0" class="beatmaps">
@@ -87,7 +89,7 @@
                 v-bind:style='{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }'>
             </div>
             <div class="beatmap-stats"><span class="beatmap-title">
-                    <% map.title %>
+                    <% map.title %> [<% map.version %>]
                 </span> <span class="beatmap-artist">
                     <% map.artist %>
                 </span>
@@ -111,13 +113,13 @@
                 <h1 class="title">: (</h1>
             </div>
             <div class="column">
-                <h1 class="title is-6">No beatmaps available</h1>
-                <p class="subtitle is-7">Try playing something?</p>
+                <h1 class="title is-6">Sem pontuações disponíveis.</h1>
+                <p class="subtitle is-7">Vai jogar o jogo! </p>
             </div>
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button" @click="AddLimit('mostplay')">Show more</a>
+        <a class="show-button" @click="AddLimit('mostplay')">Ver mais</a>
     </div>
 </div>
 {% endmacro %}
@@ -129,10 +131,24 @@
 <link rel="stylesheet" href="/static/css/pages/profile.css">
 
 <script>
+
     var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
     var mode = '{{ mode }}';
     var mods = '{{ mods }}';
     var domain = "{{ domain() }}";
+
+    function ModeIntToStr(integer) {
+        switch (integer) {
+            case 0:
+                return "std"
+            case 1:
+                return "taiko"
+            case 2:
+                return "catch"
+            case 3:
+                return "mania"
+        }
+    }
 </script>
 {% endblock %}
 
@@ -149,10 +165,10 @@
                 </h1>
                 <transition name="fade">
                     <div class="subtitle" v-if='data.status.online == false'>
-                        <a class='circle'>●</a> Offline
+                        <a class='circle'>●</a> Desconectado
                     </div>
                     <div class="subtitle" v-else-if='data.status.online == true'>
-                        <a class='circle green'>●</a> Online
+                        <a class='circle green'>●</a> Conectado
                     </div>
                 </transition>
             </div>
@@ -170,7 +186,7 @@
         </div>
         <div class="profile-flex">
             <div class="profile-avatar-area">
-                <img src="https://a.{{ domain() }}/{{ user['id'] }}" alt="avatar" class="rounded-avatar profile-avatar"
+                <img src="https://a.{{ domain() }}/{{ user['id'] }}?{{ get_img_subn() }}" alt="avatar" class="rounded-avatar profile-avatar"
                     onError="this.src='/static/images/avatar_notwork.png';">
             </div>
             <div class="bar-selection mode-selects">
@@ -201,9 +217,7 @@
                 </div>
             </div>
             <div class="bar-selection badge-selects">
-                <span>
-                    Badges not yet implemented!
-                </span>
+                
             </div>
         </div>
     </div>
@@ -239,7 +253,7 @@
                 </div>-->
                 <div class="header">
                     <div class="title">
-                        <i class="fas fa-chart-pie"></i> Statistics
+                        <i class="fas fa-chart-pie"></i> Estatísticas
                     </div>
                 </div>
                 <div class="stats-block">
@@ -252,37 +266,37 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Ranked score</b></td>
+                                <td><b>Pontuação ranqueada</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].rscore) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Total score</b></td>
+                                <td><b>Pontuação Total</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].tscore) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Max combo</b></td>
+                                <td><b>Combo máximo</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].max_combo) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Playcount</b></td>
+                                <td><b>Vezes jogadas</b></td>
                                 <td class="right-aligned">
                                     <% addCommas(data.stats.out[modegulag].plays) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Playtime</b></td>
+                                <td><b>Tempo de jogo</b></td>
                                 <td class="right-aligned">
                                     <% secondsToDhm(data.stats.out[modegulag].playtime) %>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Accuracy</b></td>
+                                <td><b>Precisão</b></td>
                                 <td class="right-aligned">
                                     <% data.stats.out[modegulag].acc %>%
                                 </td>
@@ -330,7 +344,7 @@
                         </article>
                     </div>
                 </div>
-                <!--<div class="level-block">
+                <div class="level-block">
                     <div class="columns is-marginless is-2">
                         <div class="column level-bar is-paddingless">
                             <div class="progress-level"></div>
@@ -339,12 +353,12 @@
                             <% data.stats[`level_${modegulag}`] %>
                         </div>
                     </div>
-                </div>-->
+                </div>
             </div>
             <div class="column">
-                {{ scores('Best Scores', 'best')}}
-                {{ scores('Recent Scores', 'recent')}}
-                {{ maps('Most Beatmaps Played', 'most')}}
+                {{ scores('Melhores Pontuações', 'best')}}
+                {{ scores('Pontuações Recentes', 'recent')}}
+                {{ maps('Beatmaps Mais Jogados', 'most')}}
             </div>
         </div>
     </div>
@@ -356,18 +370,18 @@
 {% if user['customisation']['banner'] == True or user['customisation']['background'] == True %}
 <style>
     {% if user['customisation']['banner'] == True %}
-        .profile-bg {
-            min-height: 262px;
-            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/banners/{{ user['id'] }}");
-            background-size: cover;
-        }
+    .profile-bg {
+        min-height: 262px;
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/banners/{{ user['id'] }}?{{ get_img_subn() }}");
+        background-size: cover;
+    }
     {% endif %}
     {% if user['customisation']['background'] == True %}
-        body {
-            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ user['id'] }}");
-            background-size: cover;
-            background-clip: content-box;
-        }
+    body {
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ user['id'] }}?{{ get_img_subn() }}");
+        background-size: cover;
+        background-clip: content-box;
+    }
     {% endif %}
 </style>
 {% endif %}

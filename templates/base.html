@@ -2,7 +2,7 @@
 
 <head>
   <!-- Title -->
-  <title>{{ appName() }} - {% block title %}{% endblock %}</title>
+  <title>{% block title %}{% endblock %} | {{ appName() }}</title>
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
@@ -25,6 +25,7 @@
 
   <!-- Bulma -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/HakuraSukinoe/bulma-hsl/bulma.min-v7.css" />
+  <style>html {--main: 218;}</style>
 
   <!-- Font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />

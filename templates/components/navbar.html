@@ -14,11 +14,11 @@
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="/home">
-                Home
+                Página Inicial
             </a>
 
             <a class="navbar-item" href="/leaderboard">
-                Leaderboards
+                Classificação
             </a>
 
             <!--<div class="navbar-item has-dropdown is-hoverable">
@@ -41,7 +41,7 @@
 
             {% if session.authenticated and session.user_data['is_staff'] %}
             <a class="navbar-item" href="/admin">
-                Admin
+                Administração
             </a>
             {% endif %}
         </div>
@@ -54,26 +54,26 @@
                 </a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" href="/u/{{ session.user_data['id'] }}">
-                        Profile
+                        Perfil
                     </a>
                     <a class="navbar-item" href="/settings">
-                        Settings
+                        Configurações
                     </a>
                 </div>
             </div>
             <div class="navbar-item">
                 <a class="button is-light" href="/logout">
-                    Logout
+                    Encerrar sessão
                 </a>
             </div>
             {% else %}
             <div class="navbar-item">
                 <div class="buttons">
                     <a class="button is-primary" href="/register">
-                        <strong>Sign up</strong>
+                        <strong>Cadastrar-se</strong>
                     </a>
                     <a class="button is-light" href="/login">
-                        Log in
+                        Fazer login
                     </a>
                 </div>
             </div>

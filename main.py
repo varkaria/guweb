@@ -4,6 +4,9 @@
 __all__ = ()
 
 import os
+import blueprints.frontend as bf
+import locale
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 import aiohttp
 import orjson
@@ -57,6 +60,14 @@ def captchaKey() -> str:
 @app.template_global()
 def domain() -> str:
     return glob.config.domain
+
+@app.template_global()
+def beatmap_download_mirror() -> str:
+    return glob.config.beatmap_download_mirror
+
+@app.template_global()
+def get_img_subn() -> int:
+    return bf.get_img_counter()[0]
 
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)

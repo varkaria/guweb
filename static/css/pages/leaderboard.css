@@ -213,6 +213,16 @@ table th {
   opacity: 1;
 }
 
+.simple-banner-select {
+  cursor: pointer;
+  opacity: 1;
+  background:none; 
+  border:none; 
+  background-color:hsl(var(--main), 30%, 50%); 
+  color:white;
+  outline: none;
+}
+
 .mode-select.active,
 .simple-banner-switch.active {
   border-bottom-width: 6px;

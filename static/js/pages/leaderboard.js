@@ -8,36 +8,42 @@ new Vue({
             mode : 'std',
             mods : 'vn',
             sort : 'pp',
+            state: 'global',
             load : false,
             no_player : false, // soon
         };
     },
     created() {
-        this.LoadData(mode, mods, sort);
-        this.LoadLeaderboard(sort, mode, mods);
+        this.LoadData(mode, mods, sort, state);
+        this.LoadLeaderboard(sort, mode, mods, state);
     },
     methods: {
-        LoadData(mode, mods, sort) {
+        LoadData(mode, mods, sort, state) {
             this.$set(this, 'mode', mode);
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
+            this.$set(this, 'state', state);
         },
-        LoadLeaderboard(sort, mode, mods) {
+        LoadLeaderboard(sort, mode, mods, state) {
             if (window.event)
                 window.event.preventDefault();
 
-            window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}`);
             this.$set(this, 'mode', mode);
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
+            this.$set(this, 'state', state);
             this.$set(this, 'load', true);
             this.$axios.get(`${window.location.protocol}//api.${domain}/v1/get_leaderboard`, { params: {
                 mode: this.StrtoGulagInt(),
-                sort: this.sort
-            }}).then(res => {
+                sort: this.sort,
+                ...(this.state !== "global" ? {country: this.state} : {} )
+            }
+
+            this.$axios.get(`${window.location.protocol}//api.${domain}/get_leaderboard`, { params }).then(res => {
                 this.boards = res.data.leaderboard;
                 this.$set(this, 'load', false);
             });
+            window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}/${this.state}`);
         },
         scoreFormat(score) {
             var addCommas = this.addCommas;
