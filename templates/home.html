@@ -37,7 +37,7 @@
 {% endif %}
 
 <script>
-const total = fetch('https://api.fubi.ca/get_player_count').then((res) => res.json()).then(data => {
+const total = fetch('https://api.fubi.ca/get_player_count/v1').then((res) => res.json()).then(data => {
     document.getElementById('total-users').append(data.counts.total);
     document.getElementById('online-users').append(data.counts.online);
   });
