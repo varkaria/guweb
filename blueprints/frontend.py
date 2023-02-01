@@ -143,6 +143,7 @@ async def settings_avatar():
 @login_required
 async def settings_avatar_post():
     # constants
+    MAX_IMAGE_SIZE = glob.config.max_image_size * 1024 * 1024
     AVATARS_PATH = f'{glob.config.path_to_gulag}.data/avatars'
     ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png']
 
@@ -157,6 +158,10 @@ async def settings_avatar_post():
     # bad file extension; deny post
     if not file_extension in ALLOWED_EXTENSIONS:
         return await flash('error', 'A imagem deve estar no formato de arquivo .JPG, .JPEG, ou .PNG!', 'settings/avatar')
+    
+    # check file size of avatar
+    if avatar.content_length > MAX_IMAGE_SIZE:
+        return await flash('error', 'A imagem que você escolheu é grande demais!', 'settings/avatar')
 
     # remove old avatars
     for fx in ALLOWED_EXTENSIONS:
