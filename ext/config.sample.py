@@ -17,6 +17,9 @@ beatmap_download_mirror = ""
 # domain (used for api, avatar, etc)
 domain = 'gulag.ca'
 
+# max image size for avatars, in megabytes
+max_image_size = 2
+
 # mysql credentials
 mysql = {
     'db': 'gulag',
