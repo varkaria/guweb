@@ -8,6 +8,7 @@
 /* layout */
 
 body {
+  background-color: hsl(var(--main), 10%, 15%);
   display: flex;
   flex-direction: column;
   height: 100%;
