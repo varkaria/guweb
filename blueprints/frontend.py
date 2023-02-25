@@ -198,7 +198,7 @@ async def settings_custom_post():
         if not file_extension in ALLOWED_EXTENSIONS:
             return await flash_with_customizations('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
-        banner_file_no_ext = os.path.join(f'.data/banners', f'{session["user_data"]["id"]}')
+        banner_file_no_ext = os.path.join(f'{glob.config.path}.data/banners', f'{session["user_data"]["id"]}')
 
         # remove old picture
         for ext in ALLOWED_EXTENSIONS:
@@ -213,7 +213,7 @@ async def settings_custom_post():
         if not file_extension in ALLOWED_EXTENSIONS:
             return await flash_with_customizations('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
-        background_file_no_ext = os.path.join(f'.data/backgrounds', f'{session["user_data"]["id"]}')
+        background_file_no_ext = os.path.join(f'{glob.config.path}.data/backgrounds', f'{session["user_data"]["id"]}')
 
         # remove old picture
         for ext in ALLOWED_EXTENSIONS:
