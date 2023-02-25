@@ -39,6 +39,18 @@ def login_required(func):
         return await func(*args, **kwargs)
     return wrapper
 
+@frontend.route('/in-future')
+async def in_future():
+    return await render_template(
+        'in-future.html',
+        title=f'o/'
+    )
+
+@frontend.route('/team')
+@frontend.route('/status')
+async def in_future_redirect():
+    return redirect('/in-future')
+
 @frontend.route('/home')
 @frontend.route('/')
 async def home():

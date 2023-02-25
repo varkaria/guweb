@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="/static/css/pages/home.css">
+<script src="/static/js/asserts/vue.js"></script>
+<script src="/static/js/asserts/vue-axios.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
+<script>
+    var domain = "{{ domain() }}";
+</script>
+{% endblock %}
+
+{% block content %}
+
+{% if flash %}
+<div class='noti-banner noti-banner-warning'>
+  <div class="container">
+    <div class="noti-column">
+      <div class='noti-col noti-col-icon'></div>
+      <div class='noti-col noti-col-label'>
+        <div class='noti-bannertype'>
+          {% if status=='error' %}
+          Warning
+          {% elif status=='success' %}
+          Notice
+          {% endif %}
+        </div>
+        <div class='noti-bannertext'>
+          {% if status=='error' %}
+          Uh oh! Be careful!
+          {% elif status=='success' %}
+          Hey! Listen!
+          {% endif %}
+        </div>
+      </div>
+      <div class='noti-banner-text'>
+        {{ flash }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<section class="container content">
+  <span class="in-future" style="font-size: 2rem;">
+    Still under development.
+  </span>
+</section>
+
+{% endblock %}
