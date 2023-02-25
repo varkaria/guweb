@@ -14,6 +14,7 @@ from cmyui.logging import Ansi
 from cmyui.logging import log
 from cmyui.mysql import AsyncSQLPool
 from cmyui.version import Version
+from datetime import datetime
 
 from objects import glob
 
@@ -45,6 +46,10 @@ async def shutdown() -> None:
 @app.template_global()
 def appVersion() -> str:
     return repr(version)
+
+@app.template_global()
+def currentYear() -> str:
+    return repr(datetime.utcnow().year)
 
 @app.template_global()
 def appName() -> str:

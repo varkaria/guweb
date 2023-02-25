@@ -47,6 +47,4 @@ registration = True
 # social links (used throughout guweb)
 github = 'https://github.com/varkaria/guweb'
 discord_server = 'https://discord.com/invite/Y5uPvcNpD9'
-youtube = 'https://youtube.com/'
-twitter = 'https://twitter.com/'
-instagram = 'https://instagram.com/'
+switcher = ''

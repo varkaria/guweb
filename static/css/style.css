@@ -5,12 +5,18 @@
   src: url(/static/fonts/extra.ttf) format("truetype")
 }
 
+@font-face {
+  font-family: Jua;
+  src: url(/static/fonts/Jua-Regular.ttf) format("truetype")
+}
+
 /* layout */
 
 body {
   background-color: hsl(var(--main), 10%, 15%);
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: 100%;
   height: -webkit-fill-available;
 }
@@ -176,6 +182,23 @@ a.foot-link {
   min-height: 0rem;
 }
 
+.container {
+  max-width: 1140px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media screen and (max-width: 1400px) {
+  .container {
+    max-width: 1130px !important;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 972px !important;
+  }
+}
+
 .navbar-logo {
   font-size: 22px;
   font-weight: 500;
@@ -276,6 +299,7 @@ a.foot-link {
 
 .navbar-dropdown {
   width: 152px;
+  border: 0;
 }
 
 .input,
