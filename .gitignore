@@ -144,3 +144,6 @@ config.py
 !.data/backgrounds/.gitkeep
 !.data/banners/.gitkeep
 .idea/
+
+# Other
+*.sql

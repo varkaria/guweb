@@ -36,35 +36,40 @@
 </div>
 {% endif %}
 
-<div class="hero splash p-less is-fullheight-with-navbar" id="home-hero">
-  <div class="container flex">
-    <div class="columns flex-vcenter">
-      <div class="column flex-vcenter flex-lcenter is-size-2-desktop is-size-1-fullhd" id="title">
-        <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">{{ appName() }}</h1>
-        <h2 class="subtitle">
-          We are an osu! private server built from the ground up with many
-          unique features not seen elsewhere - for more information, check
-          out <a href="http://github.com/cmyui/gulag">gulag</a>
-          and <a href="https://github.com/Varkaria/guweb">guweb</a>
-          on GitHub - we're fully open source!
-        </h2>
-        {% if not session.authenticated %}
-        <div class="buttons">
-          <a class="button is-primary" href="/register">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light" href="/login">
-            Log in
-          </a>
-        </div>
-        {% endif %}
+<section class="container content">
+  <div class="home-main">
+    <div class="content-container">
+      <div class="status">
+        <span class="online-users">
+          <span class="count">12</span> online users
+        </span>
+
+        <span class="divide"></span>
+
+        <span class="total-users">
+          <span class="count">1337</span> registered users
+        </span>
       </div>
-      <div class="column flex flex-lcenter" id="mascot">
-        <div class="gulag-avatar"></div>
+
+      <div class="server-name">
+        kurai.pw!
+      </div>
+
+      <div class="welcome-text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+
+      <div class="actions">
+        <a class="register" href="/register">Register</a>
+        <a class="login" href="/login">Login</a>
       </div>
     </div>
+
+    <div class="video-container">
+      <video autoplay loop muted src="/static/video/home.webm"></video>
+    </div>
   </div>
-</div>
+</section>
 
 <section class="section">
   <div class="container has-text-centered py-4">
@@ -96,18 +101,6 @@
               client - osu!direct is available for everyone! Keep in mind supporting us still grants a huge set of cool
               perks but
               absence of it doesn't affect your game sessions!</p>
-          </div>
-        </div>
-      </div>
-      <div class="column is-4">
-        <div class="columns">
-          <div class="column is-2">
-            <i class="image is-32x32 fas fa-archive"></i>
-          </div>
-          <div class="column is-10">
-            <h4 class="title is-spaced is-4">Flexible library</h4>
-            <p class="subtitle is-6">We're written on top of cmyui's multipurpose library allowing for a fully
-              asynchronous environment, both improving performance and the user's experience in the long term!</p>
           </div>
         </div>
       </div>

@@ -5,15 +5,12 @@
   <title>{{ appName() }} - Admin - {% block title %}{% endblock %}</title>
 
   <!-- favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/static/favicon/site.webmanifest">
-  <link rel="mask-icon" href="/static/favicon/safari-pinned-tab.svg" color="#d55b9e">
-  <link rel="shortcut icon" href="/static/favicon/favicon.ico">
-  <meta name="msapplication-TileColor" content="#000000">
-  <meta name="msapplication-config" content="/static/favicon/browserconfig.xml">
-  <meta name="theme-color" content="#000000">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
 
   <!-- metadata -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,14 +75,11 @@
 
   <!-- footer -->
   <footer class="footer">
-    <div class="content">
-      <span>{{ appName() }} <strong>v{{ appVersion() }}</strong></span>
-      <a class="foot-link" href="/github"><i class="fa fa-github"></i> GitHub</a>
-      <a class="foot-link" href="/discord"><i class="fab fa-discord"></i> Discord</a>
-      <a class="foot-link" href="/youtube"><i class="fab fa-youtube"></i> YouTube</a>
-      <a class="foot-link" href="/twitter"><i class="fab fa-twitter"></i> Twitter</a>
-      <a class="foot-link" href="/instagram"><i class="fab fa-instagram"></i> Instagram</a>
-    </div>
+      <div class="content container">
+          <span>© {{ currentYear() }} <strong>{{ appName() }}</strong></span>
+          <a class="foot-link" href="/discord"><i class="fab fa-discord"></i> Discord</a>
+          <a class="foot-link" href="/discord"><i class="fab fa-users"></i> Team</a>
+      </div>
   </footer>
 
   <!-- main js script -->
