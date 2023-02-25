@@ -27,6 +27,9 @@ mysql = {
 # path to gulag root (must have leading and following slash)
 path_to_gulag = '/path/to/gulag/'
 
+# absolute path to kurai.pw web root directory (must have leading and following slash)
+path = '/path/to/kurai.pw/web'
+
 # enable debug (disable when in production to improve performance)
 debug = False
 
