@@ -14,11 +14,8 @@
 
 body {
   background-color: hsl(var(--main), 10%, 15%);
-  display: flex;
-  flex-direction: column;
+  display: grid;
   width: 100%;
-  height: 100%;
-  height: -webkit-fill-available;
 }
 
 html {
@@ -29,6 +26,16 @@ html {
 .footer {
   padding: 20px;
   margin-top: 39px;
+  background: #211b1f;
+  margin-top: auto;
+}
+
+footer.footer .content {
+  width: fit-content;
+}
+
+.con {
+  margin-top: 64px;
 }
 
 .main-block {
@@ -99,10 +106,6 @@ html {
 
 .is-active .navbar-menu {
   display: block;
-}
-
-.my-con {
-  margin-top: 92px;
 }
 
 a.foot-link {
@@ -758,4 +761,47 @@ body::-webkit-scrollbar-thumb {
 
 [v-cloak] {
   display: none;
+}
+
+.title-bar {
+  position: relative;
+  margin-top: 60px;
+  background: url(/static/images/title-background.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position-y: 39%;
+  padding: 128px 0 48px 0;
+}
+
+.title-bar .title {
+  font-family: 'Jua';
+  font-size: 3.2rem;
+}
+
+@media screen and (max-width: 568px) {
+  .title-bar {
+    background-size: 189%;
+    background-position-y: 36%;
+    background-position-x: 41%;
+    padding: 72px 0 28px 0;
+  }
+  .title-bar .container {
+    padding: 0 16px;
+  }
+  .title-bar .title {
+    font-size: 2rem;
+  }
+}
+
+.dont-touch-me-there-senpai {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.faf {
+  font-family: "Font Awesome 6 free";
 }

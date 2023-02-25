@@ -1,9 +1,10 @@
 new Vue({
-    el: "#dashboard",
+    el: "#status",
     delimiters: ["<%", "%>"],
     data() {
         return {
             online_users: 0,
+            total_users: 0,
         }
     },
     created() {
@@ -16,6 +17,7 @@ new Vue({
             vm.$axios.get(`https://api.${domain}/get_player_count`)
                 .then(function (response) {
                     vm.online_users = response.data.counts.online;
+                    vm.total_users = response.data.counts.total;
                 });
         },
         addCommas(nStr) {

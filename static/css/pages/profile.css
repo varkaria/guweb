@@ -1,6 +1,7 @@
 .main-block {
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
+  margin-top: 96px;
 }
 
 .second-block {
@@ -30,7 +31,6 @@
   align-items: flex-end;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  background: hsl(var(--main), 30%, 50%);
   position: relative;
   overflow: hidden;
 }
@@ -577,6 +577,7 @@ span.beatmap-mapper {
   background: hsl(var(--main), 25%, 25%);
   margin: 0px 8px 8px 8px;
   text-align: center;
+  border-radius: 6px;
 }
 
 .show-button:hover {
@@ -685,13 +686,19 @@ span.beatmap-mapper {
   p.ranks {
       width: 235px;
   }
+  .bar-selection {
+    padding: 10px;
+  }
+  .profile-avatar-area {
+    padding: 0 0 0 12px;
+  }
 }
 @media screen and (max-width: 450px) {
   p.ranks {
     width: 145px;
   }
   .info-block {
-    padding: 10 200;
+    padding: 10 172;
   }
 }
 

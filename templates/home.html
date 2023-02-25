@@ -3,6 +3,12 @@
 
 {% block header %}
 <link rel="stylesheet" href="/static/css/pages/home.css">
+<script src="/static/js/asserts/vue.js"></script>
+<script src="/static/js/asserts/vue-axios.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
+<script>
+    var domain = "{{ domain() }}";
+</script>
 {% endblock %}
 
 {% block content %}
@@ -39,30 +45,42 @@
 <section class="container content">
   <div class="home-main">
     <div class="content-container">
-      <div class="status">
+      <div class="status dont-touch-me-there-senpai" id="status">
         <span class="online-users">
-          <span class="count">12</span> online users
+          <span class="count"><% online_users %></span> online users
         </span>
 
         <span class="divide"></span>
 
         <span class="total-users">
-          <span class="count">1337</span> registered users
+          <span class="count"><% total_users %></span> registered users
         </span>
       </div>
 
-      <div class="server-name">
+      <div class="server-name dont-touch-me-there-senpai">
         kurai.pw!
       </div>
 
-      <div class="welcome-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <div class="welcome-text dont-touch-me-there-senpai">
+        {% if not logged_in %}
+          <strong>
+            Welcome to {{ domain() }}!
+          </strong>
+          {{ domain() }}! is a private osu! server with everything Bancho has to offer, Relax leaderboards and more! We have the Relax leaderboards, Relax profiles, Relax PP system, our own beatmap ranking and a dedicated leadership team. Why hesitate? Join {{ domain() }}! now!
+        {% else %}
+          Hi <strong>{{ session.user_data['name'] }}</strong>!
+          Welcome back to our private osu! server. We're glad to see you've returned to enjoy our exclusive features and community. Our custom maps and game modes offer a unique osu! experience that you won't find anywhere else. So let's get tapping those beats and have some fun together!
+        {% endif %}
       </div>
 
-      <div class="actions">
-        <a class="register" href="/register">Register</a>
-        <a class="login" href="/login">Login</a>
-      </div>
+      {% if not logged_in %}
+        <div class="actions">
+          <a class="register" href="/register">Register</a>
+          <a class="login" href="/login">Login</a>
+        </div>
+      {% else %}
+        <div class="empty-space"></div>
+      {% endif %}
     </div>
 
     <div class="video-container">
@@ -122,5 +140,7 @@
   </div>
 </section>
 {% endif %}
+
+<script src="/static/js/pages/home.js"></script>
 
 {% endblock %}

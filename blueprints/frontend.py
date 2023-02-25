@@ -42,7 +42,11 @@ def login_required(func):
 @frontend.route('/home')
 @frontend.route('/')
 async def home():
-    return await render_template('home.html')
+    return await render_template(
+        'home.html',
+        title=f'{glob.config.domain} home page',
+        logged_in='authenticated' in session
+    )
 
 @frontend.route('/home/account/edit')
 async def home_account_edit():
@@ -339,7 +343,13 @@ async def profile_select(id):
 @frontend.route('/leaderboard/<mode>/<sort>/<mods>')
 @frontend.route('/lb/<mode>/<sort>/<mods>')
 async def leaderboard(mode='std', sort='pp', mods='vn'):
-    return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods)
+    return await render_template(
+        'leaderboard.html',
+        mode=mode,
+        sort=sort,
+        mods=mods,
+        title=f'Leaderboard'
+    )
 
 @frontend.route('/login')
 async def login():
@@ -584,6 +594,10 @@ async def github_redirect():
 @frontend.route('/discord')
 async def discord_redirect():
     return redirect(glob.config.discord_server)
+
+@frontend.route('/status')
+async def status_redirect():
+    return redirect(glob.config.status)
 
 @frontend.route('/switcher')
 async def switcher_redirect():
