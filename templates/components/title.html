@@ -1,5 +1,9 @@
-<div class="title-bar">
-    <div class="container">
-
+{% if title %}
+    <div class="title-bar">
+        <div class="container">
+            <span class="title">
+                {{ title }}
+            </span>
+        </div>
     </div>
-</div>
+{% endif %}

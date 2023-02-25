@@ -42,7 +42,10 @@ async def home():
     )
 
     return await render_template(
-        'admin/home.html', dashdata=dash_data,
-        recentusers=recent_users, recentscores=recent_scores,
-        datetime=datetime, timeago=timeago
+        'admin/home.html',
+        dashdata=dash_data,
+        recentusers=recent_users,
+        recentscores=recent_scores,
+        datetime=datetime,
+        timeago=timeago
     )

@@ -2,7 +2,7 @@
 
 .home-main {
   background: #211b1f;
-  margin: 64px 0 36px 0;
+  margin-bottom: 36px;
   padding: 32px;
   box-sizing: border-box;
   border-radius: 32px;
@@ -10,6 +10,10 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+}
+
+.home-main .empty-space {
+  height: 42px;
 }
 
 @media screen and (max-width: 768px) {
@@ -112,7 +116,7 @@
 
 .actions .login {
   margin-left: 16px;
-  padding: 7px 16px;
+  padding: 9px 16px;
   border: 2px solid white;
   box-sizing: border-box;
   border-radius: 10px;

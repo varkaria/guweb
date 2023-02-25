@@ -361,6 +361,10 @@
             background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/banners/{{ user['id'] }}");
             background-size: cover;
         }
+    {% else %}
+        .profile-bg {
+            margin-top: 72px;
+        }
     {% endif %}
     {% if user['customisation']['background'] == True %}
         body {
