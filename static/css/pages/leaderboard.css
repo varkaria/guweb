@@ -289,3 +289,48 @@ table th {
   visibility: visible;
   opacity: 1;
 }
+
+@media screen and (max-width: 568px) {
+  .leaderboard-table {
+    display: grid;
+  }
+  .leaderboard-table .leaderboard-column {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 6px;
+    font-size: .65rem;
+  }
+  .leaderboard-main-bg {
+    padding: 16px 0;
+  }
+  .leaderboard-table thead {
+    padding: 0 8px 12px 0;
+  }
+  .leaderboard-table thead .t-heading {
+    font-size: .6rem;
+    padding: 0 5px;
+  }
+  .leaderboard-table thead .t-heading.table--selected {
+    font-size: .8rem;
+  }
+
+  .leaderboard-table .leaderboard-column .column-player-rank {
+    flex-basis: 12%;
+    margin-right: 3%;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .leaderboard-table .leaderboard-column .column-player-name  {
+    flex-basis: 37%;
+    padding: 0;
+  }
+  .leaderboard-table .leaderboard-column .column-player-pp,
+  .leaderboard-table .leaderboard-column .column-player-accuracy,
+  .leaderboard-table .leaderboard-column .column-player-playcount,
+  .leaderboard-table .leaderboard-column .column-player-max-combo {
+    flex-basis: 12%;
+  }
+}

@@ -806,3 +806,14 @@ body::-webkit-scrollbar-thumb {
 .faf {
   font-family: "Font Awesome 6 free";
 }
+
+.h-captcha {
+  display: block !important;
+  margin: 12px 0;
+}
+
+@media screen and (max-width: 568px) {
+    .container .container.content {
+        min-height: 50vh;
+    }
+}

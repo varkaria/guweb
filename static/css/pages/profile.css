@@ -737,3 +737,29 @@ span.beatmap-mapper {
   transition: 0.2s ease;
   margin-bottom: 12px;
 }
+
+@media screen and (max-width: 568px) {
+  .scores .map-single,
+  .scores .map-single .map-data {
+    height: 114px;
+    padding: 6px 0;
+  }
+  .map-data {
+    flex-wrap: wrap;
+  }
+  .map-data .map-content1,
+  .map-data .map-content2 {
+    flex-basis: 100%;
+    height: 54px;
+  }
+  .map-data .map-content2 {
+    align-items: flex-start;
+  }
+  .map-data .score-details_right-block {
+    padding-left: 0;
+  }
+  .map-data .score-details_right-block .score-details_pp-block {
+    order: 1;
+    align-items: flex-start;
+  }
+}

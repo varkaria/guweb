@@ -73,7 +73,10 @@
                     </thead>
                     <tbody>
                         <tr v-for="(user, index) in boards" class="leaderboard-column">
-                            <td class="column-player-rank">#<% index + 1 %>
+                            <td class="column-player-rank">
+                                <span>
+                                    #<% index + 1 %>
+                                </span>
                             </td>
                             <td class="column-player-name text-left">
                                 <a :title="flags[user.country.toUpperCase()]"
@@ -87,17 +90,17 @@
                                     <% user.name %>
                                 </a>
                             </td>
-                            <td v-if="sort == 'pp' || sort == 'rscore'">
+                            <td class="column-player-pp" v-if="sort == 'pp' || sort == 'rscore'">
                                 <% (sort=='pp' ? user.pp+'pp' : "" ) %>
                                     <% (sort=='rscore' ? scoreFormat(user.rscore) : "" ) %>
                             </td>
-                            <td>
+                            <td class="column-player-accuracy">
                                 <% user.acc.toFixed(2) %>%
                             </td>
-                            <td>
+                            <td class="column-player-playcount">
                                 <% addCommas(user.plays) %>
                             </td>
-                            <td>
+                            <td class="column-player-max-combo">
                                 <% addCommas(user.max_combo) %>
                             </td>
                         </tr>
