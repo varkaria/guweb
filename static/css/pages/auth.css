@@ -75,6 +75,7 @@ button:focus{
 .is-auth {
     width: 485px;
     border-radius: 36px;
+    margin: 64px 0 52px 0;
 }
 
 .dialog {
@@ -125,6 +126,7 @@ select:-webkit-autofill:focus {
 @media only screen and (max-width: 500px) {
     .is-auth {
         width: initial;
+        margin: 42px 0 32px 0;
     }
     .icon-block{
         height: 125px;

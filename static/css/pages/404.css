@@ -7,6 +7,11 @@
     color: #fff;
 }
 
+.http-error {
+    padding: 0 32px;
+    margin: 32px 0;
+}
+
 .title-block {
     height: auto;
     width: auto;
@@ -36,4 +41,11 @@ ol {
 
 li {
     list-style-type: none;
+}
+
+@media screen and (max-width: 500px) {
+    .http-error {
+        padding: 0 16px;
+        margin: 16px 0;
+    }
 }

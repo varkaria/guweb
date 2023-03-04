@@ -48,6 +48,7 @@ async def in_future():
 
 @frontend.route('/team')
 @frontend.route('/status')
+@frontend.route('/forgot')
 async def in_future_redirect():
     return redirect('/in-future')
 
