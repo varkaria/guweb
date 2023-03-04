@@ -1,0 +1,10 @@
+cmyui
+quart
+bcrypt
+aiomysql
+aiohttp
+mysql-connector
+orjson
+timeago
+markdown2
+Pillow
