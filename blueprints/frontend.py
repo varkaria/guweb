@@ -332,6 +332,22 @@ async def profile_select(id):
         [utils.get_safe_name(id), id]
     )
 
+    # @TODO Replace with MySQL JOIN.
+    user_badges_data = await glob.db.fetch(
+        'SELECT user_id, badge_id '
+        'FROM user_badges '
+        'WHERE id = %s',
+        [id]
+    )
+    badges = await glob.db.fetch(
+        'SELECT * '
+        'FROM badges'
+    )
+
+    # user_badges = {}
+    # for badge in user_badges:
+    #     user_badges[badges[badge['badge_id']]] =
+
     # no user
     if not user_data:
         return (await render_template('404.html'), 404)
@@ -348,7 +364,7 @@ async def profile_select(id):
         return (await render_template('404.html'), 404)
 
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
-    return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
+    return await render_template('profile.html', user=user_data, mode=mode, mods=mods, badges=badges)
 
 
 @frontend.route('/leaderboard')
