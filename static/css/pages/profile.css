@@ -650,6 +650,8 @@ span.beatmap-mapper {
     align-items: flex-start;
     padding: 10px 200px;
     width: 100%;
+    margin-left: unset;
+    border-top-right-radius: unset;
   }
 }
 
@@ -683,7 +685,7 @@ span.beatmap-mapper {
     width: inherit;
   }
   .info-block {
-    padding: 10px 110px 50px 195px;
+    padding: 10px 32px 16px 175px;
   }
 }
 @media screen and (max-width: 550px) {
