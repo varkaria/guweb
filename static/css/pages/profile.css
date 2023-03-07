@@ -1,11 +1,6 @@
 .main-block {
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
+  border-radius: 20px;
   margin-top: 96px;
-}
-
-.second-block {
-  background: hsl(var(--main), 12%, 15%);
 }
 
 .stats-block {
@@ -13,6 +8,8 @@
   background: hsl(var(--main), 25%, 25%);
   padding: 9.5px;
   margin-bottom: 9.5px !important;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .profile-flex {
@@ -52,9 +49,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 10px 250px;
-  width: 100%;
   transition: 0.2s ease;
+  width: fit-content;
+  background: rgba(0,0,0, 0.4);
+  padding: 10px 10px 10px 40px;
+  margin-left: 220px;
+  border-top-right-radius: 16px;
 }
 
 .bar-selection {
@@ -103,6 +103,8 @@
 
 .badge-selects {
   background: hsl(var(--main), 16%, 20%);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .select-left {
@@ -570,6 +572,8 @@ span.beatmap-mapper {
   display: flex;
   justify-content: center;
   background: hsl(var(--main), 20%, 20%);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .show-button {
