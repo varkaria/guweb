@@ -15,9 +15,9 @@ from objects import utils
 if TYPE_CHECKING:
     from PIL.Image import Image
 
-async def flash(status: str, msg: str, template: str) -> str:
+async def flash(status: str, msg: str, template: str, title: str = None) -> str:
     """Flashes a success/error message on a specified template."""
-    return await render_template(f'{template}.html', flash=msg, status=status)
+    return await render_template(f'{template}.html', flash=msg, status=status, title=title)
 
 async def flash_with_customizations(status: str, msg: str, template: str) -> str:
     """Flashes a success/error message on a specified template. (for customisation settings)"""

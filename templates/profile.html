@@ -358,8 +358,8 @@
     {% if user['customisation']['banner'] == True %}
         .profile-bg {
             min-height: 262px;
-            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/banners/{{ user['id'] }}");
-            background-size: cover;
+            background: url("/banners/{{ user['id'] }}");
+            background-size: 100% auto%;
         }
     {% else %}
         .profile-bg {
@@ -368,7 +368,7 @@
     {% endif %}
     {% if user['customisation']['background'] == True %}
         body {
-            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ user['id'] }}");
+            background: no-repeat fixed url("/backgrounds/{{ user['id'] }}");
             background-size: cover;
             background-clip: content-box;
         }

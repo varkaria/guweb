@@ -149,7 +149,13 @@ async def settings_profile_post():
 @frontend.route('/settings/avatar')
 @login_required
 async def settings_avatar():
-    return await render_template('settings/avatar.html')
+    profile_customizations = utils.has_profile_customizations(session['user_data']['id'])
+    return await render_template(
+        'settings/avatar.html',
+        flash='Your avatar has been successfully changed!',
+        status='success',
+        customizations=profile_customizations
+    )
 
 @frontend.route('/settings/avatar', methods=['POST'])
 @login_required
@@ -186,7 +192,15 @@ async def settings_avatar_post():
     # avatar change success
     pilavatar = utils.crop_image(pilavatar)
     pilavatar.save(os.path.join(AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
-    return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
+
+    profile_customizations = utils.has_profile_customizations(session['user_data']['id'])
+
+    return await render_template(
+        'settings/avatar.html',
+        flash='Your avatar has been successfully changed!',
+        status='success',
+        customizations=profile_customizations
+    )
 
 @frontend.route('/settings/custom')
 @login_required
@@ -332,6 +346,22 @@ async def profile_select(id):
         [utils.get_safe_name(id), id]
     )
 
+    # # @TODO Replace with MySQL JOIN.
+    # user_badges_data = await glob.db.fetch(
+    #     'SELECT user_id, badge_id '
+    #     'FROM user_badges '
+    #     'WHERE id = %s',
+    #     [id]
+    # )
+    # badges = await glob.db.fetch(
+    #     'SELECT * '
+    #     'FROM badges'
+    # )
+
+    # user_badges = {}
+    # for badge in user_badges:
+    #     user_badges[badges[badge['badge_id']]] =
+
     # no user
     if not user_data:
         return (await render_template('404.html'), 404)
@@ -454,7 +484,7 @@ async def login_post():
         login_time = (time.time_ns() - login_time) / 1e6
         log(f'Login took {login_time:.2f}ms!', Ansi.LYELLOW)
 
-    return await flash('success', f'Hey, welcome back {username}!', 'home')
+    return await flash('success', f'Hey, welcome back {username}!', 'home', f'{glob.config.domain} home page')
 
 @frontend.route('/register')
 async def register():
