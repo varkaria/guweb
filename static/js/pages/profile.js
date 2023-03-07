@@ -1,3 +1,5 @@
+let x = 0;
+let data = 0;
 new Vue({
     el: "#app",
     delimiters: ["<%", "%>"],
@@ -69,6 +71,7 @@ new Vue({
                 .then(res => {
                     this.$set(this.data.stats, 'out', res.data.player.stats);
                     this.data.stats.load = false;
+                    x = res.data.player;
                 });
         },
         LoadScores(sort) {

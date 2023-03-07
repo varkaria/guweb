@@ -209,137 +209,145 @@
     </div>
     <div class="second-block">
         <div class="columns is-marginless two-sides">
-            <div class="column is-one-third" v-cloak>
-                <!--<div class="header" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
-                    <div class="title">
-                        <i class="fas fa-user-friends"></i> Rank
+            <div class="column is-one-third profile-sidebar" v-cloak>
+                <div class="sidebar-wrapper">
+                    <div class="header" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
+                        <div class="title">
+                            <i class="fas fa-user-friends"></i> Rank
+                        </div>
+                    </div>
+                    <div class="stats-block rank-block" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
+                        <table class="is-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Global rank</td>
+                                    <td class="right-aligned">
+                                        <span id="global-rank">
+                                            <% '#' + data.stats.out[modegulag].rank %>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Country rank</td>
+                                    <td class="right-aligned">
+                                        <span id="country-rank">
+                                            <% '#' + data.stats.out[modegulag].country_rank %>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="stats-block rank-block" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
-                    <table class="is-striped">
-                        <tbody>
-                            <tr>
-                                <td>Global rank</td>
-                                <td class="right-aligned">
-                                    <span id="global-rank">
-                                        <% '#' + data.stats[`rank_global_${modegulag}`] %>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Country rank</td>
-                                <td class="right-aligned">
-                                    <span id="country-rank">
-                                        <% '#' + data.stats[`rank_country_${modegulag}`] %>
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>-->
-                <div class="header">
-                    <div class="title">
-                        <i class="fas fa-chart-pie"></i> Statistics
+
+                <div class="sidebar-wrapper">
+                    <div class="header">
+                        <div class="title">
+                            <i class="fas fa-chart-pie"></i> Statistics
+                        </div>
                     </div>
-                </div>
-                <div class="stats-block">
-                    <table class="is-striped">
-                        <tbody>
-                            <tr>
-                                <td><b>PP</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].pp) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Ranked score</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].rscore) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Total score</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].tscore) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Max combo</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].max_combo) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Playcount</b></td>
-                                <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].plays) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Playtime</b></td>
-                                <td class="right-aligned">
-                                    <% secondsToDhm(data.stats.out[modegulag].playtime) %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Accuracy</b></td>
-                                <td class="right-aligned">
-                                    <% data.stats.out[modegulag].acc %>%
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="grade-block" v-if="data.grades">
-                        <article class="media">
-                            <div class="media-content">
-                                <div class="grade-line">
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-X">SS</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].x_count %>
+                    <div class="stats-block">
+                        <table class="is-striped">
+                            <tbody>
+                                <tr>
+                                    <td><b>PP</b></td>
+                                    <td class="right-aligned">
+                                        <% addCommas(data.stats.out[modegulag].pp) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Ranked score</b></td>
+                                    <td class="right-aligned">
+                                        <% addCommas(data.stats.out[modegulag].rscore) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Total score</b></td>
+                                    <td class="right-aligned">
+                                        <% addCommas(data.stats.out[modegulag].tscore) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Max combo</b></td>
+                                    <td class="right-aligned">
+                                        <% addCommas(data.stats.out[modegulag].max_combo) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Playcount</b></td>
+                                    <td class="right-aligned">
+                                        <% addCommas(data.stats.out[modegulag].plays) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Playtime</b></td>
+                                    <td class="right-aligned">
+                                        <% secondsToDhm(data.stats.out[modegulag].playtime) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Accuracy</b></td>
+                                    <td class="right-aligned">
+                                        <% data.stats.out[modegulag].acc %>%
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="grade-block" v-if="data.grades">
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="grade-line">
+                                        <div class="rank-single">
+                                            <div class="map-rank rank-X">SS</div>
+                                            <div class="rank-amount">
+                                                <% data.stats.out[modegulag].x_count %>
+                                            </div>
+                                        </div>
+                                        <div class="rank-single">
+                                            <div class="map-rank rank-XH">SS</div>
+                                            <div class="rank-amount">
+                                                <% data.stats.out[modegulag].xh_count %>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-XH">SS</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].xh_count %>
+                                    <div class="grade-line">
+                                        <div class="rank-single">
+                                            <div class="map-rank rank-S">S</div>
+                                            <div class="rank-amount">
+                                                <% data.stats.out[modegulag].s_count %>
+                                            </div>
+                                        </div>
+                                        <div class="rank-single">
+                                            <div class="map-rank rank-SH">S</div>
+                                            <div class="rank-amount">
+                                                <% data.stats.out[modegulag].sh_count %>
+                                            </div>
+                                        </div>
+                                        <div class="rank-single">
+                                            <div class="map-rank rank-A">A</div>
+                                            <div class="rank-amount">
+                                                <% data.stats.out[modegulag].a_count %>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grade-line">
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-S">S</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].s_count %>
-                                        </div>
-                                    </div>
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-SH">S</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].sh_count %>
-                                        </div>
-                                    </div>
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-A">A</div>
-                                        <div class="rank-amount">
-                                            <% data.stats.out[modegulag].a_count %>
-                                        </div>
-                                    </div>
-                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="sidebar-wrapper">
+                    <div class="level-block">
+                        <div class="columns is-marginless is-2">
+                            <div class="column level-bar is-paddingless">
+                                <div class="progress-level"></div>
                             </div>
-                        </article>
-                    </div>
-                </div>
-                <!--<div class="level-block">
-                    <div class="columns is-marginless is-2">
-                        <div class="column level-bar is-paddingless">
-                            <div class="progress-level"></div>
-                        </div>
-                        <div class="column level-num is-one-fifth is-textcen">
-                            <% data.stats[`level_${modegulag}`] %>
+                            <div class="column level-num is-one-fifth is-textcen">
+                                <% data.stats[`level_${modegulag}`] %>
+                            </div>
                         </div>
                     </div>
-                </div>-->
+                </div> -->
             </div>
             <div class="column">
                 {{ scores('Best Scores', 'best')}}
@@ -359,7 +367,7 @@
         .profile-bg {
             min-height: 262px;
             background: url("/banners/{{ user['id'] }}");
-            background-size: 100% auto%;
+            background-size: cover;
         }
     {% else %}
         .profile-bg {
