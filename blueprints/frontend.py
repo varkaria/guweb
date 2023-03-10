@@ -39,6 +39,10 @@ def login_required(func):
         return await func(*args, **kwargs)
     return wrapper
 
+@frontend.route('/cloudflare-location')
+async def cloudflare_location():
+    return request.headers.get('cf-ipcountry')
+
 @frontend.route('/in-future')
 async def in_future():
     return await render_template(
