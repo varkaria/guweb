@@ -14,7 +14,7 @@
 {% block content %}
 
 {% if flash %}
-<div class='noti-banner noti-banner-warning'>
+<div class='noti-banner noti-banner-warning' style="margin-top: -32px;">
   <div class="container">
     <div class="noti-column">
       <div class='noti-col noti-col-icon'></div>
@@ -96,7 +96,7 @@
       <div class="column is-4">
         <div class="columns">
           <div class="column is-2">
-            <i class="image is-32x32 fas fa-address-card"></i>
+            <i class="fas fa-plane"></i>
           </div>
           <div class="column is-10">
             <h4 class="title is-spaced is-4">PP for Relax and Autopilot</h4>
@@ -110,15 +110,29 @@
       <div class="column is-4">
         <div class="columns">
           <div class="column is-2">
-            <i class="image is-32x32 fas fa-ambulance"></i>
+            <i class="image is-32x32 far fa-heart"></i>
           </div>
           <div class="column is-10">
             <h4 class="title is-spaced is-4">Free osu!direct</h4>
-            <p class="subtitle is-6">You won't have to pay for osu!supporter to have a convenient gameplay experience in
+            <p class="subtitle is-6">You won't have to pay for <strong>osu!supporter</strong> to have a convenient gameplay experience in
               the
               client - osu!direct is available for everyone! Keep in mind supporting us still grants a huge set of cool
               perks but
               absence of it doesn't affect your game sessions!</p>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="columns">
+          <div class="column is-2">
+            <i class="fa-brands fa-discord"></i>
+          </div>
+          <div class="column is-10">
+            <h4 class="title is-spaced is-4">Own Discord Bot</h4>
+            <p class="subtitle is-6">
+                We have a unique discord bot written specificly for <strong>{{ domain() }}</strong> that offers many functions! (in future) You are able to
+                flex your top plays, recent score and much more! (in future) This works for all gamemodes!
+            </p>
           </div>
         </div>
       </div>

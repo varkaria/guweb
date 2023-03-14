@@ -126,3 +126,8 @@
   border: 2px solid hsl(var(--main), 55%, 55%);
   color: hsl(var(--main), 55%, 55%);
 }
+
+.subtitle strong {
+  font-weight: 500;
+  color: whitesmoke;
+}

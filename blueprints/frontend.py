@@ -39,6 +39,7 @@ def login_required(func):
         return await func(*args, **kwargs)
     return wrapper
 
+# @TODO Remove later.
 @frontend.route('/cloudflare-location')
 async def cloudflare_location():
     return request.headers.get('cf-ipcountry')
@@ -68,6 +69,13 @@ async def home():
 @frontend.route('/home/account/edit')
 async def home_account_edit():
     return redirect('/settings/profile')
+
+@frontend.route('/connect-to-osu')
+async def connect_to_osu():
+    return await render_template(
+        'connect-to-osu.html',
+        title=f'Connection instructions',
+    )
 
 @frontend.route('/settings')
 @frontend.route('/settings/profile')
@@ -401,7 +409,12 @@ async def leaderboard(mode='std', sort='pp', mods='vn'):
 @frontend.route('/login')
 async def login():
     if 'authenticated' in session:
-        return await flash('error', "You're already logged in!", 'home')
+        return await flash(
+            'error',
+            f'You\'re already logged in!',
+            'home',
+            f'{glob.config.domain} home page',
+        )
 
     return await render_template('login.html')
 
@@ -488,7 +501,12 @@ async def login_post():
         login_time = (time.time_ns() - login_time) / 1e6
         log(f'Login took {login_time:.2f}ms!', Ansi.LYELLOW)
 
-    return await flash('success', f'Hey, welcome back {username}!', 'home', f'{glob.config.domain} home page')
+    return await flash(
+        'success',
+        f'Hey, welcome back {username}!',
+        'home',
+        f'{glob.config.domain} home page',
+    )
 
 @frontend.route('/register')
 async def register():

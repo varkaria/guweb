@@ -1,0 +1,24 @@
+.connect-to-osu-wrapper {
+    background: #211b1f;
+    padding: 32px;
+    border-radius: 32px;
+    font-weight: 100;
+}
+
+.highlighted-txt {
+    display: block;
+    padding-left: 12px;
+    border-left: 4px solid #dfd7d7;
+    font-weight: 700;
+}
+
+ol li {
+    margin: 3px 0;
+}
+
+code {
+    border-radius: 6px;
+    background: aliceblue;
+    font-weight: 700;
+    color: darkmagenta;
+}

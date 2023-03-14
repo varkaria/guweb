@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<link rel="stylesheet" href="/static/css/pages/connect-to-osu.css">
+{% endblock %}
+
+{% block content %}
+
+<section class="container content">
+<div class="connect-to-osu-wrapper">
+    <p>
+        Here are two ways to join {{ domain() }} - using our <a href="/switcher">switcher</a> or create a <strong>osu! shortcut</strong>.
+    </p>
+
+    <br>
+
+    <p class="highlighted-txt">Shortcut instructions:</p>
+
+    <ol type="1">
+        <li>Create a new Shortcut from the <code>osu!.exe</code> game file or create a copy of your existing osu! shortcut.</li>
+        <li>Right-click the <strong>Shortcut</strong> and go on <strong>Properties</strong>.</li>
+        <li>Add <code> -devserver {{ domain() }}</code> to the <strong>Target</strong>, right after your directory.</li>
+        <li>
+            Your changes will look like -
+            <code>
+                E:\Games\osu!\osu!.exe -devserver {{ domain() }}
+            </code>
+        </li>
+        <li>Click on <strong>Apply</strong>.</li>
+        <li><strong>Enjoy!</strong></li>
+    </ol>
+
+    <p class="highlighted-txt">Troubleshooting:</p>
+
+    <p>
+        If you have any issues, feel free to contact us through our <a href="/discord">discord</a>!
+    </p>
+</div>
+</section>
+
+{% endblock %}

@@ -112,6 +112,12 @@ table th {
   background-color: hsl(var(--main), 20%, 30%);
 }
 
+@media screen and (max-width: 768px) {
+  .leaderboard-column:hover td:not(:first-child) {
+    background-color: inherit;
+  }
+}
+
 .main-banner {
   background-size: cover;
   display: flex;
