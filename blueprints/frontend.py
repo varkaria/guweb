@@ -211,14 +211,15 @@ async def settings_avatar_post():
         'settings/avatar.html',
         flash='Your avatar has been successfully changed!',
         status='success',
-        customizations=profile_customizations
+        customizations=profile_customizations,
+        timestamp=int(time.time())
     )
 
 @frontend.route('/settings/custom')
 @login_required
 async def settings_custom():
     profile_customizations = utils.has_profile_customizations(session['user_data']['id'])
-    return await render_template('settings/custom.html', customizations=profile_customizations)
+    return await render_template('settings/custom.html', customizations=profile_customizations, timestamp=int(time.time()))
 
 @frontend.route('/settings/custom', methods=['POST'])
 @login_required
@@ -390,7 +391,7 @@ async def profile_select(id):
         return (await render_template('404.html'), 404)
 
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
-    return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
+    return await render_template('profile.html', user=user_data, mode=mode, mods=mods, timestamp=int(time.time()))
 
 
 @frontend.route('/leaderboard')

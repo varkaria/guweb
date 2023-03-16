@@ -22,3 +22,19 @@ code {
     font-weight: 700;
     color: darkmagenta;
 }
+
+@media screen and (max-width: 800px) {
+    .connect-to-osu-main {
+        margin-left: 12px !important;
+        margin-right: 12px !important;
+        margin-bottom: 12px;
+    }
+}
+
+.connect-to-osu-main ol {
+    margin: 20px 0 20px 32px;
+}
+
+.padding-bot-12 {
+    margin-bottom: 12px;
+}

@@ -62,7 +62,7 @@
               <div class="top-block" {% if customizations['banner'] == True %}style="background: url('/banners/{{ session['user_data']['id'] }}'); background-size: cover"{% endif %}></div>
               <div class="bottom-block">
                 <div class="profile-avatar-area">
-                  <img id="avatar-img" src="https://a.{{ domain() }}/{{ session.user_data['id']}}" alt="avatar"
+                  <img id="avatar-img" src="https://a.{{ domain() }}/{{ session.user_data['id']}}?{{ timestamp }}" alt="avatar"
                     class="rounded-avatar profile-avatar">
                 </div>
               </div>
@@ -136,7 +136,7 @@
 <style>
     {% if customizations['background'] == True %}
         body {
-            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ session['user_data']['id'] }}");
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ session['user_data']['id'] }}?{{ timestamp }}");
             background-size: cover !important;
         }
     {% endif %}

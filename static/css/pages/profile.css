@@ -3,6 +3,13 @@
   margin-top: 96px;
 }
 
+@media screen and (max-width: 800px) {
+  .main-block {
+    border-radius: 20px;
+    margin-top: 4px;
+  }
+}
+
 .stats-block {
   width: 100%;
   background: hsl(var(--main), 25%, 25%);

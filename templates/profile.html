@@ -170,7 +170,7 @@
         </div>
         <div class="profile-flex">
             <div class="profile-avatar-area">
-                <img src="https://a.{{ domain() }}/{{ user['id'] }}" alt="avatar" class="rounded-avatar profile-avatar"
+                <img src="https://a.{{ domain() }}/{{ user['id'] }}?{{ timestamp     }}" alt="avatar" class="rounded-avatar profile-avatar"
                     onError="this.src='/static/images/avatar_notwork.png';">
             </div>
             <div class="bar-selection mode-selects">
@@ -366,7 +366,7 @@
     {% if user['customisation']['banner'] == True %}
         .profile-bg {
             min-height: 262px;
-            background: url("/banners/{{ user['id'] }}");
+            background: url("/banners/{{ user['id'] }}?{{ timestamp }}");
             background-size: cover;
         }
     {% else %}
@@ -376,7 +376,7 @@
     {% endif %}
     {% if user['customisation']['background'] == True %}
         body {
-            background: no-repeat fixed url("/backgrounds/{{ user['id'] }}");
+            background: no-repeat fixed url("/backgrounds/{{ user['id'] }}?{{ timestamp }}");
             background-size: cover;
             background-clip: content-box;
         }
