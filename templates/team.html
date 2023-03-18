@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %} Team {% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="/static/css/pages/team.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="main-block team-page">
+    {% for role, teammates in team.items() %}
+        {% if teammates != [] %}
+            <p class="role-title">
+                {{ role }}
+            </p>
+
+            <div class="people">
+                {% for teammate in teammates %}
+                    <div
+                        class="teammate"
+                        onclick="window.open('https://{{ domain() }}/u/{{ teammate.id }}', '_blank');"
+                    >
+                        <img src="https://a.{{ domain() }}/{{ teammate.id }}" alt="{{ teammate.name }}">
+
+                        <span class="player-name">
+                            {{ teammate.name }}
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}

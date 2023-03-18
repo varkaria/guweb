@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %} Privacy Policy {% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="/static/css/pages/doc.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="main-block privacy-policy-page">
+    <p>
+        At <strong>{{ domain() }}</strong>, we take the privacy of our users seriously. This Privacy Policy outlines the types of personal information we collect when you use our private osu! server, how we use that information, and your options for controlling your personal information.
+    </p>
+
+    <p>
+        <strong>{{ domain() }}</strong> is a private osu! server. We're not affiliated with <strong>ppy Pty Ltd</strong> in any way. osu! is trademark of <strong>ppy Pty Ltd</strong>.
+    </p>
+
+    <p class="highlighted-txt">
+        Information we collect
+    </p>
+
+    <p>
+        When you use our private osu! server, we may collect the following types of personal information:
+    </p>
+
+    <ul>
+        <li>Your IP address</li>
+        <li>Your ISO Country code</li>
+        <li>Hash of your devices</li>
+        <li>Hash of your osu! path and uninstaller file</li>
+        <li>Your osu! client version</li>
+        <li>Your Discord ID</li>
+    </ul>
+
+    <p>
+        We collect this information for the following purposes:
+    </p>
+
+    <ul>
+        <li>To provide you with access to our private osu! server and Discord community</li>
+        <li>To check for compliance with our rules</li>
+    </ul>
+
+    <p class="highlighted-txt">
+        Data security
+    </p>
+
+    <p>
+        We take the security of your personal information seriously and have implemented measures to protect your information from unauthorized access, use, or disclosure.
+    </p>
+
+    <p>
+        Your passwords are encrypted with bcrypt for security purposes.
+    </p>
+
+    <p class="highlighted-txt">
+        Updates to this Privacy Policy
+    </p>
+
+    <p>
+        We may update this Privacy Policy from time to time. Any changes will be posted on this page, and we encourage you to review this Privacy Policy periodically.
+    </p>
+
+    <p class="highlighted-txt">
+        Contact Us
+    </p>
+
+    <p>
+        If you have any questions about this Privacy Policy or our privacy practices, please contact our administrators.
+    </p>
+
+</div>
+
+{% endblock %}

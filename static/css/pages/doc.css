@@ -1,0 +1,42 @@
+.main-block {
+    margin: 0 0 12px 0;
+    padding: 36px;
+    background: #211b1f;
+    border-radius: 24px;
+    font-size: .92rem;
+}
+
+ul, ol {
+    list-style: circle;
+    padding-left: 32px;
+    margin: 16px 0;
+}
+
+ul li, ol li {
+    margin: 6px 0;
+}
+
+ol li {
+    list-style: auto;
+}
+
+.highlighted-txt {
+    display: block;
+    padding-left: 12px;
+    border-left: 4px solid #dfd7d7;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 1000px) {
+    .main-block {
+        padding: 24px;
+        margin: 0 8px 12px 8px;
+    }
+    ul {
+        padding-left: 24px;
+    }
+}
+
+.privacy-policy-page p {
+    margin-bottom: 12px;
+}

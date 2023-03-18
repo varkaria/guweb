@@ -22,29 +22,37 @@
                     Leaderboards
                 </a>
 
-                <a class="navbar-item" href="/connect-to-osu">
-                    Connect to us
-                </a>
+                {% if not session.authenticated or session.user_data['priv'] <= 2 %}
+                    <a class="navbar-item" href="/connect-to-osu">
+                        Connect to us
+                    </a>
+                {% endif %}
 
-                <!-- Menu dropdown item
+                <!-- Menu dropdown item -->
 
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         Information
                     </a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="/doc/rules">
-                            Rules
+                        <a class="navbar-item" href="/doc/tos">
+                            Teams of Service
+                        </a>
+                        <a class="navbar-item" href="/doc/privacy-policy">
+                            Privacy Policy
+                        </a>
+                        <a class="navbar-item" href="/team">
+                            Team
                         </a>
                         <a class="navbar-item" href="/discord">
                             Discord
                         </a>
                         <hr class="navbar-divider">
-                        <a class="navbar-item" href="/report">
+                        <!-- <a class="navbar-item" href="/report">
                             Report an issue
-                        </a>
+                        </a> -->
                     </div>
-                </div> -->
+                </div>
 
                 {% if session.authenticated and session.user_data['is_staff'] %}
                 <a class="navbar-item" href="/admin">

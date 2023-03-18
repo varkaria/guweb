@@ -51,7 +51,6 @@ async def in_future():
         title=f'o/'
     )
 
-@frontend.route('/team')
 @frontend.route('/status')
 @frontend.route('/forgot')
 async def in_future_redirect():
@@ -649,6 +648,52 @@ async def logout():
 
     # render login
     return await flash('success', 'Successfully logged out!', 'login')
+
+@frontend.route('/team')
+async def team():
+    team = {
+        'Developers': [],
+        'Administrators': [],
+        'Moderators': [],
+        'Nominators': [],
+        'Tournament Managers': [],
+    }
+
+    for candidate in await glob.db.fetchall('SELECT `id`, `name`, `priv` FROM users WHERE priv > 3'):
+        if candidate['priv'] & Privileges.All_Staff:
+            priv = Privileges(candidate['priv'])
+
+            # @TODO Do something normal
+            for alias, alias_priv in {
+                'Developers': Privileges.Dangerous,
+                'Administrators': Privileges.Admin,
+                'Moderators': Privileges.Mod,
+                'Nominators': Privileges.Nominator,
+                'Tournament Managers': Privileges.Tournament,
+            }.items():
+                if alias_priv in priv:
+                    team[alias].append(candidate)
+                    break
+
+    return await render_template(
+        'team.html',
+        team=team,
+        title='team',
+    )
+
+@frontend.route('/doc/privacy-policy')
+async def rules():
+    return await render_template(
+        'doc/privacy-policy.html',
+        title='Privacy Policy',
+    )
+
+@frontend.route('/doc/tos')
+async def terms_of_service():
+    return await render_template(
+        'doc/tos.html',
+        title='Terms of Service'
+    )
 
 # social media redirections
 
