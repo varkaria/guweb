@@ -43,6 +43,7 @@ new Vue({
             },
             mode: mode,
             mods: mods,
+            // mods_readable: mods_readable,
             modegulag: 0,
             userid: userid
         };

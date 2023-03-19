@@ -37,6 +37,12 @@
                     <div class="score-details d-flex">
                         <div class="score-details_right-block">
                             <div class="score-details_pp-block">
+                                <div class="map-mods" v-if="map.mods_readable != 'NM'">
+                                    <% map.mods_readable %>
+                                </div>
+                                <div class="map-mods-nm" v-else>
+
+                                </div>
                                 <div class="map-pp">
                                     <% map.pp.toFixed() %><span class="map-pp-unit">pp</span>
                                 </div>
@@ -210,13 +216,13 @@
     <div class="second-block">
         <div class="columns is-marginless two-sides">
             <div class="column is-one-third profile-sidebar" v-cloak>
-                <div class="sidebar-wrapper">
+                <div class="sidebar-wrapper"  v-if='data.stats.out[modegulag].rank'>
                     <div class="header" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
                         <div class="title">
                             <i class="fas fa-user-friends"></i> Rank
                         </div>
                     </div>
-                    <div class="stats-block rank-block" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
+                    <div class="stats-block rank-block">
                         <table class="is-striped">
                             <tbody>
                                 <tr>

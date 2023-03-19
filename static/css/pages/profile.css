@@ -368,6 +368,15 @@ html {
   margin-bottom: 2px;
 }
 
+.map-mods {
+  font-size: .72rem;
+  line-height: .72;
+}
+
+.map-mods-nm {
+  padding: 0.24rem;
+}
+
 .map-content2 {
   height: 100%;
   display: flex;

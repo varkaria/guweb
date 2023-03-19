@@ -22,7 +22,7 @@
                     Leaderboards
                 </a>
 
-                {% if not session.authenticated or session.user_data['priv'] <= 2 %}
+                {% if not session.authenticated or session.user_data['priv'] == 1 %}
                     <a class="navbar-item" href="/connect-to-osu">
                         Connect to us
                     </a>
@@ -36,7 +36,7 @@
                     </a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="/doc/tos">
-                            Teams of Service
+                            Terms of Service
                         </a>
                         <a class="navbar-item" href="/doc/privacy-policy">
                             Privacy Policy
@@ -44,10 +44,12 @@
                         <a class="navbar-item" href="/team">
                             Team
                         </a>
+
+                        <hr class="navbar-divider">
+
                         <a class="navbar-item" href="/discord">
                             Discord
                         </a>
-                        <hr class="navbar-divider">
                         <!-- <a class="navbar-item" href="/report">
                             Report an issue
                         </a> -->
