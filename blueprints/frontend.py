@@ -39,11 +39,6 @@ def login_required(func):
         return await func(*args, **kwargs)
     return wrapper
 
-# @TODO Remove later.
-@frontend.route('/cloudflare-location')
-async def cloudflare_location():
-    return request.headers.get('cf-ipcountry')
-
 @frontend.route('/in-future')
 async def in_future():
     return await render_template(
@@ -52,13 +47,19 @@ async def in_future():
     )
 
 @frontend.route('/status')
-@frontend.route('/forgot')
 async def in_future_redirect():
     return redirect('/in-future')
 
 @frontend.route('/home')
 @frontend.route('/')
 async def home():
+    if ('started' in session) and time.time() - session['started'] <= 5:
+        return await flash(
+            'success',
+            f'Hey, welcome back {session["user_data"]["name"]}!',
+            'home',
+            f'{glob.config.domain} home page',
+        )
     return await render_template(
         'home.html',
         title=f'{glob.config.domain} home page',
@@ -486,7 +487,9 @@ async def login_post():
     if glob.config.debug:
         log(f"{username}'s login succeeded.", Ansi.LGREEN)
 
+    session.permanent = True
     session['authenticated'] = True
+    session['started'] = time.time()
     session['user_data'] = {
         'id': user_info['id'],
         'name': user_info['name'],
@@ -501,12 +504,7 @@ async def login_post():
         login_time = (time.time_ns() - login_time) / 1e6
         log(f'Login took {login_time:.2f}ms!', Ansi.LYELLOW)
 
-    return await flash(
-        'success',
-        f'Hey, welcome back {username}!',
-        'home',
-        f'{glob.config.domain} home page',
-    )
+    return redirect('/')
 
 @frontend.route('/register')
 async def register():
@@ -678,7 +676,7 @@ async def team():
     return await render_template(
         'team.html',
         team=team,
-        title='team',
+        title='Team',
     )
 
 @frontend.route('/doc/privacy-policy')

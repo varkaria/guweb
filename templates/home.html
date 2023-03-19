@@ -62,7 +62,7 @@
       </div>
 
       <div class="welcome-text dont-touch-me-there-senpai">
-        {% if not logged_in %}
+        {% if not session['authenticated'] %}
           <strong>
             Welcome to {{ domain() }}!
           </strong>
@@ -73,7 +73,7 @@
         {% endif %}
       </div>
 
-      {% if not logged_in %}
+      {% if not session['authenticated'] %}
         <div class="actions">
           <a class="register" href="/register">Register</a>
           <a class="login" href="/login">Login</a>
