@@ -236,3 +236,27 @@ new Vue({
     },
     computed: {}
 });
+
+$('html').click(function() {
+    console.log('click');
+    $('.score-menu').remove();
+});
+
+function scoreMenu($this) {
+    setTimeout(function () {
+        const score_id = $($this).attr("data--score-id");
+
+        // Menu element.
+        let menu = $(`<div class="score-menu" data--score-id="${ score_id }" onclick="downloadScore(this);"><div class="menu-contents"><i class="fa-solid fa-download"></i><span>Download Replay</span></div></div>`);
+
+        // Show menu element;
+        $($this).append(menu);
+    }, 5);
+}
+
+function downloadScore($this) {
+    const score_id = $($this).attr("data--score-id");
+
+    // Open link to download replay using API.
+    window.open(`${window.location.protocol}//api.${window.location.hostname}/v1/get_replay?id=${ score_id }`, '_blank').focus();
+}

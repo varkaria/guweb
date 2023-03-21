@@ -173,12 +173,13 @@ td {
 .map-rank {
   font-size: 24px;
   font-weight: 600;
-  width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 3px 5px;
   border-radius: 20px;
+  width: 42px;
+  margin-left: 14px;
 }
 
 .grade-line {
@@ -286,10 +287,10 @@ html {
   padding-right: 0;
   margin: 8px 0;
   justify-content: space-between;
-  overflow: hidden;
   background: hsl(var(--main), 25%, 25%);
   transition: 0.2s ease;
-  cursor: pointer;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .map-data {
@@ -302,17 +303,12 @@ html {
   margin: 8px 0;
   justify-content: space-between;
   border-radius: 10px;
-  overflow: hidden;
   transition: 0.2s ease;
-  cursor: pointer;
 }
 
 .map-single:hover {
-  border-radius: 8px;
-  transform: translateY(-1px);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
-    0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);
   background: hsl(var(--main), 30%, 30%);
+  box-shadow: #ff66aa 0 1px .1rem, #ff66aa 0 0 0 .1rem;
 }
 
 .map-single:first-child {
@@ -404,6 +400,43 @@ html {
   color: #fff;
   height: 100%;
   justify-content: space-between;
+}
+
+.score-menu-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: -8px;
+  position: relative;
+  cursor: pointer;
+}
+
+.score-menu {
+  border-radius: 8px;
+  position: absolute;
+  right: 0;
+  background: #282626;
+  padding: 8px;
+}
+
+.score-menu:hover {
+  background: #251f1f;
+}
+
+.score-menu .menu-contents {
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+}
+
+.score-menu .menu-contents i {
+  margin: 6px 12px 6px 1px;
+}
+
+.score-menu .menu-contents span {
+  white-space: nowrap;
 }
 
 .rank-line {
@@ -799,5 +832,8 @@ span.beatmap-mapper {
   .map-data .score-details_right-block .score-details_pp-block {
     order: 1;
     align-items: flex-start;
+  }
+  .map-data .score-menu-btn {
+    display: none;
   }
 }

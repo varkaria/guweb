@@ -57,6 +57,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="score-menu-btn" v-bind:data--score-id="map.id" onclick="scoreMenu(this);">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -132,6 +135,7 @@
 <script src="/static/js/asserts/vue.js"></script>
 <script src="/static/js/asserts/vue-axios.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>#}
 <link rel="stylesheet" href="/static/css/pages/profile.css">
 
 <script>

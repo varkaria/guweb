@@ -647,6 +647,20 @@ async def logout():
     # render login
     return await flash('success', 'Successfully logged out!', 'login')
 
+@frontend.route('/reset-password')
+async def reset_password():
+    return
+
+@frontend.route('/reset-password', methods=['POST'])
+async def reset_password_post():
+    form = await request.form
+
+    reset_data = form.get('reset_data', type=str)
+    if reset_data is None:
+        if 'authenticated' not in session:
+            return await flash('error', "You can't logout if you aren't logged in!", 'reset-password')
+
+
 @frontend.route('/team')
 async def team():
     team = {
