@@ -27,7 +27,6 @@
 }
 
 .profile-bg {
-  min-height: 262px;
   width: 100%;
   background-size: cover;
   background-position: center;
@@ -439,6 +438,10 @@ html {
   white-space: nowrap;
 }
 
+.score-unavailable {
+  color: #5e5e5e;
+}
+
 .rank-line {
   display: flex;
   flex-direction: row;
@@ -723,6 +726,15 @@ span.beatmap-mapper {
   }
   .mode-icon {
     margin-right: 0px;
+  }
+  .profile-bg {
+    min-height: 152px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .profile-bg {
+    min-height: 156px;
   }
 }
 

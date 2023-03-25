@@ -11,24 +11,23 @@ hCaptcha_sitekey = 'changeme'
 hCaptcha_secret = 'changeme'
 
 # domain (used for api, avatar, etc)
-domain = 'gulag.ca'
+domain = 'kurai.pw'
 
 # max image size for avatars, in megabytes
 max_image_size = 2
 
 # mysql credentials
 mysql = {
-    'db': 'gulag',
+    'db': 'kurai.pw',
     'host': 'localhost',
-    'user': 'cmyui',
-    'password': 'changeme',
+    'user': 'kurai.pw',
+    'password': 'kurai.pw',
 }
 
-# path to gulag root (must have leading and following slash)
-path_to_gulag = '/path/to/gulag/'
+# path to bancho.py root (must have leading and following slash)
+path_to_gulag = '/root/kurai.pw/'
 
-# absolute path to kurai.pw web root directory (must have leading and following slash)
-path = '/path/to/kurai.pw/web'
+path = '/root/web-kurai.pw/'
 
 # enable debug (disable when in production to improve performance)
 debug = False
@@ -48,6 +47,10 @@ disallowed_passwords = {
 registration = True
 
 # social links (used throughout guweb)
-github = 'https://github.com/varkaria/guweb'
-discord_server = 'https://discord.com/invite/Y5uPvcNpD9'
-switcher = ''
+github = 'https://github.com/hzswdef/web-kurai.pw'
+discord_server = 'https://discord.com/invite/Fn2ZRmEpy7'
+switcher = 'https://github.com/hzswdef/osu-kurai-switcher/releases/download/stable-1.1/kurai.switcher.exe'
+topg = 'https://topg.org/osu-private-servers/server-652942'
+
+# status site
+status = 'https://status.kurai.pw/'

@@ -115,7 +115,7 @@
 }
 
 .actions .login {
-  margin-left: 16px;
+  margin: 0 16px 0 16px;
   padding: 9px 16px;
   border: 2px solid white;
   box-sizing: border-box;
@@ -123,6 +123,31 @@
   color: white;
 }
 .actions .login:hover {
+  border: 2px solid hsl(var(--main), 55%, 55%);
+  color: hsl(var(--main), 55%, 55%);
+}
+
+.actions .actions-discord {
+  padding: 9px 16px;
+  border: 2px solid #4287f5;
+  box-sizing: border-box;
+  border-radius: 10px;
+  color: #4287f5;
+}
+.actions .actions-discord:hover {
+  border: 2px solid hsl(var(--main), 55%, 55%);
+  color: hsl(var(--main), 55%, 55%);
+}
+
+.actions .actions-support-us {
+  margin: 0 16px 0 16px;
+  padding: 9px 16px;
+  border: 2px solid white;
+  box-sizing: border-box;
+  border-radius: 10px;
+  color: white;
+}
+.actions .actions-support-us:hover {
   border: 2px solid hsl(var(--main), 55%, 55%);
   color: hsl(var(--main), 55%, 55%);
 }

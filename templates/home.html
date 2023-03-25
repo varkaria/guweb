@@ -73,14 +73,17 @@
         {% endif %}
       </div>
 
-      {% if not session['authenticated'] %}
-        <div class="actions">
+
+      <div class="actions">
+        {% if not session['authenticated'] %}
           <a class="register" href="/register">Register</a>
           <a class="login" href="/login">Login</a>
-        </div>
-      {% else %}
-        <div class="empty-space"></div>
-      {% endif %}
+        {% endif %}
+        <a class="actions-discord" href="/discord" target="_blank">Discord</a>
+        {% if session['authenticated'] %}
+          <a class="actions-support-us" href="/topg" target="_blank">Support us!</a>
+        {% endif %}
+      </div>
     </div>
 
     <div class="video-container">

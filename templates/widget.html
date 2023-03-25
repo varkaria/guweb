@@ -1,0 +1,66 @@
+<html>
+
+<head>
+  <!-- Title -->
+  <title>{{ appName() }} - {% block title %}{% endblock %}</title>
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/static/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/static/favicon/safari-pinned-tab.svg" color="#d55b9e">
+  <link rel="shortcut icon" href="/static/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#000000">
+  <meta name="msapplication-config" content="/static/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#000000">
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <!-- Custom style -->
+  <link rel="stylesheet" href="/static/css/widget.css">
+</head>
+
+<body>
+
+<div class="widget-wrapper" id="slider">
+    <div class="slide first">
+        <div class="left-side">
+            <span>
+                Total:
+            </span>
+            <span class="count blue total">
+                1337
+            </span>
+        </div>
+        <div class="right-side">
+            <span>
+                Online:
+            </span>
+            <span class="count green online">
+                12
+            </span>
+        </div>
+    </div>
+
+    <div class="slide second">
+        <div class="server">
+            {{ domain() }}
+        </div>
+    </div>
+</div>
+
+<script>
+    {#let DOMAIN = '{{ domain() }}';#}
+    let DOMAIN = 'kurai.pw';
+</script>
+<script src="/static/js/widget.js"></script>
+
+</body>
+
+</html>

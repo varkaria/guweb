@@ -35,3 +35,12 @@ new Vue({
     computed: {
     }
 });
+
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    $('.navbar-item.has-dropdown').click(function () {
+        $(this)
+            .children('.navbar-dropdown')
+            .toggle(500);
+    });
+}
+

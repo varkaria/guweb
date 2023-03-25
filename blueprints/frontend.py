@@ -164,7 +164,6 @@ async def settings_avatar():
     profile_customizations = utils.has_profile_customizations(session['user_data']['id'])
     return await render_template(
         'settings/avatar.html',
-        flash='Your avatar has been successfully changed!',
         status='success',
         customizations=profile_customizations
     )
@@ -707,16 +706,21 @@ async def terms_of_service():
         title='Terms of Service'
     )
 
-# social media redirections
+@frontend.route('/widget')
+async def widget():
+    return await render_template(
+        'widget.html',
+    )
 
-@frontend.route('/github')
-@frontend.route('/gh')
-async def github_redirect():
-    return redirect(glob.config.github)
+# social media redirections
 
 @frontend.route('/discord')
 async def discord_redirect():
     return redirect(glob.config.discord_server)
+
+@frontend.route('/topg')
+async def topg_redirect():
+    return redirect(glob.config.topg)
 
 @frontend.route('/status')
 async def status_redirect():

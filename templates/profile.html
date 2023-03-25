@@ -379,11 +379,8 @@
             background: url("/banners/{{ user['id'] }}?{{ timestamp }}");
             background-size: cover;
         }
-    {% else %}
-        .profile-bg {
-            min-height: unset;
-        }
     {% endif %}
+
     {% if user['customisation']['background'] == True %}
         body {
             background: no-repeat fixed url("/backgrounds/{{ user['id'] }}?{{ timestamp }}");

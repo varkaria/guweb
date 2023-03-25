@@ -813,7 +813,27 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media screen and (max-width: 568px) {
-    .container .container.content {
-        min-height: 50vh;
-    }
+  .container .container.content {
+    min-height: 50vh;
+  }
+  .navbar-dropdown {
+    display: none;
+    width: 100%;
+    border: 0;
+    padding: 3px 0 3px 14px;
+  }
+}
+
+.header-support-us-wrapper {
+  margin-right: 6px;
+}
+
+.header-support-us i {
+  font-size: 1.5rem;
+  color: #fff;
+  transition: .125s all ease;
+}
+
+.header-support-us i:hover {
+  color: hsl(var(--main),65%,70%);
 }
