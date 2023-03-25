@@ -243,31 +243,23 @@ $('html').click(function() {
 });
 
 function scoreMenu($this) {
-    setTimeout(function () {
-        const score_id = $($this).attr("data--score-id");
+    const score_id = $($this).attr("data--score-id");
+    let menu;
 
-        check_score = false;
-        $.get({
-            url: `${window.location.protocol}//api.${window.location.hostname}/v1/get_replay?id=${ score_id }`,
-            type: 'GET',
-        }).done(function(data, status) {
-            if (status == 200) {
-                check_score = true;
-            }
-        });
-
-        let menu;
-
-        // Menu element.
-        if (check_score) {
-            menu = $(`<div class="score-menu" data--score-id="${score_id}" onclick="downloadScore(this);"><div class="menu-contents"><i class="fa-solid fa-download"></i><span>Download Replay</span></div></div>`);
-        } else {
-            menu = $(`<div class="score-menu score-unavailable"><div class="menu-contents"><i class="fa-solid fa-download"></i><span>Replay unavailable</span></div></div>`);
+    $.ajax({
+        url: `https://api.kurai.pw/v1/get_replay?id=${ score_id }`,
+        type: 'GET',
+        success: function(response) {
+            $($this).append(
+                $(`<div class="score-menu" data--score-id="${score_id}" onclick="downloadScore(this);"><div class="menu-contents"><i class="fa-solid fa-download"></i><span>Download Replay</span></div></div>`)
+            );
+        },
+        error: function(xhr) {
+            $($this).append(
+                 $(`<div class="score-menu score-unavailable"><div class="menu-contents"><i class="fa-solid fa-download"></i><span>Replay unavailable</span></div></div>`)
+            );
         }
-
-        // Show menu element;
-        $($this).append(menu);
-    }, 5);
+    });
 }
 
 function downloadScore($this) {
