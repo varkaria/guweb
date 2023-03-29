@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %} Register {% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="/static/css/pages/reset-password.css">
+<style>
+    .noti-banner-text {
+        height: unset;
+        line-height: 2;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class='noti-banner noti-banner-warning'>
+  <div class="container">
+    <div class="noti-column">
+      <div class='noti-col noti-col-icon'></div>
+      <div class='noti-col noti-col-label'>
+        <div class='noti-bannertype'>
+          Security
+        </div>
+      </div>
+      <div class='noti-banner-text'>
+        We have been sent code to your e-mail, use it in the following form.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-block is-auth">
+  <div class="columns pm-reset is-weeb">
+    <div class="column title-block">
+      <h1 class="title" id="regtitle">Reset password</h1>
+    </div>
+  </div>
+  <div class="columns pm-reset flex-lcenter is-block">
+    <div class="box">
+      <div class="login-bg"></div>
+      <form action="/reset-password" method="post" class="form-content">
+        <div class="field mail-field">
+          <label for="code" class="label">Code</label>
+          <div class="control has-icons-left">
+            <input id="code" name="code" placeholder="Code from E-Mail" class="input" required>
+            <span class="icon is-small is-left">
+              <i class="fa fa-lock"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mt-5"></div>
+        {% if not captchaKey() == 'changeme' %}
+        <div class="field">
+          <div class="h-captcha" data-sitekey="{{ captchaKey() }}" data-theme="dark" style="display: flex; justify-content: center;"></div>
+        </div>
+        {% endif %}
+        <div class="field">
+          <button type="submit" class="button is-primary">
+            Send recovery code
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% if flash %}
+<div class="paper-snackbar is-{{ status }}" style="opacity: 1;">
+  {{ flash }}
+</div>
+{% endif %}
+
+{% if not captchaKey() == 'changeme' %}
+<script src="https://hcaptcha.com/1/api.js" async defer></script>
+{% endif %}
+
+{% endblock %}

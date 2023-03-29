@@ -2,6 +2,8 @@
 
 __all__ = ()
 
+import random
+
 import bcrypt
 import hashlib
 import os
@@ -18,6 +20,9 @@ from quart import render_template
 from quart import request
 from quart import session
 from quart import send_file
+from string import ascii_lowercase, ascii_uppercase
+from re import search
+from mailjet_rest import Client as MailJetApi
 
 from constants import regexes
 from objects import glob
@@ -631,6 +636,248 @@ async def register_post():
     # user has successfully registered
     return await render_template('verify.html')
 
+@frontend.route('/forgot')
+async def reset_password():
+    if 'authenticated' in session:
+        return await flash('error', "You're already logged in.", 'home')
+
+    return await render_template('reset-password.html')
+
+@frontend.route('/forgot', methods=['POST'])
+async def reset_password_post():
+    if 'authenticated' in session:
+        return await flash('error', "You're already logged in.", 'home')
+    mail, user_data = None, None
+
+    form = await request.form
+    data = form.get('data', type=str)
+
+    if bool(search(r"^[\w\.\+\-]+\@[\w]+\.[a-z]{2,3}$", data)):
+        # Select player by given e-mail address if exists.
+        user_data = await glob.db.fetch(
+            'SELECT id, email '
+            'FROM users '
+            'WHERE email = %s',
+            [data]
+        )
+    else:
+        # Select player by given name if exists.
+        user_data = await glob.db.fetch(
+            'SELECT id, email '
+            'FROM users '
+            'WHERE safe_name = %s',
+            [utils.get_safe_name(data)]
+        )
+
+    if not user_data:
+        return await flash('error', "Couldn't find that player by given data.", 'reset-password')
+
+    mail = user_data['email']
+
+    # @TODO Generate code and put it to DB.
+    reset_code = ''.join([
+        random.choice(ascii_lowercase + ascii_uppercase)
+        for _ in range(16)
+    ])
+
+    # Put code in DB.
+    await glob.db.execute(
+        'INSERT INTO reset_codes '
+        '(uid, code) VALUES (%s, %s)',
+        [user_data['id'], reset_code]
+    )
+
+    MailJet = MailJetApi(
+        auth=(glob.config.mailjet_api_key, glob.config.mailjet_secret_key),
+        version='v3.1',
+    )
+
+    data = {
+        "Messages": [
+            {
+                "From": {
+                    "Email": f"no-reply@{glob.config.domain}",
+                    "Name": glob.config.domain
+                },
+                "To": [{
+                    "Email": user_data['email'],
+                    "Name": ""
+                }],
+                "TemplateID": glob.config.mailjet_templates['reset_pass'],
+                "TemplateLanguage": True,
+                "Subject": f"{glob.config.domain} reset password",
+                "Variables": {
+                    "RESET_CODE": reset_code
+                }
+            }
+        ]
+    }
+    reset_mail = MailJet.send.create(data=data)
+
+    if reset_mail.status_code != 200:
+        return await flash('error', "Couldn't send password reset e-mail, please contact our team on Discord.", 'home')
+
+    # Allow to access "Reset password" for next 10 minutes.
+    session['reset_password'] = time.time() + 600
+
+    return redirect('/reset-password')
+
+@frontend.route('/reset-password')
+async def apply_reset_code():
+    if 'authenticated' in session:
+        return await flash('error', "You're already logged in.", 'home')
+
+    # Allow access "Reset password" page only for player requested this before via /forgot form.
+    if 'reset_password' in session:
+        if session['reset_password'] > time.time():
+            return await render_template('apply-reset-code.html')
+
+    return await flash('error', "Your code has been expired.", 'home')
+
+@frontend.route('/reset-password', methods=['POST'])
+async def apply_reset_code_post():
+    if 'authenticated' in session:
+        return await flash('error', "You're already logged in.", 'home')
+
+    if ('reset_password' not in session) or (session['reset_password'] < time.time()):
+        session.pop('reset_password', None)
+        session.pop('reset_password_code', None)
+        return await flash('error', "Your code has been expired.", 'home')
+
+    code_data = None
+
+    form = await request.form
+    data = form.get('code', type=str)
+
+    code_data = await glob.db.fetch(
+        'SELECT * '
+        'FROM reset_codes '
+        'WHERE code = %s',
+        [data]
+    )
+
+    if not code_data:
+        session.pop('reset_password', None)
+        session.pop('reset_password_code', None)
+        return await flash('error', "Your reset code didn't found on the system.", 'apply-reset-code')
+
+    session['reset_password_code'] = data
+
+    return redirect('/change-password')
+
+@frontend.route('/change-password')
+async def change_password_on_reset():
+    if 'authenticated' in session:
+        return await flash('error', "You're already logged in.", 'home')
+
+    if ('reset_password_code' not in session) or (session['reset_password'] < time.time()):
+        return await flash('error', "Your code has been expired.", 'home')
+
+    return await render_template('change-password-on-reset.html')
+
+@frontend.route('/change-password', methods=["POST"])
+async def change_password_on_reset_post():
+    if ('reset_password_code' not in session) or ('reset_password' not in session) or  (session['reset_password'] < time.time()):
+        # Remove reset code from session
+        session.pop('reset_password_code', None)
+        session.pop('reset_password', None)
+
+        return await flash('error', "Your code has been expired.", 'home')
+
+    form = await request.form
+    new_password = form.get('new_password')
+    repeat_password = form.get('repeat_password')
+
+    # new password and repeat password don't match; deny post
+    if new_password != repeat_password:
+        return await flash('error', "Your new password doesn't match your repeated password!", 'change-password-on-reset')
+
+    # Passwords must:
+    # - be within 8-32 characters in length
+    # - have more than 3 unique characters
+    # - not be in the config's `disallowed_passwords` list
+    if not 8 < len(new_password) <= 32:
+        return await flash('error', 'Your new password must be 8-32 characters in length.', 'change-password-on-reset')
+
+    if len(set(new_password)) <= 3:
+        return await flash('error', 'Your new password must have more than 3 unique characters.', 'change-password-on-reset')
+
+    if new_password.lower() in glob.config.disallowed_passwords:
+        return await flash('error', 'Your new password was deemed too simple.', 'change-password-on-reset')
+
+    user_id = (await glob.db.fetch(
+        'SELECT uid '
+        'FROM reset_codes '
+        'WHERE code = %s',
+        [session['reset_password_code']]
+    ))['uid']
+
+    # cache and other password related information
+    bcrypt_cache = glob.cache['bcrypt']
+    user_data = await glob.db.fetch(
+        'SELECT pw_bcrypt, safe_name, name, email '
+        'FROM users '
+        'WHERE id = %s',
+        [user_id]
+    )
+    pw_bcrypt = user_data['pw_bcrypt'].encode()
+
+    # remove old password from cache
+    if pw_bcrypt in bcrypt_cache:
+        del bcrypt_cache[pw_bcrypt]
+
+    # calculate new md5 & bcrypt pw
+    pw_md5 = hashlib.md5(new_password.encode()).hexdigest().encode()
+    pw_bcrypt = bcrypt.hashpw(pw_md5, bcrypt.gensalt())
+
+    # update password in cache and db
+    bcrypt_cache[pw_bcrypt] = pw_md5
+    await glob.db.execute(
+        'UPDATE users '
+        'SET pw_bcrypt = %s '
+        'WHERE safe_name = %s',
+        [pw_bcrypt, user_data['safe_name']]
+    )
+
+    await glob.db.execute(
+        'UPDATE reset_codes '
+        'SET status = 1 '
+        'WHERE code = %s',
+        [session['reset_password_code']]
+    )
+
+    # Remove reset code from session
+    session.pop('reset_password_code', None)
+    session.pop('reset_password', None)
+
+    MailJet = MailJetApi(
+        auth=(glob.config.mailjet_api_key, glob.config.mailjet_secret_key),
+        version='v3.1',
+    )
+    data = {
+        "Messages": [
+            {
+                "From": {
+                    "Email": f"no-reply@{glob.config.domain}",
+                    "Name": glob.config.domain
+                },
+                "To": [{
+                    "Email": user_data['email'],
+                    "Name": ""
+                }],
+                "TemplateID": glob.config.mailjet_templates['password_has_been_changed'],
+                "TemplateLanguage": True,
+                "Subject": f"{glob.config.domain} your password has been changed!",
+                "Variables": {
+                    "PLAYER": user_data['name']
+                }
+            }
+        ]
+    }
+    MailJet.send.create(data=data)
+
+    return await flash('success', 'Your password has been changed! Please log in again.', 'login')
+
 @frontend.route('/logout')
 async def logout():
     if 'authenticated' not in session:
@@ -645,20 +892,6 @@ async def logout():
 
     # render login
     return await flash('success', 'Successfully logged out!', 'login')
-
-@frontend.route('/reset-password')
-async def reset_password():
-    return
-
-@frontend.route('/reset-password', methods=['POST'])
-async def reset_password_post():
-    form = await request.form
-
-    reset_data = form.get('reset_data', type=str)
-    if reset_data is None:
-        if 'authenticated' not in session:
-            return await flash('error', "You can't logout if you aren't logged in!", 'reset-password')
-
 
 @frontend.route('/team')
 async def team():

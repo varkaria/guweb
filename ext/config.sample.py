@@ -13,6 +13,14 @@ hCaptcha_secret = 'changeme'
 # domain (used for api, avatar, etc)
 domain = 'kurai.pw'
 
+# Send mails to reset pass, etc.
+mailjet_api_key = ''
+mailjet_secret_key = ''
+mailjet_templates = {
+    'reset_pass': 4691992, # Template ID.
+    'password_has_been_changed': 4696229
+}
+
 # max image size for avatars, in megabytes
 max_image_size = 2
 
