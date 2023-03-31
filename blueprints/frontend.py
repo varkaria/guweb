@@ -947,6 +947,10 @@ async def widget():
 
 # social media redirections
 
+@frontend.route('/youtube')
+async def youtube_redirect():
+    return redirect(glob.config.youtube)
+
 @frontend.route('/discord')
 async def discord_redirect():
     return redirect(glob.config.discord_server)

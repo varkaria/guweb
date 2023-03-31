@@ -238,7 +238,6 @@ new Vue({
 });
 
 $('html').click(function() {
-    console.log('click');
     $('.score-menu').remove();
 });
 

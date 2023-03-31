@@ -22,19 +22,49 @@ new Vue({
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
         },
-        LoadLeaderboard(sort, mode, mods) {
+        LoadLeaderboard(sort, mode, mods, action = -1) {
+            // action:  0  - Pager back.
+            // action:  1  - Pager forward.
+            // action: -1  - Don't change page (default).
+            // action: -2  - Reset pager on change mode, etc.
             if (window.event)
                 window.event.preventDefault();
 
-            window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}`);
+            let offset = 0;
+            switch (action) {
+                case -2:
+                    last_page = page;
+                    page = 0;
+                    break;
+                case 0:
+                    page -= 1;
+                    offset = page * 50;
+                    break;
+                case 1:
+                    page += 1;
+                    offset = page * 50;
+                    break;
+            }
+
+            // @TODO Explain why.
+            if (page !== 0 && action === 0) {
+                offset = offset + 1;
+            }
+
+            // window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}?p=${page + 1}`);
+            window.history.pushState('page2', 'Title', `/leaderboard/${this.mode}/${this.sort}/${this.mods}?p=${page + 1}`);
             this.$set(this, 'mode', mode);
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
             this.$set(this, 'load', true);
             this.$axios.get(`https://api.${domain}/v1/get_leaderboard`, { params: {
                 mode: this.StrtoGulagInt(),
-                sort: this.sort
+                sort: this.sort,
+                offset: offset
             }}).then(res => {
+                if (res.data.leaderboard.length !== 51 && offset !== 0) {
+                    last_page = page + 1;
+                }
                 this.boards = res.data.leaderboard;
                 this.$set(this, 'load', false);
             });

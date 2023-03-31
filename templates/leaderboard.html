@@ -10,6 +10,9 @@
     var mods = "{{ mods }}";
     var sort = "{{ sort }}";
     var domain = "{{ domain() }}";
+    // @TODO Load param from URL.
+    var page = 0;
+    var last_page = -1;
 </script>
 
 <link rel="stylesheet" href="/static/css/pages/leaderboard.css">
@@ -20,19 +23,19 @@
     <div class="leaderboard-banner main-banner">
         <div class="main-selector">
             <a class="mode-select" v-bind:class="{ 'active': mode === 'std' }"
-            @click="LoadLeaderboard(sort, 'std', mods)">
+            @click="LoadLeaderboard(sort, 'std', mods, -2)">
                 <i class="mode-icon mode-osu"></i><span class="modetext"> osu!</span>
             </a>
             <a class="mode-select" v-bind:class="{ 'active': mode === 'taiko', 'disabled': mods === 'ap' }"
-            @click="LoadLeaderboard(sort, 'taiko', mods)">
+            @click="LoadLeaderboard(sort, 'taiko', mods, -2)">
                 <i class="mode-icon mode-taiko"></i><span class="modetext"> osu!taiko</span>
             </a>
             <a class="mode-select" v-bind:class="{ 'active': mode === 'catch', 'disabled': mods === 'ap' }"
-            @click="LoadLeaderboard(sort, 'catch', mods)">
+            @click="LoadLeaderboard(sort, 'catch', mods, -2)">
                 <i class="mode-icon mode-catch"></i><span class="modetext"> osu!catch</span>
             </a>
             <a class="mode-select" v-bind:class="{ 'active': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
-            @click="LoadLeaderboard(sort, 'mania', mods)">
+            @click="LoadLeaderboard(sort, 'mania', mods, -2)">
                 <i class="mode-icon mode-mania"></i><span class="modetext"> osu!mania</span>
             </a>
         </div>
@@ -40,17 +43,17 @@
         <div class="selector">
             <div class="left">
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'pp' }"
-                @click="LoadLeaderboard('pp', mode, mods, '')">PP</a>
+                @click="LoadLeaderboard('pp', mode, mods, '', -2)">PP</a>
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'rscore' }"
-                @click="LoadLeaderboard('rscore', mode, mods, '')">Score</a>
+                @click="LoadLeaderboard('rscore', mode, mods, '', -2)">Score</a>
             </div>
             <div class="right">
                 <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'vn' }"
-                @click="LoadLeaderboard(sort, mode, 'vn')">Vanilla</a>
+                @click="LoadLeaderboard(sort, mode, 'vn', -2)">Vanilla</a>
                 <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'rx', 'disabled': mode === 'mania' }"
-                @click="LoadLeaderboard(sort, mode, 'rx')">Relax</a>
+                @click="LoadLeaderboard(sort, mode, 'rx', -2)">Relax</a>
                 <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
-                @click="LoadLeaderboard(sort, mode, 'ap')">Autopilot</a>
+                @click="LoadLeaderboard(sort, mode, 'ap', -2)">Autopilot</a>
             </div>
         </div>
     </div>
@@ -75,7 +78,7 @@
                         <tr v-for="(user, index) in boards" class="leaderboard-column">
                             <td class="column-player-rank">
                                 <span>
-                                    #<% index + 1 %>
+                                    #<% (page * 50) + index + 1 %>
                                 </span>
                             </td>
                             <td class="column-player-name text-left">
@@ -106,6 +109,26 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="pager">
+                    <span
+                        class="pager-btn"
+                        v-bind:class = "(page === 0) ? 'btn-disabled' : ''"
+                        @click="LoadLeaderboard(sort, 'std', mods, 0)"
+                    >
+                        <span>
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </span>
+                    </span>
+                    <span
+                        class="pager-btn"
+                        v-bind:class = "(last_page === (page + 1)) ? 'btn-disabled' : ''"
+                        @click="LoadLeaderboard(sort, 'std', mods, 1)"
+                    >
+                        <span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </span>
+                    </span>
+                </div>
             </div>
             <div v-else>
                 <div class="text-center">

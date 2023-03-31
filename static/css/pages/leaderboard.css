@@ -340,3 +340,26 @@ table th {
     flex-basis: 12%;
   }
 }
+
+.pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pager-btn {
+  margin: 12px 6px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: hsl(var(--main),65%,70%);
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+.pager-btn.btn-disabled {
+  display: none;
+}
