@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<link rel="stylesheet" href="/static/css/pages/friends.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="friends-wrapper">
+    {% if friends %}
+        {% for friend in friends %}
+            <a class="friend-link" href="/u/{{ friend['user2'] }}"
+                {% if friend['customisation']['banner'] == True %}
+                     style="
+                         min-height: 262px;
+                         background: url('/banners/{{ friend['user2'] }}?{{ timestamp }}');
+                         background-size: cover;
+                     "
+                {% else %}
+                    style="background: url('https://media.tenor.com/mD1iWcEHA6MAAAAC/anime-girl.gif');"
+                {% endif %}
+            >
+            <div class="friend-wrapper">
+                <div class="left-side">
+                    <div class="avatar-wrap">
+                        <img src="https://a.{{ domain() }}/{{ friend['user2'] }}" alt="Friend" class="avatar">
+                    </div>
+                </div>
+
+                <div class="right-side">
+                    <div class="flag"
+                        style="background-image: url(/static/images/flags/{{ friend['country'].upper() }}.png)"
+                    ></div>
+
+                    <span class="name">
+                        {{ friend['name'] }}
+                    </span>
+
+                    {% if friend['status'] != 'online' %}
+                        <span class="last-seen">
+                            Last seen {{ friend['last_seen'] }}
+                        </span>
+                    {% endif %}
+
+                    <div class="status">
+                        {{ 'Online' if friend['status'] else 'Offline' }}
+                    </div>
+                </div>
+            </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <div class="no-friends">
+            You have no friends :'c
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

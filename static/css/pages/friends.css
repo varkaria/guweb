@@ -1,0 +1,110 @@
+.container.is-fullhd.con {
+    width: 100%;
+}
+
+.friends-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.friend-wrapper {
+    flex-basis: 30%;
+    height: 130px;
+    border-radius: 12px;
+    display: flex;
+    position: relative;
+    z-index: 15;
+}
+
+.friend-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: rgba(20, 20, 20, .5);
+    z-index: 10;
+}
+
+.friend-link {
+    display: block;
+    flex-basis: 30%;
+    height: fit-content;
+    color: white;
+    position: relative;
+    border-radius: 12px;
+    background-position-y: center !important;
+    background-size: cover !important;
+}
+
+.last-seen {
+    font-size: .75rem;
+}
+
+.name {
+    margin: 8px 0 12px 0;
+    font-weight: 700;
+}
+
+.avatar-wrap {
+    width: 80%;
+    margin: 12px;
+}
+
+.avatar-wrap img {
+    border-radius: 8px;
+}
+
+.left-side {
+    flex-basis: 38%;
+}
+
+.right-side {
+    padding: 8px 0;
+    flex-basis: 62%;
+    display: flex;
+    flex-direction: column;
+}
+
+.flag {
+    background-size: cover;
+    width: 32px;
+    height: 24px;
+    border-radius: 4px;
+}
+
+.container > .title {
+    padding: 0 0 0 32px;
+}
+
+@media screen and (max-width: 1200px) {
+    .friend-link {
+        flex-basis: 35%;
+    }
+    .friends-wrapper {
+        justify-content: space-around;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .friend-link {
+        width: 356px;
+        margin-bottom: 24px;
+    }
+    .friends-wrapper {
+        align-items: center;
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+}
+
+a.friend-link:hover {
+    color: white;
+    box-shadow: #ff66aa 0 1px .1rem, #ff66aa 0 0 0 .1rem;
+    box-sizing: border-box;
+}

@@ -2,6 +2,7 @@
 
 __all__ = ()
 
+import json
 import random
 
 import bcrypt
@@ -9,6 +10,7 @@ import hashlib
 import os
 import time
 
+import timeago
 from cmyui.logging import Ansi
 from cmyui.logging import log
 from functools import wraps
@@ -22,6 +24,7 @@ from quart import session
 from quart import send_file
 from string import ascii_lowercase, ascii_uppercase
 from re import search
+from requests import get
 from mailjet_rest import Client as MailJetApi
 
 from constants import regexes
@@ -87,6 +90,36 @@ async def connect_to_osu():
 @login_required
 async def settings_profile():
     return await render_template('settings/profile.html')
+
+@frontend.route('/friends')
+@login_required
+async def friends_page():
+    friends = await glob.db.fetchall(
+        'SELECT user2 FROM relationships '
+        'WHERE user1 = %s and type = "friend"',
+        [session['user_data']['id']]
+    )
+
+    if friends:
+        for _, friend in enumerate(friends):
+            friend_status = get(f'https://api.{glob.config.domain}/v1/get_player_status?id={friend["user2"]}')
+            friend_status = json.loads(friend_status.content)
+            friends[_]['status'] = friend_status['player_status']['online']
+            if not friend_status['player_status']['online']:
+                friends[_]['last_seen'] = timeago.format(friend_status['player_status']['last_seen'], time.time())
+
+            friend_data = get(f'https://api.{glob.config.domain}/v1/get_player_info?id={friend["user2"]}&scope=info')
+            friend_data = json.loads(friend_data.content)
+            friends[_]['name'] = friend_data['player']['info']['name']
+            friends[_]['country'] = friend_data['player']['info']['country']
+
+            friends[_]['customisation'] = utils.has_profile_customizations(friend["user2"])
+
+    return await render_template(
+        'friends.html',
+        friends=friends,
+        title='Friends',
+    )
 
 @frontend.route('/settings/profile', methods=['POST'])
 @login_required
