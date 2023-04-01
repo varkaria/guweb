@@ -36,13 +36,17 @@
                         {{ friend['name'] }}
                     </span>
 
-                    {% if friend['status'] != 'online' %}
+                    {% if friend['status'] != True %}
                         <span class="last-seen">
                             Last seen {{ friend['last_seen'] }}
                         </span>
                     {% endif %}
 
-                    <div class="status">
+                    <div class="status"
+                        {% if friend['status'] %}
+                            style="color: #87ef87; margin-top: 16px;"
+                        {% endif %}
+                    >
                         {{ 'Online' if friend['status'] else 'Offline' }}
                     </div>
                 </div>

@@ -102,6 +102,20 @@ async def friends_page():
 
     if friends:
         for _, friend in enumerate(friends):
+            # If friend is bot (UID 1).
+            if friend["user2"] == 1:
+                bot_info = await glob.db.fetch(
+                    'SELECT name, country FROM users '
+                    'WHERE id = 1'
+                )
+
+                friends[_]['name'] = bot_info['name']
+                friends[_]['country'] = bot_info['country']
+                friends[_]['status'] = True
+                friends[_]['customisation'] = utils.has_profile_customizations(friend["user2"])
+
+                continue
+
             friend_status = get(f'https://api.{glob.config.domain}/v1/get_player_status?id={friend["user2"]}')
             friend_status = json.loads(friend_status.content)
             friends[_]['status'] = friend_status['player_status']['online']

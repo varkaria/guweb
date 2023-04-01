@@ -58,7 +58,7 @@
   transition: 0.2s ease;
   width: fit-content;
   background: rgba(0,0,0, 0.4);
-  padding: 10px 10px 10px 40px;
+  padding: 10px 16px 10px 40px;
   margin-left: 220px;
   border-top-right-radius: 16px;
 }

@@ -379,6 +379,44 @@
             background: url("/banners/{{ user['id'] }}?{{ timestamp }}");
             background-size: cover;
         }
+    {% else %}
+        #app .main-block {
+            background: none;
+        }
+        .online-infomation {
+            right: 32px;
+            left: unset;
+        }
+        @media screen and (max-width: 1260px) {
+            .online-infomation {
+                top: -64px;
+            }
+            .profile-bg {
+                overflow: unset;
+            }
+        }
+        @media screen and (max-width: 962px) {
+            .online-infomation {
+                top: -52px;
+                left: 192px;
+                right: unset;
+            }
+        }
+        @media screen and (max-width: 962px) {
+            .online-infomation {
+                top: 24px;
+            }
+        }
+        @media screen and (max-width: 800px) {
+            .online-infomation {
+                top: 7px;
+            }
+        }
+        @media screen and (max-width: 568px) {
+            .online-infomation {
+                left: 164px;
+            }
+        }
     {% endif %}
 
     {% if user['customisation']['background'] == True %}
