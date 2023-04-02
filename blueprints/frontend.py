@@ -1037,3 +1037,29 @@ async def get_profile_background(user_id: int):
             return await send_file(path)
 
     return b'{"status":404}'
+
+@frontend.route('/get_leaderboard_history')
+async def api_get_leaderboard_history():
+    user_id = request.args.get('uid')
+    mode = request.args.get('mode') or 0
+
+    if not await glob.db.fetch('SELECT 1 FROM users WHERE id = %s', [user_id]):
+        return b'{"status":404}'
+
+    data = {
+        'days': [],
+        'ranks': []
+    }
+    leaderboard_history = await glob.db.fetchall(
+        'SELECT player_rank FROM leaderboard_history '
+        'WHERE uid = %s and mode = %s '
+        'ORDER BY capture_time DESC '
+        'LIMIT 90',
+        [user_id, mode]
+    )
+
+    for day, history in enumerate(leaderboard_history):
+        data['days'].append(day)
+        data['ranks'].append(history['player_rank'])
+
+    return data

@@ -8,3 +8,6 @@ orjson
 timeago
 markdown2
 Pillow
+requests
+mailjet-rest
+redis

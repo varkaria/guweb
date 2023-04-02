@@ -849,3 +849,8 @@ span.beatmap-mapper {
     display: none;
   }
 }
+
+.leaderboard-history {
+  padding: 24px 24px 12px 12px;
+  background: hsl(var(--main), 25%, 25%);
+}

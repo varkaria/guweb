@@ -39,6 +39,7 @@ new Vue({
                         }
                     }
                 },
+                leaderboard_history: {},
                 status: {}
             },
             mode: mode,
@@ -53,6 +54,7 @@ new Vue({
         this.modegulag = this.StrtoGulagInt();
         this.LoadProfileData();
         this.LoadAllofdata();
+        this.LoadLeaderboardHistory();
         this.LoadUserStatus();
     },
     methods: {
@@ -64,11 +66,11 @@ new Vue({
         LoadProfileData() {
             this.$set(this.data.stats, 'load', true);
             this.$axios.get(`https://api.${domain}/v1/get_player_info`, {
-                    params: {
-                        id: this.userid,
-                        scope: 'all'
-                    }
-                })
+                params: {
+                    id: this.userid,
+                    scope: 'all'
+                }
+            })
                 .then(res => {
                     this.$set(this.data.stats, 'out', res.data.player.stats);
                     this.data.stats.load = false;
@@ -78,13 +80,13 @@ new Vue({
         LoadScores(sort) {
             this.$set(this.data.scores[`${sort}`], 'load', true);
             this.$axios.get(`https://api.${domain}/v1/get_player_scores`, {
-                    params: {
-                        id: this.userid,
-                        mode: this.StrtoGulagInt(),
-                        scope: sort,
-                        limit: this.data.scores[`${sort}`].more.limit
-                    }
-                })
+                params: {
+                    id: this.userid,
+                    mode: this.StrtoGulagInt(),
+                    scope: sort,
+                    limit: this.data.scores[`${sort}`].more.limit
+                }
+            })
                 .then(res => {
                     this.data.scores[`${sort}`].out = res.data.scores;
                     this.data.scores[`${sort}`].load = false
@@ -94,12 +96,12 @@ new Vue({
         LoadMostBeatmaps() {
             this.$set(this.data.maps.most, 'load', true);
             this.$axios.get(`https://api.${domain}/v1/get_player_most_played`, {
-                    params: {
-                        id: this.userid,
-                        mode: this.StrtoGulagInt(),
-                        limit: this.data.maps.most.more.limit
-                    }
-                })
+                params: {
+                    id: this.userid,
+                    mode: this.StrtoGulagInt(),
+                    limit: this.data.maps.most.more.limit
+                }
+            })
                 .then(res => {
                     this.data.maps.most.out = res.data.maps;
                     this.data.maps.most.load = false;
@@ -108,10 +110,10 @@ new Vue({
         },
         LoadUserStatus() {
             this.$axios.get(`https://api.${domain}/v1/get_player_status`, {
-                    params: {
-                        id: this.userid
-                    }
-                })
+                params: {
+                    id: this.userid
+                }
+            })
                 .then(res => {
                     this.$set(this.data, 'status', res.data.player_status)
                 })
@@ -133,6 +135,7 @@ new Vue({
             this.data.scores.best.more.limit = 5
             this.data.maps.most.more.limit = 6
             this.LoadAllofdata();
+            this.LoadLeaderboardHistory();
         },
         AddLimit(which) {
             if (window.event)
@@ -165,12 +168,12 @@ new Vue({
                     return 'In Multiplayer: Song Select';
                 case 6:
                     return `Watching: 👓 ${d.info_text}`;
-                    // 7 not used
+                // 7 not used
                 case 8:
                     return `Testing: 🎾 ${d.info_text}`;
                 case 9:
                     return `Submitting: 🧼 ${d.info_text}`;
-                    // 10 paused, never used
+                // 10 paused, never used
                 case 11:
                     return 'Idle: 🏢 In multiplayer lobby';
                 case 12:
@@ -180,6 +183,97 @@ new Vue({
                 default:
                     return 'Unknown: 🚔 not yet implemented!';
             }
+        },
+        LoadLeaderboardHistory() {
+            this.$axios.get(`https://kurai.localhost/get_leaderboard_history`, {
+                params: {
+                    uid: this.userid,
+                    mode: this.StrtoGulagInt(),
+                }
+            })
+                .then(res => {
+                    let wrapper_elem = $('.leaderboard-history-block');
+
+                    if (res.data.days.length < 5 && res.data.ranks.length < 5) {
+                        wrapper_elem.css({
+                            'display': 'none',
+                        });
+                        return;
+                    }
+                    wrapper_elem.css({
+                        'display': 'block',
+                    });
+
+                    new Chart("leaderboard-history", {
+                        type: "line",
+                        data: {
+                            labels: res.data.days,
+                            datasets: [{
+                                data: res.data.ranks,
+                                backgroundColor: "rgba(255, 204, 34, 0)",
+                                borderColor: "#FFCC22",
+                                borderWidth: 2,
+                                pointRadius: 0
+                            }]
+                        },
+                        options: {
+                            legend: {
+                                display: false
+                            },
+                            hover: {
+                                intersect: false
+                            },
+                            tooltips: {
+                                mode: 'index',
+                                intersect: false,
+                                displayColors: false,
+                                callbacks: {
+                                    label: function(item, data) {
+                                        return `${item.index} days ago`;
+                                    },
+                                    title: function(item, data) {
+                                        return `Global ranking #${item[0].value}`;
+                                    }
+                                }
+                            },
+                            plugins: {
+                                datalabels: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        display: false
+                                    },
+                                    gridLines: {
+                                        color: "rgba(0, 0, 0, 0)",
+                                        drawBorder: false,
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        display: false
+                                    },
+                                    gridLines: {
+                                        color: "rgba(0, 0, 0, 0)",
+                                        drawBorder: false,
+                                    },
+                                }],
+                                x: {
+                                    grid: {
+                                        drawBorder: false,
+                                    },
+                                },
+                                y: {
+                                    grid: {
+                                        drawBorder: false,
+                                    },
+                                },
+                            }
+                        }
+                    });
+                });
         },
         addCommas(nStr) {
             nStr += '';
