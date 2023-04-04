@@ -44,7 +44,6 @@ new Vue({
             },
             mode: mode,
             mods: mods,
-            // mods_readable: mods_readable,
             modegulag: 0,
             userid: userid
         };
@@ -54,7 +53,6 @@ new Vue({
         this.modegulag = this.StrtoGulagInt();
         this.LoadProfileData();
         this.LoadAllofdata();
-        this.LoadLeaderboardHistory();
         this.LoadUserStatus();
     },
     methods: {
@@ -75,6 +73,9 @@ new Vue({
                     this.$set(this.data.stats, 'out', res.data.player.stats);
                     this.data.stats.load = false;
                     x = res.data.player;
+
+                    // Kurwa, fucking Vue, don't ask me why that there.
+                    this.LoadLeaderboardHistory();
                 });
         },
         LoadScores(sort) {
@@ -185,7 +186,7 @@ new Vue({
             }
         },
         LoadLeaderboardHistory() {
-            this.$axios.get(`https://${domain}/get_leaderboard_history`, {
+            this.$axios.get(`https://kurai.localhost/get_leaderboard_history`, {
                 params: {
                     uid: this.userid,
                     mode: this.StrtoGulagInt(),
@@ -194,7 +195,7 @@ new Vue({
                 .then(res => {
                     let wrapper_elem = $('.leaderboard-history-block');
 
-                    if (res.data.days.length < 5 && res.data.ranks.length < 5) {
+                    if (res.data.days.length < 5) {
                         wrapper_elem.css({
                             'display': 'none',
                         });
@@ -204,6 +205,10 @@ new Vue({
                         'display': 'block',
                     });
 
+                    // Add current data to info.
+                    res.data.days.push(0);
+                    res.data.ranks.push(this.data.stats.out[this.modegulag].rank);
+
                     new Chart("leaderboard-history", {
                         type: "line",
                         data: {
@@ -212,11 +217,28 @@ new Vue({
                                 data: res.data.ranks,
                                 backgroundColor: "rgba(255, 204, 34, 0)",
                                 borderColor: "#FFCC22",
-                                borderWidth: 2,
-                                pointRadius: 0
+                                borderWidth: 3,
+                                pointRadius: 0,
+                                pointLabelFontSize : 4,
+                                fill: false,
+                                lineTension: .3,
+                                borderCapStyle: 'round',
+                                borderDash: [],
+                                borderDashOffset: 0.0,
+                                borderJoinStyle: 'bevel',
+                                pointBorderWidth: 1,
+                                pointHoverRadius: 6,
+                                pointHoverBackgroundColor: "rgba(255, 204, 34, 1)",
+                                pointHoverBorderColor: "rgba(255, 204, 34, 1)",
+                                pointHoverBorderWidth: 2,
+                                pointHitRadius: 10,
+                                spanGaps: false,
                             }]
                         },
                         options: {
+                            layout: {
+                                padding: 12,
+                            },
                             legend: {
                                 display: false
                             },
@@ -229,7 +251,7 @@ new Vue({
                                 displayColors: false,
                                 callbacks: {
                                     label: function(item, data) {
-                                        return `${item.index} days ago`;
+                                        return res.data.days.length - 1 === item.index ? 'now' : `${res.data.days.length - item.index - 1} days ago`;
                                     },
                                     title: function(item, data) {
                                         return `Global ranking #${item[0].value}`;
@@ -239,12 +261,17 @@ new Vue({
                             plugins: {
                                 datalabels: {
                                     display: false
-                                }
+                                },
                             },
                             scales: {
+                                gridLines: {
+                                    offsetGridLines: 2,
+                                },
                                 yAxes: [{
+
                                     ticks: {
-                                        display: false
+                                        display: false,
+                                        reverse: true,
                                     },
                                     gridLines: {
                                         color: "rgba(0, 0, 0, 0)",

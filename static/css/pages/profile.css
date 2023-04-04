@@ -194,6 +194,10 @@ td {
   margin: -2px 8px;
 }
 
+.rank-single .map-rank {
+  margin-left: unset;
+}
+
 .rank-block {
   margin: auto 0;
 }
@@ -851,6 +855,6 @@ span.beatmap-mapper {
 }
 
 .leaderboard-history {
-  padding: 24px 24px 12px 12px;
+  padding: 12px 12px 6px 0;
   background: hsl(var(--main), 25%, 25%);
 }

@@ -1053,13 +1053,15 @@ async def api_get_leaderboard_history():
     leaderboard_history = await glob.db.fetchall(
         'SELECT player_rank FROM leaderboard_history '
         'WHERE uid = %s and mode = %s '
-        'ORDER BY capture_time DESC '
+        'ORDER BY capture_time ASC '
         'LIMIT 90',
         [user_id, mode]
     )
 
     for day, history in enumerate(leaderboard_history):
-        data['days'].append(day)
+        data['days'].append(day + len(history))
         data['ranks'].append(history['player_rank'])
+    # data['days'].reverse()
+    # data['ranks'].reverse()
 
     return data
