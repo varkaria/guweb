@@ -186,7 +186,7 @@ new Vue({
             }
         },
         LoadLeaderboardHistory() {
-            this.$axios.get(`https://kurai.localhost/get_leaderboard_history`, {
+            this.$axios.get(`https://${domain}/get_leaderboard_history`, {
                 params: {
                     uid: this.userid,
                     mode: this.StrtoGulagInt(),
