@@ -1,7 +1,7 @@
 /* gulag mascot/avatar */
 
 .home-main {
-  background: #211b1f;
+  background: #24222A;
   margin-bottom: 36px;
   padding: 32px;
   box-sizing: border-box;
@@ -155,4 +155,8 @@
 .subtitle strong {
   font-weight: 500;
   color: whitesmoke;
+}
+
+.hero {
+  background-color: #18171C;
 }

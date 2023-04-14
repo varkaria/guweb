@@ -455,7 +455,6 @@ async def leaderboard(mode='std', sort='pp', mods='vn'):
         mode=mode,
         sort=sort,
         mods=mods,
-        title=f'Leaderboard'
     )
 
 @frontend.route('/login')

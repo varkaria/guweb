@@ -26,14 +26,15 @@ new Vue({
             // action:  0  - Pager back.
             // action:  1  - Pager forward.
             // action: -1  - Don't change page (default).
-            // action: -2  - Reset pager on change mode, etc.
+            // action: -2  - Reset pager on mode change, etc.
             if (window.event)
                 window.event.preventDefault();
 
             let offset = 0;
+            let limit = 50;
             switch (action) {
                 case -2:
-                    last_page = page;
+                    last_page = -1;
                     page = 0;
                     break;
                 case 0:
@@ -46,9 +47,10 @@ new Vue({
                     break;
             }
 
+            console.log(action);
             // @TODO Explain why.
-            if (page !== 0 && action === 0) {
-                offset = offset + 1;
+            if (page !== 0 && action === 1) {
+                limit = 51;
             }
 
             // window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}?p=${page + 1}`);
@@ -60,9 +62,10 @@ new Vue({
             this.$axios.get(`https://api.${domain}/v1/get_leaderboard`, { params: {
                 mode: this.StrtoGulagInt(),
                 sort: this.sort,
-                offset: offset
+                offset: offset,
+                limit: limit
             }}).then(res => {
-                if (res.data.leaderboard.length !== 51 && offset !== 0) {
+                if (last_page === -1 && res.data.leaderboard.length !== 51 && offset !== 0) {
                     last_page = page + 1;
                 }
                 this.boards = res.data.leaderboard;

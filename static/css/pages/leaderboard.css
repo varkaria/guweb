@@ -24,7 +24,6 @@ a:hover {
 }
 
 .leaderboard-column {
-  background-color: #eee;
   color: #222;
   height: 38px;
   font-size: 12px;
@@ -41,7 +40,7 @@ a:hover {
   width: 100%;
   white-space: nowrap;
   text-align: center;
-  border-spacing: 0 3px;
+  border-spacing: 0 6px;
   border-collapse: separate;
   padding-bottom: 24px;
   transition: 0.2s ease;
@@ -128,8 +127,18 @@ table th {
   border-top-left-radius: 16px;
   justify-content: space-between;
   position: relative;
-  padding: 0px 36px;
-  height: 232px;
+  padding: 0 36px;
+  margin-top: 64px;
+  background: url('/static/images/leaderboard.gif');
+  background-size: 100%;
+  background-position-y: 83%;
+  height: 300px;
+}
+
+@media screen and (max-width: 1000px) {
+  .main-banner {
+    height: unset;
+  }
 }
 
 .main-banner > * {
@@ -151,6 +160,7 @@ table th {
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
   z-index: 1;
+  background: rgba(30, 30, 30, .64);
 }
 
 .main-selector {
@@ -207,12 +217,19 @@ table th {
 .simple-banner-switch {
   color: #fff !important;
   text-shadow: -1px 2px 2px rgba(0, 0, 0, 0.33);
-  padding: 0 12px;
   opacity: 0.5;
   cursor: pointer;
   transition: 0.3s ease;
   font-size: 14px;
   margin: 10px 8px;
+  display: flex;
+  align-items: center;
+  padding: 6px 16px;
+}
+
+.simple-banner-switch.active {
+  background: rgba(30, 30, 30, .52);
+  border-radius: 16px;
 }
 
 .simple-banner-switch:hover {
@@ -362,4 +379,35 @@ table th {
 
 .pager-btn.btn-disabled {
   display: none;
+}
+
+@media screen and (min-width: 768px) {
+  table.leaderboard-table tr td {
+    background-color: hsl(var(--main), 15%, 25%);
+  }
+
+  table.leaderboard-table tr td.column-player-rank {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  table.leaderboard-table tr td.column-player-max-combo {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .leaderboard-banner {
+    height: 240px;
+    margin-top: 12px;
+  }
+  .leaderboard-banner .selector {
+    flex-wrap: wrap;
+    justify-content: center;
+    height: unset;
+  }
+  .leaderboard-banner .selector .right {
+    margin-left: unset;
+  }
 }

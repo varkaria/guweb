@@ -13,7 +13,7 @@
 /* layout */
 
 body {
-  background-color: hsl(var(--main), 10%, 15%);
+  background-color: #18171C;
   display: grid;
   width: 100%;
 }
@@ -24,9 +24,8 @@ html {
 }
 
 .footer {
+  background-color: #18171C;
   padding: 20px;
-  margin-top: 39px;
-  background: #211b1f;
   margin-top: auto;
 }
 
@@ -179,6 +178,7 @@ a.foot-link {
 /* navbar */
 
 .navbar {
+  background-color: hsl(250, 50%, 50%);
   position: fixed !important;
   width: 100%;
   transition: 0.2s ease;
@@ -302,6 +302,8 @@ a.foot-link {
 
 .navbar-dropdown {
   width: 152px;
+  background-color: hsl(250, 50%, 50%);
+  padding: 6px;
   border: 0;
 }
 
@@ -701,6 +703,10 @@ a.foot-link {
   pointer-events: none;
 }
 
+.button.is-primary {
+ background-color: #7F66FF;
+}
+
 .infoitem .button.is-primary {
   font-size: 14px;
   margin-left: 12px;
@@ -836,4 +842,8 @@ body::-webkit-scrollbar-thumb {
 
 .header-support-us i:hover {
   color: hsl(var(--main),65%,70%);
+}
+
+.navbar .navbar-item .button:hover {
+  background-color: #8972ff;
 }

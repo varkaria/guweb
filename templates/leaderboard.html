@@ -43,7 +43,7 @@
         <div class="selector">
             <div class="left">
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'pp' }"
-                @click="LoadLeaderboard('pp', mode, mods, '', -2)">PP</a>
+                @click="LoadLeaderboard('pp', mode, mods, '', -2)">Performance Points</a>
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'rscore' }"
                 @click="LoadLeaderboard('rscore', mode, mods, '', -2)">Score</a>
             </div>
@@ -121,7 +121,7 @@
                     </span>
                     <span
                         class="pager-btn"
-                        v-bind:class = "(last_page === (page + 1)) ? 'btn-disabled' : ''"
+                        v-bind:class = "(last_page === (page + 1) || boards.length < 50) ? 'btn-disabled' : ''"
                         @click="LoadLeaderboard(sort, 'std', mods, 1)"
                     >
                         <span>
