@@ -34,7 +34,7 @@ new Vue({
                         out: [],
                         load: true,
                         more: {
-                            limit: 5,
+                            limit: 6,
                             full: true
                         }
                     }
@@ -215,21 +215,21 @@ new Vue({
                             labels: res.data.days,
                             datasets: [{
                                 data: res.data.ranks,
-                                backgroundColor: "rgba(255, 204, 34, 0)",
-                                borderColor: "#FFCC22",
+                                backgroundColor: "rgba(0, 0, 0, 0)",
+                                borderColor: "#826AFF",
                                 borderWidth: 3,
                                 pointRadius: 0,
                                 pointLabelFontSize : 4,
                                 fill: false,
-                                lineTension: .3,
+                                lineTension: 0,
                                 borderCapStyle: 'round',
                                 borderDash: [],
                                 borderDashOffset: 0.0,
                                 borderJoinStyle: 'bevel',
                                 pointBorderWidth: 1,
                                 pointHoverRadius: 6,
-                                pointHoverBackgroundColor: "rgba(255, 204, 34, 1)",
-                                pointHoverBorderColor: "rgba(255, 204, 34, 1)",
+                                pointHoverBackgroundColor: "#826AFF",
+                                pointHoverBorderColor: "#826AFF",
                                 pointHoverBorderWidth: 2,
                                 pointHitRadius: 10,
                                 spanGaps: false,

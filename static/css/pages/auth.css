@@ -85,6 +85,11 @@ button:focus{
 
 .box {
     padding: 2.25rem 1.75rem;
+    background-color: #24222A;
+}
+
+.is-register.main-block {
+    background-color: unset;
 }
 
 input.input {

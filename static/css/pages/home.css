@@ -160,3 +160,7 @@
 .hero {
   background-color: #18171C;
 }
+
+.button.is-primary.is-hovered, .button.is-primary:hover {
+  background-color: #8972FF;
+}

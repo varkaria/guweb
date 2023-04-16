@@ -1,6 +1,7 @@
 .main-block {
   border-radius: 20px;
   margin-top: 96px;
+  background: none;
 }
 
 @media screen and (max-width: 800px) {
@@ -12,7 +13,7 @@
 
 .stats-block {
   width: 100%;
-  background: hsl(var(--main), 25%, 25%);
+  background: #24222A;
   padding: 9.5px;
   margin-bottom: 9.5px !important;
   border-bottom-left-radius: 8px;
@@ -104,11 +105,11 @@
 }
 
 .mode-selects {
-  background: hsl(var(--main), 25%, 22%);
+  background: #5540BF;
 }
 
 .badge-selects {
-  background: hsl(var(--main), 16%, 20%);
+  background: #24222A;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
@@ -265,7 +266,7 @@ html {
 
 .header {
   padding: 10px 10px;
-  background: hsl(var(--main), 30%, 50%);
+  background: #5540BF;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
@@ -277,8 +278,8 @@ html {
 .scores {
   background: content-box;
   transition: 0.2s transform ease;
-  background: hsl(var(--main), 20%, 20%);
-  padding: 6px;
+  background: #24222A;
+  padding: 6px 6px 3px 6px;
 }
 
 .map-single {
@@ -310,12 +311,16 @@ html {
 }
 
 .map-single:hover {
-  background: hsl(var(--main), 30%, 30%);
-  box-shadow: #ff66aa 0 1px .1rem, #ff66aa 0 0 0 .1rem;
+  background: #5540BF;
+  box-shadow: #7156fd 0 1px .1rem, #7156fd 0 0 0 .1rem;
 }
 
 .map-single:first-child {
-  margin-top: 0;
+  margin-top: 3px;
+}
+
+.map-single:last-child {
+  margin-bottom: 0;
 }
 
 .map-content1 {
@@ -387,7 +392,7 @@ html {
 
 .map-pp {
   font-weight: 700;
-  color: hsl(var(--main), 30%, 55%);
+  color: #ffd6f8;
   font-size: 20px;
 }
 
@@ -527,7 +532,7 @@ html {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(399px, 312px));
-  background: hsl(var(--main), 20%, 20%);
+  background: #24222A;
   padding: 6px 6px 12px 6px;
 }
 
@@ -547,17 +552,17 @@ html {
 }
 
 .beatmap-block {
-  background-color: hsl(var(--main), 25%, 25%);
   color: #fff;
 }
 
-.beatmap-block:hover {
-  background-color: hsl(var(--main), 25%, 30%);
-  transform: scale(1.01);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
-    0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);
-  color: #fff;
-}
+/* @TODO do smth. */
+/*.beatmap-block:hover {*/
+/*  background-color: hsl(var(--main), 25%, 30%);*/
+/*  transform: scale(1.01);*/
+/*  box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),*/
+/*    0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);*/
+/*  color: #fff;*/
+/*}*/
 
 .beatmap-artist,
 .beatmap-mapper,
@@ -627,21 +632,23 @@ span.beatmap-mapper {
   width: 100%;
   display: flex;
   justify-content: center;
-  background: hsl(var(--main), 20%, 20%);
+  background: #24222A;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
 .show-button {
   padding: 3px 42px;
-  background: hsl(var(--main), 25%, 25%);
-  margin: 0px 8px 8px 8px;
+  background: #7F66FF;
+  color: white;
+  margin: 5px 8px 8px 8px;
   text-align: center;
   border-radius: 6px;
 }
 
 .show-button:hover {
   transform: scale(0.95);
+  color: white;
 }
 
 .anime-girl {
@@ -856,5 +863,5 @@ span.beatmap-mapper {
 
 .leaderboard-history {
   padding: 12px 12px 6px 0;
-  background: hsl(var(--main), 25%, 25%);
+  background: #24222A;
 }

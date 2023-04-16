@@ -107,7 +107,7 @@
     <style>
         {% if customizations['background'] == True %}
             body {
-                background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ session['user_data']['id'] }}?{{ timestamp }}");
+                background: linear-gradient(to right, rgba(30, 30, 30, 0.9), rgba(85, 64, 191, 0.15)), url("/backgrounds/{{ session['user_data']['id'] }}?{{ timestamp }}");
                 background-size: cover !important;
             }
         {% endif %}
