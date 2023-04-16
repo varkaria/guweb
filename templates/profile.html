@@ -78,46 +78,70 @@
 <div class="log-block" v-bind:class="{ 'load' : data.maps.{{ id }}.load }">
     <div class="header">
         <div class="title">
-            <i class="fas fa-address-book"></i> Most Played Beatmaps
+            <i class="fas fa-book"></i> Most Played Beatmaps
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.out.length != 0" class="beatmaps">
-        <a v-for="(map, index) in data.maps.{{ id }}.out" class="beatmap-block">
-            <div class="beatmap-preview"
-                v-bind:style='{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }'>
-            </div>
-            <div class="beatmap-stats"><span class="beatmap-title">
-                    <% map.title %>
-                </span> <span class="beatmap-artist">
-                    <% map.artist %>
-                </span>
-                <div class="beatmap-footer"><span class="beatmap-mapper"> by <span
-                            class="newmaps-color">
-                            <% map.creator %>
-                        </span></span>
-                    <div class="d-flex align-items-baseline"><span>
-                            <% map.plays %>
-                        </span>
-                        <div class="target-button newmaps-color"><i class="fas fa-arrow-right"></i>
+        <div v-for="(map, index) in data.maps.{{ id }}.out" class="map-single"
+            :style="`background: linear-gradient(hsl(var(--main), 0%, 0%, 50%), hsl(var(--main), 25%, 0%, 80%)), url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/cover.jpg)`">
+            <div class="map-data">
+                <div class="map-content1">
+                    <div class="map-rank" style="margin-left: 0.2em;margin-right: -0.5em !important;">
+                        <i :class="{
+                            'fas fa-question': map.status === 0,
+                            'fas fa-chevrons-up': map.status === 2,
+                            'fas fa-check': map.status === 3,
+                            'fas fa-heart': map.status === 5
+                          }" 
+                          :style="{
+                            color: map.status === 0 ? '#ffffff' :
+                              map.status === 2 ? '#0080ff' :
+                              map.status === 3 ? '#00cc00' :
+                              map.status === 5 ? '#ff69b4' :
+                              ''
+                          }"
+                          style="font-size: 1.2em; margin-right: 0.5em;"
+                        ></i>
+                    </div>
+                    <div class="map-title-block">
+                      <div class="map-title">
+                        <a class="beatmap-link" v-bind:href="'https://{{ domain() }}/b/' + map.id">
+                          <% map.artist %> - <% map.title %> 
+                          [<% map.version %>]
+                        </a>
+                        <div class="play-stats">
+                          Mapped by <% map.creator %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                  
+                <div class="map-content2">
+                    <div class="score-details d-flex">
+                        <div class="score-details_right-block">
+                            <div class="score-details_pp-block">
+                                <div class="map-pp">
+                                    <% map.plays %></span> 
+                                </div>attempts
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
     <div v-else-if="data.maps.{{ id }}.out.length == 0" class="stats-block">
         <div class="columns is-marginless">
             <div class="column is-1">
-                <h1 class="title">: (</h1>
+                <h1 class="title">:(</h1>
             </div>
             <div class="column">
-                <h1 class="title is-6">No beatmaps available</h1>
+                <h1 class="title is-6">No maps attempted</h1>
                 <p class="subtitle is-7">Try playing something?</p>
             </div>
         </div>
     </div>
     <div v-if="data.maps.{{ id }}.more.full == false" class="extra-block">
-        <a class="show-button" @click="AddLimit('mostplay')">Show more</a>
+        <a class="show-button" @click="AddLimit('mostplay')">Show More</a>
     </div>
 </div>
 {% endmacro %}
