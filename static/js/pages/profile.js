@@ -302,6 +302,12 @@ new Vue({
                     });
                 });
         },
+        openBeatmap(map) {
+            if (map.beatmap) {
+                map = map.beatmap;
+            }
+            window.open('https://osu.' + domain + '/beatmapsets/' + map.set_id + '#' + map.mode + '/' + map.id, '_blank').focus();
+        },
         addCommas(nStr) {
             nStr += '';
             var x = nStr.split('.');

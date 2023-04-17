@@ -856,3 +856,17 @@ body::-webkit-scrollbar-thumb {
 .button.is-light:hover {
   color: white;
 }
+
+@media screen and (max-width: 1023px) {
+  .navbar .navbar-menu {
+    background-color: #5540BF;
+  }
+  .navbar .navbar-end {
+    display: flex;
+  }
+  .navbar .header-support-us-wrapper {
+    order: 2;
+    display: flex;
+    align-items: center;
+  }
+}

@@ -19,7 +19,10 @@
                     </div>
                     <div class="map-title-block">
                         <div class="map-title">
-                            <a class="beatmap-link">
+                            <a
+                                class="beatmap-link"
+                                v-on:click="openBeatmap(map)"
+                            >
                                 <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>] <!--<span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>-->
                             </a>
                         </div>
@@ -95,9 +98,9 @@
             <div class="beatmap-preview"
                 v-bind:style='{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }'>
             </div>
-            <div class="beatmap-stats"><span class="beatmap-title">
+            <div class="beatmap-stats"><span class="beatmap-title" v-on:click="openBeatmap(map)">
                     <% map.title %>
-                </span> <span class="beatmap-artist">
+                </span> <span class="beatmap-artist" v-on:click="openBeatmap(map)">
                     <% map.artist %>
                 </span>
                 <div class="beatmap-footer"><span class="beatmap-mapper"> by <span
@@ -107,7 +110,7 @@
                     <div class="d-flex align-items-baseline"><span>
                             <% map.plays %>
                         </span>
-                        <div class="target-button newmaps-color"><i class="fas fa-arrow-right"></i>
+                        <div class="target-button newmaps-color" v-on:click="openBeatmap(map)"><i class="fas fa-arrow-right"></i>
                         </div>
                     </div>
                 </div>

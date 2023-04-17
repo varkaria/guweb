@@ -2,9 +2,8 @@
     height: auto;
     width: auto;
     max-width: 1152px;
-
-    background-color: hsl(var(--main),10%,15%);
     color: #fff;
+    background-color: unset;
 }
 
 .http-error {
@@ -16,7 +15,7 @@
     height: auto;
     width: auto;
     padding: 38px 22px 10px 22px;
-    background-color: hsl(var(--main), 30%, 50%);
+    background-color: #5540BF;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
 }
