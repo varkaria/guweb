@@ -250,7 +250,6 @@ window.flags = {
 	'UA' : 'Ukraine',
 	'QA' : 'Qatar',
 	'MZ' : 'Mozambique',
-	'XX' : 'Unknown',
 	'P1' : 'Paraná',
     'A1' : 'Acre',
     'A2' : 'Alagoas',
@@ -278,5 +277,5 @@ window.flags = {
     'S2' : 'São Paulo',
     'S3' : 'Sergipe',
     'T1' : 'Tocantins',
-	"ZZ" : 'Estrangeiro'
+	"XX" : 'Estrangeiro'
 }
