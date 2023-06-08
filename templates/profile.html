@@ -153,24 +153,22 @@
 {% endblock %}
 
 {% block content %}
+<script src="/static/js/asserts/vue-flags.js"></script>
 <div id="app">
     <div class="main-block">
         <div class="profile-bg">
             <div class="info-block">
                 <h1 class="title">
                     <p class="ranks">
-                        <img src="/static/images/flags/{{ user['country']|upper }}.png" class="profile-flag">
+                        <a href="https://{{domain()}}/leaderboard/{{mode}}/pp/vn/{{user['country']|upper}}">
+                            <img src="/static/images/flags/{{ user['country']|upper }}.png" class="profile-flag">
+                        </a>
                         <span class="bgf">{{ user['name'] }}</span>
                     </p>
                 </h1>
-                <transition name="fade">
-                    <div class="subtitle" v-if='data.status.online == false'>
-                        <a class='circle'>●</a> Desconectado
-                    </div>
-                    <div class="subtitle" v-else-if='data.status.online == true'>
-                        <a class='circle green'>●</a> Conectado
-                    </div>
-                </transition>
+                <div class="subtitle">
+                    {{ user['state_name'] }}
+                </div>
             </div>
             <div class="anime-girl">
                 <!-- (if you want to add it)
@@ -217,7 +215,14 @@
                 </div>
             </div>
             <div class="bar-selection badge-selects">
-                
+                <transition name="fade">
+                    <div class="subtitle" v-if='data.status.online == false'>
+                        <a class='circle'>●</a> Desconectado
+                    </div>
+                    <div class="subtitle" v-else-if='data.status.online == true'>
+                        <a class='circle green'>●</a> Conectado
+                    </div>
+                </transition>
             </div>
         </div>
     </div>

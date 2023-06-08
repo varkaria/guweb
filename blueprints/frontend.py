@@ -26,6 +26,7 @@ from objects import utils
 from objects.privileges import Privileges
 from objects.utils import flash
 from objects.utils import flash_with_customizations
+from constants.states import states
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
@@ -305,6 +306,7 @@ async def profile_select(id):
         return (await render_template('404.html'), 404)
 
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
+    user_data['state_name'] = states[user_data['country'].upper()]
     return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
 
 
