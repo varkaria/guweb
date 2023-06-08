@@ -127,7 +127,6 @@ async def settings_avatar_post():
     length = 0
     for i in list(avatar.stream):
         length += len(i)
-    print(length)
     if length > MAX_IMAGE_SIZE:
         return await flash('error', 'A imagem que você escolheu é grande demais!', 'settings/avatar')
 
