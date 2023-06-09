@@ -53,12 +53,11 @@
             </div>
 
             <div class="map-buttons">
-              <button
-                class="map-button"
-                @click="window.open(`https://${beatmapDownloadMirror}/${currentMap?.set_id}`)"
-              >
-                Baixar
-              </button>
+              <a :href="beatmapDownloadMirror + '/' + currentMap?.set_id">
+                <button class="map-button">
+                  Baixar
+                </button>
+              </a>
               <a :href="'osu://b/' + currentMap?.id">
                 <button class="map-button">Baixar pelo Direct</button>
               </a>

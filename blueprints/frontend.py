@@ -319,6 +319,11 @@ async def profile_select(id):
 async def leaderboard(mode='std', sort='pp', mods='vn', state='global'):
     return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods, state=state)
 
+@frontend.route('/beatmaps/<bmId>')
+@frontend.route('/beatmapsets/<bmsId>/<mode>/<bmId>')
+async def beatmap_page(bmsId = None, mode='std', bmId = None):
+    return await render_template('beatmapset.html', bmsId=bmsId, mode=mode, bmId=bmId)
+
 @frontend.route('/login')
 async def login():
     if 'authenticated' in session:
