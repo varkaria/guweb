@@ -212,6 +212,13 @@ body {
 .modes-button > .mode-icon.selected::before {
   color: rgb(42, 211, 253);
 }
+.modes-button > .mode-icon.converted::before {
+  color: rgb(247, 171, 255);
+}
+.modes-button > .mode-icon.converted:hover::before,
+.modes-button > .mode-icon.selected.converted::before {
+  color: rgb(237, 79, 255);
+}
 
 /* Scores */
 .main-block {
