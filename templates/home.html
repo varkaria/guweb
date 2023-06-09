@@ -36,6 +36,13 @@
 </div>
 {% endif %}
 
+<script>
+const total = fetch('https://api.{{ domain() }}/v1/get_player_count').then((res) => res.json()).then(data => {
+    document.getElementById('total-users').append(data.counts.total);
+    document.getElementById('online-users').append(data.counts.online);
+  });
+</script>
+
 <div class="hero splash p-less is-fullheight-with-navbar" id="home-hero">
   <div class="container flex">
     <div class="columns flex-vcenter">
@@ -44,9 +51,11 @@
         <h2 class="subtitle">
           Nós somos um servidor privado de osu! construído do zero com muitas
           funcionalidades únicas não vistas em outro lugar - para mais informações, 
-          dê uma olhada <a href="https://github.com/nekoraw/bancho.py">bancho.py</a>
+          dê uma olhada em <a href="https://github.com/nekoraw/bancho.py">bancho.py</a>
           e <a href="https://github.com/nekoraw/guweb">guweb</a>
           no GitHub - somos 100% código-aberto!
+
+          <p>Temos <a id='online-users'></a> jogadores online e <a id='total-users'></a> registrados.</p>
         </h2>
         {% if not session.authenticated %}
         <div class="buttons">

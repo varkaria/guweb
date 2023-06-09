@@ -66,6 +66,10 @@ def domain() -> str:
     return glob.config.domain
 
 @app.template_global()
+def beatmap_download_mirror() -> str:
+    return glob.config.beatmap_download_mirror
+
+@app.template_global()
 def get_img_subn() -> int:
     return bf.get_img_counter()[0]
 

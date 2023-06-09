@@ -26,6 +26,7 @@ from objects import utils
 from objects.privileges import Privileges
 from objects.utils import flash
 from objects.utils import flash_with_customizations
+from constants.states import states
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
@@ -64,52 +65,16 @@ async def settings_profile():
 async def settings_profile_post():
     form = await request.form
 
-    new_name = form.get('username', type=str)
     new_email = form.get('email', type=str)
 
-    if new_name is None or new_email is None:
+    if new_email is None:
         return await flash('error', 'Parâmetros inválidos.', 'home')
 
-    old_name = session['user_data']['name']
     old_email = session['user_data']['email']
 
     # no data has changed; deny post
-    if (
-        new_name == old_name and
-        new_email == old_email
-    ):
+    if (new_email == old_email):
         return await flash('error', 'Nenhuma alteração foi feita nos dados.', 'settings/profile')
-
-    if new_name != old_name:
-        if not session['user_data']['is_donator']:
-            return await flash('error', 'Mudança de nome de usuário estão disponíveis somente para doadores.', 'settings/profile')
-
-        # Usernames must:
-        # - be within 2-15 characters in length
-        # - not contain both ' ' and '_', one is fine
-        # - not be in the config's `disallowed_names` list
-        # - not already be taken by another player
-        if not regexes.username.match(new_name):
-            return await flash('error', 'A sintaxe do seu novo nome de usuário está inválida.', 'settings/profile')
-
-        if '_' in new_name and ' ' in new_name:
-            return await flash('error', 'O seu novo nome de usuário pode conter "_" ou " ", mas não ambos.', 'settings/profile')
-
-        if new_name in glob.config.disallowed_names:
-            return await flash('error', "O seu novo nome de usuário não é permitido. Por favor, escolha outro.", 'settings/profile')
-
-        if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', [new_name]):
-            return await flash('error', 'O seu novo nome de usuário está em uso por algum outro jogador.', 'settings/profile')
-
-        safe_name = utils.get_safe_name(new_name)
-
-        # username change successful
-        await glob.db.execute(
-            'UPDATE users '
-            'SET name = %s, safe_name = %s '
-            'WHERE id = %s',
-            [new_name, safe_name, session['user_data']['id']]
-        )
 
     if new_email != old_email:
         # Emails must:
@@ -132,7 +97,7 @@ async def settings_profile_post():
     # logout
     session.pop('authenticated', None)
     session.pop('user_data', None)
-    return await flash('success', 'Your username/email have been changed! Please login again.', 'login')
+    return await flash('success', 'Your email have been changed! Please login again.', 'login')
 
 @frontend.route('/settings/avatar')
 @login_required
@@ -143,6 +108,7 @@ async def settings_avatar():
 @login_required
 async def settings_avatar_post():
     # constants
+    MAX_IMAGE_SIZE = glob.config.max_image_size * 1024 * 1024
     AVATARS_PATH = f'{glob.config.path_to_gulag}.data/avatars'
     ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png']
 
@@ -157,6 +123,13 @@ async def settings_avatar_post():
     # bad file extension; deny post
     if not file_extension in ALLOWED_EXTENSIONS:
         return await flash('error', 'A imagem deve estar no formato de arquivo .JPG, .JPEG, ou .PNG!', 'settings/avatar')
+    
+    # check file size of avatar
+    length = 0
+    for i in list(avatar.stream):
+        length += len(i)
+    if length > MAX_IMAGE_SIZE:
+        return await flash('error', 'A imagem que você escolheu é grande demais!', 'settings/avatar')
 
     # remove old avatars
     for fx in ALLOWED_EXTENSIONS:
@@ -333,6 +306,7 @@ async def profile_select(id):
         return (await render_template('404.html'), 404)
 
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
+    user_data['state_name'] = states[user_data['country'].upper()]
     return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
 
 
@@ -340,8 +314,10 @@ async def profile_select(id):
 @frontend.route('/lb')
 @frontend.route('/leaderboard/<mode>/<sort>/<mods>')
 @frontend.route('/lb/<mode>/<sort>/<mods>')
-async def leaderboard(mode='std', sort='pp', mods='vn'):
-    return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods)
+@frontend.route('/leaderboard/<mode>/<sort>/<mods>/<state>')
+@frontend.route('/lb/<mode>/<sort>/<mods>/<state>')
+async def leaderboard(mode='std', sort='pp', mods='vn', state='global'):
+    return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods, state=state)
 
 @frontend.route('/login')
 async def login():
@@ -644,3 +620,12 @@ async def get_profile_background(user_id: int):
             return await send_file(path)
 
     return b'{"status":404}'
+
+@frontend.route('/beatmaps/<beatmap_id>')
+@frontend.route('/beatmapsets')
+@frontend.route('/beatmapsets/<beatmapset_id>')
+@frontend.route('/beatmapsets/<beatmapset_id>/<mode>')
+@frontend.route('/beatmapsets/<beatmapset_id>/<mode>/<beatmap_id>')
+@frontend.route('/beatmapsets/<beatmapset_id>/<mode>/<beatmap_id>/<extra_mode>')
+async def beatmapsets(beatmapset_id: int = None, mode: str = None, beatmap_id: int = None, extra_mode:str = "vn"):
+    return await render_template('beatmapset.html', bmsId=beatmapset_id, mode=mode, bmId=beatmap_id, extraMode = extra_mode)

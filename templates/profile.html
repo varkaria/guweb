@@ -19,7 +19,8 @@
                     </div>
                     <div class="map-title-block">
                         <div class="map-title">
-                            <a class="beatmap-link">
+                            <a class="beatmap-link"
+                                :href="`https://${domain}/beatmapsets/${map.beatmap.set_id}/${ModeIntToStr(map.beatmap.mode)}/${map.beatmap.id}`">
                                 <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>]
                             </a>
                             <span>+ <% modsStr(map.mods) %></span>
@@ -30,7 +31,7 @@
                         <div class="map-date">
                             <time>
                                 <% timeago.format(new Date(map.play_time) - ((new Date()).getTimezoneOffset()*60*1000)) %>
-                                </time>
+                            </time>
                         </div>
                     </div>
                 </div>
@@ -130,33 +131,44 @@
 <link rel="stylesheet" href="/static/css/pages/profile.css">
 
 <script>
-    
+
     var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
     var mode = '{{ mode }}';
     var mods = '{{ mods }}';
     var domain = "{{ domain() }}";
+
+    function ModeIntToStr(integer) {
+        switch (integer) {
+            case 0:
+                return "std"
+            case 1:
+                return "taiko"
+            case 2:
+                return "catch"
+            case 3:
+                return "mania"
+        }
+    }
 </script>
 {% endblock %}
 
 {% block content %}
+<script src="/static/js/asserts/vue-flags.js"></script>
 <div id="app">
     <div class="main-block">
         <div class="profile-bg">
             <div class="info-block">
                 <h1 class="title">
                     <p class="ranks">
-                        <img src="/static/images/flags/{{ user['country']|upper }}.png" class="profile-flag">
+                        <a href="https://{{domain()}}/leaderboard/{{mode}}/pp/vn/{{user['country']|upper}}">
+                            <img src="/static/images/flags/{{ user['country']|upper }}.png" class="profile-flag">
+                        </a>
                         <span class="bgf">{{ user['name'] }}</span>
                     </p>
                 </h1>
-                <transition name="fade">
-                    <div class="subtitle" v-if='data.status.online == false'>
-                        <a class='circle'>●</a> Desconectado
-                    </div>
-                    <div class="subtitle" v-else-if='data.status.online == true'>
-                        <a class='circle green'>●</a> Conectado
-                    </div>
-                </transition>
+                <div class="subtitle">
+                    {{ user['state_name'] }}
+                </div>
             </div>
             <div class="anime-girl">
                 <!-- (if you want to add it)
@@ -203,9 +215,14 @@
                 </div>
             </div>
             <div class="bar-selection badge-selects">
-                <span>
-                    Distintivos não implementados! 
-                </span>
+                <transition name="fade">
+                    <div class="subtitle" v-if='data.status.online == false'>
+                        <a class='circle'>●</a> Desconectado
+                    </div>
+                    <div class="subtitle" v-else-if='data.status.online == true'>
+                        <a class='circle green'>●</a> Conectado
+                    </div>
+                </transition>
             </div>
         </div>
     </div>
@@ -358,18 +375,18 @@
 {% if user['customisation']['banner'] == True or user['customisation']['background'] == True %}
 <style>
     {% if user['customisation']['banner'] == True %}
-        .profile-bg {
-            min-height: 262px;
+    .profile-bg {
+        min-height: 262px;
             background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/banners/{{ user['id'] }}?{{ get_img_subn() }}");
-            background-size: cover;
-        }
+        background-size: cover;
+    }
     {% endif %}
     {% if user['customisation']['background'] == True %}
-        body {
+    body {
             background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ user['id'] }}?{{ get_img_subn() }}");
-            background-size: cover;
-            background-clip: content-box;
-        }
+        background-size: cover;
+        background-clip: content-box;
+    }
     {% endif %}
 </style>
 {% endif %}
