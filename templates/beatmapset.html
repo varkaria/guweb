@@ -184,16 +184,14 @@
           </button>
         </div>
   
-        <template v-if="(isLoadingScores === true)"
-          >Carregando pontuações...</template
-        >
-        <template v-else-if="!(currentScores) || currentScores.length < 1">
+        <template v-if="!(currentScores) || currentScores.length < 1">
           Nenhuma pontuação encontrada.
         </template>
-        <template v-else>
+        <div v-else class="scores">
+          <div v-if="(isLoadingScores)" class="loading-text">Carregando</div>
           <div v-if="(currentScores[0])" class="best-score-container">
+            
             <div class="best-score-position">#1</div>
-            <% console.log(currentScores[0]) %>
             <div >
               <img class="best-score-pfp" :src="`https://a.${domain}/${currentScores[0].userid}`" alt="">
             </div>

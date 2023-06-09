@@ -298,7 +298,6 @@ new Vue({
     },
     GetBeatmapScores() {
       this.$set(this, "isLoadingScores", true);
-      this.$set(this, "currentScores", undefined);
 
       this.$axios
         .get(`https://api.${domain}/v1/get_map_scores`, {
