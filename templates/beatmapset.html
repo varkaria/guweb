@@ -278,7 +278,7 @@
   
               <div class="leaderboard-value default-formatting" style="display: flex">
                 <a
-                  :href="`https://${domain}/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${score.country}`"
+                  :href="`/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${score.country}`"
     
                   ><div
                     class="player-flag "
@@ -291,7 +291,7 @@
                 >
               </div>
               <div class="score-player default-formatting"> <a
-                :href="`https://${domain}/u/${score.userid}`"
+                :href="`/u/${score.userid}`"
              
                 ><% score.player_name %></a
               ></div>
@@ -320,7 +320,7 @@
               <div class="score-time-since leaderboard-value default-formatting"><% dayjs().to(dayjs.utc(score.play_time)) %></div>
             </template>
           </div>
-        </template>
+        </div>
       </template>
       
     </div>
