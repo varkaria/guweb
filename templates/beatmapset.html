@@ -113,7 +113,7 @@
                 :class="'diff-button' + (currentMap?.id === item.id ? ' selected' : '')"
                 :disabled="(currentMap?.id === item.id)"
               >
-                <span class="star-rating"><% (item.mode !== mode && item.mode === 0 ? '???' : item.diff) %></span>
+                <span class="star-rating"><% (item.mode !== mode && item.mode === 0 ? '???' : item.diff.toFixed(2)) %></span>
                 <span> <i v-if="(item.mode !== mode && item.mode === 0)" class="mode-icon mode-osu" style="color:inherit !important"></i> <% item.version %> 
               </div>
             </div>
