@@ -211,7 +211,7 @@
       async GetBeatmapInfo() {
         try {
           let response = await this.$axios.get(
-            `https://api.${domain}/get_map_info?id=${this.bmId}`
+            `https://api.${domain}/v1/get_map_info?id=${this.bmId}`
           );
           this.$set(this, "currentMap", response.data.map);
           this.$set(this, "bmsId", response.data.map.set_id);
@@ -226,7 +226,7 @@
         }
 
         this.$axios
-          .get(`https://api.${domain}/get_set_info?id=${this.bmsId}`)
+          .get(`https://api.${domain}/v1/get_set_info?id=${this.bmsId}`)
           .then((response) => {
             this.$set(this, "bmInfo", response.data.map);
             this.LoadBeatmapInfo();
@@ -295,7 +295,7 @@
         this.$set(this, "currentScores", undefined);
 
         this.$axios
-          .get(`https://api.${domain}/get_map_scores`, {
+          .get(`https://api.${domain}/v1/get_map_scores`, {
             params: {
               scope: "best",
               sort: this.sort,

@@ -26,6 +26,7 @@ from objects import utils
 from objects.privileges import Privileges
 from objects.utils import flash
 from objects.utils import flash_with_customizations
+from constants.states import states
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
@@ -64,52 +65,16 @@ async def settings_profile():
 async def settings_profile_post():
     form = await request.form
 
-    new_name = form.get('username', type=str)
     new_email = form.get('email', type=str)
 
-    if new_name is None or new_email is None:
+    if new_email is None:
         return await flash('error', 'Parâmetros inválidos.', 'home')
 
-    old_name = session['user_data']['name']
     old_email = session['user_data']['email']
 
     # no data has changed; deny post
-    if (
-        new_name == old_name and
-        new_email == old_email
-    ):
+    if (new_email == old_email):
         return await flash('error', 'Nenhuma alteração foi feita nos dados.', 'settings/profile')
-
-    if new_name != old_name:
-        if not session['user_data']['is_donator']:
-            return await flash('error', 'Mudança de nome de usuário estão disponíveis somente para doadores.', 'settings/profile')
-
-        # Usernames must:
-        # - be within 2-15 characters in length
-        # - not contain both ' ' and '_', one is fine
-        # - not be in the config's `disallowed_names` list
-        # - not already be taken by another player
-        if not regexes.username.match(new_name):
-            return await flash('error', 'A sintaxe do seu novo nome de usuário está inválida.', 'settings/profile')
-
-        if '_' in new_name and ' ' in new_name:
-            return await flash('error', 'O seu novo nome de usuário pode conter "_" ou " ", mas não ambos.', 'settings/profile')
-
-        if new_name in glob.config.disallowed_names:
-            return await flash('error', "O seu novo nome de usuário não é permitido. Por favor, escolha outro.", 'settings/profile')
-
-        if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', [new_name]):
-            return await flash('error', 'O seu novo nome de usuário está em uso por algum outro jogador.', 'settings/profile')
-
-        safe_name = utils.get_safe_name(new_name)
-
-        # username change successful
-        await glob.db.execute(
-            'UPDATE users '
-            'SET name = %s, safe_name = %s '
-            'WHERE id = %s',
-            [new_name, safe_name, session['user_data']['id']]
-        )
 
     if new_email != old_email:
         # Emails must:
@@ -132,7 +97,7 @@ async def settings_profile_post():
     # logout
     session.pop('authenticated', None)
     session.pop('user_data', None)
-    return await flash('success', 'Your username/email have been changed! Please login again.', 'login')
+    return await flash('success', 'Your email have been changed! Please login again.', 'login')
 
 @frontend.route('/settings/avatar')
 @login_required
@@ -160,7 +125,10 @@ async def settings_avatar_post():
         return await flash('error', 'A imagem deve estar no formato de arquivo .JPG, .JPEG, ou .PNG!', 'settings/avatar')
     
     # check file size of avatar
-    if avatar.content_length > MAX_IMAGE_SIZE:
+    length = 0
+    for i in list(avatar.stream):
+        length += len(i)
+    if length > MAX_IMAGE_SIZE:
         return await flash('error', 'A imagem que você escolheu é grande demais!', 'settings/avatar')
 
     # remove old avatars
@@ -338,6 +306,7 @@ async def profile_select(id):
         return (await render_template('404.html'), 404)
 
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
+    user_data['state_name'] = states[user_data['country'].upper()]
     return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
 
 
@@ -349,6 +318,11 @@ async def profile_select(id):
 @frontend.route('/lb/<mode>/<sort>/<mods>/<state>')
 async def leaderboard(mode='std', sort='pp', mods='vn', state='global'):
     return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods, state=state)
+
+@frontend.route('/beatmaps/<bmId>')
+@frontend.route('/beatmapsets/<bmsId>/<mode>/<bmId>')
+async def beatmap_page(bmsId = None, mode='std', bmId = None):
+    return await render_template('beatmapset.html', bmsId=bmsId, mode=mode, bmId=bmId)
 
 @frontend.route('/login')
 async def login():
@@ -467,8 +441,21 @@ async def register_post():
     country = form.get('state', type=str)
 
     if username is None or email is None or passwd_txt is None or country is None:
-        return await flash('error', 'Parâmetros inválidos.', 'home')
-
+        return await flash('error', 'Parâmetros inválidos.', 'register')
+    
+    key = "7c52a930-f9fe-4346-9b34-69aa431cd72c"
+    if glob.config.key_validation:
+        key = form.get('key', type=str)
+        
+        if key is None:
+            return await flash('error', 'Parâmetros inválidos.', 'register')
+        
+        if not regexes.key.match(key):
+            return await flash('error', 'Chave de registro inválida.', 'register')
+        
+        if not await glob.db.fetch('SELECT 1 FROM register_keys WHERE reg_key = %s AND used = 0', key):
+            return await flash('error', 'Chave de registro inválida.', 'register')
+    
     if glob.config.hCaptcha_sitekey != 'changeme':
         captcha_data = form.get('h-captcha-response', type=str)
         if (
@@ -539,11 +526,17 @@ async def register_post():
             # add to `users` table.
             await db_cursor.execute(
                 'INSERT INTO users '
-                '(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity) '
-                'VALUES (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())',
-                [username, safe_name, email, pw_bcrypt, country]
+                '(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity, registered_with_key) '
+                'VALUES (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %s)',
+                [username, safe_name, email, pw_bcrypt, country, key]
             )
             user_id = db_cursor.lastrowid
+            
+            if glob.config.key_validation:
+                await db_cursor.execute(
+                    'UPDATE register_keys SET used = 1, user_id_used = %s WHERE reg_key = %s',
+                    [user_id, key]
+                )
 
             # add to `stats` table.
             await db_cursor.executemany(

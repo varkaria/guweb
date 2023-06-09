@@ -58,6 +58,10 @@ def captchaKey() -> str:
     return glob.config.hCaptcha_sitekey
 
 @app.template_global()
+def keyVerification() -> str:
+    return glob.config.key_validation
+
+@app.template_global()
 def domain() -> str:
     return glob.config.domain
 

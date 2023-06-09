@@ -110,11 +110,23 @@
                             <td class="column-player-name text-left">
                                 <a :title="flags[user.country.toUpperCase()]"
                                     :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
-                                    class="player-flag">
+                                    class="player-flag"
+                                    v-if=" state == 'global'"
+                                    @click="LoadLeaderboard(sort, mode, mods, user.country)">
                                     <div class="flag-dropdown">
                                         <% flags[user.country.toUpperCase()] %>
                                     </div>
                                 </a>
+                                <a :title="flags[user.country.toUpperCase()]"
+                                    :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
+                                    class="player-flag"
+                                    v-else
+                                    @click="LoadLeaderboard(sort, mode, mods, 'global')">
+                                    <div class="flag-dropdown">
+                                        <% flags[user.country.toUpperCase()] %>
+                                    </div>
+                                </a>
+                                
                                 <a :href="'/u/'+user.player_id+'?mode='+mode+'&mods='+mods">
                                     <% user.name %>
                                 </a>
