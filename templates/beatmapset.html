@@ -215,7 +215,7 @@
               <div class="best-score-combo">Combo: <% currentScores[0].max_combo %>x</div>
               <div class="best-score-time"><% dayjs().to(dayjs.utc(currentScores[0].play_time)) %></div>
               </section>
-              <section class="best-score-misc">
+              <!-- <section class="best-score-misc">
                 Outras estatisticas:
                 <div class="best-score-misc-grid">
                   <div class="best-score-value">300: <% currentScores[0].n300 %>x</div>
@@ -226,7 +226,7 @@
                   <div class="best-score-value">Geki: <% currentScores[0].ngeki %>x</div>
                 </div>
                 
-              </section>
+              </section> -->
               <section class="best-score-grade">
                 <div :class="`  map-rank rank-${currentScores[0].grade}`" >
                   <% currentScores[0].grade.replace("SH", "S").replace("XH", "SS").replace("X",
