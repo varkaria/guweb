@@ -121,15 +121,15 @@ body {
   border-radius: 0.5rem;
   color: white;
   padding: 1rem;
-  border: none;
 
-  outline: 1px transparent;
+  border: none;
+  outline: 0;
 
   transition: outline 75ms;
 }
 .map-button:hover:enabled {
   cursor: pointer;
-  outline: var(--cool-border);
+  background-color: rgb(64, 64, 64);
 }
 .map-button.ranked {
   background-color: rgb(13, 160, 50);
