@@ -197,7 +197,7 @@
             </div>
             <section class="best-score-information">
               <div class="best-score-player"> <a
-                :href="`https://${domain}/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${currentScores[0].country}`"
+                :href="`/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${currentScores[0].country}`"
   
                 ><div
                   class="player-flag "
@@ -207,7 +207,7 @@
                     <% flags[currentScores[0].country.toUpperCase()] %>
                   </div>
                 </div></a
-              > <a :href="`https://${domain}/u/${currentScores[0].userid}`"><% currentScores[0].player_name %></a></div>
+              > <a :href="`/u/${currentScores[0].userid}`"><% currentScores[0].player_name %></a></div>
               <div class="best-score-acc">Acc: <% Math.round(currentScores[0].acc * 100) / 100 %>%</div>
 
               <div class="best-score-score">Pontuação: <% new Intl.NumberFormat("pt-BR").format(currentScores[0].score) %> </div>
