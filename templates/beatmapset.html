@@ -328,14 +328,12 @@
               <div class="score-score leaderboard-value default-formatting">
                 <div class="score-popup">
                   <div class="score-params-grid">
-                    <div class="score-params-value">300: <% currentScores[0].n300 %>x</div>
-                    <div class="score-params-value">100: <% currentScores[0].n100 %>x</div>
-                    <div class="score-params-value">50: <% currentScores[0].n50 %>x</div>
-                    <div class="score-params-value">Erros: <% currentScores[0].nmiss %>x</div>
-                    <div class="score-params-value">Katu: <% currentScores[0].nkatu %>x</div>
-                    <div class="score-params-value">Geki: <% currentScores[0].ngeki %>x</div>
-                    <div class="score-params-value">Acc: <% Math.round(currentScores[0].acc * 100) / 100 %>%</div>
-                    <div class="score-params-value">Combo: <% currentScores[0].max_combo %>x</div>
+                    <div class="score-params-value">300: <% score.n300 %>x</div>
+                    <div class="score-params-value">100: <% score.n100 %>x</div>
+                    <div class="score-params-value">50: <% score.n50 %>x</div>
+                    <div class="score-params-value">Erros: <% score.nmiss %>x</div>
+                    <div class="score-params-value">Katu: <% score.nkatu %>x</div>
+                    <div class="score-params-value">Geki: <% score.ngeki %>x</div>
                   </div>
                 </div>
                 <% new Intl.NumberFormat("pt-BR").format(score.score) %>
