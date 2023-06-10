@@ -335,13 +335,33 @@ body {
 .best-score-pp {
   font-size: 0.8em;
 }
+
+.score-popup {
+  position: absolute;
+  bottom: 2.5rem;
+  background-color: rgb(50, 50, 50);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+
+  opacity: 0;
+  transition: 75ms;
+  pointer-events: none;
+  color: white;
+}
+
 .best-score-score {
+  position: relative;
+
   color: rgb(157, 211, 255);
   cursor: default;
   transition: 75ms;
 }
 .best-score-score:hover {
   color: rgb(238, 247, 255);
+}
+.best-score-score:hover > .score-popup {
+  opacity: 1;
+  z-index: 20;
 }
 
 .best-score-time {
@@ -366,7 +386,7 @@ body {
   /* flex:1 */
 }
 
-.best-score-misc-grid {
+.score-params-grid {
   display: grid;
   align-items: center;
   justify-items: center;
@@ -379,16 +399,18 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.best-score-value {
+.score-params-value {
   display: flex;
   justify-content: center;
   align-items: center;
 
   font-size: 0.75em;
   border-radius: 4px;
-  padding: 0 0.5rem;
+  padding: 0.5rem;
   height: 100%;
   width: 100%;
+
+  white-space: nowrap;
   /* min-width: 5rem; */
   background-color: rgb(60, 60, 60);
 }
@@ -442,6 +464,21 @@ body {
   text-align: left;
   padding: 1rem;
 } */
+
+.score-score {
+  position: relative;
+
+  color: rgb(157, 211, 255);
+  cursor: default;
+  transition: 75ms;
+}
+.score-score:hover {
+  color: rgb(238, 247, 255);
+}
+.score-score:hover > .score-popup {
+  opacity: 1;
+  z-index: 20;
+}
 
 .leaderboard-value.player-flag {
   height: 1rem;
