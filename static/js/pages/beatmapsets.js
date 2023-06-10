@@ -19,6 +19,7 @@ new Vue({
       modes: [],
       convertModes: [],
       sort: "score",
+      sortOrder: undefined,
     };
   },
   created() {
@@ -100,15 +101,30 @@ new Vue({
       // console.log(this.bmsId, this.mode, this.bmId);
     },
     ChangeSort(sort) {
-      if (this.sort === sort) return;
+      if (this.sort === sort) {
+        if (this.sort === "play_time") this.ToggleSortOrder();
+        return;
+      }
+      this.DefaultSortOrder();
       this.$set(this, "sort", sort);
+
       this.GetBeatmapScores();
+    },
+    ChangeSortOrder(sortOrder) {
+      this.$set(this, "sortOrder", sortOrder);
+      this.GetBeatmapScores();
+    },
+    ToggleSortOrder() {
+      this.ChangeSortOrder(
+        this.sortOrder === "ascending" ? "descending" : "ascending"
+      );
     },
     DefaultSort() {
       if (this.extraMode === 0) this.$set(this, "sort", "score");
-      else {
-        this.$set(this, "sort", "pp");
-      }
+      else this.$set(this, "sort", "pp");
+    },
+    DefaultSortOrder() {
+      this.$set(this, "sortOrder", undefined);
     },
     ModeIntToStr(integer, isExtraMode = false) {
       if (isExtraMode === false) {
@@ -306,6 +322,7 @@ new Vue({
             sort: this.sort,
             id: this.bmId,
             mode: this.mode + this.extraMode,
+            ...(this.sortOrder && { sort_order: this.sortOrder }),
           },
         })
         .then((response) => {

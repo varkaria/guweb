@@ -269,7 +269,7 @@
               Pontuação
             </div>
             <div @click="ChangeSort('play_time')"
-            :class="`sortable-down leaderboard-title ${(sort === 'play_time' ? 'selected' : '')}`">Tempo</div>
+            :class="`sortable-down leaderboard-title orderable ${(sort === 'play_time' ? 'selected' : '')} ${(sortOrder === 'ascending' ? 'ascending' : '')}`">Tempo</div>
   
             <template class="score" v-for="(score, index) in currentScores">
               

@@ -494,6 +494,9 @@ body {
 .sortable-down.selected {
   cursor: default;
 }
+.sortable-down.selected.orderable {
+  cursor: pointer;
+}
 .sortable-down.selected,
 .sortable-down:hover {
   background-color: rgba(255, 255, 255, 0.17);
@@ -508,10 +511,8 @@ body {
   border-right: 5px solid transparent;
 
   border-top: 5px solid white;
-  /* background-color: white; */
-  /* margin-left: 0.25rem;
-  width: 10px;
-  height: 10px;
-  border-bottom-left-radius: 100%;
-  border-bottom-right-radius: 100%; */
+  transition: 75ms;
+}
+.sortable-down.selected.ascending:after {
+  transform: rotate(180deg);
 }
