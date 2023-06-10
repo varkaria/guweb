@@ -331,9 +331,14 @@ body {
 
   font-size: 1.25em;
 }
-.best-score-score,
-.best-score-pp {
+.best-score-score {
   font-size: 0.8em;
+}
+.best-score-pp,
+.best-score-acc,
+.best-score-combo,
+.best-score.time {
+  font-size: 0.6em;
 }
 
 .score-popup {
@@ -383,7 +388,6 @@ body {
 
   margin-left: auto;
   margin-right: auto;
-  /* flex:1 */
 }
 
 .score-params-grid {

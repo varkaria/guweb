@@ -206,7 +206,6 @@
                   </div>
                 </div></a
               > <a :href="`/u/${currentScores[0].userid}`"><% currentScores[0].player_name %></a></div>
-              <!-- <div class="best-score-acc">Acc: <% Math.round(currentScores[0].acc * 100) / 100 %>%</div> -->
 
               <div class="best-score-score">
                 <div class="score-popup">
@@ -217,13 +216,14 @@
                     <div class="score-params-value">Erros: <% currentScores[0].nmiss %>x</div>
                     <div class="score-params-value">Katu: <% currentScores[0].nkatu %>x</div>
                     <div class="score-params-value">Geki: <% currentScores[0].ngeki %>x</div>
-                    <div class="score-params-value">Acc: <% Math.round(currentScores[0].acc * 100) / 100 %>%</div>
-                    <div class="score-params-value">Combo: <% currentScores[0].max_combo %>x</div>
+                    <!-- <div class="score-params-value">Acc: <% Math.round(currentScores[0].acc * 100) / 100 %>%</div>
+                    <div class="score-params-value">Combo: <% currentScores[0].max_combo %>x</div> -->
                   </div>
                 </div>
                 Pontuação: <% new Intl.NumberFormat("pt-BR").format(currentScores[0].score) %> </div>
+              <div class="best-score-acc">Acc: <% Math.round(currentScores[0].acc * 100) / 100 %>%</div>
               <div class="best-score-pp">PP: <% Math.round(currentScores[0].pp * 100) / 100 %></div>
-              <!-- <div class="best-score-combo">Combo: <% currentScores[0].max_combo %>x</div> -->
+              <div class="best-score-combo">Combo: <% currentScores[0].max_combo %>x</div>
               <div class="best-score-time"><% dayjs().to(dayjs.utc(currentScores[0].play_time)) %></div>
               </section>
               <!-- <section class="best-score-misc">
