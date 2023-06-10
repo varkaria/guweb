@@ -319,9 +319,8 @@ body {
 }
 
 .best-score-pfp {
-  height: 8rem;
-  width: 8rem;
-  /* border: 1px solid rgba(255, 255, 255, 0.5); */
+  height: 100%;
+  aspect-ratio: 1;
   border-radius: 8px;
 }
 /* .best-score-pfp > img {

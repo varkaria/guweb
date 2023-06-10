@@ -191,9 +191,8 @@
           <div v-if="(currentScores[0])" class="best-score-container">
             
             <div class="best-score-position">#1</div>
-            <div >
               <img class="best-score-pfp" :src="`https://a.${domain}/${currentScores[0].userid}`" alt="">
-            </div>
+      
             <section class="best-score-information">
               <div class="best-score-player"> <a
                 :href="`/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${currentScores[0].country}`"
