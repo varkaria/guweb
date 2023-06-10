@@ -321,6 +321,7 @@ body {
 .best-score-pfp {
   height: 100%;
   aspect-ratio: 1;
+  /* border: 1px solid rgba(255, 255, 255, 0.5); */
   border-radius: 8px;
 }
 /* .best-score-pfp > img {
@@ -339,7 +340,7 @@ body {
   font-size: 0.8em;
 }
 .best-score-score {
-  color: rgb(212, 236, 255);
+  color: rgb(157, 211, 255);
   cursor: default;
   transition: 75ms;
 }
