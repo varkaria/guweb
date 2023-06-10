@@ -336,16 +336,22 @@ body {
   font-size: 1.25em;
 }
 .best-score-score,
-.best-score-pp,
-.best-score-combo,
-.best-score-time,
-.best-score-acc {
-  font-size: 0.6em;
-  margin-left: 0.5rem;
+.best-score-pp {
+  font-size: 0.8em;
+}
+.best-score-score {
+  color: rgb(212, 236, 255);
+  cursor: default;
+  transition: 75ms;
+}
+.best-score-score:hover {
+  color: rgb(238, 247, 255);
 }
 
 .best-score-time {
   color: rgb(131, 131, 131);
+  margin-top: auto;
+  font-size: 0.6em;
 }
 
 .best-score-misc {
