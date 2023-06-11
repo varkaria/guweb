@@ -226,18 +226,6 @@
               <div class="best-score-combo">Combo: <% currentScores[0].max_combo %>x</div>
               <div class="best-score-time"><% dayjs().to(dayjs.utc(currentScores[0].play_time)) %></div>
               </section>
-              <!-- <section class="best-score-misc">
-                Outras estatisticas:
-                <div class="best-score-misc-grid">
-                  <div class="best-score-value">300: <% currentScores[0].n300 %>x</div>
-                  <div class="best-score-value">100: <% currentScores[0].n100 %>x</div>
-                  <div class="best-score-value">50: <% currentScores[0].n50 %>x</div>
-                  <div class="best-score-value">Erros: <% currentScores[0].nmiss %>x</div>
-                  <div class="best-score-value">Katu: <% currentScores[0].nkatu %>x</div>
-                  <div class="best-score-value">Geki: <% currentScores[0].ngeki %>x</div>
-                </div>
-                
-              </section> -->
               <section class="best-score-grade">
                 <div :class="`  map-rank rank-${currentScores[0].grade}`" >
                   <% currentScores[0].grade.replace("SH", "S").replace("XH", "SS").replace("X",
@@ -256,6 +244,18 @@
             <div class="leaderboard-title">Nota</div>
             <div class="leaderboard-title">Mods</div>
             <div
+              @click="ChangeSort('score')"
+              :class="`sortable-down leaderboard-title ${(sort === 'score' ? 'selected' : '')}`"
+            >
+              Pontuação
+            </div>
+            <div
+              @click="ChangeSort('acc')"
+              :class="`sortable-down leaderboard-title ${(sort === 'acc' ? 'selected' : '')}`"
+            >
+              Precisão
+            </div>
+            <div
               @click="ChangeSort('max_combo')"
               :class="`leaderboard-title sortable-down ${(sort === 'max_combo' ? 'selected' : '')}`"
             >
@@ -266,18 +266,6 @@
               :class="`sortable-down leaderboard-title ${(sort === 'pp' ? 'selected' : '')}`"
             >
               PP
-            </div>
-            <div
-              @click="ChangeSort('acc')"
-              :class="`sortable-down leaderboard-title ${(sort === 'acc' ? 'selected' : '')}`"
-            >
-              Precisão
-            </div>
-            <div
-              @click="ChangeSort('score')"
-              :class="`sortable-down leaderboard-title ${(sort === 'score' ? 'selected' : '')}`"
-            >
-              Pontuação
             </div>
             <div @click="ChangeSort('play_time')"
             :class="`sortable-down leaderboard-title orderable ${(sort === 'play_time' ? 'selected' : '')} ${(sortOrder === 'ascending' ? 'ascending' : '')}`">Tempo</div>
@@ -315,16 +303,6 @@
                 <% modsStr(score.mods) %>
                 
               </div>
-  
-              <div
-                :class="'score-combo leaderboard-value default-formatting' + (score.perfect === 1 ? ' max-combo' : '') "
-              >
-                <% score.max_combo %>x
-              </div>
-              <div class="score-pp leaderboard-value default-formatting"><% Math.round(score.pp * 100) / 100 %>pp</div>
-              <div class="score-acc leaderboard-value default-formatting">
-                <% Math.round(score.acc * 100) / 100 %>%
-              </div>
               <div class="score-score leaderboard-value default-formatting">
                 <div class="score-popup">
                   <div class="score-params-grid">
@@ -338,6 +316,15 @@
                 </div>
                 <% new Intl.NumberFormat("pt-BR").format(score.score) %>
               </div>
+              <div class="score-acc leaderboard-value default-formatting">
+                <% Math.round(score.acc * 100) / 100 %>%
+              </div>
+              <div
+                :class="'score-combo leaderboard-value default-formatting' + (score.perfect === 1 ? ' max-combo' : '') "
+              >
+                <% score.max_combo %>x
+              </div>
+              <div class="score-pp leaderboard-value default-formatting"><% Math.round(score.pp * 100) / 100 %>pp</div>
               <div class="score-time-since leaderboard-value default-formatting"><% dayjs().to(dayjs.utc(score.play_time)) %></div>
             </template>
           </div>
