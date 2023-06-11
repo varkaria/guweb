@@ -440,6 +440,7 @@ body {
   border-radius: 16px;
 
   font-size: 0.5em;
+  overflow-x: auto;
 }
 .scores-container > .default-formatting {
   display: flex;
