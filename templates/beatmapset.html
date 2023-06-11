@@ -5,6 +5,7 @@
 <script src="/static/js/asserts/day-js/dayjs.min.js"></script>
 <script src="/static/js/asserts/day-js/locale/pt-br.js"></script>
 <script src="/static/js/asserts/day-js/plugin/relativeTime.js"></script>
+<script src="/static/js/asserts/day-js/plugin/utc.js"></script>
 
 <!-- <meta http-equiv="refresh" content="1"> -->
 <script>
@@ -15,6 +16,7 @@
   let domain = "{{ domain() }}";
   let beatmapDownloadMirror = "{{ beatmap_download_mirror() }}"
   dayjs.extend(window.dayjs_plugin_relativeTime)
+  dayjs.extend(window.dayjs_plugin_utc)
   dayjs.locale("pt-br")
 </script>
 
@@ -22,6 +24,7 @@
 <link rel="stylesheet" href="/static/css/pages/beatmapset.css" />
 
 {% endblock %} {% block content %}
+
 <div id="app" :class="">
   <div class="main-banner">
     <div v-if="(error === true)" class="not-exist">
@@ -38,7 +41,7 @@
               <% currentMap?.title %>
             </span>
             <span class="map-diff">
-              [<% currentMap?.version %>]
+              [<% currentMap?.version %>] 
             </span>
             <span class="music-author"><% currentMap?.artist %></span>
 
@@ -102,7 +105,7 @@
           </div>
         </section>
 
-        <section style="margin-left: auto; text-align: center; min-width: 30%;">
+        <section class="diff-select-section">
           <div class="diff-container">
             <div v-for="(item, index) in currentDiffs" class="diff">
               <div
@@ -110,33 +113,34 @@
                 :class="'diff-button' + (currentMap?.id === item.id ? ' selected' : '')"
                 :disabled="(currentMap?.id === item.id)"
               >
-                <span class="star-rating"><% item.diff %></span>
-                <span> <% item.version %></span>
+                <span class="star-rating"><% (item.mode !== mode && item.mode === 0 ? '???' : item.diff.toFixed(2)) %></span>
+                <span> <i v-if="(item.mode !== mode && item.mode === 0)" class="mode-icon mode-osu" style="color:inherit !important"></i> <% item.version %> 
               </div>
             </div>
           </div>
           <div class="modes-container">
             <div class="modes-button" v-if="modes.includes(0)">
               <i
-                :class="`mode-icon mode-osu ${(currentMap?.mode === 0 ? 'selected' : '')}`"
+                :class="`mode-icon mode-osu ${(mode === 0 ? 'selected' : '')} ${currentMap?.mode === 0 && mode !== 0 ? 'converted' : ''}</i>`"
                 @click="ChangeMode(0)"
               ></i>
             </div>
             <div class="modes-button" v-if="modes.includes(1)">
               <i
-                :class="`mode-icon mode-taiko ${(currentMap?.mode === 1 ? 'selected' : '')}`"
+                :class="`mode-icon mode-taiko ${(mode === 1 ? 'selected' : '')} ${convertModes.includes(2) ? 'converted' : ''}`"
                 @click="ChangeMode(1)"
               ></i>
             </div>
             <div class="modes-button" v-if="modes.includes(2)">
               <i
-                :class="`mode-icon mode-catch ${(currentMap?.mode === 2 ? 'selected' : '')}`"
-                @click="ChangeMode(2)"
+                :class="`mode-icon mode-catch ${(mode === 2 ? 'selected' : '')} ${convertModes.includes(2) ? 'converted' : ''}`"
+                @click="ChangeMode(2);
+                console.log(convertModes);"
               ></i>
             </div>
             <div class="modes-button" v-if="modes.includes(3)">
               <i
-                :class="`mode-icon mode-mania ${(currentMap?.mode === 3 ? 'selected' : '')}`"
+                :class="`mode-icon mode-mania ${(mode === 3 ? 'selected' : '')} ${convertModes.includes(2) ? 'converted' : ''}`"
                 @click="ChangeMode(3)"
               ></i>
             </div>
@@ -155,7 +159,6 @@
   </div>
   <div class="main-block">
     <div class="scores-tab" >
-      <!-- <% console.log(currentScores, "wfaf") %> -->
       <template v-if="error === false">
         <div class="extra-modes">
           <button
@@ -180,88 +183,152 @@
           </button>
         </div>
   
-        <template v-if="(isLoadingScores === true)"
-          >Carregando pontuações...</template
-        >
-        <template v-else-if="!(currentScores) || currentScores.length < 1">
+        <template v-if="!(currentScores) || currentScores.length < 1">
           Nenhuma pontuação encontrada.
         </template>
-        <template v-else>
+        <div v-else class="scores">
+          <div v-if="(isLoadingScores)" class="loading-text">Carregando</div>
+          <div v-if="(currentScores[0])" class="best-score-container">
+            
+            <div class="best-score-position">#1</div>
+              <img class="best-score-pfp" :src="`https://a.${domain}/${currentScores[0].userid}`" alt="">
+      
+            <section class="best-score-information">
+              <div class="best-score-player"> <a
+                :href="`/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${currentScores[0].country}`"
+  
+                ><div
+                  class="player-flag "
+                  :style="`background-image:url('/static/images/flags/${currentScores[0].country.toUpperCase()}.png'); margin-right:auto; margin-left:0.25rem`"
+                >
+                  <div class="flag-dropdown">
+                    <% flags[currentScores[0].country.toUpperCase()] %>
+                  </div>
+                </div></a
+              > <a :href="`/u/${currentScores[0].userid}`"><% currentScores[0].player_name %></a></div>
+
+              <div class="best-score-score">
+                <div class="score-popup">
+                  <div class="score-params-grid">
+                    <div class="score-params-value">300: <% currentScores[0].n300 %>x</div>
+                    <div class="score-params-value">100: <% currentScores[0].n100 %>x</div>
+                    <div class="score-params-value">50: <% currentScores[0].n50 %>x</div>
+                    <div class="score-params-value">Erros: <% currentScores[0].nmiss %>x</div>
+                    <div class="score-params-value">Katu: <% currentScores[0].nkatu %>x</div>
+                    <div class="score-params-value">Geki: <% currentScores[0].ngeki %>x</div>
+                    <!-- <div class="score-params-value">Acc: <% Math.round(currentScores[0].acc * 100) / 100 %>%</div>
+                    <div class="score-params-value">Combo: <% currentScores[0].max_combo %>x</div> -->
+                  </div>
+                </div>
+                Pontuação: <% new Intl.NumberFormat("pt-BR").format(currentScores[0].score) %> </div>
+              <div class="best-score-acc">Acc: <% Math.round(currentScores[0].acc * 100) / 100 %>%</div>
+              <div class="best-score-pp">PP: <% Math.round(currentScores[0].pp * 100) / 100 %></div>
+              <div class="best-score-combo">Combo: <% currentScores[0].max_combo %>x</div>
+              <div class="best-score-time"><% dayjs().to(dayjs.utc(currentScores[0].play_time)) %></div>
+              </section>
+              <section class="best-score-grade">
+                <div :class="`  map-rank rank-${currentScores[0].grade}`" >
+                  <% currentScores[0].grade.replace("SH", "S").replace("XH", "SS").replace("X",
+                  "SS") %>
+                </div>
+      
+                <div class="best-score-mods"><% (currentScores[0].mods !== 0 ? `+${modsStr(currentScores[0].mods)}` : "") %></div>
+                
+              </section>
+            
+          </div>
           <div class="scores-container">
-            <div class="score-index">Posição</div>
-            <div class="score-player">Jogador(a)</div>
-            <div class="score-grade">Nota</div>
+            <div class="leaderboard-title">Posição</div>
+            <!-- <div class="score-player-title leaderboard-title"></div> -->
+            <div class="score-player-title leaderboard-title">Jogador(a)</div>
+            <div class="leaderboard-title">Nota</div>
+            <div class="leaderboard-title">Mods</div>
+            <div
+              @click="ChangeSort('score')"
+              :class="`sortable-down leaderboard-title ${(sort === 'score' ? 'selected' : '')}`"
+            >
+              Pontuação
+            </div>
+            <div
+              @click="ChangeSort('acc')"
+              :class="`sortable-down leaderboard-title ${(sort === 'acc' ? 'selected' : '')}`"
+            >
+              Precisão
+            </div>
             <div
               @click="ChangeSort('max_combo')"
-              :class="`score-combo sortable-down ${(sort === 'max_combo' ? 'selected' : '')}`"
+              :class="`leaderboard-title sortable-down ${(sort === 'max_combo' ? 'selected' : '')}`"
             >
               Combo
             </div>
             <div
               @click="ChangeSort('pp')"
-              :class="`score-pp sortable-down ${(sort === 'pp' ? 'selected' : '')}`"
+              :class="`sortable-down leaderboard-title ${(sort === 'pp' ? 'selected' : '')}`"
             >
               PP
             </div>
-            <div
-              @click="ChangeSort('acc')"
-              :class="`score-acc sortable-down ${(sort === 'acc' ? 'selected' : '')}`"
-            >
-              Precisão
-            </div>
-            <div
-              @click="ChangeSort('score')"
-              :class="`score-grade sortable-down ${(sort === 'score' ? 'selected' : '')}`"
-            >
-              Pontuação
-            </div>
             <div @click="ChangeSort('play_time')"
-            :class="`score-grade sortable-down ${(sort === 'play_time' ? 'selected' : '')}`">Tempo</div>
+            :class="`sortable-down leaderboard-title orderable ${(sort === 'play_time' ? 'selected' : '')} ${(sortOrder === 'ascending' ? 'ascending' : '')}`">Tempo</div>
   
             <template class="score" v-for="(score, index) in currentScores">
               
-              <div class="score-index">#<% index + 1 %></div>
+              <div class="score-index default-formatting">#<% index + 1 %></div>
               
   
-              <div class="score-player" style="display: flex">
+              <div class="leaderboard-value default-formatting" style="display: flex">
                 <a
-                  :href="`https://${domain}/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${score.country}`"
-                  style="margin-right: auto"
+                  :href="`/leaderboard/${ModeIntToStr(currentMap?.mode)}/pp/${ModeIntToStr(extraMode, true)}/${score.country}`"
+    
                   ><div
-                    class="player-flag"
+                    class="player-flag "
                     :style="`background-image:url('/static/images/flags/${score.country.toUpperCase()}.png'); margin-right:auto; margin-left:0.25rem`"
                   >
                     <div class="flag-dropdown">
                       <% flags[score.country.toUpperCase()] %>
                     </div>
                   </div></a
-                ><a
-                  :href="`https://${domain}/u/${score.userid}`"
-                  style="margin-right: auto"
-                  ><% score.player_name %></a
                 >
               </div>
-              <div :class="`score-grade map-rank rank-${score.grade}`">
+              <div class="score-player default-formatting"> <a
+                :href="`/u/${score.userid}`"
+             
+                ><% score.player_name %></a
+              ></div>
+              <div :class="`score-grade leaderboard-value map-rank rank-${score.grade} default-formatting`">
                 <% score.grade.replace("SH", "S").replace("XH", "SS").replace("X",
                 "SS") %>
               </div>
-  
+
+              <div class="score-mods leaderboard-value">
+                <% modsStr(score.mods) %>
+                
+              </div>
+              <div class="score-score leaderboard-value default-formatting">
+                <div class="score-popup">
+                  <div class="score-params-grid">
+                    <div class="score-params-value">300: <% score.n300 %>x</div>
+                    <div class="score-params-value">100: <% score.n100 %>x</div>
+                    <div class="score-params-value">50: <% score.n50 %>x</div>
+                    <div class="score-params-value">Erros: <% score.nmiss %>x</div>
+                    <div class="score-params-value">Katu: <% score.nkatu %>x</div>
+                    <div class="score-params-value">Geki: <% score.ngeki %>x</div>
+                  </div>
+                </div>
+                <% new Intl.NumberFormat("pt-BR").format(score.score) %>
+              </div>
+              <div class="score-acc leaderboard-value default-formatting">
+                <% Math.round(score.acc * 100) / 100 %>%
+              </div>
               <div
-                :class="'score-combo' + (score.perfect === 1 ? ' max-combo' : '')"
+                :class="'score-combo leaderboard-value default-formatting' + (score.perfect === 1 ? ' max-combo' : '') "
               >
                 <% score.max_combo %>x
               </div>
-              <div class="score-pp"><% Math.round(score.pp * 100) / 100 %>pp</div>
-              <div class="score-acc">
-                <% Math.round(score.acc * 100) / 100 %>%
-              </div>
-              <div class="score-score">
-                <% new Intl.NumberFormat("pt-BR").format(score.score) %>
-              </div>
-              <div class="score-time-since"><% dayjs().to(dayjs(score.play_time)) %></div>
+              <div class="score-pp leaderboard-value default-formatting"><% Math.round(score.pp * 100) / 100 %>pp</div>
+              <div class="score-time-since leaderboard-value default-formatting"><% dayjs().to(dayjs.utc(score.play_time)) %></div>
             </template>
           </div>
-        </template>
+        </div>
       </template>
       
     </div>
