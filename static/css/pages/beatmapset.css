@@ -54,7 +54,6 @@ body {
 }
 
 .banner-overlay {
-  backdrop-filter: blur(0.1rem);
   background: linear-gradient(
     to bottom,
     rgba(20, 20, 20, 1) 0%,
